@@ -1,0 +1,21 @@
+:PROPERTIES:
+:ID:       7f40f2b9-82c2-46c9-a0b0-dde59873c72f
+:END:
+#+TITLE: Modelling temporal partitioning of biosynthesis in yeast
+
+- Research questions:
+  - Given a finite amount of enzymes and the nutrient conditions yeast cells are subject to in my experiments, is it more efficient for the cells to temporally partition synthesis of macromolecules (lipid, carbohydrates, amino acids), or to synthesise all of them at the same time?
+  - If it is more efficient to partition synthesis, does the time scale fit with that of the yeast metabolic cycle?
+- Approach
+  - Use a genome-scale model of /S. cerevisiae/ and do FBA.
+  - Use the normal objective functions (growth).  Then, try zeroing out specific ones that correspond to e.g. lipids, nucleic acids, amino acids.
+  - Then compare the flux through e.g. amino acid biosynthesis pathway between full and reduced objective function.
+  - Based on the flux, compute the time it takes for the full cell to be synthesised (use numbers from e.g. bionumbers).
+    - Nobody has converted this into time scale before.
+- Tools and literature
+  - Genome scale model: [[cite:&luConsensusCerevisiaeMetabolic2019]]
+    - [ ] Check the ones that cite this for more up-to-date models.
+  - FBA, ~cobrapy~.
+  - Resource balance analysis: proteins and amino acids.  Assign a cost to each amino acid and allocate resources.
+    - [[cite:&knoopFluxBalanceAnalysis2013]] is a precursor.
+  - [[cite:&cesurGenomeWideAnalysisYeast]]
