@@ -6,9 +6,6 @@ authors = ["Arin Wongprommoon <arin.wongprommoon@ed.ac.uk>"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
-cobra = "^0.25.0"
-Escher = "^1.7.3"
-matplotlib = "^3.5.3"
 
 [tool.poetry.dev-dependencies]
 
