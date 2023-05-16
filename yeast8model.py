@@ -146,6 +146,8 @@ class Yeast8Model:
         #   auxotrophy, deletions, media (w/ some cross-validation)
         # - way to store fluxes/solution
         # - way to store results from ablation
+        self.auxotrophy = None
+        self.deleted_genes = []
         # TODO: getters/setters?
 
     def reset(self):
@@ -153,15 +155,16 @@ class Yeast8Model:
 
     def knock_out_list(self, genes_to_delete):
         for gene_id in genes_to_delete:
-            model.genes.get_by_id(gene_id).knock_out()
+            self.model.genes.get_by_id(gene_id).knock_out()
+        self.deleted_genes.append(genes_to_delete)
 
     def add_media_components(self, exch_to_unbound):
         for exch_id in exch_to_unbound:
-            model.reactions.get_by_id(exch_id).bounds = (-1000, 0)
+            self.model.reactions.get_by_id(exch_id).bounds = (-1000, 0)
 
     def remove_media_components(self, exch_to_unbound):
         for exch_id in exch_to_unbound:
-            model.reactions.get_by_id(exch_id).bounds = (0, 0)
+            self.model.reactions.get_by_id(exch_id).bounds = (0, 0)
 
     def make_auxotroph(self, auxo_strain, supplement_media=True):
         if auxo_strain in AUXOTROPH_DICT.keys():
@@ -172,6 +175,7 @@ class Yeast8Model:
                 self.add_media_components(
                     self.model, AUXOTROPH_DICT[auxo_strain].exch_to_add
                 )
+            self.auxotrophy = auxo_strain
         else:
             raise Exception("Invalid string for auxotroph strain background.")
 
