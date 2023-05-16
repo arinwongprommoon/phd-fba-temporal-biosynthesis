@@ -129,6 +129,7 @@ Ions = BiomassComponent(
 
 class Yeast8Model:
     def __init__(self, model_filepath):
+        self.model_filepath = model_filepath
         # Load wild-type model
         if model_filepath.endswith(".xml"):
             self.model = cobra.io.read_sbml_model(model_filepath)
@@ -147,22 +148,25 @@ class Yeast8Model:
         # - way to store results from ablation
         # TODO: getters/setters?
 
-    def knock_out_list(model, genes_to_delete):
+    def reset(self):
+        self.model = cobra.io.read_sbml_model(self.model_filepath)
+
+    def knock_out_list(self, genes_to_delete):
         for gene_id in genes_to_delete:
             model.genes.get_by_id(gene_id).knock_out()
 
-    def add_media_components(model, exch_to_unbound):
+    def add_media_components(self, exch_to_unbound):
         for exch_id in exch_to_unbound:
             model.reactions.get_by_id(exch_id).bounds = (-1000, 0)
 
-    def remove_media_components(model, exch_to_unbound):
+    def remove_media_components(self, exch_to_unbound):
         for exch_id in exch_to_unbound:
             model.reactions.get_by_id(exch_id).bounds = (0, 0)
 
     def make_auxotroph(self, auxo_strain, supplement_media=True):
         if auxo_strain in AUXOTROPH_DICT.keys():
             # Knock out genes to create auxotroph
-            self.knock_out_list(self.model, AUXOTROPH_DICT[auxo_strain].genes_to_delete)
+            self.knock_out_list(AUXOTROPH_DICT[auxo_strain].genes_to_delete)
             # By default, supplements nutrients
             if supplement_media:
                 self.add_media_components(
