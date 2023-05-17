@@ -168,6 +168,8 @@ class Yeast8Model:
         Reaction ID of growth reaction.
     biomass_id : string
         Reaction ID of biomass reaction.
+    biomass_component_list : list of BiomassComponent objects
+        List of biomass components in the growth subsystem of the model.
     solution : cobra.Solution object
         Optimisation (FBA) solution of model.
     auxotrophy : string
@@ -196,6 +198,17 @@ class Yeast8Model:
         # Unrestrict growth
         self.model.reactions.get_by_id(growth_id).bounds = (0, 1000)
         print(f"Growth ({growth_id}) unrestricted.")
+
+        # Biomass components
+        self.biomass_component_list = [
+            Lipids,
+            Proteins,
+            Carbohydrates,
+            DNA,
+            RNA,
+            Cofactors,
+            Ions,
+        ]
 
         # TODO: getters/setters?
         self.solution = None
@@ -372,27 +385,18 @@ class Yeast8Model:
         original_est_time = np.log(2) / original_flux
         # ABLATED
         # Set up lists
-        biomass_component_list = [
-            Lipids,
-            Proteins,
-            Carbohydrates,
-            DNA,
-            RNA,
-            Cofactors,
-            Ions,
-        ]
         all_metabolite_ids = [
             biomass_component.metabolite_id
-            for biomass_component in biomass_component_list
+            for biomass_component in self.biomass_component_list
         ]
         all_pseudoreaction_ids = [
             (biomass_component.metabolite_label, biomass_component.pseudoreaction)
-            for biomass_component in biomass_component_list
+            for biomass_component in self.biomass_component_list
         ]
         all_pseudoreaction_ids.append(("biomass", BIOMASS_ID))
         all_pseudoreaction_ids.append(("objective", self.growth_id))
         # Loop
-        for biomass_component in biomass_component_list:
+        for biomass_component in self.biomass_component_list:
             print(f"Prioritising {biomass_component.metabolite_label}")
             model_working = self.model.copy()
 
@@ -420,64 +424,117 @@ class Yeast8Model:
             "priority_component": ["original"]
             + [
                 biomass_component.metabolite_label
-                for biomass_component in biomass_component_list
+                for biomass_component in self.biomass_component_list
             ],
             "flux": [original_flux]
             + [
                 biomass_component.ablated_flux
-                for biomass_component in biomass_component_list
+                for biomass_component in self.biomass_component_list
             ],
             "est_time": [original_est_time]
             + [
                 biomass_component.est_time
-                for biomass_component in biomass_component_list
+                for biomass_component in self.biomass_component_list
             ],
         }
         print("Ablation done.")
         return pd.DataFrame(data=d)
 
+    # Takes dataframe output from ablation function as input
+    def ablation_barplot(self, ax, ablation_result=None):
+        """Draws bar plot showing synthesis times from ablation study
 
-# Takes dataframe output from ablation function as input
-def ablation_barplot(ablated_df, ax):
-    """Draws bar plot showing synthesis times from ablation study
+        Parameters
+        ----------
+        ax : matplotlib.pyplot.Axes object
+            Axes to draw bar plot on.
+        ablation_result : pandas.DataFrame object
+            Results of ablation study.  Columns: 'priority component' (biomass
+            component being prioritised), 'flux' (flux of ablated biomass reaction),
+            'est_time' (estimated doubling time based on flux).  Rows: 'original'
+            (un-ablated biomass), other rows indicate biomass component.
 
-    Parameters
-    ----------
-    ablation_result : pandas.DataFrame object
-        Results of ablation study.  Columns: 'priority component' (biomass
-        component being prioritised), 'flux' (flux of ablated biomass reaction),
-        'est_time' (estimated doubling time based on flux).  Rows: 'original'
-        (un-ablated biomass), other rows indicate biomass component.
-    ax : matplotlib.pyplot.Axes object
-        Axes to draw bar plot on.
+        Examples
+        --------
+        # Initialise model
+        y = Yeast8Model('./path/to/model.xml')
 
-    Examples
-    --------
-    # Initialise model
-    y = Yeast8Model('./path/to/model.xml')
+        # Ablate
+        y.ablation_result = y.ablate()
 
-    # Ablate
-    df = y.ablate()
+        # Draw bar plot
+        fig, ax = plt.subplots()
+        y.ablation_barplot(ax)
+        plt.show()
+        """
+        # Default argument
+        if ablation_result is None:
+            ablation_result = self.ablation_result
+        # Check if ablation already done.  If not, then the value should still
+        # be None despite above if statement.  If ablation already done, draw.
+        if ablation_result is not None:
+            # Compute times from original flux, proportional to component's
+            # fraction in biomass
+            original_flux = ablation_result.loc[
+                ablation_result.priority_component == "original",
+                ablation_result.columns == "flux",
+            ].to_numpy()[0][0]
+            # First element is zero because we want to leave the one
+            # corresponding to 'original' blank.
+            list_component_times = [0]
+            for biomass_component in self.biomass_component_list:
+                component_time = (biomass_component.molecular_mass / MW_BIOMASS) * (
+                    np.log(2) / original_flux
+                )
+                list_component_times.append(component_time)
+            # Last element is zero because it is the 'sum of times' column.
+            # Sum of times here makes no sense because the sum is the same as
+            # the doubling time estimated from original flux.
+            list_component_times.append(0)
 
-    # Draw bar plot
-    fig, ax = plt.subplots()
-    ablation_barplot(df, ax)
-    plt.show()
-    """
-    labels = ablated_df.priority_component.to_list() + ["sum of times"]
-    values = ablated_df.est_time.to_list() + [
-        np.sum(
-            ablated_df.loc[
-                ablated_df.priority_component != "original",
-                ablated_df.columns == "est_time",
+            # Draw bar plot
+            # https://www.python-graph-gallery.com/8-add-confidence-interval-on-barplot
+            barwidth = 0.4
+            bar_labels = ablation_result.priority_component.to_list() + ["sum of times"]
+            values_ablated = ablation_result.est_time.to_list() + [
+                np.sum(
+                    ablation_result.loc[
+                        ablation_result.priority_component != "original",
+                        ablation_result.columns == "est_time",
+                    ]
+                )
             ]
-        )
-    ]
-    ax.bar(labels, values)
-    ax.tick_params(axis="x", labelrotation=45)
-    ax.set_title("Ablation")
-    ax.set_xlabel("Component")
-    ax.set_ylabel("Time (hours)")
+            values_proportion = list_component_times
+            x_ablated = np.arange(len(bar_labels))
+            x_proportion = [x + barwidth for x in x_ablated]
+            ax.bar(
+                x=x_ablated,
+                height=values_ablated,
+                width=barwidth,
+                color="blue",
+                label="ablated",
+            )
+            ax.bar(
+                x=x_proportion,
+                height=values_proportion,
+                width=barwidth,
+                color="cyan",
+                label="proportion",
+            )
+            ax.set_xticks(
+                ticks=[x + barwidth / 2 for x in range(len(x_ablated))],
+                labels=bar_labels,
+                rotation=45,
+            )
+            # ax.tick_params(axis="x", labelrotation=45)
+            ax.set_title("Ablation")
+            ax.set_xlabel("Component")
+            ax.set_ylabel("Time (hours)")
+            ax.legend()
+        else:
+            print(
+                "No ablation result. Please run ablate() to generate results before plotting."
+            )
 
 
 def compare_fluxes(ymodel1, ymodel2):
