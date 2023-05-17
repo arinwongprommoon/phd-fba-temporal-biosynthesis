@@ -2,5 +2,5 @@
 
 from yeast8model import Yeast8Model
 
-y = Yeast8Model("./models/yeast-GEM-BiGG.xml")
+y = Yeast8Model("./models/ecYeastGEM_batch.xml")
 breakpoint()
