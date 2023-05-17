@@ -222,6 +222,8 @@ class Yeast8Model:
         # in successive loops
         model_working = self.model.copy()
 
+        print("Biomass component ablation...")
+
         # UN-ABLATED
         print("Original")
         fba_solution = self.optimize(model_working)
@@ -290,6 +292,7 @@ class Yeast8Model:
                 for biomass_component in biomass_component_list
             ],
         }
+        print("Ablation done.")
         return pd.DataFrame(data=d)
 
 
