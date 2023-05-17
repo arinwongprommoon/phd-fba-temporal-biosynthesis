@@ -129,7 +129,7 @@ Ions = BiomassComponent(
 
 
 class Yeast8Model:
-    def __init__(self, model_filepath, growth_id=GROWTH_ID):
+    def __init__(self, model_filepath, growth_id=GROWTH_ID, biomass_id=BIOMASS_ID):
         self.model_filepath = model_filepath
         # Load wild-type model
         if model_filepath.endswith(".xml"):
@@ -139,6 +139,8 @@ class Yeast8Model:
                 "Invaild file format for model. Please use SBML model as .xml file."
             )
         # Unrestrict growth
+        self.growth_id = growth_id
+        self.biomass_id = biomass_id
         self.model.reactions.get_by_id(growth_id).bounds = (0, 1000)
         print(f"Growth ({growth_id}) unrestricted.")
 
@@ -223,7 +225,7 @@ class Yeast8Model:
         # UN-ABLATED
         print("Original")
         fba_solution = self.optimize(model_working)
-        original_flux = fba_solution.fluxes[growth_id]
+        original_flux = fba_solution.fluxes[self.growth_id]
         original_est_time = np.log(2) / original_flux
         # ABLATED
         # Set up lists
@@ -245,7 +247,7 @@ class Yeast8Model:
             for biomass_component in biomass_component_list
         ]
         all_pseudoreaction_ids.append(("biomass", BIOMASS_ID))
-        all_pseudoreaction_ids.append(("objective", growth_id))
+        all_pseudoreaction_ids.append(("objective", self.growth_id))
 
         for biomass_component in biomass_component_list:
             print(f"Prioritising {biomass_component.metabolite_label}")
@@ -267,7 +269,7 @@ class Yeast8Model:
             # optimise model
             fba_solution = model_working.optimize()
             # store outputs
-            biomass_component.ablated_flux = fba_solution.fluxes[growth_id]
+            biomass_component.ablated_flux = fba_solution.fluxes[self.growth_id]
             biomass_component.get_est_time()
 
         # construct output dataframe
