@@ -317,8 +317,9 @@ def ablation_barplot(ablated_df, ax):
 def compare_fluxes(model1, model2):
     # Check if fluxes have already been computed.
     # If not, compute automatically.
-    for model in [model1, model2]:
+    for idx, model in enumerate([model1, model2]):
         if model.solution is None:
+            print(f"Model {idx+1} has no stored solution, optimising...")
             model.solution = model.optimize()
 
     diff_fluxes = model2.solution.fluxes - model1.solution.fluxes
