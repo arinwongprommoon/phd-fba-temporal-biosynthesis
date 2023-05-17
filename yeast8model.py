@@ -202,7 +202,7 @@ class Yeast8Model:
                 f"Invalid string for auxotroph strain background: {auxo_strain}"
             )
 
-    def optimize(self, model, timeout_time=60):
+    def optimize(self, model=None, timeout_time=60):
         @timeout(timeout_time)
         def _optimize_internal(model):
             return model.optimize()
@@ -211,10 +211,9 @@ class Yeast8Model:
             if model is None:
                 model = self.model
             solution = _optimize_internal(model)
+            return solution
         except TimeoutError as e:
             print(f"Model optimisation timeout, {timeout_time} s")
-
-        return solution
 
     def ablate(self):
         # Copy model -- needed to restore the un-ablated model to work with
