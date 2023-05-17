@@ -186,9 +186,7 @@ class Yeast8Model:
             self.knock_out_list(AUXOTROPH_DICT[auxo_strain].genes_to_delete)
             # By default, supplements nutrients
             if supplement_media:
-                self.add_media_components(
-                    self.model, AUXOTROPH_DICT[auxo_strain].exch_to_add
-                )
+                self.add_media_components(AUXOTROPH_DICT[auxo_strain].exch_to_add)
             self.auxotrophy = auxo_strain
         else:
             raise Exception("Invalid string for auxotroph strain background.")
