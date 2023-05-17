@@ -298,10 +298,16 @@ class Yeast8Model:
 
 # Takes dataframe output from ablation function as input
 def ablation_barplot(ablated_df, ax):
-    ax.bar(
-        ablated_df.priority_component,
-        ablated_df.est_time,
-    )
+    labels = ablated_df.priority_component.to_list() + ["sum of times"]
+    values = ablated_df.est_time.to_list() + [
+        np.sum(
+            ablated_df.loc[
+                ablated_df.priority_component != "original",
+                ablated_df.columns == "est_time",
+            ]
+        )
+    ]
+    ax.bar(labels, values)
 
 
 def compare_fluxes(model1, model2):

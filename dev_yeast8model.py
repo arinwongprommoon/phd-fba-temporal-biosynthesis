@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
-from yeast8model import Yeast8Model
+import matplotlib.pyplot as plt
+from yeast8model import Yeast8Model, ablation_barplot
 
 y = Yeast8Model("./models/ecYeastGEM_batch.xml")
 # y.knock_out_list(["YML120C"])
@@ -12,4 +13,7 @@ y = Yeast8Model("./models/ecYeastGEM_batch.xml")
 # y.make_auxotroph("BY4743")
 # y.optimize()
 df = y.ablate()
+fig, ax = plt.subplots()
+ablation_barplot(df, ax)
+plt.show()
 breakpoint()
