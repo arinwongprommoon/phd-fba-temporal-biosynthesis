@@ -42,8 +42,6 @@ ipywidgets==7.7.2
 jedi==0.18.1
 Jinja2==2.11.3
 jsonschema==3.2.0
-jupyter==1.0.0
-jupyter-console==6.6.3
 jupyter-core==4.11.1
 jupyter_client==7.3.5
 jupyterlab-pygments==0.2.2
@@ -88,9 +86,7 @@ pycparser==2.21
 pydantic==1.10.1
 Pygments==2.13.0
 pyparsing==3.0.9
-PyQt5==5.15.7
-PyQt5-Qt5==5.15.2
-PyQt5-sip==12.11.0
+pyright==1.1.308
 pyrsistent==0.18.1
 pytest==4.6.11
 python-dateutil==2.8.2
@@ -98,8 +94,6 @@ python-libsbml==5.19.6
 pytz==2022.2.1
 PyYAML==6.0
 pyzmq==23.2.1
-qtconsole==5.4.2
-QtPy==2.3.1
 rfc3986==1.5.0
 rich==12.5.1
 ruamel.yaml==0.17.21
