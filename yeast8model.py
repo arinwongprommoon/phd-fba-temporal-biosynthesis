@@ -139,6 +139,7 @@ class Yeast8Model:
             )
         # Unrestrict growth
         self.model.reactions.get_by_id(growth_id).bounds = (0, 1000)
+        print(f"Growth ({growth_id}) unrestricted.")
 
         self.solution = None
         # TODO: Add
@@ -155,16 +156,29 @@ class Yeast8Model:
 
     def knock_out_list(self, genes_to_delete):
         for gene_id in genes_to_delete:
-            self.model.genes.get_by_id(gene_id).knock_out()
+            try:
+                self.model.genes.get_by_id(gene_id).knock_out()
+            except KeyError as e:
+                print(f"Error-- Cannot knock out. Gene not found: {gene_id}")
         self.deleted_genes.append(genes_to_delete)
 
     def add_media_components(self, exch_to_unbound):
         for exch_id in exch_to_unbound:
-            self.model.reactions.get_by_id(exch_id).bounds = (-1000, 0)
+            try:
+                self.model.reactions.get_by_id(exch_id).bounds = (-1000, 0)
+            except KeyError as e:
+                print(
+                    f"Error-- Cannot add media component. Exchange reaction not found: {exch_id}"
+                )
 
     def remove_media_components(self, exch_to_unbound):
         for exch_id in exch_to_unbound:
-            self.model.reactions.get_by_id(exch_id).bounds = (0, 0)
+            try:
+                self.model.reactions.get_by_id(exch_id).bounds = (0, 0)
+            except KeyError as e:
+                print(
+                    f"Error-- Cannot remove media component. Exchange reaction not found: {exch_id}"
+                )
 
     def make_auxotroph(self, auxo_strain, supplement_media=True):
         if auxo_strain in AUXOTROPH_DICT.keys():
@@ -188,8 +202,8 @@ class Yeast8Model:
             if model is None:
                 model = self.model
             solution = _optimize_internal(model)
-        except TimeoutError():
-            raise Exception(f"Model optimisation timeout, {timeout_time} s")
+        except TimeoutError as e:
+            print(f"Model optimisation timeout, {timeout_time} s")
 
         return solution
 
