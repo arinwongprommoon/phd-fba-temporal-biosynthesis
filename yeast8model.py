@@ -440,48 +440,56 @@ class Yeast8Model:
         print("Ablation done.")
         return pd.DataFrame(data=d)
 
+    # Takes dataframe output from ablation function as input
+    def ablation_barplot(self, ax, ablation_result=None):
+        """Draws bar plot showing synthesis times from ablation study
 
-# Takes dataframe output from ablation function as input
-def ablation_barplot(ablated_df, ax):
-    """Draws bar plot showing synthesis times from ablation study
+        Parameters
+        ----------
+        ax : matplotlib.pyplot.Axes object
+            Axes to draw bar plot on.
+        ablation_result : pandas.DataFrame object
+            Results of ablation study.  Columns: 'priority component' (biomass
+            component being prioritised), 'flux' (flux of ablated biomass reaction),
+            'est_time' (estimated doubling time based on flux).  Rows: 'original'
+            (un-ablated biomass), other rows indicate biomass component.
 
-    Parameters
-    ----------
-    ablation_result : pandas.DataFrame object
-        Results of ablation study.  Columns: 'priority component' (biomass
-        component being prioritised), 'flux' (flux of ablated biomass reaction),
-        'est_time' (estimated doubling time based on flux).  Rows: 'original'
-        (un-ablated biomass), other rows indicate biomass component.
-    ax : matplotlib.pyplot.Axes object
-        Axes to draw bar plot on.
+        Examples
+        --------
+        # Initialise model
+        y = Yeast8Model('./path/to/model.xml')
 
-    Examples
-    --------
-    # Initialise model
-    y = Yeast8Model('./path/to/model.xml')
+        # Ablate
+        y.ablation_result = y.ablate()
 
-    # Ablate
-    df = y.ablate()
-
-    # Draw bar plot
-    fig, ax = plt.subplots()
-    ablation_barplot(df, ax)
-    plt.show()
-    """
-    labels = ablated_df.priority_component.to_list() + ["sum of times"]
-    values = ablated_df.est_time.to_list() + [
-        np.sum(
-            ablated_df.loc[
-                ablated_df.priority_component != "original",
-                ablated_df.columns == "est_time",
+        # Draw bar plot
+        fig, ax = plt.subplots()
+        y.ablation_barplot(ax)
+        plt.show()
+        """
+        # Default argument
+        if ablation_result is None:
+            ablation_result = self.ablation_result
+        # Check if ablation already done
+        if ablation_result is not None:
+            labels = ablation_result.priority_component.to_list() + ["sum of times"]
+            values = ablation_result.est_time.to_list() + [
+                np.sum(
+                    ablation_result.loc[
+                        ablation_result.priority_component != "original",
+                        ablation_result.columns == "est_time",
+                    ]
+                )
             ]
-        )
-    ]
-    ax.bar(labels, values)
-    ax.tick_params(axis="x", labelrotation=45)
-    ax.set_title("Ablation")
-    ax.set_xlabel("Component")
-    ax.set_ylabel("Time (hours)")
+            ax.bar(labels, values)
+            ax.tick_params(axis="x", labelrotation=45)
+            ax.set_title("Ablation")
+            ax.set_xlabel("Component")
+            ax.set_ylabel("Time (hours)")
+        else:
+            print(
+                "No ablation result. Please run ablate() to generate results before plotting."
+            )
 
 
 def compare_fluxes(ymodel1, ymodel2):
