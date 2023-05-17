@@ -479,16 +479,24 @@ class Yeast8Model:
                 ablation_result.priority_component == "original",
                 ablation_result.columns == "flux",
             ].to_numpy()[0][0]
-            list_component_times = []
+            # First element is zero because we want to leave the one
+            # corresponding to 'original' blank.
+            list_component_times = [0]
             for biomass_component in self.biomass_component_list:
                 component_time = (biomass_component.molecular_mass / MW_BIOMASS) * (
                     np.log(2) / original_flux
                 )
                 list_component_times.append(component_time)
+            # Last element is zero because it is the 'sum of times' column.
+            # Sum of times here makes no sense because the sum is the same as
+            # the doubling time estimated from original flux.
+            list_component_times.append(0)
 
             # Draw bar plot
-            labels = ablation_result.priority_component.to_list() + ["sum of times"]
-            values = ablation_result.est_time.to_list() + [
+            # https://www.python-graph-gallery.com/8-add-confidence-interval-on-barplot
+            barwidth = 0.4
+            bar_labels = ablation_result.priority_component.to_list() + ["sum of times"]
+            values_ablated = ablation_result.est_time.to_list() + [
                 np.sum(
                     ablation_result.loc[
                         ablation_result.priority_component != "original",
@@ -496,11 +504,33 @@ class Yeast8Model:
                     ]
                 )
             ]
-            ax.bar(labels, values)
-            ax.tick_params(axis="x", labelrotation=45)
+            values_proportion = list_component_times
+            x_ablated = np.arange(len(bar_labels))
+            x_proportion = [x + barwidth for x in x_ablated]
+            ax.bar(
+                x=x_ablated,
+                height=values_ablated,
+                width=barwidth,
+                color="blue",
+                label="ablated",
+            )
+            ax.bar(
+                x=x_proportion,
+                height=values_proportion,
+                width=barwidth,
+                color="cyan",
+                label="proportion",
+            )
+            ax.set_xticks(
+                ticks=[x + barwidth / 2 for x in range(len(x_ablated))],
+                labels=bar_labels,
+                rotation=45,
+            )
+            # ax.tick_params(axis="x", labelrotation=45)
             ax.set_title("Ablation")
             ax.set_xlabel("Component")
             ax.set_ylabel("Time (hours)")
+            ax.legend()
         else:
             print(
                 "No ablation result. Please run ablate() to generate results before plotting."
