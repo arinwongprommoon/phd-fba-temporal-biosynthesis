@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 
 from collections import namedtuple
-from wrap_timeout_decorator import *
+from wrapt_timeout_decorator import *
 
 CELL_DRY_MASS = 15e-12  # g
 MW_CARB = 368.03795704972003  # g/mol
