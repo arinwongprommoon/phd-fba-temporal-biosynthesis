@@ -470,8 +470,23 @@ class Yeast8Model:
         # Default argument
         if ablation_result is None:
             ablation_result = self.ablation_result
-        # Check if ablation already done
+        # Check if ablation already done.  If not, then the value should still
+        # be None despite above if statement.  If ablation already done, draw.
         if ablation_result is not None:
+            # Compute times from original flux, proportional to component's
+            # fraction in biomass
+            original_flux = ablation_result.loc[
+                ablation_result.priority_component == "original",
+                ablation_result.columns == "flux",
+            ].to_numpy()[0][0]
+            list_component_times = []
+            for biomass_component in self.biomass_component_list:
+                component_time = (biomass_component.molecular_mass / MW_BIOMASS) * (
+                    np.log(2) / original_flux
+                )
+                list_component_times.append(component_time)
+
+            # Draw bar plot
             labels = ablation_result.priority_component.to_list() + ["sum of times"]
             values = ablation_result.est_time.to_list() + [
                 np.sum(
