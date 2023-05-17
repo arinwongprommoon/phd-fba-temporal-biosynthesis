@@ -4,6 +4,7 @@
 
 import cobra
 import numpy as np
+import os
 import pandas as pd
 
 from collections import namedtuple
@@ -181,6 +182,14 @@ class Yeast8Model:
                 )
 
     def make_auxotroph(self, auxo_strain, supplement_media=True):
+        if self.auxotrophy is not None:
+            print(
+                f"Warning-- strain has existing auxotrophy: {self.auxotrophy}",
+                f"Invoking make_auxotroph may cause unintended effects.",
+                f"For best practise, reset the model to its source file (Yeast8Model.reset())",
+                f"before proceeding.",
+                sep=os.linesep,
+            )
         if auxo_strain in AUXOTROPH_DICT.keys():
             # Knock out genes to create auxotroph
             self.knock_out_list(AUXOTROPH_DICT[auxo_strain].genes_to_delete)
@@ -189,7 +198,9 @@ class Yeast8Model:
                 self.add_media_components(AUXOTROPH_DICT[auxo_strain].exch_to_add)
             self.auxotrophy = auxo_strain
         else:
-            raise Exception("Invalid string for auxotroph strain background.")
+            raise Exception(
+                f"Invalid string for auxotroph strain background: {auxo_strain}"
+            )
 
     def optimize(self, model, timeout_time=60):
         @timeout(timeout_time)
