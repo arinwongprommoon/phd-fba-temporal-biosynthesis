@@ -168,6 +168,8 @@ class Yeast8Model:
         Reaction ID of growth reaction.
     biomass_id : string
         Reaction ID of biomass reaction.
+    biomass_component_list : list of BiomassComponent objects
+        List of biomass components in the growth subsystem of the model.
     solution : cobra.Solution object
         Optimisation (FBA) solution of model.
     auxotrophy : string
@@ -196,6 +198,17 @@ class Yeast8Model:
         # Unrestrict growth
         self.model.reactions.get_by_id(growth_id).bounds = (0, 1000)
         print(f"Growth ({growth_id}) unrestricted.")
+
+        # Biomass components
+        self.biomass_component_list = [
+            Lipids,
+            Proteins,
+            Carbohydrates,
+            DNA,
+            RNA,
+            Cofactors,
+            Ions,
+        ]
 
         # TODO: getters/setters?
         self.solution = None
@@ -372,27 +385,18 @@ class Yeast8Model:
         original_est_time = np.log(2) / original_flux
         # ABLATED
         # Set up lists
-        biomass_component_list = [
-            Lipids,
-            Proteins,
-            Carbohydrates,
-            DNA,
-            RNA,
-            Cofactors,
-            Ions,
-        ]
         all_metabolite_ids = [
             biomass_component.metabolite_id
-            for biomass_component in biomass_component_list
+            for biomass_component in self.biomass_component_list
         ]
         all_pseudoreaction_ids = [
             (biomass_component.metabolite_label, biomass_component.pseudoreaction)
-            for biomass_component in biomass_component_list
+            for biomass_component in self.biomass_component_list
         ]
         all_pseudoreaction_ids.append(("biomass", BIOMASS_ID))
         all_pseudoreaction_ids.append(("objective", self.growth_id))
         # Loop
-        for biomass_component in biomass_component_list:
+        for biomass_component in self.biomass_component_list:
             print(f"Prioritising {biomass_component.metabolite_label}")
             model_working = self.model.copy()
 
@@ -420,17 +424,17 @@ class Yeast8Model:
             "priority_component": ["original"]
             + [
                 biomass_component.metabolite_label
-                for biomass_component in biomass_component_list
+                for biomass_component in self.biomass_component_list
             ],
             "flux": [original_flux]
             + [
                 biomass_component.ablated_flux
-                for biomass_component in biomass_component_list
+                for biomass_component in self.biomass_component_list
             ],
             "est_time": [original_est_time]
             + [
                 biomass_component.est_time
-                for biomass_component in biomass_component_list
+                for biomass_component in self.biomass_component_list
             ],
         }
         print("Ablation done.")
