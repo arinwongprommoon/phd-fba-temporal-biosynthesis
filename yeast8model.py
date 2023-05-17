@@ -1,6 +1,4 @@
 #!/usr/bin/env python3
-# TODO: Test whether these things actually work
-# TODO: Document functions & methods
 
 import cobra
 import numpy as np
@@ -10,7 +8,11 @@ import pandas as pd
 from collections import namedtuple
 from wrapt_timeout_decorator import *
 
+# Constants needed for ablation calculations
+# From Bionumbers
 CELL_DRY_MASS = 15e-12  # g
+# Computed from isa reactions in Yeast8 model,
+# see molecular weights notebook
 MW_CARB = 368.03795704972003  # g/mol
 MW_DNA = 3.9060196439999997
 MW_RNA = 64.04235752722991
@@ -20,14 +22,15 @@ MW_ION = 2.4815607543700002
 MW_LIPID = 31.5659867112958
 MW_BIOMASS = 979.24108756487
 
+# Defaut IDs for growth and biomass reactions for batch Yeast8 model
 GROWTH_ID = "r_2111"
 BIOMASS_ID = "r_4041"
 
+# List genes to delete and exchange reactions to add for each auxotroph
 AuxotrophProperties = namedtuple(
     "AuxotrophProperties", ["genes_to_delete", "exch_to_add"]
 )
 
-# List genes to delete and exchange reactions to add for each auxotroph
 AUXOTROPH_DICT = {
     "BY4741": AuxotrophProperties(
         ["YOR202W", "YCL018W", "YLR303W", "YEL021W"],
@@ -63,16 +66,39 @@ AUXOTROPH_DICT = {
 
 
 class BiomassComponent:
+    """
+    Convenience class to store properties associated with a biomass component,
+    e.g. macromolecule pseudo-metabolite
+
+    Attributes
+    ----------
+    metabolite_label : string
+        Name of metabolite.
+    metabolite_id : string
+        Metabolite ID of metabolite in cobrapy model.
+    pseudoreaction : string
+        Reaction ID of producing pseudoreaction in cobrapy model.
+    molecular_mass : float
+        Molecular mass of metabolite, in g/mol.
+    ablated_flux : float
+        Flux of ablated biomass reaction (to prioritise the metabolite of
+        interest), to be computed, in h-1.
+    est_time : float
+        Doubling time estimated from flux of ablated biomass reaction, to be
+        computed, in hours.
+    """
+
     def __init__(self, metabolite_label, metabolite_id, pseudoreaction, molecular_mass):
         self.metabolite_label = metabolite_label
         self.metabolite_id = metabolite_id
         self.pseudoreaction = pseudoreaction
-        self.molecular_mass = molecular_mass  # g/mol
+        self.molecular_mass = molecular_mass
 
         self.ablated_flux = None  # h-1
         self.est_time = None  # h
 
     def get_est_time(self):
+        """Estimate doubling time based on growth rate"""
         self.est_time = (self.molecular_mass / MW_BIOMASS) * (
             np.log(2) / self.ablated_flux
         )
@@ -129,7 +155,34 @@ Ions = BiomassComponent(
 
 
 class Yeast8Model:
+    """
+    Yeast8-derived model (cobrapy) with functions for modification.
+
+    Attributes
+    ----------
+    model_filepath : string
+        Filepath of model.  Should refer to a SBML-formatted .xml file.
+    model : cobra.Model object
+        Model.
+    growth_id : string
+        Reaction ID of growth reaction.
+    biomass_id : string
+        Reaction ID of biomass reaction.
+    solution : cobra.Solution object
+        Optimisation (FBA) solution of model.
+    auxotrophy : string
+        Name of auxotrophic background strain, if applicable.
+    deleted_genes : list of string
+        List of genes deleted in model, beyond auxotrophy, if applicable.
+    ablation_result : pandas.DataFrame object
+        Results of ablation study.  Columns: 'priority component' (biomass
+        component being prioritised), 'flux' (flux of ablated biomass reaction),
+        'est_time' (estimated doubling time based on flux).  Rows: 'original'
+        (un-ablated biomass), other rows indicate biomass component.
+    """
+
     def __init__(self, model_filepath, growth_id=GROWTH_ID, biomass_id=BIOMASS_ID):
+        # Needed for reset method
         self.model_filepath = model_filepath
         # Load wild-type model
         if model_filepath.endswith(".xml"):
@@ -138,26 +191,32 @@ class Yeast8Model:
             raise Exception(
                 "Invaild file format for model. Please use SBML model as .xml file."
             )
-        # Unrestrict growth
         self.growth_id = growth_id
         self.biomass_id = biomass_id
+        # Unrestrict growth
         self.model.reactions.get_by_id(growth_id).bounds = (0, 1000)
         print(f"Growth ({growth_id}) unrestricted.")
 
-        self.solution = None
-        # TODO: Add
-        # - way to store what's been done, e.g.
-        #   auxotrophy, deletions, media (w/ some cross-validation)
-        # - way to store fluxes/solution
-        # - way to store results from ablation
-        self.auxotrophy = None
-        self.deleted_genes = []
         # TODO: getters/setters?
+        self.solution = None
+        self.auxotrophy = None
+        # TODO: Validation of deleted genes?  i.e. check that bounds are truly
+        # zero before defining
+        self.deleted_genes = []
+        self.ablation_result = None
 
     def reset(self):
+        """Reset model to filepath"""
         self.model = cobra.io.read_sbml_model(self.model_filepath)
 
     def knock_out_list(self, genes_to_delete):
+        """Knock out list of genes
+
+        Parameters
+        ----------
+        genes_to_delete : list of string
+            List of genes to delete, as systematic gene names.
+        """
         for gene_id in genes_to_delete:
             try:
                 self.model.genes.get_by_id(gene_id).knock_out()
@@ -166,6 +225,14 @@ class Yeast8Model:
         self.deleted_genes.append(genes_to_delete)
 
     def add_media_components(self, exch_to_unbound):
+        """Add media components
+
+        Parameters
+        ----------
+        exch_to_unbound : list of string
+            List of exchange reactions (associated with nutrient components) to
+            remove bounds for.
+        """
         for exch_id in exch_to_unbound:
             try:
                 self.model.reactions.get_by_id(exch_id).bounds = (-1000, 0)
@@ -175,6 +242,15 @@ class Yeast8Model:
                 )
 
     def remove_media_components(self, exch_to_unbound):
+        """Remove media components
+
+        Parameters
+        ----------
+        exch_to_unbound : list of string
+            List of exchange reactions (associated with nutrient components) to
+            fix bounds for.  Bounds fixed to (0, 0) to remove influence of
+            exchange reaction.
+        """
         for exch_id in exch_to_unbound:
             try:
                 self.model.reactions.get_by_id(exch_id).bounds = (0, 0)
@@ -184,7 +260,30 @@ class Yeast8Model:
                 )
 
     def make_auxotroph(self, auxo_strain, supplement_media=True):
+        """Make the model an auxotrophic strain
+
+        Make the model an auxotrophic strain, optionally supplement media
+        composition to allow for strain to grow. Available strains include:
+        BY4741, BY4742.
+
+        Parameters
+        ----------
+        auxo_strain : string
+            Name of auxotrophic strain.
+        supplement_media : bool
+            If true, add exchange reactions to simulate adding supplements
+            needed for chosen auxotrophic strain to grow.
+
+        Raises
+        ------
+        Exception
+            Error raised if supplied auxotrophic strain is not in list of valid
+            strains.
+        """
         if self.auxotrophy is not None:
+            # This warning is necessary because running successive rounds of
+            # this method will delete the union of genes to be deleted among all
+            # auxotrophies applied to model so far.
             print(
                 f"Warning-- strain has existing auxotrophy: {self.auxotrophy}",
                 f"Invoking make_auxotroph may cause unintended effects.",
@@ -205,6 +304,30 @@ class Yeast8Model:
             )
 
     def optimize(self, model=None, timeout_time=60):
+        # Unlike previous methods, takes a model object as input because I need
+        # to re-use this in ablate().
+        """Simulate model with FBA
+
+        Parameters
+        ----------
+        model : cobra.Model object
+            Model.  If this is not specified, uses the class's model attribute.
+        timeout_time : int
+            Time till timeout in seconds. Default 60.
+
+        Returns
+        -------
+        cobra.Solution object
+            Solution of model simulation.
+
+        Examples
+        --------
+        y = Yeast8Model('./path/to/model.xml')
+        y.optimize()       # simulates y.model
+        y.optimize(m)      # simulates model m, defined elsewhere
+        sol = y.optimize() # saves output somewhere
+        """
+
         @timeout(timeout_time)
         def _optimize_internal(model):
             return model.optimize()
@@ -218,6 +341,24 @@ class Yeast8Model:
             print(f"Model optimisation timeout, {timeout_time} s")
 
     def ablate(self):
+        """Ablate biomass components and get growth rates & doubling times
+
+        Ablate components in biomass reaction (i.e. macromolecules like lipids,
+        proteins, carbohydrates, DNA, RNA, and also cofactors & ions) that have
+        pseudoreactions associated with the 'Growth' subsystem, in turn. This
+        means changing the stoichiometric matrix. In each round, the model is
+        simulated and the flux is recorded. Doubling time is computed, taking
+        into account the mass fraction of each biomass component -- i.e. if the
+        component is a smaller fraction of the cell, it takes less time.
+
+        Returns
+        -------
+        pandas.DataFrame object
+            Results of ablation study.  Columns: 'priority component' (biomass
+            component being prioritised), 'flux' (flux of ablated biomass reaction),
+            'est_time' (estimated doubling time based on flux).  Rows: 'original'
+            (un-ablated biomass), other rows indicate biomass component.
+        """
         # Copy model -- needed to restore the un-ablated model to work with
         # in successive loops
         model_working = self.model.copy()
@@ -250,7 +391,7 @@ class Yeast8Model:
         ]
         all_pseudoreaction_ids.append(("biomass", BIOMASS_ID))
         all_pseudoreaction_ids.append(("objective", self.growth_id))
-
+        # Loop
         for biomass_component in biomass_component_list:
             print(f"Prioritising {biomass_component.metabolite_label}")
             model_working = self.model.copy()
@@ -298,6 +439,31 @@ class Yeast8Model:
 
 # Takes dataframe output from ablation function as input
 def ablation_barplot(ablated_df, ax):
+    """Draws bar plot showing synthesis times from ablation study
+
+    Parameters
+    ----------
+    ablation_result : pandas.DataFrame object
+        Results of ablation study.  Columns: 'priority component' (biomass
+        component being prioritised), 'flux' (flux of ablated biomass reaction),
+        'est_time' (estimated doubling time based on flux).  Rows: 'original'
+        (un-ablated biomass), other rows indicate biomass component.
+    ax : matplotlib.pyplot.Axes object
+        Axes to draw bar plot on.
+
+    Examples
+    --------
+    # Initialise model
+    y = Yeast8Model('./path/to/model.xml')
+
+    # Ablate
+    df = y.ablate()
+
+    # Draw bar plot
+    fig, ax = plt.subplots()
+    ablation_barplot(df, ax)
+    plt.show()
+    """
     labels = ablated_df.priority_component.to_list() + ["sum of times"]
     values = ablated_df.est_time.to_list() + [
         np.sum(
@@ -314,17 +480,48 @@ def ablation_barplot(ablated_df, ax):
     ax.set_ylabel("Time (hours)")
 
 
-def compare_fluxes(model1, model2):
+def compare_fluxes(ymodel1, ymodel2):
+    """Compare fluxes between two models
+
+    Compare fluxes between two models.  If fluxes aren't already computed and
+    stored, run simulations first.
+
+    Parameters
+    ----------
+    ymodel1 : Yeast8Model object
+        Model 1.
+    ymodel2 : Yeast8Model object
+        Model 2.
+
+    Returns
+    -------
+    pandas.DataFrame object
+        Fluxes, sorted by magnitude, large changes on top.  Indices show
+        reaction ids, values show the fluxes (with signs, positive or negative)
+
+    Examples
+    --------
+    # Initialise model-handling objects
+    y = Yeast8Model("./models/ecYeastGEM_batch.xml")
+    z = Yeast8Model("./models/ecYeastGEM_batch.xml")
+
+    # Make z different
+    z.make_auxotroph("BY4741")
+
+    # Compare fluxes
+    dfs = compare_fluxes(y, z)
+    """
     # Check if fluxes have already been computed.
     # If not, compute automatically.
-    for idx, model in enumerate([model1, model2]):
-        if model.solution is None:
+    for idx, ymodel in enumerate([ymodel1, ymodel2]):
+        if ymodel.solution is None:
             print(f"Model {idx+1} has no stored solution, optimising...")
-            model.solution = model.optimize()
+            ymodel.solution = ymodel.optimize()
 
-    diff_fluxes = model2.solution.fluxes - model1.solution.fluxes
+    diff_fluxes = ymodel2.solution.fluxes - ymodel1.solution.fluxes
     nonzero_idx = diff_fluxes.to_numpy().nonzero()[0]
     diff_fluxes_nonzero = diff_fluxes[nonzero_idx]
+    # Sort by absolute flux value, large changes on top.
     diff_fluxes_sorted = diff_fluxes_nonzero[
         diff_fluxes_nonzero.abs().sort_values(ascending=False).index
     ]
