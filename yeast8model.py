@@ -288,7 +288,7 @@ class Yeast8Model:
                 for biomass_component in biomass_component_list
             ],
         }
-        return pd.Dataframe(data=d)
+        return pd.DataFrame(data=d)
 
 
 # Takes dataframe output from ablation function as input
