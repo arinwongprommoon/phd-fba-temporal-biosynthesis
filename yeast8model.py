@@ -58,6 +58,24 @@ AUXOTROPH_DICT = {
             "r_2090_REV",
         ],
     ),
+    "BY4741_orig": AuxotrophProperties(
+        ["YOR202W", "YCL018W", "YLR303W", "YEL021W"],
+        [
+            "EX_his__L_e",
+            "EX_met__L_e",
+            "EX_leu__L_e",
+            "EX_ura_e",
+        ],
+    ),
+    "BY4742_orig": AuxotrophProperties(
+        ["YOR202W", "YCL018W", "YBR115C", "YEL021W"],
+        [
+            "EX_his__L_e",
+            "EX_met__L_e",
+            "EX_lys__L_e",
+            "EX_ura_e",
+        ],
+    ),
 }
 
 # TODO: Add lookup tables:
@@ -152,6 +170,68 @@ Ions = BiomassComponent(
     pseudoreaction="r_4599",
     molecular_mass=MW_ION,
 )
+
+# original, non-enzyme constrained model
+# defined because it annoyingly uses different naming conventions
+
+Lipids_orig = BiomassComponent(
+    metabolite_label="lipid",
+    metabolite_id="s_1096",
+    pseudoreaction="r_2108",
+    molecular_mass=MW_LIPID,
+)
+
+Proteins_orig = BiomassComponent(
+    metabolite_label="protein",
+    metabolite_id="protein_c",
+    pseudoreaction="r_4047",
+    molecular_mass=MW_PROTEIN,
+)
+
+Carbohydrates_orig = BiomassComponent(
+    metabolite_label="carbohydrate",
+    metabolite_id="s_3718",
+    pseudoreaction="r_4048",
+    molecular_mass=MW_CARB,
+)
+
+DNA_orig = BiomassComponent(
+    metabolite_label="DNA",
+    metabolite_id="dna_c",
+    pseudoreaction="r_4050",
+    molecular_mass=MW_DNA,
+)
+
+RNA_orig = BiomassComponent(
+    metabolite_label="RNA",
+    metabolite_id="rna_c",
+    pseudoreaction="r_4049",
+    molecular_mass=MW_RNA,
+)
+
+Cofactors_orig = BiomassComponent(
+    metabolite_label="cofactor",
+    metabolite_id="s_4205",
+    pseudoreaction="r_4598",
+    molecular_mass=MW_COFACTOR,
+)
+
+Ions_orig = BiomassComponent(
+    metabolite_label="ion",
+    metabolite_id="s_4206",
+    pseudoreaction="r_4599",
+    molecular_mass=MW_ION,
+)
+
+biomass_component_list_orig = [
+    Lipids_orig,
+    Proteins_orig,
+    Carbohydrates_orig,
+    DNA_orig,
+    RNA_orig,
+    Cofactors_orig,
+    Ions_orig,
+]
 
 
 class Yeast8Model:
@@ -410,7 +490,7 @@ class Yeast8Model:
             to_ablate_dict = dict(zip(to_ablate_keys, [-1] * len(to_ablate_keys)))
 
             # ablate metabolites from biomass reaction
-            model_working.reactions.get_by_id(BIOMASS_ID).subtract_metabolites(
+            model_working.reactions.get_by_id(self.biomass_id).subtract_metabolites(
                 to_ablate_dict
             )
             # optimise model
