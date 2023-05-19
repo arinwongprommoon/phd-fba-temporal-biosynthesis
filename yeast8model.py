@@ -572,18 +572,20 @@ class Yeast8Model:
             # the doubling time estimated from original flux.
             list_component_times.append(0)
 
+            # Sum of times...
+            # creates numpy array
+            sum_of_times = ablation_result.loc[
+                ablation_result.priority_component != "original",
+                ablation_result.columns == "est_time",
+            ].sum()
+            # get element
+            sum_of_times = sum_of_times[0]
+
             # Draw bar plot
             # https://www.python-graph-gallery.com/8-add-confidence-interval-on-barplot
             barwidth = 0.4
             bar_labels = ablation_result.priority_component.to_list() + ["sum of times"]
-            values_ablated = ablation_result.est_time.to_list() + [
-                np.sum(
-                    ablation_result.loc[
-                        ablation_result.priority_component != "original",
-                        ablation_result.columns == "est_time",
-                    ]
-                )
-            ]
+            values_ablated = ablation_result.est_time.to_list() + [sum_of_times]
             values_proportion = list_component_times
             x_ablated = np.arange(len(bar_labels))
             x_proportion = [x + barwidth for x in x_ablated]
