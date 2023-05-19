@@ -14,6 +14,7 @@ wrapt-timeout-decorator = "^1.3.12.2"
 matplotlib = "^3.7.1"
 Escher = "^1.7.3"
 seaborn = "^0.12.2"
+jupyter = "^1.0.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.3.0"
