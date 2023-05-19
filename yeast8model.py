@@ -607,7 +607,6 @@ class Yeast8Model:
                 rotation=45,
             )
             # ax.tick_params(axis="x", labelrotation=45)
-            ax.set_title("Ablation")
             ax.set_xlabel("Component")
             ax.set_ylabel("Time (hours)")
             ax.legend()
