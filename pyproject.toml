@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "fba-temporal-biosynthesis"
+version = "0.1.0"
+description = ""
+authors = ["arinwongprommoon <arin.wongprommoon@ed.ac.uk>"]
+readme = "README.md"
+packages = [{include = "fba_temporal_biosynthesis"}]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+cobra = "^0.26.3"
+numpy = "^1.24.3"
+pandas = "^2.0.1"
+wrapt-timeout-decorator = "^1.3.12.2"
+matplotlib = "^3.7.1"
+Escher = "^1.7.3"
+seaborn = "^0.12.2"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.3.0"
+mypy = "^1.3.0"
+isort = "^5.12.0"
+jupyter = "^1.0.0"
+flake8 = "^6.0.0"
+pyright = "^1.1.309"
+jupytext = "^1.14.5"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
