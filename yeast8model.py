@@ -448,9 +448,11 @@ class Yeast8Model:
         -------
         pandas.DataFrame object
             Results of ablation study.  Columns: 'priority component' (biomass
-            component being prioritised), 'flux' (flux of ablated biomass reaction),
-            'est_time' (estimated doubling time based on flux).  Rows: 'original'
-            (un-ablated biomass), other rows indicate biomass component.
+            component being prioritised), 'ablated_flux' (flux of ablated
+            biomass reaction), 'ablated_est_time' (estimated doubling time based
+            on flux), 'proportional_est_time' (estimated biomass synthesis time,
+            proportional to mass fraction).  Rows: 'original' (un-ablated
+            biomass), other rows indicate biomass component.
         """
         # Copy model -- needed to restore the un-ablated model to work with
         # in successive loops
@@ -506,14 +508,25 @@ class Yeast8Model:
                 biomass_component.metabolite_label
                 for biomass_component in self.biomass_component_list
             ],
-            "flux": [original_flux]
+            # Flux through ablated biomass reactions
+            "ablated_flux": [original_flux]
             + [
                 biomass_component.ablated_flux
                 for biomass_component in self.biomass_component_list
             ],
-            "est_time": [original_est_time]
+            # Estimated doubling time, taking into account the ablated content
+            # of the virtual cell's biomass
+            "ablated_est_time": [original_est_time]
             + [
                 biomass_component.est_time
+                for biomass_component in self.biomass_component_list
+            ],
+            # Estimated time for each biomass component, assuming that it is
+            # proportional to mass fraction
+            "proportional_est_time": [original_est_time]
+            + [
+                (biomass_component.molecular_mass / MW_BIOMASS)
+                * (np.log(2) / original_flux)
                 for biomass_component in self.biomass_component_list
             ],
         }
@@ -530,9 +543,11 @@ class Yeast8Model:
             Axes to draw bar plot on.
         ablation_result : pandas.DataFrame object
             Results of ablation study.  Columns: 'priority component' (biomass
-            component being prioritised), 'flux' (flux of ablated biomass reaction),
-            'est_time' (estimated doubling time based on flux).  Rows: 'original'
-            (un-ablated biomass), other rows indicate biomass component.
+            component being prioritised), 'ablated_flux' (flux of ablated
+            biomass reaction), 'ablated_est_time' (estimated doubling time based
+            on flux), 'proportional_est_time' (estimated biomass synthesis time,
+            proportional to mass fraction).  Rows: 'original' (un-ablated
+            biomass), other rows indicate biomass component.
 
         Examples
         --------
@@ -557,7 +572,7 @@ class Yeast8Model:
             # fraction in biomass
             original_flux = ablation_result.loc[
                 ablation_result.priority_component == "original",
-                ablation_result.columns == "flux",
+                ablation_result.columns == "ablated_flux",
             ].to_numpy()[0][0]
             # First element is zero because we want to leave the one
             # corresponding to 'original' blank.
@@ -576,7 +591,7 @@ class Yeast8Model:
             # creates numpy array
             sum_of_times = ablation_result.loc[
                 ablation_result.priority_component != "original",
-                ablation_result.columns == "est_time",
+                ablation_result.columns == "ablated_est_time",
             ].sum()
             # get element
             sum_of_times = sum_of_times[0]
@@ -585,7 +600,7 @@ class Yeast8Model:
             # https://www.python-graph-gallery.com/8-add-confidence-interval-on-barplot
             barwidth = 0.4
             bar_labels = ablation_result.priority_component.to_list() + ["sum of times"]
-            values_ablated = ablation_result.est_time.to_list() + [sum_of_times]
+            values_ablated = ablation_result.ablated_est_time.to_list() + [sum_of_times]
             values_proportion = list_component_times
             x_ablated = np.arange(len(bar_labels))
             x_proportion = [x + barwidth for x in x_ablated]
