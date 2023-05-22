@@ -448,9 +448,11 @@ class Yeast8Model:
         -------
         pandas.DataFrame object
             Results of ablation study.  Columns: 'priority component' (biomass
-            component being prioritised), 'flux' (flux of ablated biomass reaction),
-            'est_time' (estimated doubling time based on flux).  Rows: 'original'
-            (un-ablated biomass), other rows indicate biomass component.
+            component being prioritised), 'ablated_flux' (flux of ablated
+            biomass reaction), 'ablated_est_time' (estimated doubling time based
+            on flux), 'proportional_est_time' (estimated biomass synthesis time,
+            proportional to mass fraction).  Rows: 'original' (un-ablated
+            biomass), other rows indicate biomass component.
         """
         # Copy model -- needed to restore the un-ablated model to work with
         # in successive loops
@@ -506,14 +508,25 @@ class Yeast8Model:
                 biomass_component.metabolite_label
                 for biomass_component in self.biomass_component_list
             ],
-            "flux": [original_flux]
+            # Flux through ablated biomass reactions
+            "ablated_flux": [original_flux]
             + [
                 biomass_component.ablated_flux
                 for biomass_component in self.biomass_component_list
             ],
-            "est_time": [original_est_time]
+            # Estimated doubling time, taking into account the ablated content
+            # of the virtual cell's biomass
+            "ablated_est_time": [original_est_time]
             + [
                 biomass_component.est_time
+                for biomass_component in self.biomass_component_list
+            ],
+            # Estimated time for each biomass component, assuming that it is
+            # proportional to mass fraction
+            "proportional_est_time": [original_est_time]
+            + [
+                (biomass_component.molecular_mass / MW_BIOMASS)
+                * (np.log(2) / original_flux)
                 for biomass_component in self.biomass_component_list
             ],
         }
@@ -530,9 +543,11 @@ class Yeast8Model:
             Axes to draw bar plot on.
         ablation_result : pandas.DataFrame object
             Results of ablation study.  Columns: 'priority component' (biomass
-            component being prioritised), 'flux' (flux of ablated biomass reaction),
-            'est_time' (estimated doubling time based on flux).  Rows: 'original'
-            (un-ablated biomass), other rows indicate biomass component.
+            component being prioritised), 'ablated_flux' (flux of ablated
+            biomass reaction), 'ablated_est_time' (estimated doubling time based
+            on flux), 'proportional_est_time' (estimated biomass synthesis time,
+            proportional to mass fraction).  Rows: 'original' (un-ablated
+            biomass), other rows indicate biomass component.
 
         Examples
         --------
@@ -553,30 +568,11 @@ class Yeast8Model:
         # Check if ablation already done.  If not, then the value should still
         # be None despite above if statement.  If ablation already done, draw.
         if ablation_result is not None:
-            # Compute times from original flux, proportional to component's
-            # fraction in biomass
-            original_flux = ablation_result.loc[
-                ablation_result.priority_component == "original",
-                ablation_result.columns == "flux",
-            ].to_numpy()[0][0]
-            # First element is zero because we want to leave the one
-            # corresponding to 'original' blank.
-            list_component_times = [0]
-            for biomass_component in self.biomass_component_list:
-                component_time = (biomass_component.molecular_mass / MW_BIOMASS) * (
-                    np.log(2) / original_flux
-                )
-                list_component_times.append(component_time)
-            # Last element is zero because it is the 'sum of times' column.
-            # Sum of times here makes no sense because the sum is the same as
-            # the doubling time estimated from original flux.
-            list_component_times.append(0)
-
             # Sum of times...
             # creates numpy array
             sum_of_times = ablation_result.loc[
                 ablation_result.priority_component != "original",
-                ablation_result.columns == "est_time",
+                ablation_result.columns == "ablated_est_time",
             ].sum()
             # get element
             sum_of_times = sum_of_times[0]
@@ -584,33 +580,38 @@ class Yeast8Model:
             # Draw bar plot
             # https://www.python-graph-gallery.com/8-add-confidence-interval-on-barplot
             barwidth = 0.4
-            bar_labels = ablation_result.priority_component.to_list() + ["sum of times"]
-            values_ablated = ablation_result.est_time.to_list() + [sum_of_times]
-            values_proportion = list_component_times
+
+            bar_labels = ablation_result.priority_component.to_list()
+            bar_labels[0] = "all biomass"
+
+            values_ablated = ablation_result.ablated_est_time.to_list()
+            values_ablated[0] = sum_of_times
+
+            values_proportion = ablation_result.proportional_est_time.to_list()
+
             x_ablated = np.arange(len(bar_labels))
             x_proportion = [x + barwidth for x in x_ablated]
             ax.bar(
                 x=x_ablated,
                 height=values_ablated,
                 width=barwidth,
-                color="blue",
-                label="ablated",
+                color="#3714b0",
+                label="From ablating components\n in the biomass reaction",
             )
             ax.bar(
                 x=x_proportion,
                 height=values_proportion,
                 width=barwidth,
-                color="cyan",
-                label="proportion",
+                color="#cb0077",
+                label="From mass fractions\n of each biomass component",
             )
             ax.set_xticks(
                 ticks=[x + barwidth / 2 for x in range(len(x_ablated))],
                 labels=bar_labels,
                 rotation=45,
             )
-            # ax.tick_params(axis="x", labelrotation=45)
-            ax.set_xlabel("Component")
-            ax.set_ylabel("Time (hours)")
+            ax.set_xlabel("Biomass component")
+            ax.set_ylabel("Estimated synthesis time (hours)")
             ax.legend()
         else:
             print(
