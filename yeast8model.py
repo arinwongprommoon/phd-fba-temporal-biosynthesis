@@ -596,23 +596,22 @@ class Yeast8Model:
                 height=values_ablated,
                 width=barwidth,
                 color="blue",
-                label="ablated",
+                label="From ablating components\n in the biomass reaction",
             )
             ax.bar(
                 x=x_proportion,
                 height=values_proportion,
                 width=barwidth,
                 color="cyan",
-                label="proportion",
+                label="From mass fractions\n of each biomass component",
             )
             ax.set_xticks(
                 ticks=[x + barwidth / 2 for x in range(len(x_ablated))],
                 labels=bar_labels,
                 rotation=45,
             )
-            # ax.tick_params(axis="x", labelrotation=45)
-            ax.set_xlabel("Component")
-            ax.set_ylabel("Time (hours)")
+            ax.set_xlabel("Biomass component")
+            ax.set_ylabel("Estimated synthesis time (hours)")
             ax.legend()
         else:
             print(
