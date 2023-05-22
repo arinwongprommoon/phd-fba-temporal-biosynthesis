@@ -595,14 +595,14 @@ class Yeast8Model:
                 x=x_ablated,
                 height=values_ablated,
                 width=barwidth,
-                color="blue",
+                color="#3714b0",
                 label="From ablating components\n in the biomass reaction",
             )
             ax.bar(
                 x=x_proportion,
                 height=values_proportion,
                 width=barwidth,
-                color="cyan",
+                color="#cb0077",
                 label="From mass fractions\n of each biomass component",
             )
             ax.set_xticks(
