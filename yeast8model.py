@@ -568,25 +568,6 @@ class Yeast8Model:
         # Check if ablation already done.  If not, then the value should still
         # be None despite above if statement.  If ablation already done, draw.
         if ablation_result is not None:
-            # Compute times from original flux, proportional to component's
-            # fraction in biomass
-            original_flux = ablation_result.loc[
-                ablation_result.priority_component == "original",
-                ablation_result.columns == "ablated_flux",
-            ].to_numpy()[0][0]
-            # First element is zero because we want to leave the one
-            # corresponding to 'original' blank.
-            list_component_times = [0]
-            for biomass_component in self.biomass_component_list:
-                component_time = (biomass_component.molecular_mass / MW_BIOMASS) * (
-                    np.log(2) / original_flux
-                )
-                list_component_times.append(component_time)
-            # Last element is zero because it is the 'sum of times' column.
-            # Sum of times here makes no sense because the sum is the same as
-            # the doubling time estimated from original flux.
-            list_component_times.append(0)
-
             # Sum of times...
             # creates numpy array
             sum_of_times = ablation_result.loc[
@@ -599,9 +580,15 @@ class Yeast8Model:
             # Draw bar plot
             # https://www.python-graph-gallery.com/8-add-confidence-interval-on-barplot
             barwidth = 0.4
-            bar_labels = ablation_result.priority_component.to_list() + ["sum of times"]
-            values_ablated = ablation_result.ablated_est_time.to_list() + [sum_of_times]
-            values_proportion = list_component_times
+
+            bar_labels = ablation_result.priority_component.to_list()
+            bar_labels[0] = "all biomass"
+
+            values_ablated = ablation_result.ablated_est_time.to_list()
+            values_ablated[0] = sum_of_times
+
+            values_proportion = ablation_result.proportional_est_time.to_list()
+
             x_ablated = np.arange(len(bar_labels))
             x_proportion = [x + barwidth for x in x_ablated]
             ax.bar(
