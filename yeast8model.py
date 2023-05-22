@@ -666,3 +666,62 @@ def compare_fluxes(ymodel1, ymodel2):
     ]
 
     return diff_fluxes_sorted
+
+
+def compare_ablation_times(ablation_result1, ablation_result2, ax):
+    # Compute fold changes
+    values_ablated1, values_proportion1 = _bar_vals_from_ablation_df(ablation_result1)
+    values_ablated2, values_proportion2 = _bar_vals_from_ablation_df(ablation_result2)
+
+    foldchange_ablated = np.array(values_ablated2) / np.array(values_ablated1)
+    foldchange_proportion = np.array(values_proportion2) / np.array(values_proportion1)
+
+    # TODO: Separate computing and plotting into two functions??
+    # Probably best to hold off until sure that having the FC data on its own
+    # is useful.
+
+    # Draw bar plot
+    barwidth = 0.4
+    bar_labels = ablation_result1.priority_component.to_list()
+    bar_labels[0] = "all biomass"
+    x_ablated = np.arange(len(bar_labels))
+    x_proportion = [x + barwidth for x in x_ablated]
+    ax.bar(
+        x=x_ablated,
+        height=foldchange_ablated,
+        width=barwidth,
+        color="#3714b0",
+        label="From ablating components\n in the biomass reaction",
+    )
+    ax.bar(
+        x=x_proportion,
+        height=foldchange_proportion,
+        width=barwidth,
+        color="#cb0077",
+        label="From mass fractions\n of each biomass component",
+    )
+    ax.set_xticks(
+        ticks=[x + barwidth / 2 for x in range(len(x_ablated))],
+        labels=bar_labels,
+        rotation=45,
+    )
+    ax.set_xlabel("Biomass component")
+    ax.set_ylabel("Fold change")
+    ax.legend()
+
+
+def _bar_vals_from_ablation_df(ablation_result):
+    # sum of times
+    sum_of_times = ablation_result.loc[
+        ablation_result.priority_component != "original",
+        ablation_result.columns == "ablated_est_time",
+    ].sum()
+    # get element
+    sum_of_times = sum_of_times[0]
+    # ablated
+    values_ablated = ablation_result.ablated_est_time.to_list()
+    values_ablated[0] = sum_of_times
+    # proportion
+    values_proportion = ablation_result.proportional_est_time.to_list()
+
+    return values_ablated, values_proportion
