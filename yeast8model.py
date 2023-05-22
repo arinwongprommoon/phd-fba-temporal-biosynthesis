@@ -688,14 +688,14 @@ def compare_ablation_times(ablation_result1, ablation_result2, ax):
     x_proportion = [x + barwidth for x in x_ablated]
     ax.bar(
         x=x_ablated,
-        height=foldchange_ablated,
+        height=np.log(foldchange_ablated),
         width=barwidth,
         color="#3714b0",
         label="From ablating components\n in the biomass reaction",
     )
     ax.bar(
         x=x_proportion,
-        height=foldchange_proportion,
+        height=np.log(foldchange_proportion),
         width=barwidth,
         color="#cb0077",
         label="From mass fractions\n of each biomass component",
@@ -706,7 +706,7 @@ def compare_ablation_times(ablation_result1, ablation_result2, ax):
         rotation=45,
     )
     ax.set_xlabel("Biomass component")
-    ax.set_ylabel("Fold change")
+    ax.set_ylabel("log fold change")
     ax.legend()
 
 

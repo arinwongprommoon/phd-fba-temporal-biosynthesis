@@ -27,7 +27,7 @@ z.make_auxotroph("BY4741")
 z.ablation_result = z.ablate()
 
 fig, ax = plt.subplots()
-compare_ablation_times(y.ablation_result, z.ablation_result, ax)
+compare_ablation_times(z.ablation_result, y.ablation_result, ax)
 plt.show()
 
 # dfs = compare_fluxes(y, z)
