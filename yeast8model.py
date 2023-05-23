@@ -533,7 +533,6 @@ class Yeast8Model:
         print("Ablation done.")
         return pd.DataFrame(data=d)
 
-    # Takes dataframe output from ablation function as input
     def ablation_barplot(self, ax, ablation_result=None):
         """Draws bar plot showing synthesis times from ablation study
 
