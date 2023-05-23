@@ -731,7 +731,7 @@ def compare_ablation_times(ablation_result1, ablation_result2, ax):
         rotation=45,
     )
     ax.set_xlabel("Biomass component")
-    ax.set_ylabel("log fold change of estimated time")
+    ax.set_ylabel("log2 fold change of estimated time")
     ax.legend()
 
 
