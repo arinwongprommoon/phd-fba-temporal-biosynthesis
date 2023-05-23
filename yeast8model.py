@@ -568,14 +568,10 @@ class Yeast8Model:
         # Check if ablation already done.  If not, then the value should still
         # be None despite above if statement.  If ablation already done, draw.
         if ablation_result is not None:
-            # Sum of times...
-            # creates numpy array
-            sum_of_times = ablation_result.loc[
-                ablation_result.priority_component != "original",
-                ablation_result.columns == "ablated_est_time",
-            ].sum()
-            # get element
-            sum_of_times = sum_of_times[0]
+            # Get values for each bar plot series from ablation result DataFrame
+            values_ablated, values_proportion = _bar_vals_from_ablation_df(
+                ablation_result
+            )
 
             # Draw bar plot
             # https://www.python-graph-gallery.com/8-add-confidence-interval-on-barplot
@@ -584,13 +580,9 @@ class Yeast8Model:
             bar_labels = ablation_result.priority_component.to_list()
             bar_labels[0] = "all biomass"
 
-            values_ablated = ablation_result.ablated_est_time.to_list()
-            values_ablated[0] = sum_of_times
-
-            values_proportion = ablation_result.proportional_est_time.to_list()
-
             x_ablated = np.arange(len(bar_labels))
             x_proportion = [x + barwidth for x in x_ablated]
+
             ax.bar(
                 x=x_ablated,
                 height=values_ablated,
@@ -675,10 +667,6 @@ def compare_ablation_times(ablation_result1, ablation_result2, ax):
 
     foldchange_ablated = np.array(values_ablated2) / np.array(values_ablated1)
     foldchange_proportion = np.array(values_proportion2) / np.array(values_proportion1)
-
-    # TODO: Separate computing and plotting into two functions??
-    # Probably best to hold off until sure that having the FC data on its own
-    # is useful.
 
     # Draw bar plot
     barwidth = 0.4
