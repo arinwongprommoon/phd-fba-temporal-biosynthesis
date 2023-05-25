@@ -495,6 +495,15 @@ class Yeast8Model:
             model_working.reactions.get_by_id(self.biomass_id).subtract_metabolites(
                 to_ablate_dict
             )
+            # re-scale stoichiometry of pseudometabolite of interest
+            scaling_factor = MW_BIOMASS / biomass_component.molecular_mass
+            model_working.reactions.get_by_id(self.biomass_id).add_metabolites(
+                {
+                    model_working.metabolites.get_by_id(
+                        biomass_component.metabolite_id
+                    ): -(scaling_factor - 1)
+                }
+            )
             # optimise model
             fba_solution = model_working.optimize()
             # store outputs
