@@ -277,6 +277,9 @@ class Yeast8Model:
             )
         # Copy, store as model from input file, to be used by reset method
         self.model_fromfile = self.model.copy()
+        # Space to store model in intermediate steps, to be used by checkpoint
+        # and reset_to_checkpoint methods
+        self.model_saved = None
 
         self.growth_id = growth_id
         self.biomass_id = biomass_id
@@ -327,6 +330,20 @@ class Yeast8Model:
             f"yeast8model.unrestrict_growth()",
             sep=os.linesep,
         )
+
+    def checkpoint_model(self):
+        """Save a copy of the current model."""
+        self.model_saved = self.model.copy()
+
+    def reset_to_checkpoint(self):
+        """Reset model to saved copy.  If no saved copy, resets to filepath."""
+        if self.model_saved is not None:
+            print(f"Resetting model to saved/checkpointed model...")
+            self.model = self.model_saved.copy()
+            print(f"Done resetting.")
+        else:
+            print(f"Warning-- No model currently saved.")
+            self.reset_to_file()
 
     def unrestrict_growth(self):
         """Unrestrict growth reaction"""
