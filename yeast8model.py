@@ -241,7 +241,8 @@ class Yeast8Model:
     Attributes
     ----------
     model_filepath : string
-        Filepath of model.  Should refer to a SBML-formatted .xml file.
+        Filepath of model.  Should refer to a SBML-formatted .xml file or a
+        YAML (.yml) file.
     model : cobra.Model object
         Model.
     growth_id : string
@@ -269,9 +270,11 @@ class Yeast8Model:
         # Load wild-type model
         if model_filepath.endswith(".xml"):
             self.model = cobra.io.read_sbml_model(model_filepath)
+        elif model_filepath.endswith(".yml"):
+            self.model = cobra.io.load_yaml_model(model_filepath)
         else:
             raise Exception(
-                "Invaild file format for model. Please use SBML model as .xml file."
+                "Invaild file format for model. Valid formats include: *.xml (SBML), *.yml (YAML)."
             )
         self.growth_id = growth_id
         self.biomass_id = biomass_id
