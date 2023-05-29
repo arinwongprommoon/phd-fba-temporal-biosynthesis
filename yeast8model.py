@@ -183,7 +183,7 @@ Lipids_orig = BiomassComponent(
 
 Proteins_orig = BiomassComponent(
     metabolite_label="protein",
-    metabolite_id="protein_c",
+    metabolite_id="s_3717",
     pseudoreaction="r_4047",
     molecular_mass=MW_PROTEIN,
 )
@@ -197,14 +197,14 @@ Carbohydrates_orig = BiomassComponent(
 
 DNA_orig = BiomassComponent(
     metabolite_label="DNA",
-    metabolite_id="dna_c",
+    metabolite_id="s_3720",
     pseudoreaction="r_4050",
     molecular_mass=MW_DNA,
 )
 
 RNA_orig = BiomassComponent(
     metabolite_label="RNA",
-    metabolite_id="rna_c",
+    metabolite_id="s_3719",
     pseudoreaction="r_4049",
     molecular_mass=MW_RNA,
 )
