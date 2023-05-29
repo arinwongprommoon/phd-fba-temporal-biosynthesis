@@ -265,7 +265,6 @@ class Yeast8Model:
     """
 
     def __init__(self, model_filepath, growth_id=GROWTH_ID, biomass_id=BIOMASS_ID):
-        # Needed for reset method
         self.model_filepath = model_filepath
         # Load wild-type model
         if model_filepath.endswith(".xml"):
@@ -276,10 +275,13 @@ class Yeast8Model:
             raise Exception(
                 "Invaild file format for model. Valid formats include: *.xml (SBML), *.yml (YAML)."
             )
+        # Copy, store as model from input file, to be used by reset method
+        self.model_fromfile = self.model.copy()
+
         self.growth_id = growth_id
         self.biomass_id = biomass_id
         # Unrestrict growth
-        self.model.reactions.get_by_id(growth_id).bounds = (0, 1000)
+        self.unrestrict_growth()
         print(f"Growth ({growth_id}) unrestricted.")
 
         # Biomass components
@@ -301,9 +303,34 @@ class Yeast8Model:
         self.deleted_genes = []
         self.ablation_result = None
 
-    def reset(self):
-        """Reset model to filepath"""
-        self.model = cobra.io.read_sbml_model(self.model_filepath)
+    def reset_to_file(self, hard=False):
+        """Reset model to filepath
+
+        Parameters
+        ----------
+        hard : bool
+            Whether to hard-reset, i.e. re-load from file.  Useful for debugging.
+            Otherwise, it resets to a saved copy generated when the object is
+            instantiated.
+        """
+        if hard:
+            print(f"Hard resetting model to file...")
+            self.model = cobra.io.read_sbml_model(self.model_filepath)
+            print(f"Done re-loading from file.")
+        else:
+            print(f"Resetting model to saved copy from file...")
+            self.model = self.model_fromfile.copy()
+            print(f"Done resetting.")
+        print(
+            f"Warning-- No guarantee that growth bounds are unrestricted.",
+            f"If it is important that growth bounds are unrestricted, run:",
+            f"yeast8model.unrestrict_growth()",
+            sep=os.linesep,
+        )
+
+    def unrestrict_growth(self):
+        """Unrestrict growth reaction"""
+        self.model.reactions.get_by_id(self.growth_id).bounds = (0, 1000)
 
     def knock_out_list(self, genes_to_delete):
         """Knock out list of genes
@@ -383,7 +410,7 @@ class Yeast8Model:
             print(
                 f"Warning-- strain has existing auxotrophy: {self.auxotrophy}",
                 f"Invoking make_auxotroph may cause unintended effects.",
-                f"For best practise, reset the model to its source file (Yeast8Model.reset())",
+                f"For best practise, reset the model to its source file (Yeast8Model.reset_to_file())",
                 f"before proceeding.",
                 sep=os.linesep,
             )
