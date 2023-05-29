@@ -332,6 +332,7 @@ class Yeast8Model:
         )
 
     def reset(self):
+        """(Deprecated) Reset model to filepath"""
         print("Warning-- reset() method deprecated.  Use reset_to_file() instead.")
         self.reset_to_file(hard=True)
 
