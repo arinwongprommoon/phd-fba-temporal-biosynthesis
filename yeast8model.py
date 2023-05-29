@@ -331,6 +331,10 @@ class Yeast8Model:
             sep=os.linesep,
         )
 
+    def reset(self):
+        print("Warning-- reset() method deprecated.  Use reset_to_file() instead.")
+        self.reset_to_file(hard=True)
+
     def checkpoint_model(self):
         """Save a copy of the current model."""
         self.model_saved = self.model.copy()
