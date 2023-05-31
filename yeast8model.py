@@ -716,6 +716,43 @@ class Yeast8Model:
         else:
             print("No ablation result. Please run ablate() to generate results first.")
 
+    def ablation_grid(self, exch_rate_dict):
+        # Should take one dict as argument:
+        # d = {
+        #     'r_exch_rxn_1' : array-like,
+        #     'r_exch_rxn_2' : array-like,
+        #    }
+
+        # TODO: Don't overwrite model-saved
+        print(
+            f"Warning: Saving current state of model to model_saved attribute.",
+            f"Existing saved model will be overwritten.",
+            sep=os.linesep,
+        )
+        self.checkpoint_model()
+
+        # Check that the dict input argument is the right format, i.e.
+        # two items.
+        # string, then array-like.
+        # And checks that the strings are reactions present in the model.
+        # TODO: Add code to do that here
+
+        # Define two arrays for results of double for loop.
+
+        # Add double for loop here...
+        # First one should loop through list of fluxes for the first exch rxn
+        # Second one should loop through list of fluxes for the second exch rxn
+        # In the body,
+        # load saved model,
+        # set bounds according to fluxes,
+        # ablate,
+        # get ratio,
+        # store this ratio into array,
+        # and also the component
+
+        # return the two arrays
+        pass
+
 
 def compare_fluxes(ymodel1, ymodel2):
     """Compare fluxes between two models
