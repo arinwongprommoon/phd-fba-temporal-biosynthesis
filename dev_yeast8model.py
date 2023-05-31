@@ -3,8 +3,8 @@
 import matplotlib.pyplot as plt
 from yeast8model import Yeast8Model, compare_fluxes, compare_ablation_times
 
-y = Yeast8Model("./models/ecYeastGEM_batch.xml")
-z = Yeast8Model("./models/ecYeastGEMfull.yml")
+y = Yeast8Model("./models/ecYeastGEM_batch_8-6-0.xml")
+# z = Yeast8Model("./models/ecYeastGEMfull.yml")
 # y.knock_out_list(["YML120C"])
 # y.knock_out_list(["YML120C", "foo"])
 
@@ -17,10 +17,12 @@ z = Yeast8Model("./models/ecYeastGEMfull.yml")
 
 # y.optimize()
 
-# y.ablation_result = y.ablate()
-# # fig, ax = plt.subplots()
-# # y.ablation_barplot(ax)
-# # plt.show()
+y.ablation_result = y.ablate()
+r = y.get_ablation_ratio()
+print(r)
+# fig, ax = plt.subplots()
+# y.ablation_barplot(ax)
+# plt.show()
 
 # z = Yeast8Model("./models/ecYeastGEM_batch.xml")
 # z.make_auxotroph("BY4741")
