@@ -729,12 +729,24 @@ class Yeast8Model:
             print("No ablation result. Please run ablate() to generate results first.")
 
     def ablation_grid(self, exch_rate_dict):
-        # Should take one dict as argument:
-        # d = {
-        #     'r_exch_rxn_1' : array-like,
-        #     'r_exch_rxn_2' : array-like,
-        #    }
+        """Array of ablation ratios from varying two exchange reactions
 
+        Parameters
+        ----------
+        exch_rate_dict : dict
+            dict that stores the two exchange reactions to vary and the uptake
+            rate values to use.  It should be in this format:
+
+            d = {
+                'r_exch_rxn_1' : <array-like>,
+                'r_exch_rxn_2' : <array-like>,
+                }
+
+        Examples
+        --------
+        FIXME: Add docs.
+
+        """
         # TODO: Don't overwrite model-saved
         print(
             f"Warning: Saving current state of model to model_saved attribute.",
