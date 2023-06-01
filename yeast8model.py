@@ -485,7 +485,7 @@ class Yeast8Model:
         except TimeoutError as e:
             print(f"Model optimisation timeout, {timeout_time} s")
 
-    def ablate(self):
+    def ablate(self, input_model=None):
         """Ablate biomass components and get growth rates & doubling times
 
         Ablate components in biomass reaction (i.e. macromolecules like lipids,
@@ -495,6 +495,8 @@ class Yeast8Model:
         simulated and the flux is recorded. Doubling time is computed, taking
         into account the mass fraction of each biomass component -- i.e. if the
         component is a smaller fraction of the cell, it takes less time.
+
+        FIXME: Add arguments
 
         Returns
         -------
@@ -506,9 +508,12 @@ class Yeast8Model:
             proportional to mass fraction).  Rows: 'original' (un-ablated
             biomass), other rows indicate biomass component.
         """
-        # Copy model -- needed to restore the un-ablated model to work with
-        # in successive loops
-        model_working = self.model.copy()
+        if input_model is None:
+            # Copy model -- needed to restore the un-ablated model to work with
+            # in successive loops
+            model_working = self.model.copy()
+        else:
+            model_working = input_model
 
         print("Biomass component ablation...")
 
@@ -738,20 +743,38 @@ class Yeast8Model:
         # TODO: Add code to do that here
 
         # Define two arrays for results of double for loop.
+        x_dim = len(list(exch_rate_dict.values())[0])
+        y_dim = len(list(exch_rate_dict.values())[1])
+        ratio_array = np.zeros(shape=(x_dim, y_dim))
+        largest_component_array = np.zeros(shape=(x_dim, y_dim), dtype="object")
 
         # Add double for loop here...
         # First one should loop through list of fluxes for the first exch rxn
-        # Second one should loop through list of fluxes for the second exch rxn
-        # In the body,
-        # load saved model,
-        # set bounds according to fluxes,
-        # ablate,
-        # get ratio,
-        # store this ratio into array,
-        # and also the component
+        for x_index, exch1_flux in enumerate(list(exch_rate_dict.values())[0]):
+            # Second one should loop through list of fluxes for the second exch rxn
+            for y_index, exch2_flux in enumerate(list(exch_rate_dict.values())[1]):
+                # In the body,
+                # load saved model,
+                model_working = self.model_saved
+                # set bounds according to fluxes,
+                model_working.reactions.get_by_id(
+                    list(exch_rate_dict.keys())[0]
+                ).bounds = (-exch1_flux, 0)
+                model_working.reactions.get_by_id(
+                    list(exch_rate_dict.keys())[1]
+                ).bounds = (-exch2_flux, 0)
+                # ablate,
+                ablation_result = self.ablate(input_model=model_working)
+                # get ratio,
+                # store this ratio into array,
+                # and also the component
+                (
+                    ratio_array[x_index, y_index],
+                    largest_component_array[x_index, y_index],
+                ) = self.get_ablation_ratio(ablation_result)
 
         # return the two arrays
-        pass
+        return ratio_array, largest_component_array
 
 
 def compare_fluxes(ymodel1, ymodel2):

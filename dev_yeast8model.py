@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import matplotlib.pyplot as plt
+import numpy as np
 from yeast8model import Yeast8Model, compare_fluxes, compare_ablation_times
 
 y = Yeast8Model("./models/ecYeastGEM_batch_8-6-0.xml")
@@ -17,9 +18,14 @@ y = Yeast8Model("./models/ecYeastGEM_batch_8-6-0.xml")
 
 # y.optimize()
 
-y.ablation_result = y.ablate()
-r = y.get_ablation_ratio()
-print(r)
+# y.ablation_result = y.ablate()
+# r = y.get_ablation_ratio()
+# print(r)
+exch_rate_dict = {
+    "r_1714": np.linspace(0, 18, 2),
+    "r_1873": np.linspace(0, 10, 3),
+}
+ra, la = y.ablation_grid(exch_rate_dict)
 # fig, ax = plt.subplots()
 # y.ablation_barplot(ax)
 # plt.show()
