@@ -749,38 +749,25 @@ class Yeast8Model:
         # And checks that the strings are reactions present in the model.
         # TODO: Add code to do that here
 
-        # Define two arrays for results of double for loop.
         x_dim = len(list(exch_rate_dict.values())[0])
         y_dim = len(list(exch_rate_dict.values())[1])
         ratio_array = np.zeros(shape=(x_dim, y_dim))
         largest_component_array = np.zeros(shape=(x_dim, y_dim), dtype="object")
 
-        # Add double for loop here...
-        # First one should loop through list of fluxes for the first exch rxn
         for x_index, exch1_flux in enumerate(list(exch_rate_dict.values())[0]):
-            # Second one should loop through list of fluxes for the second exch rxn
             for y_index, exch2_flux in enumerate(list(exch_rate_dict.values())[1]):
-                # In the body,
-                # load saved model,
                 model_working = self.model_saved
-                # set bounds according to fluxes,
                 model_working.reactions.get_by_id(
                     list(exch_rate_dict.keys())[0]
                 ).bounds = (-exch1_flux, 0)
                 model_working.reactions.get_by_id(
                     list(exch_rate_dict.keys())[1]
                 ).bounds = (-exch2_flux, 0)
-                # ablate,
                 ablation_result = self.ablate(input_model=model_working, verbose=False)
-                # get ratio,
-                # store this ratio into array,
-                # and also the component
                 (
                     ratio_array[x_index, y_index],
                     largest_component_array[x_index, y_index],
                 ) = self.get_ablation_ratio(ablation_result)
-
-        # return the two arrays
         return ratio_array, largest_component_array
 
 
