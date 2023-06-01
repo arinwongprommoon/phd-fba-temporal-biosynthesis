@@ -4,6 +4,7 @@ import cobra
 import numpy as np
 import os
 import pandas as pd
+import seaborn as sns
 
 from collections import namedtuple
 from wrapt_timeout_decorator import *
@@ -780,7 +781,10 @@ class Yeast8Model:
                     ratio_array[x_index, y_index],
                     largest_component_array[x_index, y_index],
                 ) = self.get_ablation_ratio(ablation_result)
-        return ratio_array, largest_component_array
+
+        return np.flip(ratio_array.T, axis=1), np.flip(
+            largest_component_array.T, axis=1
+        )
 
 
 def compare_fluxes(ymodel1, ymodel2):
@@ -951,3 +955,38 @@ def _bar_vals_from_ablation_df(ablation_result):
     values_proportion = ablation_result.proportional_est_time.to_list()
 
     return values_ablated, values_proportion
+
+
+def heatmap_ablation_grid(ratio_array, exch_rate_dict, ax):
+    """Draw heatmap from 2d ablation grid
+
+    Parameters
+    ----------
+    ratio_array : numpy.ndarray (2-dimensional)
+        Array of ablation ratios, output from ablation_grid()
+    exch_rate_dict : dict
+        dict that stores the two exchange reactions to vary and the uptake
+        rate values to use.  It should be in this format:
+
+        d = {
+            'r_exch_rxn_1' : <array-like>,
+            'r_exch_rxn_2' : <array-like>,
+            }
+
+    ax : matplotlib.pyplot.Axes object
+        Axes to draw heatmap on.
+
+    Examples
+    --------
+    FIXME: Add docs.
+
+    """
+    sns.heatmap(
+        data=ratio_array,
+        xticklabels=list(exch_rate_dict.values())[0],
+        yticklabels=list(exch_rate_dict.values())[1][::-1],
+        cbar_kws={"label": "ratio"},
+        ax=ax,
+    )
+    ax.set_xlabel(list(exch_rate_dict.keys())[0])
+    ax.set_ylabel(list(exch_rate_dict.keys())[1])
