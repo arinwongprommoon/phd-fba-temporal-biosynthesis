@@ -485,7 +485,7 @@ class Yeast8Model:
         except TimeoutError as e:
             print(f"Model optimisation timeout, {timeout_time} s")
 
-    def ablate(self, input_model=None):
+    def ablate(self, input_model=None, verbose=True):
         """Ablate biomass components and get growth rates & doubling times
 
         Ablate components in biomass reaction (i.e. macromolecules like lipids,
@@ -536,7 +536,8 @@ class Yeast8Model:
         all_pseudoreaction_ids.append(("objective", self.growth_id))
         # Loop
         for biomass_component in self.biomass_component_list:
-            print(f"Prioritising {biomass_component.metabolite_label}")
+            if verbose:
+                print(f"Prioritising {biomass_component.metabolite_label}")
             model_working = self.model.copy()
 
             # boilerplate: lookup
@@ -764,7 +765,7 @@ class Yeast8Model:
                     list(exch_rate_dict.keys())[1]
                 ).bounds = (-exch2_flux, 0)
                 # ablate,
-                ablation_result = self.ablate(input_model=model_working)
+                ablation_result = self.ablate(input_model=model_working, verbose=False)
                 # get ratio,
                 # store this ratio into array,
                 # and also the component
