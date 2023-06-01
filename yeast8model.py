@@ -496,7 +496,13 @@ class Yeast8Model:
         into account the mass fraction of each biomass component -- i.e. if the
         component is a smaller fraction of the cell, it takes less time.
 
-        FIXME: Add arguments
+        Parameters
+        ----------
+        input.model : cobra.Model object, optional
+            Input model.  If not specified, use the one associated with the
+            object.
+        verbose : bool, default True
+            Whether to print out which biomass component is being focused.
 
         Returns
         -------
