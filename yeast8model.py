@@ -4,6 +4,7 @@ import cobra
 import numpy as np
 import os
 import pandas as pd
+import seaborn as sns
 
 from collections import namedtuple
 from wrapt_timeout_decorator import *
@@ -485,7 +486,7 @@ class Yeast8Model:
         except TimeoutError as e:
             print(f"Model optimisation timeout, {timeout_time} s")
 
-    def ablate(self):
+    def ablate(self, input_model=None, verbose=True):
         """Ablate biomass components and get growth rates & doubling times
 
         Ablate components in biomass reaction (i.e. macromolecules like lipids,
@@ -495,6 +496,14 @@ class Yeast8Model:
         simulated and the flux is recorded. Doubling time is computed, taking
         into account the mass fraction of each biomass component -- i.e. if the
         component is a smaller fraction of the cell, it takes less time.
+
+        Parameters
+        ----------
+        input.model : cobra.Model object, optional
+            Input model.  If not specified, use the one associated with the
+            object.
+        verbose : bool, default True
+            Whether to print out which biomass component is being focused.
 
         Returns
         -------
@@ -506,9 +515,12 @@ class Yeast8Model:
             proportional to mass fraction).  Rows: 'original' (un-ablated
             biomass), other rows indicate biomass component.
         """
-        # Copy model -- needed to restore the un-ablated model to work with
-        # in successive loops
-        model_working = self.model.copy()
+        if input_model is None:
+            # Copy model -- needed to restore the un-ablated model to work with
+            # in successive loops
+            model_working = self.model.copy()
+        else:
+            model_working = input_model
 
         print("Biomass component ablation...")
 
@@ -531,7 +543,8 @@ class Yeast8Model:
         all_pseudoreaction_ids.append(("objective", self.growth_id))
         # Loop
         for biomass_component in self.biomass_component_list:
-            print(f"Prioritising {biomass_component.metabolite_label}")
+            if verbose:
+                print(f"Prioritising {biomass_component.metabolite_label}")
             model_working = self.model.copy()
 
             # boilerplate: lookup
@@ -660,6 +673,118 @@ class Yeast8Model:
             print(
                 "No ablation result. Please run ablate() to generate results before plotting."
             )
+
+    def get_ablation_ratio(self, ablation_result=None):
+        """Get ratio to represent ablation study
+
+        Get ratio between sum of times from ablation and longest time from
+        proportional estimation, as a summary of ablation study.
+
+        Parameters
+        ----------
+        ablation_result : pandas.DataFrame object
+            Results of ablation study.  Columns: 'priority component' (biomass
+            component being prioritised), 'ablated_flux' (flux of ablated
+            biomass reaction), 'ablated_est_time' (estimated doubling time based
+            on flux), 'proportional_est_time' (estimated biomass synthesis time,
+            proportional to mass fraction).  Rows: 'original' (un-ablated
+            biomass), other rows indicate biomass component.
+
+        Examples
+        --------
+        FIXME: Add docs.
+
+        """
+        # Default argument
+        if ablation_result is None:
+            ablation_result = self.ablation_result
+        # Check if ablation already done.  If not, then the value should still
+        # be None despite above if statement.  If ablation already done, draw.
+        if ablation_result is not None:
+            # sum of times (ablated)
+            sum_of_times = ablation_result.loc[
+                ablation_result.priority_component != "original",
+                ablation_result.columns == "ablated_est_time",
+            ].sum()
+            # get element
+            sum_of_times = sum_of_times[0]
+
+            # largest proportional_est_time, apart from original.
+
+            # Creates reduced DataFrame that shows both priority_component and
+            # proportional_est_time because I want to take note which
+            # priority_component is max (in case it's not always the same).
+            proportional_est_time_red = ablation_result.loc[
+                ablation_result.priority_component != "original",
+                ["priority_component", "proportional_est_time"],
+            ]
+            largest_prop_df = proportional_est_time_red.loc[
+                proportional_est_time_red["proportional_est_time"].idxmax()
+            ]
+            largest_prop_time = largest_prop_df.proportional_est_time
+            largest_prop_component = largest_prop_df.priority_component
+
+            ratio = sum_of_times / largest_prop_time
+            return ratio, largest_prop_component
+        else:
+            print("No ablation result. Please run ablate() to generate results first.")
+
+    def ablation_grid(self, exch_rate_dict):
+        """Array of ablation ratios from varying two exchange reactions
+
+        Parameters
+        ----------
+        exch_rate_dict : dict
+            dict that stores the two exchange reactions to vary and the uptake
+            rate values to use.  It should be in this format:
+
+            d = {
+                'r_exch_rxn_1' : <array-like>,
+                'r_exch_rxn_2' : <array-like>,
+                }
+
+        Examples
+        --------
+        FIXME: Add docs.
+
+        """
+        # TODO: Don't overwrite model-saved
+        print(
+            f"Warning: Saving current state of model to model_saved attribute.",
+            f"Existing saved model will be overwritten.",
+            sep=os.linesep,
+        )
+        self.checkpoint_model()
+
+        # Check that the dict input argument is the right format, i.e.
+        # two items.
+        # string, then array-like.
+        # And checks that the strings are reactions present in the model.
+        # TODO: Add code to do that here
+
+        x_dim = len(list(exch_rate_dict.values())[0])
+        y_dim = len(list(exch_rate_dict.values())[1])
+        ratio_array = np.zeros(shape=(x_dim, y_dim))
+        largest_component_array = np.zeros(shape=(x_dim, y_dim), dtype="object")
+
+        for x_index, exch1_flux in enumerate(list(exch_rate_dict.values())[0]):
+            for y_index, exch2_flux in enumerate(list(exch_rate_dict.values())[1]):
+                model_working = self.model_saved
+                model_working.reactions.get_by_id(
+                    list(exch_rate_dict.keys())[0]
+                ).bounds = (-exch1_flux, 0)
+                model_working.reactions.get_by_id(
+                    list(exch_rate_dict.keys())[1]
+                ).bounds = (-exch2_flux, 0)
+                ablation_result = self.ablate(input_model=model_working, verbose=False)
+                (
+                    ratio_array[x_index, y_index],
+                    largest_component_array[x_index, y_index],
+                ) = self.get_ablation_ratio(ablation_result)
+
+        return np.flip(ratio_array.T, axis=1), np.flip(
+            largest_component_array.T, axis=1
+        )
 
 
 def compare_fluxes(ymodel1, ymodel2):
@@ -830,3 +955,38 @@ def _bar_vals_from_ablation_df(ablation_result):
     values_proportion = ablation_result.proportional_est_time.to_list()
 
     return values_ablated, values_proportion
+
+
+def heatmap_ablation_grid(ratio_array, exch_rate_dict, ax):
+    """Draw heatmap from 2d ablation grid
+
+    Parameters
+    ----------
+    ratio_array : numpy.ndarray (2-dimensional)
+        Array of ablation ratios, output from ablation_grid()
+    exch_rate_dict : dict
+        dict that stores the two exchange reactions to vary and the uptake
+        rate values to use.  It should be in this format:
+
+        d = {
+            'r_exch_rxn_1' : <array-like>,
+            'r_exch_rxn_2' : <array-like>,
+            }
+
+    ax : matplotlib.pyplot.Axes object
+        Axes to draw heatmap on.
+
+    Examples
+    --------
+    FIXME: Add docs.
+
+    """
+    sns.heatmap(
+        data=ratio_array,
+        xticklabels=list(exch_rate_dict.values())[0],
+        yticklabels=list(exch_rate_dict.values())[1][::-1],
+        cbar_kws={"label": "ratio"},
+        ax=ax,
+    )
+    ax.set_xlabel(list(exch_rate_dict.keys())[0])
+    ax.set_ylabel(list(exch_rate_dict.keys())[1])

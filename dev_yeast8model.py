@@ -1,10 +1,16 @@
 #!/usr/bin/env python3
 
 import matplotlib.pyplot as plt
-from yeast8model import Yeast8Model, compare_fluxes, compare_ablation_times
+import numpy as np
+from yeast8model import (
+    Yeast8Model,
+    compare_fluxes,
+    compare_ablation_times,
+    heatmap_ablation_grid,
+)
 
-y = Yeast8Model("./models/ecYeastGEM_batch.xml")
-z = Yeast8Model("./models/ecYeastGEMfull.yml")
+y = Yeast8Model("./models/ecYeastGEM_batch_8-6-0.xml")
+# z = Yeast8Model("./models/ecYeastGEMfull.yml")
 # y.knock_out_list(["YML120C"])
 # y.knock_out_list(["YML120C", "foo"])
 
@@ -18,9 +24,19 @@ z = Yeast8Model("./models/ecYeastGEMfull.yml")
 # y.optimize()
 
 # y.ablation_result = y.ablate()
-# # fig, ax = plt.subplots()
-# # y.ablation_barplot(ax)
-# # plt.show()
+# r = y.get_ablation_ratio()
+# print(r)
+exch_rate_dict = {
+    "r_1714": np.linspace(0, 18, 2),
+    "r_1873": np.linspace(0, 10, 3),
+}
+ra, la = y.ablation_grid(exch_rate_dict)
+
+fig, ax = plt.subplots()
+heatmap_ablation_grid(ra, exch_rate_dict, ax)
+# fig, ax = plt.subplots()
+# y.ablation_barplot(ax)
+plt.show()
 
 # z = Yeast8Model("./models/ecYeastGEM_batch.xml")
 # z.make_auxotroph("BY4741")
