@@ -777,7 +777,11 @@ class Yeast8Model:
             for y_index, exch2_flux in enumerate(exch2_fluxes):
                 model_working = self.model_saved
                 # block glucose
-                model_working.reactions.get_by_id("r_1714_REV").bounds = (0, 0)
+                model_working.reactions.get_by_id("r_1714").bounds = (0, 0)
+                try:
+                    model_working.reactions.get_by_id("r_1714_REV").bounds = (0, 0)
+                except KeyError as e:
+                    print("r_1714_REV not found, ignoring in glucose-blocking step")
                 # set bounds
                 model_working.reactions.get_by_id(exch1_id).bounds = (-exch1_flux, 0)
                 model_working.reactions.get_by_id(exch2_id).bounds = (-exch2_flux, 0)
