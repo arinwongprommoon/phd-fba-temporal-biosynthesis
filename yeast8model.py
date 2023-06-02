@@ -781,18 +781,29 @@ class Yeast8Model:
                 # set bounds
                 model_working.reactions.get_by_id(exch1_id).bounds = (-exch1_flux, 0)
                 model_working.reactions.get_by_id(exch2_id).bounds = (-exch2_flux, 0)
-                # deal with reversible exchange reactions
-                # TODO: Error handling in case these reactions don't exist --
-                # probably just skip them
-                model_working.reactions.get_by_id(exch1_id + "_REV").bounds = (
-                    0,
-                    exch1_flux,
-                )
-                model_working.reactions.get_by_id(exch2_id + "_REV").bounds = (
-                    0,
-                    exch2_flux,
-                )
-                # ablate
+                # deal with reversible exchange reactions, with
+                # error handling in case these reactions don't exist
+                try:
+                    exch1_id_rev = exch1_id + "_REV"
+                    model_working.reactions.get_by_id(exch1_id_rev).bounds = (
+                        0,
+                        exch1_flux,
+                    )
+                except KeyError as e:
+                    print(
+                        f"Error-- reversible exchange reaction {exch1_id_rev} not found. Ignoring."
+                    )
+                try:
+                    exch2_id_rev = exch2_id + "_REV"
+                    model_working.reactions.get_by_id(exch2_id_rev).bounds = (
+                        0,
+                        exch2_flux,
+                    )
+                except KeyError as e:
+                    print(
+                        f"Error-- reversible exchange reaction {exch2_id_rev} not found. Ignoring."
+                    )
+
                 ablation_result = self.ablate(input_model=model_working, verbose=False)
                 (
                     ratio_array[x_index, y_index],
