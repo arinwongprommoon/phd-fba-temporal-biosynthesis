@@ -28,13 +28,13 @@ y = Yeast8Model("./models/ecYeastGEM_batch_8-6-0.xml")
 # print(r)
 exch_rate_dict = {
     "r_1714": np.linspace(0, 18, 2),
-    "r_1873": np.linspace(0, 10, 3),
+    "r_1654": np.linspace(0, 18, 2),
 }
 ra, la = y.ablation_grid(exch_rate_dict)
+breakpoint()
 
 fig, ax = plt.subplots()
-heatmap_ablation_grid(ra, exch_rate_dict, ax)
-# fig, ax = plt.subplots()
+heatmap_ablation_grid(ax, exch_rate_dict, ra, la)
 # y.ablation_barplot(ax)
 plt.show()
 

@@ -762,29 +762,55 @@ class Yeast8Model:
         # And checks that the strings are reactions present in the model.
         # TODO: Add code to do that here
 
-        x_dim = len(list(exch_rate_dict.values())[0])
-        y_dim = len(list(exch_rate_dict.values())[1])
+        # simplify dict syntax
+        exch1_id = list(exch_rate_dict.keys())[0]
+        exch2_id = list(exch_rate_dict.keys())[1]
+        exch1_fluxes = list(exch_rate_dict.values())[0]
+        exch2_fluxes = list(exch_rate_dict.values())[1]
+        # define output arrays
+        x_dim = len(exch1_fluxes)
+        y_dim = len(exch2_fluxes)
         ratio_array = np.zeros(shape=(x_dim, y_dim))
         largest_component_array = np.zeros(shape=(x_dim, y_dim), dtype="object")
 
-        for x_index, exch1_flux in enumerate(list(exch_rate_dict.values())[0]):
-            for y_index, exch2_flux in enumerate(list(exch_rate_dict.values())[1]):
+        for x_index, exch1_flux in enumerate(exch1_fluxes):
+            for y_index, exch2_flux in enumerate(exch2_fluxes):
                 model_working = self.model_saved
-                model_working.reactions.get_by_id(
-                    list(exch_rate_dict.keys())[0]
-                ).bounds = (-exch1_flux, 0)
-                model_working.reactions.get_by_id(
-                    list(exch_rate_dict.keys())[1]
-                ).bounds = (-exch2_flux, 0)
+                # block glucose
+                model_working.reactions.get_by_id("r_1714_REV").bounds = (0, 0)
+                # set bounds
+                model_working.reactions.get_by_id(exch1_id).bounds = (-exch1_flux, 0)
+                model_working.reactions.get_by_id(exch2_id).bounds = (-exch2_flux, 0)
+                # deal with reversible exchange reactions, with
+                # error handling in case these reactions don't exist
+                try:
+                    exch1_id_rev = exch1_id + "_REV"
+                    model_working.reactions.get_by_id(exch1_id_rev).bounds = (
+                        0,
+                        exch1_flux,
+                    )
+                except KeyError as e:
+                    print(
+                        f"Error-- reversible exchange reaction {exch1_id_rev} not found. Ignoring."
+                    )
+                try:
+                    exch2_id_rev = exch2_id + "_REV"
+                    model_working.reactions.get_by_id(exch2_id_rev).bounds = (
+                        0,
+                        exch2_flux,
+                    )
+                except KeyError as e:
+                    print(
+                        f"Error-- reversible exchange reaction {exch2_id_rev} not found. Ignoring."
+                    )
+
                 ablation_result = self.ablate(input_model=model_working, verbose=False)
                 (
                     ratio_array[x_index, y_index],
                     largest_component_array[x_index, y_index],
                 ) = self.get_ablation_ratio(ablation_result)
 
-        return np.flip(ratio_array.T, axis=1), np.flip(
-            largest_component_array.T, axis=1
-        )
+        return ratio_array, largest_component_array
 
 
 def compare_fluxes(ymodel1, ymodel2):
@@ -957,13 +983,15 @@ def _bar_vals_from_ablation_df(ablation_result):
     return values_ablated, values_proportion
 
 
-def heatmap_ablation_grid(ratio_array, exch_rate_dict, ax):
+def heatmap_ablation_grid(
+    ax, exch_rate_dict, ratio_array, largest_component_array=None
+):
     """Draw heatmap from 2d ablation grid
 
     Parameters
     ----------
-    ratio_array : numpy.ndarray (2-dimensional)
-        Array of ablation ratios, output from ablation_grid()
+    ax : matplotlib.pyplot.Axes object
+        Axes to draw heatmap on.
     exch_rate_dict : dict
         dict that stores the two exchange reactions to vary and the uptake
         rate values to use.  It should be in this format:
@@ -973,19 +1001,28 @@ def heatmap_ablation_grid(ratio_array, exch_rate_dict, ax):
             'r_exch_rxn_2' : <array-like>,
             }
 
-    ax : matplotlib.pyplot.Axes object
-        Axes to draw heatmap on.
+    ratio_array : numpy.ndarray (2-dimensional)
+        Array of ablation ratios, output from ablation_grid()
+    largest_component_array : numpy.ndarray (2-dimensional), optional
+        Array of largest biomass components, output from ablation_grid()
 
     Examples
     --------
     FIXME: Add docs.
 
     """
+    if largest_component_array is None:
+        annot_input = largest_component_array
+    # TODO: Improve error-handling by checking if this is a 2D numpy array
+    else:
+        annot_input = np.rot90(largest_component_array)
     sns.heatmap(
-        data=ratio_array,
+        data=np.rot90(ratio_array),
+        annot=annot_input,
         xticklabels=list(exch_rate_dict.values())[0],
         yticklabels=list(exch_rate_dict.values())[1][::-1],
         cbar_kws={"label": "ratio"},
+        fmt="",
         ax=ax,
     )
     ax.set_xlabel(list(exch_rate_dict.keys())[0])
