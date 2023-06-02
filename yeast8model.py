@@ -979,13 +979,15 @@ def _bar_vals_from_ablation_df(ablation_result):
     return values_ablated, values_proportion
 
 
-def heatmap_ablation_grid(ratio_array, exch_rate_dict, ax):
+def heatmap_ablation_grid(
+    ax, exch_rate_dict, ratio_array, largest_component_array=None
+):
     """Draw heatmap from 2d ablation grid
 
     Parameters
     ----------
-    ratio_array : numpy.ndarray (2-dimensional)
-        Array of ablation ratios, output from ablation_grid()
+    ax : matplotlib.pyplot.Axes object
+        Axes to draw heatmap on.
     exch_rate_dict : dict
         dict that stores the two exchange reactions to vary and the uptake
         rate values to use.  It should be in this format:
@@ -995,19 +997,28 @@ def heatmap_ablation_grid(ratio_array, exch_rate_dict, ax):
             'r_exch_rxn_2' : <array-like>,
             }
 
-    ax : matplotlib.pyplot.Axes object
-        Axes to draw heatmap on.
+    ratio_array : numpy.ndarray (2-dimensional)
+        Array of ablation ratios, output from ablation_grid()
+    largest_component_array : numpy.ndarray (2-dimensional), optional
+        Array of largest biomass components, output from ablation_grid()
 
     Examples
     --------
     FIXME: Add docs.
 
     """
+    if largest_component_array is None:
+        annot_input = largest_component_array
+    # TODO: Improve error-handling by checking if this is a 2D numpy array
+    else:
+        annot_input = np.rot90(largest_component_array)
     sns.heatmap(
         data=np.rot90(ratio_array),
+        annot=annot_input,
         xticklabels=list(exch_rate_dict.values())[0],
         yticklabels=list(exch_rate_dict.values())[1][::-1],
         cbar_kws={"label": "ratio"},
+        fmt="",
         ax=ax,
     )
     ax.set_xlabel(list(exch_rate_dict.keys())[0])

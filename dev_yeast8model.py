@@ -34,7 +34,7 @@ ra, la = y.ablation_grid(exch_rate_dict)
 breakpoint()
 
 fig, ax = plt.subplots()
-heatmap_ablation_grid(ra, exch_rate_dict, ax)
+heatmap_ablation_grid(ax, exch_rate_dict, ra, la)
 # y.ablation_barplot(ax)
 plt.show()
 
