@@ -27,17 +27,16 @@ y = Yeast8Model("./models/ecYeastGEM_batch_8-6-0.xml")
 # r = y.get_ablation_ratio()
 # print(r)
 exch_rate_dict = {
-    "r_1714": np.linspace(0, 18, 5),
-    "r_1654": np.linspace(0, 18, 5),
+    "r_1714": np.linspace(0, 18, 2),
+    "r_1654": np.linspace(0, 18, 2),
 }
 ra, la = y.ablation_grid(exch_rate_dict)
 breakpoint()
 
-# fig, ax = plt.subplots()
-# heatmap_ablation_grid(ra, exch_rate_dict, ax)
-# fig, ax = plt.subplots()
+fig, ax = plt.subplots()
+heatmap_ablation_grid(ra, exch_rate_dict, ax)
 # y.ablation_barplot(ax)
-# plt.show()
+plt.show()
 
 # z = Yeast8Model("./models/ecYeastGEM_batch.xml")
 # z.make_auxotroph("BY4741")
@@ -50,4 +49,4 @@ breakpoint()
 
 # dfs = compare_fluxes(y, z)
 
-# breakpoint()
+breakpoint()

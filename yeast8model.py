@@ -819,9 +819,7 @@ class Yeast8Model:
                 # DEBUG
                 print(ablation_result)
 
-        return np.flip(ratio_array.T, axis=1), np.flip(
-            largest_component_array.T, axis=1
-        )
+        return ratio_array, largest_component_array
 
 
 def compare_fluxes(ymodel1, ymodel2):
@@ -1019,7 +1017,7 @@ def heatmap_ablation_grid(ratio_array, exch_rate_dict, ax):
 
     """
     sns.heatmap(
-        data=ratio_array,
+        data=np.rot90(ratio_array),
         xticklabels=list(exch_rate_dict.values())[0],
         yticklabels=list(exch_rate_dict.values())[1][::-1],
         cbar_kws={"label": "ratio"},
