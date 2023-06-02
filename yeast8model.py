@@ -762,55 +762,42 @@ class Yeast8Model:
         # And checks that the strings are reactions present in the model.
         # TODO: Add code to do that here
 
-        x_dim = len(list(exch_rate_dict.values())[0])
-        y_dim = len(list(exch_rate_dict.values())[1])
+        # simplify dict syntax
+        exch1_id = list(exch_rate_dict.keys())[0]
+        exch2_id = list(exch_rate_dict.keys())[1]
+        exch1_fluxes = list(exch_rate_dict.values())[0]
+        exch2_fluxes = list(exch_rate_dict.values())[1]
+        # define output arrays
+        x_dim = len(exch1_fluxes)
+        y_dim = len(exch2_fluxes)
         ratio_array = np.zeros(shape=(x_dim, y_dim))
         largest_component_array = np.zeros(shape=(x_dim, y_dim), dtype="object")
 
-        # TODO: Refactor to eliminate writing out exch_rate_dict.values/keys...
-        for x_index, exch1_flux in enumerate(list(exch_rate_dict.values())[0]):
-            for y_index, exch2_flux in enumerate(list(exch_rate_dict.values())[1]):
+        for x_index, exch1_flux in enumerate(exch1_fluxes):
+            for y_index, exch2_flux in enumerate(exch2_fluxes):
                 model_working = self.model_saved
                 # block glucose
                 model_working.reactions.get_by_id("r_1714_REV").bounds = (0, 0)
                 # set bounds
-                model_working.reactions.get_by_id(
-                    list(exch_rate_dict.keys())[0]
-                ).bounds = (-exch1_flux, 0)
-                model_working.reactions.get_by_id(
-                    list(exch_rate_dict.keys())[1]
-                ).bounds = (-exch2_flux, 0)
+                model_working.reactions.get_by_id(exch1_id).bounds = (-exch1_flux, 0)
+                model_working.reactions.get_by_id(exch2_id).bounds = (-exch2_flux, 0)
                 # TODO: Error handling in case these reactions don't exist --
                 # probably just skip them
                 # deal with reversible exchange reactions
-                model_working.reactions.get_by_id(
-                    list(exch_rate_dict.keys())[0] + "_REV"
-                ).bounds = (0, exch1_flux)
-                model_working.reactions.get_by_id(
-                    list(exch_rate_dict.keys())[1] + "_REV"
-                ).bounds = (0, exch2_flux)
+                model_working.reactions.get_by_id(exch1_id + "_REV").bounds = (
+                    0,
+                    exch1_flux,
+                )
+                model_working.reactions.get_by_id(exch2_id + "_REV").bounds = (
+                    0,
+                    exch2_flux,
+                )
 
                 # DEBUG
-                print(
-                    model_working.reactions.get_by_id(
-                        list(exch_rate_dict.keys())[0]
-                    ).bounds
-                )
-                print(
-                    model_working.reactions.get_by_id(
-                        list(exch_rate_dict.keys())[1]
-                    ).bounds
-                )
-                print(
-                    model_working.reactions.get_by_id(
-                        list(exch_rate_dict.keys())[0] + "_REV"
-                    ).bounds
-                )
-                print(
-                    model_working.reactions.get_by_id(
-                        list(exch_rate_dict.keys())[1] + "_REV"
-                    ).bounds
-                )
+                print(model_working.reactions.get_by_id(exch1_id).bounds)
+                print(model_working.reactions.get_by_id(exch2_id).bounds)
+                print(model_working.reactions.get_by_id(exch1_id + "_REV").bounds)
+                print(model_working.reactions.get_by_id(exch2_id + "_REV").bounds)
                 ablation_result = self.ablate(input_model=model_working, verbose=False)
                 (
                     ratio_array[x_index, y_index],
