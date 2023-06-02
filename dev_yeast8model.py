@@ -31,6 +31,7 @@ exch_rate_dict = {
     "r_1654": np.linspace(0, 18, 5),
 }
 ra, la = y.ablation_grid(exch_rate_dict)
+breakpoint()
 
 # fig, ax = plt.subplots()
 # heatmap_ablation_grid(ra, exch_rate_dict, ax)

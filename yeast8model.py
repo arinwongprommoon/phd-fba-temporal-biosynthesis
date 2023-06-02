@@ -767,15 +767,29 @@ class Yeast8Model:
         ratio_array = np.zeros(shape=(x_dim, y_dim))
         largest_component_array = np.zeros(shape=(x_dim, y_dim), dtype="object")
 
+        # TODO: Refactor to eliminate writing out exch_rate_dict.values/keys...
         for x_index, exch1_flux in enumerate(list(exch_rate_dict.values())[0]):
             for y_index, exch2_flux in enumerate(list(exch_rate_dict.values())[1]):
                 model_working = self.model_saved
+                # block glucose
+                model_working.reactions.get_by_id("r_1714_REV").bounds = (0, 0)
+                # set bounds
                 model_working.reactions.get_by_id(
                     list(exch_rate_dict.keys())[0]
                 ).bounds = (-exch1_flux, 0)
                 model_working.reactions.get_by_id(
                     list(exch_rate_dict.keys())[1]
                 ).bounds = (-exch2_flux, 0)
+                # TODO: Error handling in case these reactions don't exist --
+                # probably just skip them
+                # deal with reversible exchange reactions
+                model_working.reactions.get_by_id(
+                    list(exch_rate_dict.keys())[0] + "_REV"
+                ).bounds = (0, exch1_flux)
+                model_working.reactions.get_by_id(
+                    list(exch_rate_dict.keys())[1] + "_REV"
+                ).bounds = (0, exch2_flux)
+
                 # DEBUG
                 print(
                     model_working.reactions.get_by_id(
@@ -785,6 +799,16 @@ class Yeast8Model:
                 print(
                     model_working.reactions.get_by_id(
                         list(exch_rate_dict.keys())[1]
+                    ).bounds
+                )
+                print(
+                    model_working.reactions.get_by_id(
+                        list(exch_rate_dict.keys())[0] + "_REV"
+                    ).bounds
+                )
+                print(
+                    model_working.reactions.get_by_id(
+                        list(exch_rate_dict.keys())[1] + "_REV"
                     ).bounds
                 )
                 ablation_result = self.ablate(input_model=model_working, verbose=False)
