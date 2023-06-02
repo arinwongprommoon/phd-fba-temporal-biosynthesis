@@ -776,11 +776,24 @@ class Yeast8Model:
                 model_working.reactions.get_by_id(
                     list(exch_rate_dict.keys())[1]
                 ).bounds = (-exch2_flux, 0)
+                # DEBUG
+                print(
+                    model_working.reactions.get_by_id(
+                        list(exch_rate_dict.keys())[0]
+                    ).bounds
+                )
+                print(
+                    model_working.reactions.get_by_id(
+                        list(exch_rate_dict.keys())[1]
+                    ).bounds
+                )
                 ablation_result = self.ablate(input_model=model_working, verbose=False)
                 (
                     ratio_array[x_index, y_index],
                     largest_component_array[x_index, y_index],
                 ) = self.get_ablation_ratio(ablation_result)
+                # DEBUG
+                print(ablation_result)
 
         return np.flip(ratio_array.T, axis=1), np.flip(
             largest_component_array.T, axis=1
