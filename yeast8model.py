@@ -1029,7 +1029,7 @@ def heatmap_ablation_grid(
     ax.set_ylabel(list(exch_rate_dict.keys())[1])
 
 
-def get_exch_saturation(ymodel, exch_id, exch_rates):
+def get_exch_saturation(ymodel, exch_id, exch_rates, remove_glucose=True):
     """Get exchange reaction saturation curve
 
     Get exchange reaction saturation curve. Varies exchange reaction uptake
@@ -1043,6 +1043,9 @@ def get_exch_saturation(ymodel, exch_id, exch_rates):
         Reaction ID of exchange reaction.
     exch_rates : array-like
         List of uptake values to use.
+    remove_glucose : bool
+        Whether to remove glucose from media.  Useful if investigating carbon
+        sources.
 
     Examples
     --------
@@ -1066,6 +1069,10 @@ def get_exch_saturation(ymodel, exch_id, exch_rates):
             f"Error-- reversible exchange reaction {exch_id_rev} not found. Ignoring."
         )
         exch_rev_present = False
+
+    # Kill glucose
+    if remove_glucose:
+        ymodel.remove_media_components(["r_1714", "r_1714_REV"])
 
     growthrates = []
     for exch_rate in exch_rates:
