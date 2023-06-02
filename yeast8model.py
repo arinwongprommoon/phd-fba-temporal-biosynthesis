@@ -781,9 +781,9 @@ class Yeast8Model:
                 # set bounds
                 model_working.reactions.get_by_id(exch1_id).bounds = (-exch1_flux, 0)
                 model_working.reactions.get_by_id(exch2_id).bounds = (-exch2_flux, 0)
+                # deal with reversible exchange reactions
                 # TODO: Error handling in case these reactions don't exist --
                 # probably just skip them
-                # deal with reversible exchange reactions
                 model_working.reactions.get_by_id(exch1_id + "_REV").bounds = (
                     0,
                     exch1_flux,
@@ -792,19 +792,12 @@ class Yeast8Model:
                     0,
                     exch2_flux,
                 )
-
-                # DEBUG
-                print(model_working.reactions.get_by_id(exch1_id).bounds)
-                print(model_working.reactions.get_by_id(exch2_id).bounds)
-                print(model_working.reactions.get_by_id(exch1_id + "_REV").bounds)
-                print(model_working.reactions.get_by_id(exch2_id + "_REV").bounds)
+                # ablate
                 ablation_result = self.ablate(input_model=model_working, verbose=False)
                 (
                     ratio_array[x_index, y_index],
                     largest_component_array[x_index, y_index],
                 ) = self.get_ablation_ratio(ablation_result)
-                # DEBUG
-                print(ablation_result)
 
         return ratio_array, largest_component_array
 
