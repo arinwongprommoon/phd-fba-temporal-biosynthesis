@@ -7,7 +7,6 @@ import pandas as pd
 import seaborn as sns
 
 from collections import namedtuple
-from matplotlib.ticker import FormatStrFormatter
 from wrapt_timeout_decorator import *
 
 # Constants needed for ablation calculations
