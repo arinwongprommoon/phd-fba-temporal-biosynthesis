@@ -7,6 +7,7 @@ import pandas as pd
 import seaborn as sns
 
 from collections import namedtuple
+from matplotlib.ticker import FormatStrFormatter
 from wrapt_timeout_decorator import *
 
 # Constants needed for ablation calculations
@@ -1031,6 +1032,9 @@ def heatmap_ablation_grid(
     )
     ax.set_xlabel(list(exch_rate_dict.keys())[0])
     ax.set_ylabel(list(exch_rate_dict.keys())[1])
+    # display 3 decimal places on axis ticks
+    ax.xaxis.set_major_formatter(FormatStrFormatter("%.3f"))
+    ax.yaxis.set_major_formatter(FormatStrFormatter("%.3f"))
 
 
 def get_exch_saturation(ymodel, exch_id, exch_rates, remove_glucose=True):
