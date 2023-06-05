@@ -989,7 +989,11 @@ def _bar_vals_from_ablation_df(ablation_result):
 
 
 def heatmap_ablation_grid(
-    ax, exch_rate_dict, ratio_array, largest_component_array=None
+    ax,
+    exch_rate_dict,
+    ratio_array,
+    largest_component_array=None,
+    percent_saturation=False,
 ):
     """Draw heatmap from 2d ablation grid
 
@@ -1010,31 +1014,48 @@ def heatmap_ablation_grid(
         Array of ablation ratios, output from ablation_grid()
     largest_component_array : numpy.ndarray (2-dimensional), optional
         Array of largest biomass components, output from ablation_grid()
+    percent_saturation : bool, optional
+        Whether to scale axis labels so that the numbers displayed are percent
+        of the highest value of the axis (usually saturation).  Default False.
 
     Examples
     --------
     FIXME: Add docs.
 
     """
+    # If largest_component_array is supplied, use it as text labels on heatmap.
+    # This design takes advantage of seaborn.heatmap(annot=None) being default.
     if largest_component_array is None:
         annot_input = largest_component_array
     # TODO: Improve error-handling by checking if this is a 2D numpy array
     else:
         annot_input = np.rot90(largest_component_array)
+
+    heatmap_xticklabels = list(exch_rate_dict.values())[0]
+    heatmap_yticklabels = list(exch_rate_dict.values())[1][::-1]
+    if percent_saturation:
+        heatmap_xticklabels /= np.max(heatmap_xticklabels)
+        heatmap_xticklabels *= 100
+        heatmap_yticklabels /= np.max(heatmap_yticklabels)
+        heatmap_yticklabels *= 100
+
+    # Draws heatmap.
+    # Rounding directly on the x/yticklabels variables because of known
+    # matplotlib-seaborn bug:
+    # - https://github.com/mwaskom/seaborn/issues/1005
+    # - https://stackoverflow.com/questions/63964006/round-decimal-places-seaborn-heatmap-labels
+    # - https://stackoverflow.com/questions/50571592/matplotlib-formatstrformatter-returns-wrong-values
     sns.heatmap(
         data=np.rot90(ratio_array),
         annot=annot_input,
-        xticklabels=list(exch_rate_dict.values())[0],
-        yticklabels=list(exch_rate_dict.values())[1][::-1],
+        xticklabels=np.around(heatmap_xticklabels, decimals=3),
+        yticklabels=np.around(heatmap_yticklabels, decimals=3),
         cbar_kws={"label": "ratio"},
         fmt="",
         ax=ax,
     )
     ax.set_xlabel(list(exch_rate_dict.keys())[0])
     ax.set_ylabel(list(exch_rate_dict.keys())[1])
-    # display 3 decimal places on axis ticks
-    ax.xaxis.set_major_formatter(FormatStrFormatter("%.3f"))
-    ax.yaxis.set_major_formatter(FormatStrFormatter("%.3f"))
 
 
 def get_exch_saturation(ymodel, exch_id, exch_rates, remove_glucose=True):
