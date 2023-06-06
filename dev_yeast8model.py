@@ -28,8 +28,8 @@ y.ablation_result = y.ablate()
 # r = y.get_ablation_ratio()
 # print(r)
 exch_rate_dict = {
-    "r_1714": np.linspace(0, 18, 2),
-    "r_1654": np.linspace(0, 18, 2),
+    "r_1714": np.linspace(0, 18, 3),
+    "r_1654": np.linspace(0, 18, 3),
 }
 ra, la = y.ablation_grid(exch_rate_dict)
 # breakpoint()
