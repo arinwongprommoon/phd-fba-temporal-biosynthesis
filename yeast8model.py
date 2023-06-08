@@ -483,9 +483,8 @@ class Yeast8Model:
             [reaction.flux_expression for reaction in non_biomass_reactions],
             dtype="object",
         )
-        flux_penalty_expression = penalty_coefficient * np.sum(
-            np.square(reaction_flux_expressions)
-        )
+        flux_penalty_expression = np.sum(np.square(reaction_flux_expressions))
+        flux_penalty_expression *= penalty_coefficient
 
         # Set the objective.
         flux_penalty_objective = self.model.problem.Objective(
