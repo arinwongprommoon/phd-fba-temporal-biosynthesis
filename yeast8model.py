@@ -993,6 +993,8 @@ def heatmap_ablation_grid(
     ratio_array,
     largest_component_array=None,
     percent_saturation=False,
+    vmin=0,
+    vmax=2,
 ):
     """Draw heatmap from 2d ablation grid
 
@@ -1016,6 +1018,10 @@ def heatmap_ablation_grid(
     percent_saturation : bool, optional
         Whether to scale axis labels so that the numbers displayed are percent
         of the highest value of the axis (usually saturation).  Default False.
+    vmin : float, optional
+        Minimum of range for colour bar.  Default 0.
+    vmax : float, optional
+        Maximum of range for colour bar.  Default 2.
 
     Examples
     --------
@@ -1049,6 +1055,9 @@ def heatmap_ablation_grid(
         annot=annot_input,
         xticklabels=np.around(heatmap_xticklabels, decimals=3),
         yticklabels=np.around(heatmap_yticklabels, decimals=3),
+        vmin=vmin,
+        vmax=vmax,
+        cmap="RdBu_r",
         cbar_kws={"label": "ratio"},
         fmt="",
         ax=ax,
