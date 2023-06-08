@@ -319,6 +319,8 @@ class Yeast8Model:
         self.deleted_genes = []
         self.ablation_result = None
 
+        self._flux_penalty_sum = None
+
     def reset_to_file(self, hard=False):
         """Reset model to filepath
 
@@ -463,7 +465,7 @@ class Yeast8Model:
 
     # Testing this function: if penalty_coeffcient=0, then the results should be
     # the same as if I didn't apply this.
-    def set_flux_penalty(self, penalty_coefficient=0):
+    def set_flux_penalty(self, penalty_coefficient=0.0):
         self.model.solver = "gurobi"
         # TODO: error handling in case Gurobi is not found
 
@@ -479,12 +481,21 @@ class Yeast8Model:
         # defined.
 
         # TODO: Speed this up even more
-        reaction_flux_expressions = np.array(
-            [reaction.flux_expression for reaction in non_biomass_reactions],
-            dtype="object",
-        )
-        flux_penalty_expression = np.sum(np.square(reaction_flux_expressions))
-        flux_penalty_expression *= penalty_coefficient
+        # Re-using possible because I don't expect the flux expression to change
+        # as there are no methods to add or erase reactions.
+        if self._flux_penalty_sum is None:
+            print("Defining flux penalty sum for the first time.")
+            print("Allow a couple minutes...")
+            reaction_flux_expressions = np.array(
+                [reaction.flux_expression for reaction in non_biomass_reactions],
+                dtype="object",
+            )
+            flux_penalty_sum = np.sum(np.square(reaction_flux_expressions))
+            self._flux_penalty_sum = flux_penalty_sum
+        else:
+            print("Re-using flux penalty sum.")
+            flux_penalty_sum = self._flux_penalty_sum
+        flux_penalty_expression = penalty_coefficient * flux_penalty_sum
 
         # Set the objective.
         flux_penalty_objective = self.model.problem.Objective(

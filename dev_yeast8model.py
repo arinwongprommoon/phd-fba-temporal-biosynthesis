@@ -28,6 +28,12 @@ end = time.time()
 print("penalty set")
 print(f"elapsed time: {end - start} s")
 
+start = time.time()
+y.set_flux_penalty(penalty_coefficient=0.1)
+end = time.time()
+print("penalty set with coeff")
+print(f"elapsed time: {end - start} s")
+
 sol_pen = y.optimize()
 print("optimized with penalty")
 # z = Yeast8Model("./models/ecYeastGEMfull.yml")
