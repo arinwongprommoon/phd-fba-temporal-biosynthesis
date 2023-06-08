@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import gurobipy
 import matplotlib.pyplot as plt
 import numpy as np
 from yeast8model import (
@@ -10,7 +11,18 @@ from yeast8model import (
     heatmap_ablation_grid,
 )
 
-y = Yeast8Model("./models/ecYeastGEM_batch_8-6-0.xml")
+y = Yeast8Model("./models/yeast-GEM_8-6-0.xml")
+print("model obj initd")
+glucose_bounds = (-4.75, 0)  # gives a sensible growth rate for wt
+y.add_media_components(["r_1992"])
+y.model.reactions.r_1714.bounds = glucose_bounds
+print("model obj modified")
+sol_orig = y.optimize()
+print("optimized")
+y.set_flux_penalty()
+print("penalty set")
+sol_pen = y.optimize()
+print("optimized with penalty")
 # z = Yeast8Model("./models/ecYeastGEMfull.yml")
 # y.knock_out_list(["YML120C"])
 # y.knock_out_list(["YML120C", "foo"])
@@ -24,20 +36,20 @@ y = Yeast8Model("./models/ecYeastGEM_batch_8-6-0.xml")
 
 # y.optimize()
 
-y.ablation_result = y.ablate()
+# y.ablation_result = y.ablate()
 # r = y.get_ablation_ratio()
 # print(r)
-exch_rate_dict = {
-    "r_1714": np.linspace(0, 18, 3),
-    "r_1654": np.linspace(0, 18, 3),
-}
-ra, la = y.ablation_grid(exch_rate_dict)
+# exch_rate_dict = {
+#     "r_1714": np.linspace(0, 18, 3),
+#     "r_1654": np.linspace(0, 18, 3),
+# }
+# ra, la = y.ablation_grid(exch_rate_dict)
 # breakpoint()
 
-fig, ax = plt.subplots()
-heatmap_ablation_grid(ax, exch_rate_dict, ra, la, percent_saturation=True)
+# fig, ax = plt.subplots()
+# heatmap_ablation_grid(ax, exch_rate_dict, ra, la, percent_saturation=True)
 # # y.ablation_barplot(ax)
-plt.show()
+# plt.show()
 
 # z = Yeast8Model("./models/ecYeastGEM_batch.xml")
 # z.make_auxotroph("BY4741")

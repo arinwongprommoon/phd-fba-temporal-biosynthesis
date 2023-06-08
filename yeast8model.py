@@ -26,6 +26,18 @@ MW_BIOMASS = 961.5662401740419
 # Defaut IDs for growth and biomass reactions for batch Yeast8 model
 GROWTH_ID = "r_2111"
 BIOMASS_ID = "r_4041"
+# IDs of pseudoreactions connected to biomass.
+# Doesn't contain biomass itself (though it is in the 'Growth' subsystem)
+# to make coding easier.
+GROWTH_SUBSYSTEM_IDS = [
+    "r_2108",
+    "r_4047",
+    "r_4048",
+    "r_4050",
+    "r_4049",
+    "r_4598",
+    "r_4599",
+]
 
 # List genes to delete and exchange reactions to add for each auxotroph
 AuxotrophProperties = namedtuple(
@@ -448,6 +460,32 @@ class Yeast8Model:
             raise Exception(
                 f"Invalid string for auxotroph strain background: {auxo_strain}"
             )
+
+    # Testing this function: if penalty_coeffcient=0, then the results should be
+    # the same as if I didn't apply this.
+    def set_flux_penalty(self, penalty_coefficient=0):
+        self.model.solver = "gurobi"
+        # TODO: error handling in case Gurobi is not found
+
+        # Reactions to exclude needs to be hard-coded in GROWTH_SUBSYSTEM_IDS
+        # because they aren't conveniently labelled
+        # as part of the 'Growth' subsystem in the non-ec model.
+        reactions_to_exclude = GROWTH_SUBSYSTEM_IDS + [self.growth_id, self.biomass_id]
+        non_biomass_reactions = self.model.reactions.query(
+            lambda x: x.id not in reactions_to_exclude
+        )
+        # Define expression for objective function.
+        # This value is ADDED to the existing objective that has growth already
+        # defined.
+        flux_penalty_expression = penalty_coefficient * sum(
+            [reaction.flux_expression**2 for reaction in non_biomass_reactions]
+        )
+        # Set the objective.
+        flux_penalty_objective = self.model.problem.Objective(
+            flux_penalty_expression, direction="min"
+        )
+        self.model.objective = flux_penalty_objective
+        # User then uses the optimize() method below to solve it.
 
     def optimize(self, model=None, timeout_time=60):
         # Unlike previous methods, takes a model object as input because I need
