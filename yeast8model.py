@@ -477,9 +477,16 @@ class Yeast8Model:
         # Define expression for objective function.
         # This value is ADDED to the existing objective that has growth already
         # defined.
-        flux_penalty_expression = penalty_coefficient * sum(
-            [reaction.flux_expression**2 for reaction in non_biomass_reactions]
+
+        # TODO: Speed this up even more
+        reaction_flux_expressions = np.array(
+            [reaction.flux_expression for reaction in non_biomass_reactions],
+            dtype="object",
         )
+        flux_penalty_expression = penalty_coefficient * np.sum(
+            np.square(reaction_flux_expressions)
+        )
+
         # Set the objective.
         flux_penalty_objective = self.model.problem.Objective(
             flux_penalty_expression, direction="min"
