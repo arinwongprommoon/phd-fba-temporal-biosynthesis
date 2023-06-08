@@ -463,11 +463,31 @@ class Yeast8Model:
                 f"Invalid string for auxotroph strain background: {auxo_strain}"
             )
 
-    # Testing this function: if penalty_coeffcient=0, then the results should be
-    # the same as if I didn't apply this.
     def set_flux_penalty(self, penalty_coefficient=0.0):
+        """Add a penalty to the objective function proportional to the sum of squares of fluxes
+
+        Add a penalty to the objective function, proportional to the sum of
+        squares of fluxes. The penalty coefficient is supplied by the user.
+        This method relies on the proprietary ($$$) Gurobi solver, and usually
+        takes a couple minutes to run.
+
+        Parameters
+        ----------
+        penalty_coefficient : float
+            Penalty coefficient, default 0 (i.e. no penalty applied).
+
+        Examples
+        --------
+        # Instantiate model object
+        y = Yeast8Model("./models/yeast-GEM_8-6-0.xml")
+
+        # Set flux penalty
+        y.set_flux_penalty(penalty_coefficient=0.1)
+
+        # Optimize and store solution
+        sol_pen = y.optimize()
+        """
         self.model.solver = "gurobi"
-        # TODO: error handling in case Gurobi is not found
 
         # Reactions to exclude needs to be hard-coded in GROWTH_SUBSYSTEM_IDS
         # because they aren't conveniently labelled
