@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
-import gurobipy
 import matplotlib.pyplot as plt
 import numpy as np
+import time
 from yeast8model import (
     Yeast8Model,
     compare_fluxes,
@@ -13,14 +13,21 @@ from yeast8model import (
 
 y = Yeast8Model("./models/yeast-GEM_8-6-0.xml")
 print("model obj initd")
+
 glucose_bounds = (-4.75, 0)  # gives a sensible growth rate for wt
 y.add_media_components(["r_1992"])
 y.model.reactions.r_1714.bounds = glucose_bounds
 print("model obj modified")
+
 sol_orig = y.optimize()
 print("optimized")
+
+start = time.time()
 y.set_flux_penalty()
+end = time.time()
 print("penalty set")
+print(f"elapsed time: {end - start} s")
+
 sol_pen = y.optimize()
 print("optimized with penalty")
 # z = Yeast8Model("./models/ecYeastGEMfull.yml")
