@@ -745,12 +745,30 @@ class Yeast8Model:
 
         Returns
         -------
-        FIXME: Add docs.
+        ratio_array : 2-dimensional numpy.ndarray of floats
+            Array of ablation ratios.  Indexing follows the exchange reaction
+            arrays in the input exch_rate_dict, i.e. ratio_array[x][y]
+            corresponds to exch_rate_dict['r_exch_rxn_1'][x] and
+            exch_rate_dict['r_exch_rxn_2'][y].
+        largest_component_array : 2-dimensional numpy.ndarray of objects
+            Array of strings that represent the largest biomass component.
+            Indexing follows ratio_array.
+        growthrate_array : 2-dimensional numpy.ndarray of floats
+            Array of growth rates.  Indexing follows ratio_array.
 
         Examples
         --------
-        FIXME: Add docs.
+        # Instantiate model
+        y = Yeast8Model("./models/ecYeastGEM_batch_8-6-0.xml")
 
+        # Define exchange rate dict
+        exch_rate_dict = {
+            "r_1714": np.linspace(0, 18, 2),
+            "r_1654": np.linspace(0, 18, 2),
+        }
+
+        # Construct arrays
+        ra, la, gra = y.ablation_grid(exch_rate_dict)
         """
         # TODO: Don't overwrite model-saved
         print(
