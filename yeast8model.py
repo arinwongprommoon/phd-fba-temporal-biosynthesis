@@ -743,6 +743,10 @@ class Yeast8Model:
                 'r_exch_rxn_2' : <array-like>,
                 }
 
+        Returns
+        -------
+        FIXME: Add docs.
+
         Examples
         --------
         FIXME: Add docs.
@@ -771,6 +775,7 @@ class Yeast8Model:
         x_dim = len(exch1_fluxes)
         y_dim = len(exch2_fluxes)
         ratio_array = np.zeros(shape=(x_dim, y_dim))
+        growthrate_array = np.zeros(shape=(x_dim, y_dim))
         largest_component_array = np.zeros(shape=(x_dim, y_dim), dtype="object")
 
         for x_index, exch1_flux in enumerate(exch1_fluxes):
@@ -813,8 +818,9 @@ class Yeast8Model:
                     ratio_array[x_index, y_index],
                     largest_component_array[x_index, y_index],
                 ) = self.get_ablation_ratio(ablation_result)
+                growthrate_array[x_index, y_index] = ablation_result.ablated_flux[0]
 
-        return ratio_array, largest_component_array
+        return ratio_array, largest_component_array, growthrate_array
 
 
 def compare_fluxes(ymodel1, ymodel2):
