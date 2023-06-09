@@ -1001,6 +1001,7 @@ def heatmap_ablation_grid(
     percent_saturation=False,
     vmin=0,
     vmax=2,
+    cbar_label="ratio",
 ):
     """Draw heatmap from 2d ablation grid
 
@@ -1028,6 +1029,8 @@ def heatmap_ablation_grid(
         Minimum of range for colour bar.  Default 0.
     vmax : float, optional
         Maximum of range for colour bar.  Default 2.
+    cbar_label : string, optional
+        Label for colour bar.  Default "ratio".
 
     Examples
     --------
@@ -1064,7 +1067,7 @@ def heatmap_ablation_grid(
         vmin=vmin,
         vmax=vmax,
         cmap="RdBu_r",
-        cbar_kws={"label": "ratio"},
+        cbar_kws={"label": cbar_label},
         fmt="",
         ax=ax,
     )
