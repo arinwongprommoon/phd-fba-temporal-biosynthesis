@@ -23,19 +23,27 @@ sol_orig = y.optimize()
 print("optimized")
 
 start = time.time()
-y.set_flux_penalty()
+y.set_flux_penalty(penalty_coefficient=0.1)
 end = time.time()
-print("penalty set")
+print("penalty set with coeff, first try")
 print(f"elapsed time: {end - start} s")
+
+sol_pen1 = y.optimize()
+print("optimized with penalty")
 
 start = time.time()
 y.set_flux_penalty(penalty_coefficient=0.1)
 end = time.time()
-print("penalty set with coeff")
+print("penalty set with coeff, second try")
 print(f"elapsed time: {end - start} s")
 
-sol_pen = y.optimize()
+sol_pen2 = y.optimize()
 print("optimized with penalty")
+
+diff = sol_pen2.fluxes - sol_pen2.fluxes
+print("diff")
+print(diff.min())
+print(diff.max())
 # z = Yeast8Model("./models/ecYeastGEMfull.yml")
 # y.knock_out_list(["YML120C"])
 # y.knock_out_list(["YML120C", "foo"])
