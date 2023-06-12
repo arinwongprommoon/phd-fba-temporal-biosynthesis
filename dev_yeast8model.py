@@ -63,9 +63,9 @@ abl_res = y.ablate()
 # # y.ablation_barplot(ax)
 # plt.show()
 
-fig, ax = plt.subplots()
-heatmap_ablation_grid(ax, exch_rate_dict, gra, la, percent_saturation=True)
-plt.show()
+# fig, ax = plt.subplots()
+# heatmap_ablation_grid(ax, exch_rate_dict, gra, la, percent_saturation=True)
+# plt.show()
 # # y.ablation_barplot(ax)
 
 # z = Yeast8Model("./models/ecYeastGEM_batch.xml")
