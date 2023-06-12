@@ -640,9 +640,6 @@ class Yeast8Model:
             model_working.reactions.get_by_id(self.biomass_id).subtract_metabolites(
                 to_ablate_dict
             )
-            # set flux penalty, if applicable
-            if self._flux_penalty_sum:
-                self.set_flux_penalty(penalty_coefficient=self._penalty_coefficient)
             # optimise model
             fba_solution = model_working.optimize()
             # store outputs
