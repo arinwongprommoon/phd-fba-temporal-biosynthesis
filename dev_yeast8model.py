@@ -5,6 +5,7 @@ import numpy as np
 import time
 from yeast8model import (
     Yeast8Model,
+    biomass_component_list_orig,
     compare_fluxes,
     compare_ablation_times,
     get_exch_saturation,
@@ -17,33 +18,23 @@ print("model obj initd")
 glucose_bounds = (-4.75, 0)  # gives a sensible growth rate for wt
 y.add_media_components(["r_1992"])
 y.model.reactions.r_1714.bounds = glucose_bounds
+y.biomass_component_list = biomass_component_list_orig
 print("model obj modified")
 
 sol_orig = y.optimize()
 print("optimized")
 
 start = time.time()
-y.set_flux_penalty(penalty_coefficient=0.1)
+penalty_coefficient = 0.0
+y.set_flux_penalty(penalty_coefficient=penalty_coefficient)
 end = time.time()
-print("penalty set with coeff, first try")
+print(f"penalty set with coeff {penalty_coefficient}")
 print(f"elapsed time: {end - start} s")
 
 sol_pen1 = y.optimize()
 print("optimized with penalty")
 
-start = time.time()
-y.set_flux_penalty(penalty_coefficient=0.1)
-end = time.time()
-print("penalty set with coeff, second try")
-print(f"elapsed time: {end - start} s")
-
-sol_pen2 = y.optimize()
-print("optimized with penalty")
-
-diff = sol_pen2.fluxes - sol_pen2.fluxes
-print("diff")
-print(diff.min())
-print(diff.max())
+abl_res = y.ablate()
 # z = Yeast8Model("./models/ecYeastGEMfull.yml")
 # y.knock_out_list(["YML120C"])
 # y.knock_out_list(["YML120C", "foo"])
@@ -72,9 +63,9 @@ print(diff.max())
 # # y.ablation_barplot(ax)
 # plt.show()
 
-fig, ax = plt.subplots()
-heatmap_ablation_grid(ax, exch_rate_dict, gra, la, percent_saturation=True)
-plt.show()
+# fig, ax = plt.subplots()
+# heatmap_ablation_grid(ax, exch_rate_dict, gra, la, percent_saturation=True)
+# plt.show()
 # # y.ablation_barplot(ax)
 
 # z = Yeast8Model("./models/ecYeastGEM_batch.xml")

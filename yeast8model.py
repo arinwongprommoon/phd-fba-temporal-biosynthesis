@@ -6,6 +6,7 @@ import os
 import pandas as pd
 import seaborn as sns
 
+from copy import copy, deepcopy
 from collections import namedtuple
 from wrapt_timeout_decorator import *
 
@@ -321,6 +322,7 @@ class Yeast8Model:
 
         # For set_flux_penalty(); store data to save time.
         self._flux_penalty_sum = None
+        self._penalty_coefficient = None
 
     def reset_to_file(self, hard=False):
         """Reset model to filepath
@@ -525,6 +527,9 @@ class Yeast8Model:
         self.model.objective = flux_penalty_objective
         # User then uses the optimize() method below to solve it.
 
+        # Save penalty coefficient, useful for ablate()
+        self._penalty_coefficient = penalty_coefficient
+
     def optimize(self, model=None, timeout_time=60):
         # Unlike previous methods, takes a model object as input because I need
         # to re-use this in ablate().
@@ -621,7 +626,6 @@ class Yeast8Model:
         for biomass_component in self.biomass_component_list:
             if verbose:
                 print(f"Prioritising {biomass_component.metabolite_label}")
-            model_working = self.model.copy()
 
             # boilerplate: lookup
             to_ablate = all_metabolite_ids.copy()
@@ -641,6 +645,13 @@ class Yeast8Model:
             # store outputs
             biomass_component.ablated_flux = fba_solution.fluxes[self.growth_id]
             biomass_component.get_est_time()
+
+            # restore metabolites after ablation
+            # Using this rather than defining a variable to restore values to
+            # because keys of metabolites dict are objects with addresses.
+            model_working.reactions.get_by_id(self.biomass_id).add_metabolites(
+                to_ablate_dict
+            )
 
         # construct output dataframe
         d = {
