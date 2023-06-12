@@ -26,6 +26,18 @@ MW_BIOMASS = 961.5662401740419
 # Defaut IDs for growth and biomass reactions for batch Yeast8 model
 GROWTH_ID = "r_2111"
 BIOMASS_ID = "r_4041"
+# IDs of pseudoreactions connected to biomass.
+# Doesn't contain biomass itself (though it is in the 'Growth' subsystem)
+# to make coding easier.
+GROWTH_SUBSYSTEM_IDS = [
+    "r_2108",
+    "r_4047",
+    "r_4048",
+    "r_4050",
+    "r_4049",
+    "r_4598",
+    "r_4599",
+]
 
 # List genes to delete and exchange reactions to add for each auxotroph
 AuxotrophProperties = namedtuple(
@@ -307,6 +319,9 @@ class Yeast8Model:
         self.deleted_genes = []
         self.ablation_result = None
 
+        # For set_flux_penalty(); store data to save time.
+        self._flux_penalty_sum = None
+
     def reset_to_file(self, hard=False):
         """Reset model to filepath
 
@@ -448,6 +463,67 @@ class Yeast8Model:
             raise Exception(
                 f"Invalid string for auxotroph strain background: {auxo_strain}"
             )
+
+    def set_flux_penalty(self, penalty_coefficient=0.0):
+        """Add a penalty to the objective function proportional to the sum of squares of fluxes
+
+        Add a penalty to the objective function, proportional to the sum of
+        squares of fluxes. The penalty coefficient is supplied by the user.
+        This method relies on the proprietary ($$$) Gurobi solver, and usually
+        takes a couple minutes to run.
+
+        Parameters
+        ----------
+        penalty_coefficient : float
+            Penalty coefficient, default 0 (i.e. no penalty applied).
+
+        Examples
+        --------
+        # Instantiate model object
+        y = Yeast8Model("./models/yeast-GEM_8-6-0.xml")
+
+        # Set flux penalty
+        y.set_flux_penalty(penalty_coefficient=0.1)
+
+        # Optimize and store solution
+        sol_pen = y.optimize()
+        """
+        self.model.solver = "gurobi"
+
+        # Reactions to exclude needs to be hard-coded in GROWTH_SUBSYSTEM_IDS
+        # because they aren't conveniently labelled
+        # as part of the 'Growth' subsystem in the non-ec model.
+        reactions_to_exclude = GROWTH_SUBSYSTEM_IDS + [self.growth_id, self.biomass_id]
+        non_biomass_reactions = self.model.reactions.query(
+            lambda x: x.id not in reactions_to_exclude
+        )
+        # Define expression for objective function.
+        # This value is ADDED to the existing objective that has growth already
+        # defined.
+
+        # TODO: Speed this up even more
+        # Re-using possible because I don't expect the flux expression to change
+        # as there are no methods to add or erase reactions.
+        if self._flux_penalty_sum is None:
+            print("Defining flux penalty sum for the first time.")
+            print("Allow a couple minutes...")
+            reaction_flux_expressions = np.array(
+                [reaction.flux_expression for reaction in non_biomass_reactions],
+                dtype="object",
+            )
+            flux_penalty_sum = np.sum(np.square(reaction_flux_expressions))
+            self._flux_penalty_sum = flux_penalty_sum
+        else:
+            print("Re-using flux penalty sum.")
+            flux_penalty_sum = self._flux_penalty_sum
+        flux_penalty_expression = penalty_coefficient * flux_penalty_sum
+
+        # Set the objective.
+        flux_penalty_objective = self.model.problem.Objective(
+            flux_penalty_expression, direction="min"
+        )
+        self.model.objective = flux_penalty_objective
+        # User then uses the optimize() method below to solve it.
 
     def optimize(self, model=None, timeout_time=60):
         # Unlike previous methods, takes a model object as input because I need
