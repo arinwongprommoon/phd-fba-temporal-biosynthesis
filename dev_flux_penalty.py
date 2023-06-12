@@ -30,6 +30,8 @@ for effect_item in effect_list:
     y.model.reactions.r_1714.bounds = glucose_bounds
     y.biomass_component_list = biomass_component_list_orig
 
+    sol_orig = y.optimize()
+
     penalty_coefficient = effect_item["penalty_coeff"]
     y.set_flux_penalty(penalty_coefficient=penalty_coefficient)
     end = time.time()
