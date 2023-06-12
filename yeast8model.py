@@ -819,10 +819,32 @@ class Yeast8Model:
                 'r_exch_rxn_2' : <array-like>,
                 }
 
+        Returns
+        -------
+        ratio_array : 2-dimensional numpy.ndarray of floats
+            Array of ablation ratios.  Indexing follows the exchange reaction
+            arrays in the input exch_rate_dict, i.e. ratio_array[x][y]
+            corresponds to exch_rate_dict['r_exch_rxn_1'][x] and
+            exch_rate_dict['r_exch_rxn_2'][y].
+        largest_component_array : 2-dimensional numpy.ndarray of objects
+            Array of strings that represent the largest biomass component.
+            Indexing follows ratio_array.
+        growthrate_array : 2-dimensional numpy.ndarray of floats
+            Array of growth rates.  Indexing follows ratio_array.
+
         Examples
         --------
-        FIXME: Add docs.
+        # Instantiate model
+        y = Yeast8Model("./models/ecYeastGEM_batch_8-6-0.xml")
 
+        # Define exchange rate dict
+        exch_rate_dict = {
+            "r_1714": np.linspace(0, 18, 2),
+            "r_1654": np.linspace(0, 18, 2),
+        }
+
+        # Construct arrays
+        ra, la, gra = y.ablation_grid(exch_rate_dict)
         """
         # TODO: Don't overwrite model-saved
         print(
@@ -847,6 +869,7 @@ class Yeast8Model:
         x_dim = len(exch1_fluxes)
         y_dim = len(exch2_fluxes)
         ratio_array = np.zeros(shape=(x_dim, y_dim))
+        growthrate_array = np.zeros(shape=(x_dim, y_dim))
         largest_component_array = np.zeros(shape=(x_dim, y_dim), dtype="object")
 
         for x_index, exch1_flux in enumerate(exch1_fluxes):
@@ -889,8 +912,9 @@ class Yeast8Model:
                     ratio_array[x_index, y_index],
                     largest_component_array[x_index, y_index],
                 ) = self.get_ablation_ratio(ablation_result)
+                growthrate_array[x_index, y_index] = ablation_result.ablated_flux[0]
 
-        return ratio_array, largest_component_array
+        return ratio_array, largest_component_array, growthrate_array
 
 
 def compare_fluxes(ymodel1, ymodel2):
@@ -1069,6 +1093,9 @@ def heatmap_ablation_grid(
     ratio_array,
     largest_component_array=None,
     percent_saturation=False,
+    vmin=0,
+    vmax=2,
+    cbar_label="ratio",
 ):
     """Draw heatmap from 2d ablation grid
 
@@ -1092,6 +1119,12 @@ def heatmap_ablation_grid(
     percent_saturation : bool, optional
         Whether to scale axis labels so that the numbers displayed are percent
         of the highest value of the axis (usually saturation).  Default False.
+    vmin : float, optional
+        Minimum of range for colour bar.  Default 0.
+    vmax : float, optional
+        Maximum of range for colour bar.  Default 2.
+    cbar_label : string, optional
+        Label for colour bar.  Default "ratio".
 
     Examples
     --------
@@ -1125,7 +1158,10 @@ def heatmap_ablation_grid(
         annot=annot_input,
         xticklabels=np.around(heatmap_xticklabels, decimals=3),
         yticklabels=np.around(heatmap_yticklabels, decimals=3),
-        cbar_kws={"label": "ratio"},
+        vmin=vmin,
+        vmax=vmax,
+        cmap="RdBu_r",
+        cbar_kws={"label": cbar_label},
         fmt="",
         ax=ax,
     )
