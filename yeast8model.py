@@ -6,6 +6,7 @@ import os
 import pandas as pd
 import seaborn as sns
 
+from copy import copy, deepcopy
 from collections import namedtuple
 from wrapt_timeout_decorator import *
 
@@ -594,7 +595,7 @@ class Yeast8Model:
         if input_model is None:
             # Copy model -- needed to restore the un-ablated model to work with
             # in successive loops
-            model_working = self.model.copy()
+            model_working = deepcopy(self.model)
         else:
             model_working = input_model
 
@@ -621,7 +622,7 @@ class Yeast8Model:
         for biomass_component in self.biomass_component_list:
             if verbose:
                 print(f"Prioritising {biomass_component.metabolite_label}")
-            model_working = self.model.copy()
+            model_working = deepcopy(self.model)
 
             # boilerplate: lookup
             to_ablate = all_metabolite_ids.copy()
