@@ -5,6 +5,7 @@ import numpy as np
 import time
 from yeast8model import (
     Yeast8Model,
+    biomass_component_list_orig,
     compare_fluxes,
     compare_ablation_times,
     get_exch_saturation,
@@ -17,6 +18,7 @@ print("model obj initd")
 glucose_bounds = (-4.75, 0)  # gives a sensible growth rate for wt
 y.add_media_components(["r_1992"])
 y.model.reactions.r_1714.bounds = glucose_bounds
+y.biomass_component_list = biomass_component_list_orig
 print("model obj modified")
 
 sol_orig = y.optimize()
