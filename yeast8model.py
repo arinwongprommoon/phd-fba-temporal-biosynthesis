@@ -599,7 +599,7 @@ class Yeast8Model:
         if input_model is None:
             # Copy model -- needed to restore the un-ablated model to work with
             # in successive loops
-            model_working = self.model
+            model_working = self.model.copy()
         else:
             model_working = input_model
 
