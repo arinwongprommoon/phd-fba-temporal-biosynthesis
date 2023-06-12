@@ -24,15 +24,15 @@ print("model obj modified")
 sol_orig = y.optimize()
 print("optimized")
 
-# start = time.time()
-# penalty_coefficient=0.0
-# y.set_flux_penalty(penalty_coefficient=penalty_coefficient)
-# end = time.time()
-# print(f"penalty set with coeff {penalty_coefficient}")
-# print(f"elapsed time: {end - start} s")
+start = time.time()
+penalty_coefficient = 0.0
+y.set_flux_penalty(penalty_coefficient=penalty_coefficient)
+end = time.time()
+print(f"penalty set with coeff {penalty_coefficient}")
+print(f"elapsed time: {end - start} s")
 
-# sol_pen1 = y.optimize()
-# print("optimized with penalty")
+sol_pen1 = y.optimize()
+print("optimized with penalty")
 
 abl_res = y.ablate()
 # z = Yeast8Model("./models/ecYeastGEMfull.yml")
