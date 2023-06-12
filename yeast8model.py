@@ -319,6 +319,7 @@ class Yeast8Model:
         self.deleted_genes = []
         self.ablation_result = None
 
+        # For set_flux_penalty(); store data to save time.
         self._flux_penalty_sum = None
 
     def reset_to_file(self, hard=False):
