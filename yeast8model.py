@@ -322,6 +322,7 @@ class Yeast8Model:
 
         # For set_flux_penalty(); store data to save time.
         self._flux_penalty_sum = None
+        self._penalty_coefficient = None
 
     def reset_to_file(self, hard=False):
         """Reset model to filepath
@@ -526,6 +527,9 @@ class Yeast8Model:
         self.model.objective = flux_penalty_objective
         # User then uses the optimize() method below to solve it.
 
+        # Save penalty coefficient, useful for ablate()
+        self._penalty_coefficient = penalty_coefficient
+
     def optimize(self, model=None, timeout_time=60):
         # Unlike previous methods, takes a model object as input because I need
         # to re-use this in ablate().
@@ -595,7 +599,7 @@ class Yeast8Model:
         if input_model is None:
             # Copy model -- needed to restore the un-ablated model to work with
             # in successive loops
-            model_working = deepcopy(self.model)
+            model_working = self.model
         else:
             model_working = input_model
 
@@ -636,6 +640,9 @@ class Yeast8Model:
             model_working.reactions.get_by_id(self.biomass_id).subtract_metabolites(
                 to_ablate_dict
             )
+            # set flux penalty, if applicable
+            if self._flux_penalty_sum:
+                self.set_flux_penalty(penalty_coefficient=self._penalty_coefficient)
             # optimise model
             fba_solution = model_working.optimize()
             # store outputs
