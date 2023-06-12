@@ -294,8 +294,6 @@ class Yeast8Model:
         # Space to store model in intermediate steps, to be used by checkpoint
         # and reset_to_checkpoint methods
         self.model_saved = None
-        # self.model is therefore the 'working-copy' of the model,
-        # and self.model_saved can be a backup
 
         self.growth_id = growth_id
         self.biomass_id = biomass_id
@@ -565,7 +563,7 @@ class Yeast8Model:
         except TimeoutError as e:
             print(f"Model optimisation timeout, {timeout_time} s")
 
-    def ablate(self, verbose=True):
+    def ablate(self, input_model=None, verbose=True):
         """Ablate biomass components and get growth rates & doubling times
 
         Ablate components in biomass reaction (i.e. macromolecules like lipids,
@@ -578,6 +576,9 @@ class Yeast8Model:
 
         Parameters
         ----------
+        input.model : cobra.Model object, optional
+            Input model.  If not specified, use the one associated with the
+            object.
         verbose : bool, default True
             Whether to print out which biomass component is being focused.
 
@@ -591,11 +592,18 @@ class Yeast8Model:
             proportional to mass fraction).  Rows: 'original' (un-ablated
             biomass), other rows indicate biomass component.
         """
+        if input_model is None:
+            # Copy model -- needed to restore the un-ablated model to work with
+            # in successive loops
+            model_working = deepcopy(self.model)
+        else:
+            model_working = input_model
+
         print("Biomass component ablation...")
 
         # UN-ABLATED
         print("Original")
-        fba_solution = self.optimize()
+        fba_solution = self.optimize(model_working)
         original_flux = fba_solution.fluxes[self.growth_id]
         original_est_time = np.log(2) / original_flux
         # ABLATED
@@ -619,17 +627,17 @@ class Yeast8Model:
             to_ablate = all_metabolite_ids.copy()
             to_ablate.remove(biomass_component.metabolite_id)
             to_ablate_keys = [
-                self.model.metabolites.get_by_id(metabolite_id)
+                model_working.metabolites.get_by_id(metabolite_id)
                 for metabolite_id in to_ablate
             ]
             to_ablate_dict = dict(zip(to_ablate_keys, [-1] * len(to_ablate_keys)))
 
             # ablate metabolites from biomass reaction
-            self.model.reactions.get_by_id(self.biomass_id).subtract_metabolites(
+            model_working.reactions.get_by_id(self.biomass_id).subtract_metabolites(
                 to_ablate_dict
             )
             # optimise model
-            fba_solution = self.model.optimize()
+            fba_solution = model_working.optimize()
             # store outputs
             biomass_component.ablated_flux = fba_solution.fluxes[self.growth_id]
             biomass_component.get_est_time()
@@ -637,7 +645,7 @@ class Yeast8Model:
             # restore metabolites after ablation
             # Using this rather than defining a variable to restore values to
             # because keys of metabolites dict are objects with addresses.
-            self.model.reactions.get_by_id(self.biomass_id).add_metabolites(
+            model_working.reactions.get_by_id(self.biomass_id).add_metabolites(
                 to_ablate_dict
             )
 
@@ -871,24 +879,23 @@ class Yeast8Model:
         growthrate_array = np.zeros(shape=(x_dim, y_dim))
         largest_component_array = np.zeros(shape=(x_dim, y_dim), dtype="object")
 
-        print("Warning: working model (model attribute) will be modified.")
         for x_index, exch1_flux in enumerate(exch1_fluxes):
             for y_index, exch2_flux in enumerate(exch2_fluxes):
-                self.model = self.model_saved.copy()
+                model_working = self.model_saved
                 # block glucose
-                self.model.reactions.get_by_id("r_1714").bounds = (0, 0)
+                model_working.reactions.get_by_id("r_1714").bounds = (0, 0)
                 try:
-                    self.model.reactions.get_by_id("r_1714_REV").bounds = (0, 0)
+                    model_working.reactions.get_by_id("r_1714_REV").bounds = (0, 0)
                 except KeyError as e:
                     print("r_1714_REV not found, ignoring in glucose-blocking step")
                 # set bounds
-                self.model.reactions.get_by_id(exch1_id).bounds = (-exch1_flux, 0)
-                self.model.reactions.get_by_id(exch2_id).bounds = (-exch2_flux, 0)
+                model_working.reactions.get_by_id(exch1_id).bounds = (-exch1_flux, 0)
+                model_working.reactions.get_by_id(exch2_id).bounds = (-exch2_flux, 0)
                 # deal with reversible exchange reactions, with
                 # error handling in case these reactions don't exist
                 try:
                     exch1_id_rev = exch1_id + "_REV"
-                    self.model.reactions.get_by_id(exch1_id_rev).bounds = (
+                    model_working.reactions.get_by_id(exch1_id_rev).bounds = (
                         0,
                         exch1_flux,
                     )
@@ -898,7 +905,7 @@ class Yeast8Model:
                     )
                 try:
                     exch2_id_rev = exch2_id + "_REV"
-                    self.model.reactions.get_by_id(exch2_id_rev).bounds = (
+                    model_working.reactions.get_by_id(exch2_id_rev).bounds = (
                         0,
                         exch2_flux,
                     )
@@ -907,7 +914,7 @@ class Yeast8Model:
                         f"Error-- reversible exchange reaction {exch2_id_rev} not found. Ignoring."
                     )
 
-                ablation_result = self.ablate(verbose=False)
+                ablation_result = self.ablate(input_model=model_working, verbose=False)
                 (
                     ratio_array[x_index, y_index],
                     largest_component_array[x_index, y_index],
