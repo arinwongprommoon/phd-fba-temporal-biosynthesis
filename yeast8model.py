@@ -622,7 +622,6 @@ class Yeast8Model:
         for biomass_component in self.biomass_component_list:
             if verbose:
                 print(f"Prioritising {biomass_component.metabolite_label}")
-            model_working = deepcopy(self.model)
 
             # boilerplate: lookup
             to_ablate = all_metabolite_ids.copy()
@@ -642,6 +641,13 @@ class Yeast8Model:
             # store outputs
             biomass_component.ablated_flux = fba_solution.fluxes[self.growth_id]
             biomass_component.get_est_time()
+
+            # restore metabolites after ablation
+            # Using this rather than defining a variable to restore values to
+            # because keys of metabolites dict are objects with addresses.
+            model_working.reactions.get_by_id(self.biomass_id).add_metabolites(
+                to_ablate_dict
+            )
 
         # construct output dataframe
         d = {
