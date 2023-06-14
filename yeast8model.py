@@ -645,6 +645,10 @@ class Yeast8Model:
             ]
             to_ablate_dict = dict(zip(to_ablate_keys, [-1] * len(to_ablate_keys)))
 
+            print("before ablation")
+            pprint.pprint(
+                model_working.reactions.get_by_id(self.biomass_id)._metabolites
+            )
             # ablate metabolites from biomass reaction
             model_working.reactions.get_by_id(self.biomass_id).subtract_metabolites(
                 to_ablate_dict
@@ -655,6 +659,7 @@ class Yeast8Model:
             )
             # optimise model
             fba_solution = model_working.optimize()
+            print("model optimized")
             # store outputs
             biomass_component.ablated_flux = fba_solution.fluxes[self.growth_id]
             biomass_component.get_est_time()
