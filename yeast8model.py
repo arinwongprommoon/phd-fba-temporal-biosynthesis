@@ -566,7 +566,7 @@ class Yeast8Model:
         except TimeoutError as e:
             print(f"Model optimisation timeout, {timeout_time} s")
 
-    def ablate(self, input_model=None, verbose=True):
+    def ablate(self, input_model=None):
         """Ablate biomass components and get growth rates & doubling times
 
         Ablate components in biomass reaction (i.e. macromolecules like lipids,
@@ -582,8 +582,6 @@ class Yeast8Model:
         input.model : cobra.Model object, optional
             Input model.  If not specified, use the one associated with the
             object.
-        verbose : bool, default True
-            Whether to print out which biomass component is being focused.
 
         Returns
         -------
@@ -602,10 +600,7 @@ class Yeast8Model:
         else:
             model_working = input_model
 
-        print("Biomass component ablation...")
-
         # UN-ABLATED
-        print("Original")
         fba_solution = self.optimize(model_working)
         original_flux = fba_solution.fluxes[self.growth_id]
         original_est_time = np.log(2) / original_flux
@@ -623,9 +618,6 @@ class Yeast8Model:
         all_pseudoreaction_ids.append(("objective", self.growth_id))
         # Loop
         for biomass_component in self.biomass_component_list:
-            if verbose:
-                print(f"Prioritising {biomass_component.metabolite_label}")
-
             # boilerplate: lookup
             to_ablate = all_metabolite_ids.copy()
             to_ablate.remove(biomass_component.metabolite_id)
@@ -680,7 +672,6 @@ class Yeast8Model:
                 for biomass_component in self.biomass_component_list
             ],
         }
-        print("Ablation done.")
         return pd.DataFrame(data=d)
 
     def ablation_barplot(self, ax, ablation_result=None):
@@ -916,7 +907,7 @@ class Yeast8Model:
                         f"Error-- reversible exchange reaction {exch2_id_rev} not found. Ignoring."
                     )
 
-                ablation_result = self.ablate(input_model=model_working, verbose=False)
+                ablation_result = self.ablate(input_model=model_working)
                 (
                     ratio_array[x_index, y_index],
                     largest_component_array[x_index, y_index],
