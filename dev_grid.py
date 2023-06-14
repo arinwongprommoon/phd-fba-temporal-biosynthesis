@@ -14,8 +14,8 @@ wt_ec.model.reactions.get_by_id("r_1714").bounds = (-glc_exch_rate, 0)
 wt_ec.model.reactions.get_by_id("r_1714_REV").bounds = (0, glc_exch_rate)
 
 exch_rate_dict = {
-    "r_1714": np.linspace(0, 2 * 8.45, 8),  # glucose
-    "r_1654": np.linspace(0, 2 * 1.45, 8),  # ammonium
+    "r_1714": np.linspace(0, 2 * 8.45, 3),  # glucose
+    "r_1654": np.linspace(0, 2 * 1.45, 3),  # ammonium
 }
 ratio_array, largest_component_array, growthrate_array = wt_ec.ablation_grid(
     exch_rate_dict
