@@ -4,10 +4,8 @@ import cobra
 import numpy as np
 import os
 import pandas as pd
-import pprint
 import seaborn as sns
 
-from copy import copy, deepcopy
 from collections import namedtuple
 from wrapt_timeout_decorator import *
 
@@ -628,14 +626,6 @@ class Yeast8Model:
             if verbose:
                 print(f"Prioritising {biomass_component.metabolite_label}")
 
-            # DEBUG
-            model_working = deepcopy(self.model)
-            print("bounds")
-            print(model_working.reactions.get_by_id("r_1714").bounds)
-            print(model_working.reactions.get_by_id("r_1714_REV").bounds)
-            print(model_working.reactions.get_by_id("r_1654").bounds)
-            print(model_working.reactions.get_by_id("r_1654_REV").bounds)
-
             # boilerplate: lookup
             to_ablate = all_metabolite_ids.copy()
             to_ablate.remove(biomass_component.metabolite_id)
@@ -645,37 +635,22 @@ class Yeast8Model:
             ]
             to_ablate_dict = dict(zip(to_ablate_keys, [-1] * len(to_ablate_keys)))
 
-            print("before ablation")
-            pprint.pprint(
-                model_working.reactions.get_by_id(self.biomass_id)._metabolites
-            )
             # ablate metabolites from biomass reaction
             model_working.reactions.get_by_id(self.biomass_id).subtract_metabolites(
                 to_ablate_dict
             )
-            print("after ablation")
-            pprint.pprint(
-                model_working.reactions.get_by_id(self.biomass_id)._metabolites
-            )
             # optimise model
             fba_solution = model_working.optimize()
-            print("model optimized")
             # store outputs
             biomass_component.ablated_flux = fba_solution.fluxes[self.growth_id]
             biomass_component.get_est_time()
 
-            if False:
-                # restore metabolites after ablation
-                # Using this rather than defining a variable to restore values to
-                # because keys of metabolites dict are objects with addresses.
-                model_working.reactions.get_by_id(self.biomass_id).add_metabolites(
-                    to_ablate_dict
-                )
-                print("after restore")
-                pprint.pprint(
-                    model_working.reactions.get_by_id(self.biomass_id)._metabolites
-                )
-
+            # restore metabolites after ablation
+            # Using this rather than defining a variable to restore values to
+            # because keys of metabolites dict are objects with addresses.
+            model_working.reactions.get_by_id(self.biomass_id).add_metabolites(
+                to_ablate_dict
+            )
         # construct output dataframe
         d = {
             "priority_component": ["original"]
