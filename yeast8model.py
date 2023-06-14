@@ -628,6 +628,14 @@ class Yeast8Model:
             if verbose:
                 print(f"Prioritising {biomass_component.metabolite_label}")
 
+            # DEBUG
+            model_working = deepcopy(self.model)
+            print("bounds")
+            print(model_working.reactions.get_by_id("r_1714").bounds)
+            print(model_working.reactions.get_by_id("r_1714_REV").bounds)
+            print(model_working.reactions.get_by_id("r_1654").bounds)
+            print(model_working.reactions.get_by_id("r_1654_REV").bounds)
+
             # boilerplate: lookup
             to_ablate = all_metabolite_ids.copy()
             to_ablate.remove(biomass_component.metabolite_id)
