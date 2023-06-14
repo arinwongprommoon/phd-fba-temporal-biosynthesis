@@ -6,7 +6,6 @@ import os
 import pandas as pd
 import seaborn as sns
 
-from copy import copy, deepcopy
 from collections import namedtuple
 from wrapt_timeout_decorator import *
 
@@ -652,7 +651,6 @@ class Yeast8Model:
             model_working.reactions.get_by_id(self.biomass_id).add_metabolites(
                 to_ablate_dict
             )
-
         # construct output dataframe
         d = {
             "priority_component": ["original"]
@@ -885,7 +883,7 @@ class Yeast8Model:
 
         for x_index, exch1_flux in enumerate(exch1_fluxes):
             for y_index, exch2_flux in enumerate(exch2_fluxes):
-                model_working = self.model_saved
+                model_working = self.model_saved.copy()
                 # block glucose
                 model_working.reactions.get_by_id("r_1714").bounds = (0, 0)
                 try:
