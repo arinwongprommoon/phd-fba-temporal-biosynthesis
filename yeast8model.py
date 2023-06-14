@@ -4,6 +4,7 @@ import cobra
 import numpy as np
 import os
 import pandas as pd
+import pprint
 import seaborn as sns
 
 from copy import copy, deepcopy
@@ -640,6 +641,10 @@ class Yeast8Model:
             model_working.reactions.get_by_id(self.biomass_id).subtract_metabolites(
                 to_ablate_dict
             )
+            print("after ablation")
+            pprint.pprint(
+                model_working.reactions.get_by_id(self.biomass_id)._metabolites
+            )
             # optimise model
             fba_solution = model_working.optimize()
             # store outputs
@@ -651,6 +656,10 @@ class Yeast8Model:
             # because keys of metabolites dict are objects with addresses.
             model_working.reactions.get_by_id(self.biomass_id).add_metabolites(
                 to_ablate_dict
+            )
+            print("after restore")
+            pprint.pprint(
+                model_working.reactions.get_by_id(self.biomass_id)._metabolites
             )
 
         # construct output dataframe
