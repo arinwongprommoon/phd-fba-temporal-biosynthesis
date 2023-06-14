@@ -874,7 +874,8 @@ class Yeast8Model:
 
         for x_index, exch1_flux in enumerate(exch1_fluxes):
             for y_index, exch2_flux in enumerate(exch2_fluxes):
-                model_working = self.model_saved.copy()
+                #model_working = self.model_saved.copy()
+                model_working = self.model_saved
                 # block glucose
                 model_working.reactions.get_by_id("r_1714").bounds = (0, 0)
                 try:
