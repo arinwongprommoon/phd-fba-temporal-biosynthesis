@@ -966,6 +966,63 @@ def compare_fluxes(ymodel1, ymodel2):
     return diff_fluxes_sorted
 
 
+def get_exch_saturation(ymodel, exch_id, exch_rates, remove_glucose=True):
+    """Get exchange reaction saturation curve
+
+    Get exchange reaction saturation curve. Varies exchange reaction uptake
+    value and optimises for growth at each uptake value.
+
+    Parameters
+    ----------
+    ymodel : Yeast8Model object
+        Model.
+    exch_id : string
+        Reaction ID of exchange reaction.
+    exch_rates : array-like
+        List of uptake values to use.
+    remove_glucose : bool
+        Whether to remove glucose from media.  Useful if investigating carbon
+        sources.
+
+    Examples
+    --------
+    y = Yeast8Model("./models/ecYeastGEM_batch_8-6-0.xml")
+    glc_exch_rates = np.linspace(0, 18.6, 10)
+    grs = get_exch_saturation(y, "r_1714", glc_exch_rates)
+
+    import matplotlib.pyplot as plt
+    plt.plot(glc_exchrates, grs)
+    """
+    # Check for _REV rxn
+    exch_id_rev = exch_id + "_REV"
+    try:
+        exch_rev = ymodel.model.reactions.get_by_id(exch_id_rev)
+        print(
+            f"Reversible exchange reaction {exch_id_rev} found and taken into account."
+        )
+        exch_rev_present = True
+    except KeyError as e:
+        print(
+            f"Error-- reversible exchange reaction {exch_id_rev} not found. Ignoring."
+        )
+        exch_rev_present = False
+
+    # Kill glucose
+    if remove_glucose:
+        ymodel.remove_media_components(["r_1714", "r_1714_REV"])
+
+    growthrates = []
+    for exch_rate in exch_rates:
+        # negative due to FBA conventions re exchange reactions
+        ymodel.model.reactions.get_by_id(exch_id).bounds = (-exch_rate, 0)
+        # positive due to FBA conventions re reversible reaction
+        if exch_rev_present:
+            exch_rev.bounds = (0, exch_rate)
+        ymodel.solution = ymodel.optimize()
+        growthrates.append(ymodel.solution.fluxes[ymodel.growth_id])
+    return growthrates
+
+
 def compare_ablation_times(ablation_result1, ablation_result2, ax):
     """Compare two ablation study results
 
@@ -1040,51 +1097,6 @@ def compare_ablation_times(ablation_result1, ablation_result2, ax):
     ax.set_xlabel("Biomass component")
     ax.set_ylabel("log2 fold change of estimated time")
     ax.legend()
-
-
-def _bar_vals_from_ablation_df(ablation_result):
-    """Get values for bar plots from ablation result DataFrame
-
-    Takes DataFrame output from Yeast8Model.ablate() and reformats the data for
-    use with bar plots. Specifically, computes the sum of times predicted from
-    ablating the biomass reaction.
-
-    Parameters
-    ----------
-    ablation_result : pandas.DataFrame object
-        Results of ablation study.  Columns: 'priority component' (biomass
-        component being prioritised), 'ablated_flux' (flux of ablated
-        biomass reaction), 'ablated_est_time' (estimated doubling time based
-        on flux), 'proportional_est_time' (estimated biomass synthesis time,
-        proportional to mass fraction).  Rows: 'original' (un-ablated
-        biomass), other rows indicate biomass component.
-
-    Returns
-    -------
-    values_ablated : list of float
-        List of estimated times predicted from ablating biomass reaction.  First
-        element is the sum of times.  Subsequent elements are estimated times
-        from focusing on each biomass component in turn.
-    values_proportion : list of float
-        List of estimated times based on proportion of estimated doubling time
-        based on mass fractions of biomass components.  First element is the
-        doubling time based on growth rate (i.e. flux of un-ablated biomass
-        reaction).  Subsequent elements are proportional times.
-    """
-    # sum of times
-    sum_of_times = ablation_result.loc[
-        ablation_result.priority_component != "original",
-        ablation_result.columns == "ablated_est_time",
-    ].sum()
-    # get element
-    sum_of_times = sum_of_times[0]
-    # ablated
-    values_ablated = ablation_result.ablated_est_time.to_list()
-    values_ablated[0] = sum_of_times
-    # proportion
-    values_proportion = ablation_result.proportional_est_time.to_list()
-
-    return values_ablated, values_proportion
 
 
 def heatmap_ablation_grid(
@@ -1169,58 +1181,46 @@ def heatmap_ablation_grid(
     ax.set_ylabel(list(exch_rate_dict.keys())[1])
 
 
-def get_exch_saturation(ymodel, exch_id, exch_rates, remove_glucose=True):
-    """Get exchange reaction saturation curve
+def _bar_vals_from_ablation_df(ablation_result):
+    """Get values for bar plots from ablation result DataFrame
 
-    Get exchange reaction saturation curve. Varies exchange reaction uptake
-    value and optimises for growth at each uptake value.
+    Takes DataFrame output from Yeast8Model.ablate() and reformats the data for
+    use with bar plots. Specifically, computes the sum of times predicted from
+    ablating the biomass reaction.
 
     Parameters
     ----------
-    ymodel : Yeast8Model object
-        Model.
-    exch_id : string
-        Reaction ID of exchange reaction.
-    exch_rates : array-like
-        List of uptake values to use.
-    remove_glucose : bool
-        Whether to remove glucose from media.  Useful if investigating carbon
-        sources.
+    ablation_result : pandas.DataFrame object
+        Results of ablation study.  Columns: 'priority component' (biomass
+        component being prioritised), 'ablated_flux' (flux of ablated
+        biomass reaction), 'ablated_est_time' (estimated doubling time based
+        on flux), 'proportional_est_time' (estimated biomass synthesis time,
+        proportional to mass fraction).  Rows: 'original' (un-ablated
+        biomass), other rows indicate biomass component.
 
-    Examples
-    --------
-    y = Yeast8Model("./models/ecYeastGEM_batch_8-6-0.xml")
-    glc_exch_rates = np.linspace(0, 18.6, 10)
-    grs = get_exch_saturation(y, "r_1714", glc_exch_rates)
-
-    import matplotlib.pyplot as plt
-    plt.plot(glc_exchrates, grs)
+    Returns
+    -------
+    values_ablated : list of float
+        List of estimated times predicted from ablating biomass reaction.  First
+        element is the sum of times.  Subsequent elements are estimated times
+        from focusing on each biomass component in turn.
+    values_proportion : list of float
+        List of estimated times based on proportion of estimated doubling time
+        based on mass fractions of biomass components.  First element is the
+        doubling time based on growth rate (i.e. flux of un-ablated biomass
+        reaction).  Subsequent elements are proportional times.
     """
-    # Check for _REV rxn
-    exch_id_rev = exch_id + "_REV"
-    try:
-        exch_rev = ymodel.model.reactions.get_by_id(exch_id_rev)
-        print(
-            f"Reversible exchange reaction {exch_id_rev} found and taken into account."
-        )
-        exch_rev_present = True
-    except KeyError as e:
-        print(
-            f"Error-- reversible exchange reaction {exch_id_rev} not found. Ignoring."
-        )
-        exch_rev_present = False
+    # sum of times
+    sum_of_times = ablation_result.loc[
+        ablation_result.priority_component != "original",
+        ablation_result.columns == "ablated_est_time",
+    ].sum()
+    # get element
+    sum_of_times = sum_of_times[0]
+    # ablated
+    values_ablated = ablation_result.ablated_est_time.to_list()
+    values_ablated[0] = sum_of_times
+    # proportion
+    values_proportion = ablation_result.proportional_est_time.to_list()
 
-    # Kill glucose
-    if remove_glucose:
-        ymodel.remove_media_components(["r_1714", "r_1714_REV"])
-
-    growthrates = []
-    for exch_rate in exch_rates:
-        # negative due to FBA conventions re exchange reactions
-        ymodel.model.reactions.get_by_id(exch_id).bounds = (-exch_rate, 0)
-        # positive due to FBA conventions re reversible reaction
-        if exch_rev_present:
-            exch_rev.bounds = (0, exch_rate)
-        ymodel.solution = ymodel.optimize()
-        growthrates.append(ymodel.solution.fluxes[ymodel.growth_id])
-    return growthrates
+    return values_ablated, values_proportion
