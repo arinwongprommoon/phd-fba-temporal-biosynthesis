@@ -36,3 +36,16 @@ v = model_opt.v;
 %% regularised FBA
 model_opt = optimizeCbModel(model1,'max',1e-6);
 v = model_opt.v; 
+
+%% loop regularised FBA
+reg_coeff_array = linspace(1e-6, 1e-5, 20);
+solutions_array = zeros(1, length(reg_coeff_array));
+for idx = 1:length(solutions_array)
+    model_opt = optimizeCbModel(model1, 'max', reg_coeff_array(idx));
+    solutions_array(idx) = model_opt.f;
+end
+
+%% plot
+plot(reg_coeff_array, solutions_array);
+xlabel('Regularisation coefficient ($\sigma$)', 'Interpreter', 'latex');
+ylabel('Optimal growth rate (h^{-1})');
