@@ -17,22 +17,22 @@ sbmlPath = './models/yeast-GEM_8-6-0.xml';
 model = readCbModel(sbmlPath);
 
 %% modify model
-
 % change reaction bounds where necessary
-% this code is copied from Denise and hasn't been adapted to ecYeast8.6.0
-% FIXME: adapt
+
 model1 = model;
-model1 = changeRxnBounds(model1,model.rxns(687),0.005,'b'); %D-Lactate release
-model1 = changeRxnBounds(model1,model.rxns(3446),-10,'b'); %O2 uptake
+% glucose uptake
+model1 = changeRxnBounds(model1, 'r_1714', -4.75, 'l')
+% oxygen uptake
+model1 = changeRxnBounds(model1, 'r_1992', -1000, 'l')
 
 %% vanilla FBA
-model_opt = optimizeCbModel(model);
+model_opt = optimizeCbModel(model1);
 v = model_opt.v; 
 
 %% minimise taxicab norm
-model_opt = optimizeCbModel(model,'max','one');
+model_opt = optimizeCbModel(model1,'max','one');
 v = model_opt.v; 
 
 %% regularised FBA
-model_opt = optimizeCbModel(model,'max',1e-6);
+model_opt = optimizeCbModel(model1,'max',1e-6);
 v = model_opt.v; 
