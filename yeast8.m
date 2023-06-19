@@ -38,14 +38,24 @@ model_opt = optimizeCbModel(model1,'max',1e-6);
 v = model_opt.v; 
 
 %% loop regularised FBA
-reg_coeff_array = linspace(1e-6, 1e-5, 20);
+% TODO: test code
+reg_coeff_array = logspace(1e-6, 1e-1, 10);
 solutions_array = zeros(1, length(reg_coeff_array));
+sum_fluxes_array = zeros(1, length(reg_coeff_array));
 for idx = 1:length(solutions_array)
     model_opt = optimizeCbModel(model1, 'max', reg_coeff_array(idx));
     solutions_array(idx) = model_opt.f;
+    sum_fluxes_array(idx) = sum(model_opt.v);
 end
 
-%% plot
-plot(reg_coeff_array, solutions_array);
+%% plot effect on growth rate
+% TODO: test code
+semilogx(reg_coeff_array, solutions_array);
+xlabel('Regularisation coefficient ($\sigma$)', 'Interpreter', 'latex');
+ylabel('Optimal growth rate (h^{-1})');
+
+%% plot effect on sum of fluxes
+% TODO: test code
+semilogx(reg_coeff_array, solutions_array);
 xlabel('Regularisation coefficient ($\sigma$)', 'Interpreter', 'latex');
 ylabel('Optimal growth rate (h^{-1})');
