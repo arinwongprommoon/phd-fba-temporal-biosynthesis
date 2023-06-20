@@ -3,6 +3,7 @@
 import cobra
 import numpy as np
 import os
+import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 
@@ -1235,6 +1236,33 @@ def heatmap_ablation_grid(
     )
     ax.set_xlabel(list(exch_rate_dict.keys())[0])
     ax.set_ylabel(list(exch_rate_dict.keys())[1])
+
+
+# TODO: Add exch_rate_dict as an argument, solely for axis labels
+def piechart_ablation_grid(
+    ax,
+    ablation_result_array,
+):
+    nrows, ncols = ablation_result_array.shape
+    fig, ax = plt.subplots(nrows, ncols)
+
+    # TODO: add extra columns for text/labels, adjust indices accordingly
+    # TODO: rotate the plot by modifying indices
+    for row_idx in range(nrows):
+        ax[row_idx, 0].set_axis_off()
+        for col_idx in range(ncols):
+            # TODO: play with text/labels
+            ablation_result = ablation_result_array[row_idx, col_idx]
+            ablation_times_df = ablation_result.loc[
+                ablation_result.priority_component != "original",
+                ablation_result.columns == "ablated_est_time",
+            ]
+            ablation_times = ablation_times_df.to_numpy().T[0]
+            # TODO: skip drawing pie chart when things are weird, e.g.
+            # negative values (tends to happen if either exchange rate is 0)
+            ax[row_idx, col_idx].pie(ablation_times)
+    # TODO: add legend to indicate which colour represents each biomass
+    # component
 
 
 def _bar_vals_from_ablation_df(ablation_result):
