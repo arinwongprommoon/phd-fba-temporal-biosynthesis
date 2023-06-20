@@ -46,10 +46,10 @@ largest_component_array = vget_ablation_largest_component(ablation_result_array)
 
 breakpoint()
 
-# fig, ax = plt.subplots()
-# heatmap_ablation_grid(ax, exch_rate_dict, ratio_array, percent_saturation=True)
-# ax.set_xlabel("Glucose exchange (% max = 16.9)")
-# ax.set_ylabel("Ammonium exchange (% max = 2.9)")
-# plt.show()
+fig, ax = plt.subplots()
+heatmap_ablation_grid(ax, exch_rate_dict, ratio_array, percent_saturation=True)
+ax.set_xlabel("Glucose exchange (% max = 16.9)")
+ax.set_ylabel("Ammonium exchange (% max = 2.9)")
+plt.show()
 
 breakpoint()
