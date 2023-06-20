@@ -1243,11 +1243,12 @@ def piechart_ablation_grid(
     ax,
     ablation_result_array,
 ):
+    ablation_result_array = np.rot90(ablation_result_array)
+
     nrows, ncols = ablation_result_array.shape
     fig, ax = plt.subplots(nrows, ncols)
 
     # TODO: add extra columns for text/labels, adjust indices accordingly
-    # TODO: rotate the plot by modifying indices
     for row_idx in range(nrows):
         ax[row_idx, 0].set_axis_off()
         for col_idx in range(ncols):
