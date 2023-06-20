@@ -766,16 +766,12 @@ class Yeast8Model:
 
         Returns
         -------
-        ratio_array : 2-dimensional numpy.ndarray of floats
-            Array of ablation ratios.  Indexing follows the exchange reaction
+        ablation_result_array : 2-dimensional numpy.ndarray of objects
+            Array of ablation result DataFrames.
+            Indexing follows the exchange reaction
             arrays in the input exch_rate_dict, i.e. ratio_array[x][y]
             corresponds to exch_rate_dict['r_exch_rxn_1'][x] and
             exch_rate_dict['r_exch_rxn_2'][y].
-        largest_component_array : 2-dimensional numpy.ndarray of objects
-            Array of strings that represent the largest biomass component.
-            Indexing follows ratio_array.
-        growthrate_array : 2-dimensional numpy.ndarray of floats
-            Array of growth rates.  Indexing follows ratio_array.
 
         Examples
         --------
@@ -788,8 +784,8 @@ class Yeast8Model:
             "r_1654": np.linspace(0, 18, 2),
         }
 
-        # Construct arrays
-        ra, la, gra = y.ablation_grid(exch_rate_dict)
+        # Construct array
+        ara = y.ablation_grid(exch_rate_dict)
         """
         # TODO: Don't overwrite model-saved
         print(
@@ -810,12 +806,9 @@ class Yeast8Model:
         exch2_id = list(exch_rate_dict.keys())[1]
         exch1_fluxes = list(exch_rate_dict.values())[0]
         exch2_fluxes = list(exch_rate_dict.values())[1]
-        # define output arrays
+        # define output array
         x_dim = len(exch1_fluxes)
         y_dim = len(exch2_fluxes)
-        # ratio_array = np.zeros(shape=(x_dim, y_dim))
-        # growthrate_array = np.zeros(shape=(x_dim, y_dim))
-        # largest_component_array = np.zeros(shape=(x_dim, y_dim), dtype="object")
         ablation_result_array = np.zeros(shape=(x_dim, y_dim), dtype="object")
 
         for x_index, exch1_flux in enumerate(exch1_fluxes):
@@ -855,14 +848,8 @@ class Yeast8Model:
                     )
 
                 ablation_result = self.ablate(input_model=model_working)
-                # (
-                #     ratio_array[x_index, y_index],
-                #     largest_component_array[x_index, y_index],
-                # ) = self.get_ablation_ratio(ablation_result)
-                # growthrate_array[x_index, y_index] = ablation_result.ablated_flux[0]
                 ablation_result_array[x_index, y_index] = ablation_result
 
-        # return ratio_array, largest_component_array, growthrate_array
         return ablation_result_array
 
 
@@ -1049,26 +1036,6 @@ def compare_ablation_times(ablation_result1, ablation_result2, ax):
 
 
 def get_ablation_ratio(ablation_result):
-    ratio, _ = _get_ablation_ratio_component(ablation_result)
-    return ratio
-
-
-def get_ablation_largest_component(ablation_result):
-    _, largest_component = _get_ablation_ratio_component(ablation_result)
-    return largest_component
-
-
-@np.vectorize
-def vget_ablation_ratio(ablation_result_array):
-    return get_ablation_ratio(ablation_result_array)
-
-
-@np.vectorize
-def vget_ablation_largest_component(ablation_result_array):
-    return get_ablation_largest_component(ablation_result_array)
-
-
-def _get_ablation_ratio_component(ablation_result):
     """Get ratio to represent ablation study
 
     Get ratio between sum of times from ablation and longest time from
@@ -1089,6 +1056,78 @@ def _get_ablation_ratio_component(ablation_result):
     FIXME: Add docs.
 
     """
+    ratio, _ = _get_ablation_ratio_component(ablation_result)
+    return ratio
+
+
+def get_ablation_largest_component(ablation_result):
+    """Get largest component from proportional estimation in ablation study
+
+
+    Parameters
+    ----------
+    ablation_result : pandas.DataFrame object
+        Results of ablation study.  Columns: 'priority component' (biomass
+        component being prioritised), 'ablated_flux' (flux of ablated
+        biomass reaction), 'ablated_est_time' (estimated doubling time based
+        on flux), 'proportional_est_time' (estimated biomass synthesis time,
+        proportional to mass fraction).  Rows: 'original' (un-ablated
+        biomass), other rows indicate biomass component.
+
+    Examples
+    --------
+    FIXME: Add docs.
+
+    """
+    _, largest_component = _get_ablation_ratio_component(ablation_result)
+    return largest_component
+
+
+@np.vectorize
+def vget_ablation_ratio(ablation_result_array):
+    """Get ratio to represent ablation study, apply to an array
+
+    Get ratio between sum of times from ablation and longest time from
+    proportional estimation, as a summary of ablation study.
+
+    This is a vectorised version of get_ablation_ratio(), for convenience.
+
+    Parameters
+    ----------
+    ablation_result_array : 2-dimensional numpy.ndarray of objects
+        Array of ablation result DataFrames.
+
+    Examples
+    --------
+    FIXME: Add docs.
+
+    """
+    return get_ablation_ratio(ablation_result_array)
+
+
+@np.vectorize
+def vget_ablation_largest_component(ablation_result_array):
+    """Get largest component from proportional estimation, apply to an array
+
+    Get largest component from proportional estimation in ablation study
+
+    This is a vectorised version of get_ablation_largest_component(), for
+    convenience.
+
+    Parameters
+    ----------
+    ablation_result_array : 2-dimensional numpy.ndarray of objects
+        Array of ablation result DataFrames.
+
+    Examples
+    --------
+    FIXME: Add docs.
+
+    """
+    return get_ablation_largest_component(ablation_result_array)
+
+
+def _get_ablation_ratio_component(ablation_result):
     # sum of times (ablated)
     sum_of_times = ablation_result.loc[
         ablation_result.priority_component != "original",
