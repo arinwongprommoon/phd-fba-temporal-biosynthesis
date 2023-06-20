@@ -10,8 +10,8 @@ from yeast8model import (
     heatmap_ablation_grid,
     get_ablation_ratio,
     get_ablation_largest_component,
-    get_ablation_ratio,
-    get_ablation_largest_component,
+    vget_ablation_ratio,
+    vget_ablation_largest_component,
 )
 
 glc_exch_rate = 16.89
@@ -41,10 +41,7 @@ print(ablation_result_array)
 
 breakpoint()
 
-vget_ablation_ratio = np.vectorize(get_ablation_ratio)
 ratio_array = vget_ablation_ratio(ablation_result_array)
-
-vget_ablation_largest_component = np.vectorize(get_ablation_largest_component)
 largest_component_array = vget_ablation_largest_component(ablation_result_array)
 
 breakpoint()

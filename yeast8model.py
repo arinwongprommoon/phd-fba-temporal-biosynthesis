@@ -1058,6 +1058,16 @@ def get_ablation_largest_component(ablation_result):
     return largest_component
 
 
+@np.vectorize
+def vget_ablation_ratio(ablation_result_array):
+    return get_ablation_ratio(ablation_result_array)
+
+
+@np.vectorize
+def vget_ablation_largest_component(ablation_result_array):
+    return get_ablation_largest_component(ablation_result_array)
+
+
 def _get_ablation_ratio_component(ablation_result):
     """Get ratio to represent ablation study
 
