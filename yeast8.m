@@ -29,33 +29,55 @@ model1 = changeRxnBounds(model1, 'r_1992', -1000, 'l')
 model_opt = optimizeCbModel(model1);
 v = model_opt.v; 
 
+disp(model_opt.f);
+disp(sum(abs(model_opt.v)));
+
 %% minimise taxicab norm
 model_opt = optimizeCbModel(model1,'max','one');
-v = model_opt.v; 
+v = model_opt.v;
+
+disp(model_opt.f);
+disp(model_opt.f1);
+disp(sum(abs(model_opt.v)));
 
 %% regularised FBA
 model_opt = optimizeCbModel(model1,'max',1e-6);
-v = model_opt.v; 
+v = model_opt.v;
 
 %% loop regularised FBA
-% TODO: test code
-reg_coeff_array = logspace(1e-6, 1e-1, 10);
+reg_coeff_array = logspace(-12, -1, 200);
 solutions_array = zeros(1, length(reg_coeff_array));
+f2_array = zeros(1, length(reg_coeff_array));
 sum_fluxes_array = zeros(1, length(reg_coeff_array));
 for idx = 1:length(solutions_array)
     model_opt = optimizeCbModel(model1, 'max', reg_coeff_array(idx));
     solutions_array(idx) = model_opt.f;
-    sum_fluxes_array(idx) = sum(model_opt.v);
+    f2_array(idx) = model_opt.f2;
+    sum_fluxes_array(idx) = sum(abs(model_opt.v));
 end
 
-%% plot effect on growth rate
-% TODO: test code
-semilogx(reg_coeff_array, solutions_array);
-xlabel('Regularisation coefficient ($\sigma$)', 'Interpreter', 'latex');
-ylabel('Optimal growth rate (h^{-1})');
+%% plots
 
-%% plot effect on sum of fluxes
-% TODO: test code
+tiledlayout(3,1);
+
+% effect on growth rate
+nexttile;
 semilogx(reg_coeff_array, solutions_array);
 xlabel('Regularisation coefficient ($\sigma$)', 'Interpreter', 'latex');
-ylabel('Optimal growth rate (h^{-1})');
+ylabel('Optimal growth rate [h^{-1}]');
+
+% effect on second objective
+% (squared Euclidean norm of internal fluxes)
+nexttile;
+loglog(reg_coeff_array, f2_array);
+xlabel('Regularisation coefficient ($\sigma$)', 'Interpreter', 'latex');
+ylabel({ ...
+    'Value of second objective',
+    '(squared Euclidean norm of internal fluxes' ...
+    });
+
+% effect on sum of fluxes
+nexttile;
+semilogx(reg_coeff_array, sum_fluxes_array);
+xlabel('Regularisation coefficient ($\sigma$)', 'Interpreter', 'latex');
+ylabel('Sum of absolute values of fluxes');
