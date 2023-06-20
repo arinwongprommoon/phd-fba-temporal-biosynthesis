@@ -6,7 +6,7 @@ import pandas as pd
 import cobra
 
 from yeast8model import Yeast8Model
-from yeast8model import heatmap_ablation_grid
+from yeast8model import heatmap_ablation_grid, get_ablation_ratio_component
 
 glc_exch_rate = 16.89
 wt_ec = Yeast8Model("./models/ecYeastGEM_batch_8-6-0.xml")
@@ -19,8 +19,9 @@ wt_ec.model.reactions.get_by_id("r_1654").bounds = (-1.45, 0)
 wt_ec.model.reactions.get_by_id("r_1654_REV").bounds = (0, 1.45)
 wt_ec.ablation_result = wt_ec.ablate()
 print(wt_ec.ablation_result)
-ratio = wt_ec.get_ablation_ratio()
+ratio, largest_component = get_ablation_ratio_component(wt_ec.ablation_result)
 print(ratio)
+print(largest_component)
 
 breakpoint()
 
@@ -30,6 +31,9 @@ exch_rate_dict = {
 }
 ablation_result_array = wt_ec.ablation_grid(exch_rate_dict)
 print(ablation_result_array)
+
+breakpoint()
+
 
 breakpoint()
 

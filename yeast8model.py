@@ -750,61 +750,6 @@ class Yeast8Model:
                 "No ablation result. Please run ablate() to generate results before plotting."
             )
 
-    def get_ablation_ratio(self, ablation_result=None):
-        """Get ratio to represent ablation study
-
-        Get ratio between sum of times from ablation and longest time from
-        proportional estimation, as a summary of ablation study.
-
-        Parameters
-        ----------
-        ablation_result : pandas.DataFrame object
-            Results of ablation study.  Columns: 'priority component' (biomass
-            component being prioritised), 'ablated_flux' (flux of ablated
-            biomass reaction), 'ablated_est_time' (estimated doubling time based
-            on flux), 'proportional_est_time' (estimated biomass synthesis time,
-            proportional to mass fraction).  Rows: 'original' (un-ablated
-            biomass), other rows indicate biomass component.
-
-        Examples
-        --------
-        FIXME: Add docs.
-
-        """
-        # Default argument
-        if ablation_result is None:
-            ablation_result = self.ablation_result
-        # Check if ablation already done.  If not, then the value should still
-        # be None despite above if statement.  If ablation already done, draw.
-        if ablation_result is not None:
-            # sum of times (ablated)
-            sum_of_times = ablation_result.loc[
-                ablation_result.priority_component != "original",
-                ablation_result.columns == "ablated_est_time",
-            ].sum()
-            # get element
-            sum_of_times = sum_of_times[0]
-
-            # largest proportional_est_time, apart from original.
-
-            # Creates reduced DataFrame that shows both priority_component and
-            # proportional_est_time because I want to take note which
-            # priority_component is max (in case it's not always the same).
-            proportional_est_time_red = ablation_result.loc[
-                ablation_result.priority_component != "original",
-                ["priority_component", "proportional_est_time"],
-            ]
-            largest_prop_df = proportional_est_time_red.loc[
-                proportional_est_time_red["proportional_est_time"].idxmax()
-            ]
-            largest_prop_time = largest_prop_df.proportional_est_time
-            largest_prop_component = largest_prop_df.priority_component
-
-            ratio = sum_of_times / largest_prop_time
-            return ratio, largest_prop_component
-        else:
-            print("No ablation result. Please run ablate() to generate results first.")
-
     def ablation_grid(self, exch_rate_dict):
         """Array of ablation ratios from varying two exchange reactions
 
@@ -1101,6 +1046,54 @@ def compare_ablation_times(ablation_result1, ablation_result2, ax):
     ax.set_xlabel("Biomass component")
     ax.set_ylabel("log2 fold change of estimated time")
     ax.legend()
+
+
+def get_ablation_ratio_component(ablation_result):
+    """Get ratio to represent ablation study
+
+    Get ratio between sum of times from ablation and longest time from
+    proportional estimation, as a summary of ablation study.
+
+    Parameters
+    ----------
+    ablation_result : pandas.DataFrame object
+        Results of ablation study.  Columns: 'priority component' (biomass
+        component being prioritised), 'ablated_flux' (flux of ablated
+        biomass reaction), 'ablated_est_time' (estimated doubling time based
+        on flux), 'proportional_est_time' (estimated biomass synthesis time,
+        proportional to mass fraction).  Rows: 'original' (un-ablated
+        biomass), other rows indicate biomass component.
+
+    Examples
+    --------
+    FIXME: Add docs.
+
+    """
+    # sum of times (ablated)
+    sum_of_times = ablation_result.loc[
+        ablation_result.priority_component != "original",
+        ablation_result.columns == "ablated_est_time",
+    ].sum()
+    # get element
+    sum_of_times = sum_of_times[0]
+
+    # largest proportional_est_time, apart from original.
+
+    # Creates reduced DataFrame that shows both priority_component and
+    # proportional_est_time because I want to take note which
+    # priority_component is max (in case it's not always the same).
+    proportional_est_time_red = ablation_result.loc[
+        ablation_result.priority_component != "original",
+        ["priority_component", "proportional_est_time"],
+    ]
+    largest_prop_df = proportional_est_time_red.loc[
+        proportional_est_time_red["proportional_est_time"].idxmax()
+    ]
+    largest_prop_time = largest_prop_df.proportional_est_time
+    largest_prop_component = largest_prop_df.priority_component
+
+    ratio = sum_of_times / largest_prop_time
+    return ratio, largest_prop_component
 
 
 def heatmap_ablation_grid(
