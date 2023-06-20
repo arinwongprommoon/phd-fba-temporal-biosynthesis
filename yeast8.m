@@ -11,7 +11,8 @@ initCobraToolbox
 cd('/home/arin/git/fba-temporal-biosynthesis/');
 
 % Specify the path to your SBML model in XML format
-sbmlPath = './models/yeast-GEM_8-6-0.xml';
+%sbmlPath = './models/yeast-GEM_8-6-0.xml';
+sbmlPath = './models/ecYeastGEM_batch_8-6-0.xml';
 
 % Read the SBML model using the COBRA toolbox
 model = readCbModel(sbmlPath);
