@@ -868,13 +868,14 @@ class Yeast8Model:
         # define output arrays
         x_dim = len(exch1_fluxes)
         y_dim = len(exch2_fluxes)
-        ratio_array = np.zeros(shape=(x_dim, y_dim))
-        growthrate_array = np.zeros(shape=(x_dim, y_dim))
-        largest_component_array = np.zeros(shape=(x_dim, y_dim), dtype="object")
+        # ratio_array = np.zeros(shape=(x_dim, y_dim))
+        # growthrate_array = np.zeros(shape=(x_dim, y_dim))
+        # largest_component_array = np.zeros(shape=(x_dim, y_dim), dtype="object")
+        ablation_result_array = np.zeros(shape=(x_dim, y_dim), dtype="object")
 
         for x_index, exch1_flux in enumerate(exch1_fluxes):
             for y_index, exch2_flux in enumerate(exch2_fluxes):
-                #model_working = self.model_saved.copy()
+                # model_working = self.model_saved.copy()
                 model_working = self.model_saved
                 # block glucose
                 model_working.reactions.get_by_id("r_1714").bounds = (0, 0)
@@ -909,13 +910,15 @@ class Yeast8Model:
                     )
 
                 ablation_result = self.ablate(input_model=model_working)
-                (
-                    ratio_array[x_index, y_index],
-                    largest_component_array[x_index, y_index],
-                ) = self.get_ablation_ratio(ablation_result)
-                growthrate_array[x_index, y_index] = ablation_result.ablated_flux[0]
+                # (
+                #     ratio_array[x_index, y_index],
+                #     largest_component_array[x_index, y_index],
+                # ) = self.get_ablation_ratio(ablation_result)
+                # growthrate_array[x_index, y_index] = ablation_result.ablated_flux[0]
+                ablation_result_array[x_index, y_index] = ablation_result
 
-        return ratio_array, largest_component_array, growthrate_array
+        # return ratio_array, largest_component_array, growthrate_array
+        return ablation_result_array
 
 
 def compare_fluxes(ymodel1, ymodel2):
