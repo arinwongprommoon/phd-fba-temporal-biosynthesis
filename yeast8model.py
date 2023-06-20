@@ -1048,7 +1048,17 @@ def compare_ablation_times(ablation_result1, ablation_result2, ax):
     ax.legend()
 
 
-def get_ablation_ratio_component(ablation_result):
+def get_ablation_ratio(ablation_result):
+    ratio, _ = _get_ablation_ratio_component(ablation_result)
+    return ratio
+
+
+def get_ablation_largest_component(ablation_result):
+    _, largest_component = _get_ablation_ratio_component(ablation_result)
+    return largest_component
+
+
+def _get_ablation_ratio_component(ablation_result):
     """Get ratio to represent ablation study
 
     Get ratio between sum of times from ablation and longest time from
