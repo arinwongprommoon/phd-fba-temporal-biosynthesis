@@ -45,7 +45,7 @@ disp(sum(abs(model_opt.v)));
 model_opt = optimizeCbModel(model1,'max',1e-6);
 v = model_opt.v;
 
-%% loop regularised FBA
+%% (log) loop regularised FBA
 reg_coeff_array = logspace(-12, -1, 200);
 solutions_array = zeros(1, length(reg_coeff_array));
 f2_array = zeros(1, length(reg_coeff_array));
@@ -57,7 +57,7 @@ for idx = 1:length(solutions_array)
     sum_fluxes_array(idx) = sum(abs(model_opt.v));
 end
 
-%% plots
+%% (log) plots
 
 tiledlayout(3,1);
 
@@ -80,5 +80,43 @@ ylabel({ ...
 % effect on sum of fluxes
 nexttile;
 semilogx(reg_coeff_array, sum_fluxes_array);
+xlabel('Regularisation coefficient ($\sigma$)', 'Interpreter', 'latex');
+ylabel('Sum of absolute values of fluxes');
+
+%% (lin) loop regularised FBA
+reg_coeff_array = linspace(1.6e-7, 1.7e-7, 50);
+solutions_array = zeros(1, length(reg_coeff_array));
+f2_array = zeros(1, length(reg_coeff_array));
+sum_fluxes_array = zeros(1, length(reg_coeff_array));
+for idx = 1:length(solutions_array)
+    model_opt = optimizeCbModel(model1, 'max', reg_coeff_array(idx));
+    solutions_array(idx) = model_opt.f;
+    f2_array(idx) = model_opt.f2;
+    sum_fluxes_array(idx) = sum(abs(model_opt.v));
+end
+
+%% (lin) plots
+
+tiledlayout(3,1);
+
+% effect on growth rate
+nexttile;
+plot(reg_coeff_array, solutions_array);
+xlabel('Regularisation coefficient ($\sigma$)', 'Interpreter', 'latex');
+ylabel('Optimal growth rate [h^{-1}]');
+
+% effect on second objective
+% (squared Euclidean norm of internal fluxes)
+nexttile;
+plot(reg_coeff_array, f2_array);
+xlabel('Regularisation coefficient ($\sigma$)', 'Interpreter', 'latex');
+ylabel({ ...
+    'Value of second objective',
+    '(squared Euclidean norm of internal fluxes' ...
+    });
+
+% effect on sum of fluxes
+nexttile;
+plot(reg_coeff_array, sum_fluxes_array);
 xlabel('Regularisation coefficient ($\sigma$)', 'Interpreter', 'latex');
 ylabel('Sum of absolute values of fluxes');
