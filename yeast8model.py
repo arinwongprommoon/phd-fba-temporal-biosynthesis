@@ -1238,7 +1238,6 @@ def heatmap_ablation_grid(
     ax.set_ylabel(list(exch_rate_dict.keys())[1])
 
 
-# TODO: Add exch_rate_dict as an argument, solely for axis labels
 def piechart_ablation_grid(
     ax,
     exch_rate_dict,
@@ -1330,7 +1329,7 @@ def piechart_ablation_grid(
                         )
 
     # For global axis labels: create a big subplot and hide everything except
-    # the labels
+    # for the labels
     fig.add_subplot(111, frameon=False)
     plt.tick_params(labelcolor="none", top=False, bottom=False, left=False, right=False)
     plt.grid(False)
@@ -1341,7 +1340,8 @@ def piechart_ablation_grid(
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
     # Legend: colour = biomass component
-    fig.legend(artists[0], component_list, loc="lower center", ncols=3)
+    fig.legend(artists[0], component_list, loc="center right", ncols=1)
+    fig.subplots_adjust(right=0.80)
 
 
 def _bar_vals_from_ablation_df(ablation_result):
