@@ -1241,26 +1241,37 @@ def heatmap_ablation_grid(
 # TODO: Add exch_rate_dict as an argument, solely for axis labels
 def piechart_ablation_grid(
     ax,
+    exch_rate_dict,
     ablation_result_array,
 ):
     ablation_result_array = np.rot90(ablation_result_array)
 
     nrows, ncols = ablation_result_array.shape
+    # Have exch_rate values in an extra column & row
+    ncols += 1
     fig, ax = plt.subplots(nrows, ncols)
 
     # Define labels for legend
     # Debt: Assumes that all ablation_result DataFrames share the same format
     ablation_result_temp = ablation_result_array[0, 0]
     component_list = ablation_result_temp.priority_component.to_numpy().T
-    # deletes 'original'
+    # deletes 'original' priority component
     component_list = np.delete(component_list, 0)
     component_list = component_list.tolist()
 
+    # Define axis labels
+    global_xaxislabels = list(exch_rate_dict.values())[0]
+    global_yaxislabels = list(exch_rate_dict.values())[1][::-1]
+
     # Draw pie charts
     # TODO: add extra columns for text/labels, adjust indices accordingly
-    for row_idx in range(nrows):
+    for row_idx, global_yaxislabel in enumerate(global_yaxislabels):
+        # Left column reserved for exch rate 2 labels
         ax[row_idx, 0].set_axis_off()
-        for col_idx in range(ncols):
+        ax[row_idx, 0].text(
+            x=0.5, y=0.5, s=f"{global_yaxislabel:.3f}", ha="center", va="center"
+        )
+        for col_idx, global_xaxislabel in enumerate(global_xaxislabels):
             # TODO: play with text/labels
             # Get times
             ablation_result = ablation_result_array[row_idx, col_idx]
@@ -1271,7 +1282,7 @@ def piechart_ablation_grid(
             ablation_times = ablation_times_df.to_numpy().T[0]
             # Deal with edge cases, e.g. negative values when exch rate is 0
             try:
-                artists = ax[row_idx, col_idx].pie(ablation_times)
+                artists = ax[row_idx, col_idx + 1].pie(ablation_times)
             except:
                 print(f"Unable to draw pie chart at [{row_idx}, {col_idx}].")
     # Legend: colour = biomass component

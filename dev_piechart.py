@@ -24,8 +24,6 @@ wt_ec.model.reactions.get_by_id("r_1714_REV").bounds = (0, 8.45)
 wt_ec.model.reactions.get_by_id("r_1654").bounds = (-1.45, 0)
 wt_ec.model.reactions.get_by_id("r_1654_REV").bounds = (0, 1.45)
 
-breakpoint()
-
 exch_rate_dict = {
     "r_1714": np.linspace(0, 2 * 8.45, 3),  # glucose
     "r_1654": np.linspace(0, 2 * 1.45, 3),  # ammonium
@@ -35,7 +33,7 @@ ablation_result_array = wt_ec.ablation_grid(exch_rate_dict)
 breakpoint()
 
 fig, ax = plt.subplots()
-piechart_ablation_grid(ax, ablation_result_array)
+piechart_ablation_grid(ax, exch_rate_dict, ablation_result_array)
 plt.show()
 
 breakpoint()
