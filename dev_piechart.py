@@ -28,8 +28,8 @@ wt_y8.add_media_components(["r_1992"])
 # ablation_result_array = wt_ec.ablation_grid(exch_rate_dict)
 
 exch_rate_dict = {
-    "r_1714": np.linspace(0, 2 * 4.75, 16),  # glucose
-    "r_1654": np.linspace(0, 2 * 2.88, 16),  # ammonium
+    "r_1714": np.linspace(0, 2 * 4.75, 8),  # glucose
+    "r_1654": np.linspace(0, 2 * 2.88, 8),  # ammonium
 }
 ablation_result_array = wt_y8.ablation_grid(exch_rate_dict)
 
