@@ -1244,6 +1244,53 @@ def piechart_ablation_grid(
     xlabel=None,
     ylabel=None,
 ):
+    """Grid of pie charts showing proportions of prioritised components in ablated-predicted time
+
+    Draws a grid of pie charts. Each pie charts shows the proportions of the
+    times predicted for prioritising each biomass component by ablation study.
+    x and y axes show the corresponding exchange reaction fluxes.
+
+    If a pie chart at any position cannot be drawn -- e.g. when exchange rate is
+    0 -- then that position shows the text 'N/A'.
+
+    Parameters
+    ----------
+    exch_rate_dict : dict
+        dict that stores the two exchange reactions to vary and the uptake
+        rate values to use.  It should be in this format:
+
+        d = {
+            'r_exch_rxn_1' : <array-like>,
+            'r_exch_rxn_2' : <array-like>,
+            }
+
+    ablation_result_array : 2-dimensional numpy.ndarray of objects
+        Array of ablation result DataFrames.
+        Indexing follows the exchange reaction
+        arrays in the input exch_rate_dict, i.e. ratio_array[x][y]
+        corresponds to exch_rate_dict['r_exch_rxn_1'][x] and
+        exch_rate_dict['r_exch_rxn_2'][y].
+    xlabel : str
+        x-axis label.  Defaults to name of first exchange reaction.
+    ylabel : str
+        y-axis label.  Defaults to name of second exchange reaction.
+
+    Examples
+    --------
+    # Initialise model
+    wt_ec = Yeast8Model(...)
+
+    # Create ablation grid
+    exch_rate_dict = {
+        "r_1714": np.linspace(0, 2 * 8.45, 3),  # glucose
+        "r_1654": np.linspace(0, 2 * 1.45, 3),  # ammonium
+    }
+    ablation_result_array = wt_ec.ablation_grid(exch_rate_dict)
+
+    # Draw pie chart
+    piechart_ablation_grid(exch_rate_dict, ablation_result_array)
+    plt.show()
+    """
     ablation_result_array = np.rot90(ablation_result_array)
 
     nrows, ncols = ablation_result_array.shape
