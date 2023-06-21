@@ -1,0 +1,363 @@
+The following tests failed:
+testFindRxnsFromGenes.m
+testLP9.m
+testCheckModelPreFBA.m
+testMinimizeModelFlux.m
+testFluxShifts.m
+testCreatePanModels.m
+testJoinModelsPairwiseFromList.m
+testSimulatePairwiseInteractions.m
+testNonFluxReactions.m
+testOptimizeCbModel.m
+testOptimizeCbModelCardinality.m
+testPercentile.m
+testPrintConstraints.m
+testPrintFluxVector.m
+testRateLimittingReactions.m
+testSampleCbModelRHMC.m
+testDetermineSignMatrix.m
+testCycleFreeFlux.m
+testExtremePathways.m
+testExtremePools.m
+testLrsInterface.m
+testReadSBML.m
+testWriteSBML.m
+testOutputNetworkCytoscape.m
+testChangeCobraSolver.m
+testLiftModel.m
+testSolveCobraEP.m
+testMergeModelFieldPositions.m
+testGenerateChemicalDatabase.m
+testWriteMoominOutput.m
+testPruneModel.m
+testMinimumRequirements.m
+testModelCreation.m
+testPreprocessing.m
+testAnalyzeGCdesign.m
+testConstraintModifciation.m
+testInchi.m
+testDynamicModelFieldModification.m
+testExtractMetModel.m
+testMergeTwoModels.m
+testSubSystemModification.m
+testEfmSubmodelExtractionAsSBML.m
+
+The reasons were as follows:
+------------------------------------------------
+testFindRxnsFromGenes.m:
+Error using assert
+Assertion failed.
+Error in testFindRxnsFromGenes (line 49)
+assert(size(geneRxnsArray, 2) == 5)
+------------------------------------------------
+------------------------------------------------
+testLP9.m:
+Undefined function 'LP9' for input arguments of type 'struct'.
+Error in testLP9 (line 39)
+        V = LP9(options.K, options.P, model, options.LPproblem, options.epsilon);
+------------------------------------------------
+------------------------------------------------
+testCheckModelPreFBA.m:
+Unrecognized function or variable 'param'.
+Error in testCheckModelPreFBA (line 13)
+isConsistent = checkModelPreFBA(model,param);
+------------------------------------------------
+------------------------------------------------
+testMinimizeModelFlux.m:
+Error using assert
+Assertion failed.
+Error in testMinimizeModelFlux (line 37)
+    assert(abs(sol.x(end) - 12000) <= tol); 
+------------------------------------------------
+------------------------------------------------
+testFluxShifts.m:
+Error using readtable
+Unable to find or open ''. Check the path and filename or file permissions.
+Error in calculateFluxShifts (line 34)
+    dataSource=readtable(filename,'Sheet',sheetName);
+Error in testFluxShifts (line 38)
+       calculateFluxShifts(source, target);
+------------------------------------------------
+------------------------------------------------
+testCreatePanModels.m:
+Undefined function 'gcp' for input arguments of type 'char'.
+Error in createPanModels (line 48)
+    poolobj = gcp('nocreate');
+Error in testCreatePanModels (line 29)
+createPanModels(modPath,panPath,'Species',numWorkers);
+------------------------------------------------
+------------------------------------------------
+testJoinModelsPairwiseFromList.m:
+Error using joinModelsPairwiseFromList
+Too many output arguments.
+Error in testJoinModelsPairwiseFromList (line 35)
+    [pairedModels,pairedModelInfo] = joinModelsPairwiseFromList(modelList,inputModels);
+------------------------------------------------
+------------------------------------------------
+testSimulatePairwiseInteractions.m:
+Error using joinModelsPairwiseFromList
+Too many output arguments.
+Error in testSimulatePairwiseInteractions (line 40)
+    [pairedModels,pairedModelInfo] = joinModelsPairwiseFromList(modelList,inputModels);
+------------------------------------------------
+------------------------------------------------
+testNonFluxReactions.m:
+Index in position 1 exceeds array bounds.
+Error in filterNonFluxReactions (line 51)
+    dataSet1 = resultAll{1,1};
+Error in testNonFluxReactions (line 37)
+       filterNonFluxReactions(phenotype);
+------------------------------------------------
+------------------------------------------------
+testOptimizeCbModel.m:
+Error using assert
+Assertion failed.
+Error in testOptimizeCbModel (line 129)
+        assert(sum(abs(L0solution.x)>tol)<=397)
+------------------------------------------------
+------------------------------------------------
+testOptimizeCbModelCardinality.m:
+Unrecognized function or variable 'excludeSolvers'.
+Error in testOptimizeCbModelCardinality (line 24)
+solverPkgs = prepareTest('needsLP',true,'useSolversIfAvailable',useSolversIfAvailable,'excludeSolvers',excludeSolvers);
+------------------------------------------------
+------------------------------------------------
+testPercentile.m:
+Unable to resolve the name 'solvers.LP'.
+Error in testPercentile (line 17)
+for k = 1:length(solvers.LP)
+------------------------------------------------
+------------------------------------------------
+testPrintConstraints.m:
+Error using assert
+Assertion failed.
+Error in testPrintConstraints (line 32)
+assert(isequal(text1, text2));
+------------------------------------------------
+------------------------------------------------
+testPrintFluxVector.m:
+Error using assert
+Assertion failed.
+Error in testPrintFluxVector (line 43)
+assert(isequal(text1, text2));
+------------------------------------------------
+------------------------------------------------
+testRateLimittingReactions.m:
+Index in position 1 exceeds array bounds.
+Error in filterRateLimittingReactions (line 56)
+    dataSet1 = resultAll{1,1};
+Error in testRateLimittingReactions (line 37)
+       filterRateLimittingReactions(phenotype);
+------------------------------------------------
+------------------------------------------------
+testSampleCbModelRHMC.m:
+Unrecognized property 'extraHessian' for class 'TwoSidedBarrier'.
+Error in Polytope (line 111)
+         o.barrier.extraHessian = opts.extraHessian;
+Error in sample (line 69)
+polytope = Polytope(problem, opts);
+Error in sampleCbModel (line 309)
+        o = sample(P, nPointsReturned, opts);
+Error in testSampleCbModelRHMC (line 30)
+      [modelSampling, samples, volume] = sampleCbModel(model, '', 'RHMC', options);
+------------------------------------------------
+------------------------------------------------
+testDetermineSignMatrix.m:
+Error using assert
+Assertion failed.
+Error in testDetermineSignMatrix (line 22)
+assert(isequal(test_Shat, Shat))
+------------------------------------------------
+------------------------------------------------
+testCycleFreeFlux.m:
+Unrecognized field name "SConsistentMetBool".
+Error in cycleFreeFlux (line 79)
+    SConsistentMetBool = model.SConsistentMetBool;
+Error in testCycleFreeFlux (line 59)
+        v1 = cycleFreeFlux(solution.v, model.c, model, isInternalRxn);
+------------------------------------------------
+------------------------------------------------
+testExtremePathways.m:
+Undefined function 'lrsInputHalfspace' for input arguments of type 'double'.
+Error in extremePathways (line 99)
+lrsInputHalfspace(A, D, filename, positivity, inequality, a, d, f, sh);
+Error in testExtremePathways (line 41)
+[P, V] = extremePathways(minimalModel);
+------------------------------------------------
+------------------------------------------------
+testExtremePools.m:
+Undefined function 'lrsInputHalfspace' for input arguments of type 'double'.
+Error in extremePools (line 85)
+lrsInputHalfspace(A, D, filename, positivity, inequality, a, d, f, sh);
+Error in testExtremePools (line 50)
+[CalculatedPools]=extremePools(model);    
+------------------------------------------------
+------------------------------------------------
+testLrsInterface.m:
+Error using lrsReadRay
+Could not read lrs output file.
+Error in testLrsInterface (line 46)
+[Q, vertexBool, fileNameOut] = lrsReadRay(modelName,param);
+------------------------------------------------
+------------------------------------------------
+testReadSBML.m:
+Unrecognized field name "subSystems".
+Error in testReadSBML (line 141)
+                assert(isequal(model.(modelFields{i}),model2.(modelFields{i})));
+------------------------------------------------
+------------------------------------------------
+testWriteSBML.m:
+Warning: Escaped character '\w' is not valid. See 'doc sprintf' for supported special characters. 
+> In testAll (line 242) 
+Error using regexprep
+All cells must be char row vectors.
+Error in isSameCobraModel (line 76)
+        value2 = regexprep(value2, '[^
+------------------------------------------------
+------------------------------------------------
+testOutputNetworkCytoscape.m:
+Error using strjoin
+First input must be a string array or cell array of character vectors.
+Error in outputNetworkCytoscape (line 122)
+        fprintf(fidSubSys,'
+------------------------------------------------
+------------------------------------------------
+testChangeCobraSolver.m:
+Error using eval
+Unrecognized function or variable 'CBT_MINLP_SOLVER'.
+Error in changeCobraSolver (line 522)
+        eval(['oldval = CBT_', solverType, '_SOLVER;']);
+Error in testChangeCobraSolver (line 19)
+ok = changeCobraSolver('pdco', 'MINLP', 0);
+------------------------------------------------
+------------------------------------------------
+testLiftModel.m:
+Error using assert
+Assertion failed.
+Error in testLiftModel (line 48)
+                assert(abs(sol.f-1e6) < tol);
+------------------------------------------------
+------------------------------------------------
+testSolveCobraEP.m:
+SWITCH expression must be a scalar or a character vector.
+Error in solveCobraEP (line 283)
+switch problemTypeParams.solver
+Error in testSolveCobraEP (line 121)
+        EPsolution = solveCobraEP(QPproblem);
+------------------------------------------------
+------------------------------------------------
+testMergeModelFieldPositions.m:
+Error using assert
+Assertion failed.
+Error in testMergeModelFieldPositions (line 51)
+assert(isequal(unique([model.subSystems{rxnspos}]),modelMerged.subSystems{newreacpos}));
+------------------------------------------------
+------------------------------------------------
+testGenerateChemicalDatabase.m:
+Unrecognized function or variable 'dbData'.
+Error in addMetInfoInCBmodel (line 40)
+newDataVariableNames = dbData.Properties.VariableNames;
+Error in testGenerateChemicalDatabase (line 33)
+[model, hasEffect] = addMetInfoInCBmodel(model, inputData, replace);
+------------------------------------------------
+------------------------------------------------
+testWriteMoominOutput.m:
+Error using assert
+Assertion failed.
+Error in testWriteMoominOutput (line 48)
+assert(isequal(test, ref));
+------------------------------------------------
+------------------------------------------------
+testPruneModel.m:
+Error using assert
+Assertion failed.
+Error in testPruneModel (line 35)
+assert(isequal(modelUpdated_ref, modelUpdated))
+------------------------------------------------
+------------------------------------------------
+testMinimumRequirements.m:
+Undefined function 'calculateMinimumRequirements' for input arguments of type 'char'.
+Error in testMinimumRequirements (line 48)
+       calculateMinimumRequirements(modelPath, trDataPath, mediumDataPath, growthNotAffectingGeneDel, thApproach, lowerTh, upperTh, objective, percentile);
+------------------------------------------------
+------------------------------------------------
+testModelCreation.m:
+Undefined function 'findTranscriptionValue' for input arguments of type 'table'.
+Error in createContextSpecificModel (line 83)
+                            tr_Val = findTranscriptionValue(operands{l},trData);
+Error in testModelCreation (line 50)
+       model = createContextSpecificModel(modelPath, trDataPath, mediumDataPath, growthNotAffectingGeneDel, meetMinimumReq, thApproach, lowerTh, upperTh, objective, gmAndOperation, gmOrOperation, constrAll, excludeBiomassEq, biomassId, percentile);
+------------------------------------------------
+------------------------------------------------
+testPreprocessing.m:
+Error using assert
+Assertion failed.
+Error in testPreprocessing (line 30)
+assert(isequal(expressionRxns,[6; 5; 5; -1; -1]));
+------------------------------------------------
+------------------------------------------------
+testAnalyzeGCdesign.m:
+Error using assert
+Assertion failed.
+Error in testAnalyzeGCdesign (line 54)
+    assert(isequal({'EX_akg(e)', 'EX_co2(e)'}, improvedRxns));
+------------------------------------------------
+------------------------------------------------
+testConstraintModifciation.m:
+Error using assert
+Assertion failed.
+Error in testConstraintModifciation (line 103)
+assert(isequal(modelDel.C,temp));
+------------------------------------------------
+------------------------------------------------
+testInchi.m:
+Error using assert
+Assertion failed.
+Error in testInchi (line 26)
+assert(isequal(adp_alpha_d_glc_formula,formula));
+------------------------------------------------
+------------------------------------------------
+testDynamicModelFieldModification.m:
+Index exceeds the number of array elements. Index must not exceed 0.
+Error in testDynamicModelFieldModification (line 139)
+model = changeGeneAssociation(model,model.rxns{1},'A or B');
+------------------------------------------------
+------------------------------------------------
+testExtractMetModel.m:
+Warning: Escaped character '\w' is not valid. See 'doc sprintf' for supported special characters. 
+> In testAll (line 242) 
+Error using regexprep
+All cells must be char row vectors.
+Error in isSameCobraModel (line 76)
+        value2 = regexprep(value2, '[^
+------------------------------------------------
+------------------------------------------------
+testMergeTwoModels.m:
+Error using assert
+Assertion failed.
+Error in testMergeTwoModels (line 80)
+assert(verifyCobraFunctionError('mergeTwoModels','outputArgCount',1,'inputs',{model1,model2},...
+------------------------------------------------
+------------------------------------------------
+testSubSystemModification.m:
+Error using assert
+Assertion failed.
+Error in testSubSystemModification (line 32)
+assert(isempty(setxor(subsInModel,originalSubSystems)));
+------------------------------------------------
+------------------------------------------------
+testEfmSubmodelExtractionAsSBML.m:
+Brace indexing is not supported for variables of this type.
+Error in writeSBML (line 134)
+        tmp_anno = strcat( tmp_anno,' <p>' ,model.modelAnnotation{i}, '</p>');
+Error in writeCbModel (line 226)
+        outmodel = writeSBML(model, fileName, input.compSymbols, input.compNames);
+Error in efmSubmodelExtractionAsSBML (line 56)
+writeCbModel(modelEFM, 'format','sbml', 'fileName', outputFileName);
+Error in testEfmSubmodelExtractionAsSBML (line 27)
+submodelEFM = efmSubmodelExtractionAsSBML(model, selectedRxns, 'testEFMSubmodel.xml') ;
+------------------------------------------------
+
+
+
+ > The exit code is 1.
