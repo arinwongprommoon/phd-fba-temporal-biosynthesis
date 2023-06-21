@@ -1262,15 +1262,18 @@ def piechart_ablation_grid(
         ax[row_idx, 0].set_axis_off()
         for col_idx in range(ncols):
             # TODO: play with text/labels
+            # Get times
             ablation_result = ablation_result_array[row_idx, col_idx]
             ablation_times_df = ablation_result.loc[
                 ablation_result.priority_component != "original",
                 ablation_result.columns == "ablated_est_time",
             ]
             ablation_times = ablation_times_df.to_numpy().T[0]
-            # TODO: skip drawing pie chart when things are weird, e.g.
-            # negative values (tends to happen if either exchange rate is 0)
-            artists = ax[row_idx, col_idx].pie(ablation_times)
+            # Deal with edge cases, e.g. negative values when exch rate is 0
+            try:
+                artists = ax[row_idx, col_idx].pie(ablation_times)
+            except:
+                print(f"Unable to draw pie chart at [{row_idx}, {col_idx}].")
     # Legend: colour = biomass component
     fig.legend(artists[0], component_list, loc="lower center", ncols=3)
 
