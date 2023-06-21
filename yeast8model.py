@@ -1243,6 +1243,8 @@ def piechart_ablation_grid(
     ax,
     exch_rate_dict,
     ablation_result_array,
+    xlabel=None,
+    ylabel=None,
 ):
     ablation_result_array = np.rot90(ablation_result_array)
 
@@ -1327,6 +1329,17 @@ def piechart_ablation_grid(
                             fontweight="bold",
                         )
 
+    # For global axis labels: create a big subplot and hide everything except
+    # the labels
+    fig.add_subplot(111, frameon=False)
+    plt.tick_params(labelcolor="none", top=False, bottom=False, left=False, right=False)
+    plt.grid(False)
+    if xlabel is None:
+        xlabel = list(exch_rate_dict.keys())[0]
+    if ylabel is None:
+        ylabel = list(exch_rate_dict.keys())[1]
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
     # Legend: colour = biomass component
     fig.legend(artists[0], component_list, loc="lower center", ncols=3)
 
