@@ -1276,7 +1276,7 @@ def piechart_ablation_grid(
         if row_idx == len(global_yaxislabels) - 1:
             pass
         else:
-            # Write exch rate label
+            # Print exch rate label
             ax[row_idx, 0].text(
                 x=0.5,
                 y=0.5,
@@ -1292,7 +1292,7 @@ def piechart_ablation_grid(
                 if col_idx == 0:
                     pass
                 else:
-                    # Write exch rate label
+                    # Print exch rate label
                     ax[row_idx, col_idx].text(
                         x=0.5,
                         y=0.5,
@@ -1317,6 +1317,16 @@ def piechart_ablation_grid(
                         artists = ax[row_idx, col_idx].pie(ablation_times)
                     except:
                         print(f"Unable to draw pie chart at [{row_idx}, {col_idx}].")
+                        ax[row_idx, col_idx].set_axis_off()
+                        ax[row_idx, col_idx].text(
+                            x=0.5,
+                            y=0.5,
+                            s="N/A",
+                            ha="center",
+                            va="center",
+                            fontweight="bold",
+                        )
+
     # Legend: colour = biomass component
     fig.legend(artists[0], component_list, loc="lower center", ncols=3)
 
