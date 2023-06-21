@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 import cobra
 
+from matplotlib.backends.backend_pdf import PdfPages
 from yeast8model import Yeast8Model, piechart_ablation_grid
 from yeast8model import (
     heatmap_ablation_grid,
@@ -30,9 +31,8 @@ exch_rate_dict = {
 }
 ablation_result_array = wt_ec.ablation_grid(exch_rate_dict)
 
-breakpoint()
-
 piechart_ablation_grid(exch_rate_dict, ablation_result_array)
-plt.show()
 
-breakpoint()
+with PdfPages(f"piechart_plots.pdf") as pdf:
+    for fig in range(1, plt.gcf().number + 1):
+        pdf.savefig(fig)
