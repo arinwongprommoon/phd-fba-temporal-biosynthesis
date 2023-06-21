@@ -1248,6 +1248,15 @@ def piechart_ablation_grid(
     nrows, ncols = ablation_result_array.shape
     fig, ax = plt.subplots(nrows, ncols)
 
+    # Define labels for legend
+    # Debt: Assumes that all ablation_result DataFrames share the same format
+    ablation_result_temp = ablation_result_array[0, 0]
+    component_list = ablation_result_temp.priority_component.to_numpy().T
+    # deletes 'original'
+    component_list = np.delete(component_list, 0)
+    component_list = component_list.tolist()
+
+    # Draw pie charts
     # TODO: add extra columns for text/labels, adjust indices accordingly
     for row_idx in range(nrows):
         ax[row_idx, 0].set_axis_off()
@@ -1261,9 +1270,9 @@ def piechart_ablation_grid(
             ablation_times = ablation_times_df.to_numpy().T[0]
             # TODO: skip drawing pie chart when things are weird, e.g.
             # negative values (tends to happen if either exchange rate is 0)
-            ax[row_idx, col_idx].pie(ablation_times)
-    # TODO: add legend to indicate which colour represents each biomass
-    # component
+            artists = ax[row_idx, col_idx].pie(ablation_times)
+    # Legend: colour = biomass component
+    fig.legend(artists[0], component_list, loc="lower center", ncols=3)
 
 
 def _bar_vals_from_ablation_df(ablation_result):
