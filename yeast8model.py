@@ -1239,7 +1239,6 @@ def heatmap_ablation_grid(
 
 
 def piechart_ablation_grid(
-    ax,
     exch_rate_dict,
     ablation_result_array,
     xlabel=None,

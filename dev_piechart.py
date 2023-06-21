@@ -32,8 +32,7 @@ ablation_result_array = wt_ec.ablation_grid(exch_rate_dict)
 
 breakpoint()
 
-fig, ax = plt.subplots()
-piechart_ablation_grid(ax, exch_rate_dict, ablation_result_array)
+piechart_ablation_grid(exch_rate_dict, ablation_result_array)
 plt.show()
 
 breakpoint()
