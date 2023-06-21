@@ -1386,7 +1386,7 @@ def piechart_ablation_grid(
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
     # Legend: colour = biomass component
-    fig.legend(artists[0], component_list, loc="center right", ncols=1)
+    fig.legend(artists[0], component_list, loc="center right")
     fig.subplots_adjust(right=0.80)
 
 
