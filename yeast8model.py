@@ -1248,6 +1248,7 @@ def piechart_ablation_grid(
 
     nrows, ncols = ablation_result_array.shape
     # Have exch_rate values in an extra column & row
+    nrows += 1
     ncols += 1
     fig, ax = plt.subplots(nrows, ncols)
 
@@ -1262,29 +1263,60 @@ def piechart_ablation_grid(
     # Define axis labels
     global_xaxislabels = list(exch_rate_dict.values())[0]
     global_yaxislabels = list(exch_rate_dict.values())[1][::-1]
+    # Dummy value for corner position
+    global_xaxislabels = np.append([-1], global_xaxislabels)
+    global_yaxislabels = np.append(global_yaxislabels, [-1])
 
     # Draw pie charts
     # TODO: add extra columns for text/labels, adjust indices accordingly
     for row_idx, global_yaxislabel in enumerate(global_yaxislabels):
         # Left column reserved for exch rate 2 labels
         ax[row_idx, 0].set_axis_off()
-        ax[row_idx, 0].text(
-            x=0.5, y=0.5, s=f"{global_yaxislabel:.3f}", ha="center", va="center"
-        )
+        # Bottom left corner must be blank
+        if row_idx == len(global_yaxislabels) - 1:
+            pass
+        else:
+            # Write exch rate label
+            ax[row_idx, 0].text(
+                x=0.5,
+                y=0.5,
+                s=f"{global_yaxislabel:.3f}",
+                ha="center",
+                va="center",
+            )
         for col_idx, global_xaxislabel in enumerate(global_xaxislabels):
-            # TODO: play with text/labels
-            # Get times
-            ablation_result = ablation_result_array[row_idx, col_idx]
-            ablation_times_df = ablation_result.loc[
-                ablation_result.priority_component != "original",
-                ablation_result.columns == "ablated_est_time",
-            ]
-            ablation_times = ablation_times_df.to_numpy().T[0]
-            # Deal with edge cases, e.g. negative values when exch rate is 0
-            try:
-                artists = ax[row_idx, col_idx + 1].pie(ablation_times)
-            except:
-                print(f"Unable to draw pie chart at [{row_idx}, {col_idx}].")
+            # Bottom row reserved for exch rate 1 labels
+            if row_idx == len(global_yaxislabels) - 1:
+                ax[row_idx, col_idx].set_axis_off()
+                # Bottom left corner must be blank
+                if col_idx == 0:
+                    pass
+                else:
+                    # Write exch rate label
+                    ax[row_idx, col_idx].text(
+                        x=0.5,
+                        y=0.5,
+                        s=f"{global_xaxislabel:.3f}",
+                        ha="center",
+                        va="center",
+                    )
+            else:
+                # Left column reserved for exch rate 2 labels
+                if col_idx == 0:
+                    pass
+                else:
+                    # Get times
+                    ablation_result = ablation_result_array[row_idx, col_idx - 1]
+                    ablation_times_df = ablation_result.loc[
+                        ablation_result.priority_component != "original",
+                        ablation_result.columns == "ablated_est_time",
+                    ]
+                    ablation_times = ablation_times_df.to_numpy().T[0]
+                    # Deal with edge cases, e.g. negative values when exch rate is 0
+                    try:
+                        artists = ax[row_idx, col_idx].pie(ablation_times)
+                    except:
+                        print(f"Unable to draw pie chart at [{row_idx}, {col_idx}].")
     # Legend: colour = biomass component
     fig.legend(artists[0], component_list, loc="lower center", ncols=3)
 
