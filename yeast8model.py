@@ -300,6 +300,13 @@ class Yeast8Model:
         # Unrestrict growth
         self.unrestrict_growth()
         print(f"Growth ({growth_id}) unrestricted.")
+        # Reactions to exclude needs to be hard-coded in GROWTH_SUBSYSTEM_IDS
+        # because they aren't conveniently labelled
+        # as part of the 'Growth' subsystem in the non-ec model.
+        reactions_to_exclude = GROWTH_SUBSYSTEM_IDS + [self.growth_id, self.biomass_id]
+        self._non_biomass_reactions = self.model.reactions.query(
+            lambda x: x.id not in reactions_to_exclude
+        )
 
         # Biomass components
         self.biomass_component_list = [
@@ -492,13 +499,6 @@ class Yeast8Model:
         """
         self.model.solver = "gurobi"
 
-        # Reactions to exclude needs to be hard-coded in GROWTH_SUBSYSTEM_IDS
-        # because they aren't conveniently labelled
-        # as part of the 'Growth' subsystem in the non-ec model.
-        reactions_to_exclude = GROWTH_SUBSYSTEM_IDS + [self.growth_id, self.biomass_id]
-        non_biomass_reactions = self.model.reactions.query(
-            lambda x: x.id not in reactions_to_exclude
-        )
         # Define expression for objective function.
         # This value is ADDED to the existing objective that has growth already
         # defined.
@@ -510,7 +510,7 @@ class Yeast8Model:
             print("Defining flux penalty sum for the first time.")
             print("Allow a couple minutes...")
             reaction_flux_expressions = np.array(
-                [reaction.flux_expression for reaction in non_biomass_reactions],
+                [reaction.flux_expression for reaction in self._non_biomass_reactions],
                 dtype="object",
             )
             flux_penalty_sum = np.sum(np.square(reaction_flux_expressions))
@@ -529,6 +529,32 @@ class Yeast8Model:
 
         # Save penalty coefficient, useful for ablate()
         self._penalty_coefficient = penalty_coefficient
+
+    def set_flux_constraint(self, upper_bound):
+        """Set upper bound to sum of absolute values of fluxes
+
+        Parameters
+        ----------
+        upper_bound : float
+            Upper bound to sum of absolute values of fluxes
+
+        Examples
+        --------
+        wt_ec = Yeast8Model("./models/ecYeastGEM_batch_8-6-0.xml")
+        wt_ec.set_flux_constraint(upper_bound=900)
+        sol = wt_ec.optimize()
+
+        """
+        # Stolen from
+        # https://cobrapy.readthedocs.io/en/latest/constraints_objectives.html#Constraints
+        coefficients = dict()
+        for rxn in self._non_biomass_reactions:
+            coefficients[rxn.forward_variable] = 1.0
+            coefficients[rxn.reverse_variable] = 1.0
+        constraint = self.model.problem.Constraint(0, lb=0, ub=upper_bound)
+        self.model.add_cons_vars(constraint)
+        self.model.solver.update()
+        constraint.set_linear_coefficients(coefficients=coefficients)
 
     def optimize(self, model=None, timeout_time=60):
         # Unlike previous methods, takes a model object as input because I need
