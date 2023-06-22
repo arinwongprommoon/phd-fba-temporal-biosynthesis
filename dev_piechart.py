@@ -23,7 +23,7 @@ ablation_result_array = wt_ec.ablation_grid(exch_rate_dict)
 
 breakpoint()
 
-piechart_ablation_grid(exch_rate_dict, ablation_result_array)
+piechart_ablation_grid(exch_rate_dict, ablation_result_array, True)
 plt.show()
 
 breakpoint()
