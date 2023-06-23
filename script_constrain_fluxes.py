@@ -2,6 +2,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+from matplotlib.backends.backend_pdf import PdfPages
 from yeast8model import (
     Yeast8Model,
     heatmap_ablation_grid,
@@ -27,11 +28,11 @@ if False:
 
 # PARAMETERS
 # Step down, because 'phantom' values or copying issues (that I don't want to fix)
-fractions = np.linspace(1, 0, num=21)
+fractions = np.linspace(1, 0, num=3)
 
 exch_rate_dict = {
-    "r_1714": np.linspace(0, 2 * 8.45, 32),  # glucose
-    "r_1654": np.linspace(0, 2 * 1.45, 32),  # ammonium
+    "r_1714": np.linspace(0, 2 * 8.45, 4),  # glucose
+    "r_1654": np.linspace(0, 2 * 1.45, 4),  # ammonium
 }
 
 # WORK
@@ -41,6 +42,7 @@ orig_flux_sum = sol.fluxes.abs().sum()
 ablation_result_array_list = []
 
 for fraction in fractions:
+    print(f'CONSTRAIN FLUXES fraction {fraction}')
     ub = fraction * orig_flux_sum
     wt_ec.set_flux_constraint(upper_bound=ub)
     sol = wt_ec.optimize()
