@@ -28,11 +28,11 @@ if False:
 
 # PARAMETERS
 # Step down, because 'phantom' values or copying issues (that I don't want to fix)
-fractions = np.linspace(1, 0, num=3)
+fractions = np.linspace(1, 0, num=6)
 
 exch_rate_dict = {
-    "r_1714": np.linspace(0, 2 * 8.45, 4),  # glucose
-    "r_1654": np.linspace(0, 2 * 1.45, 4),  # ammonium
+    "r_1714": np.linspace(0, 2 * 8.45, 16),  # glucose
+    "r_1654": np.linspace(0, 2 * 1.45, 16),  # ammonium
 }
 
 # WORK
