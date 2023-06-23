@@ -24,3 +24,9 @@ for biomass_component, fluxes in ablation_fluxes_diff.items():
     )
 
 breakpoint()
+
+fig, ax = plt.subplots(nrows=len(ablation_fluxes_diff), ncols=1)
+for idx, (biomass_component, fluxes) in enumerate(ablation_fluxes_diff.items()):
+    fluxes.plot.hist(ax=ax[idx])
+
+breakpoint()
