@@ -1,0 +1,4064 @@
+,reaction_id,subsystem
+0,r_0001,Pyruvate metabolism
+4,r_0002,Pyruvate metabolism
+6,r_0003,Butanoate metabolism
+8,r_0004,Pyruvate metabolism
+10,r_0005,Starch and sucrose metabolism
+13,r_0006,Starch and sucrose metabolism
+15,r_0007,Histidine metabolism
+16,r_0012,"Alanine, aspartate and glutamate metabolism"
+17,r_0013,Cysteine and methionine metabolism
+18,r_0014,Riboflavin metabolism
+19,r_0015,Riboflavin metabolism
+20,r_0016,"Valine, leucine and isoleucine metabolism"
+22,r_0017,Folate biosynthesis
+23,r_0018,Lysine metabolism
+29,r_0019,Pantothenate and coa biosynthesis
+30,r_0020,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+32,r_0021,Ubiquinone and other terpenoid-quinone biosynthesis
+33,r_0022,Ubiquinone and other terpenoid-quinone biosynthesis
+34,r_0023,"Valine, leucine and isoleucine metabolism"
+36,r_0024,"Valine, leucine and isoleucine metabolism"
+38,r_0025,"Valine, leucine and isoleucine metabolism"
+39,r_0026,Cysteine and methionine metabolism
+43,r_0027,Lysine metabolism
+45,r_0028,Propanoate metabolism
+46,r_0029,"Valine, leucine and isoleucine metabolism"
+47,r_0030,"Valine, leucine and isoleucine metabolism"
+48,r_0032,Sulfur metabolism
+49,r_0033,Purine metabolism
+51,r_0034,Purine metabolism
+52,r_0035,Purine metabolism
+53,r_0036,Purine metabolism
+54,r_0037,Purine metabolism
+55,r_0038,Riboflavin metabolism
+56,r_0039,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+57,r_0040,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+58,r_0041,Sphingolipid metabolism
+59,r_0042,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+61,r_0043,Ubiquinone and other terpenoid-quinone biosynthesis
+63,r_0044,Ubiquinone and other terpenoid-quinone biosynthesis
+64,r_0045,Tryptophan metabolism
+65,r_0057,Fatty acid degradation
+66,r_0058,Tryptophan metabolism
+67,r_0059,Complex alcohol metabolism
+68,r_0060,"Valine, leucine and isoleucine metabolism"
+70,r_0061,"Valine, leucine and isoleucine metabolism"
+71,r_0062,Complex alcohol metabolism
+74,r_0063,Pantothenate and coa biosynthesis
+75,r_0064,Complex alcohol metabolism
+79,r_0065,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+80,r_0066,Folate biosynthesis
+81,r_0067,Folate biosynthesis
+82,r_0068,"Alanine, aspartate and glutamate metabolism"
+83,r_0069,Vitamin b6 metabolism
+84,r_0070,Ubiquinone and other terpenoid-quinone biosynthesis
+85,r_0072,Complex alcohol metabolism
+86,r_0073,Inositol phosphate metabolism
+88,r_0074,Phosphatidylinositol signaling system
+89,r_0075,Cysteine and methionine metabolism
+90,r_0076,Nicotinate and nicotinamide metabolism
+92,r_0077,Purine metabolism
+93,r_0078,Nicotinate and nicotinamide metabolism
+95,r_0079,Purine metabolism
+96,r_0080,One carbon pool by folate
+98,r_0081,Porphyrin and chlorophyll metabolism
+99,r_0082,Inositol phosphate metabolism
+100,r_0083,Phosphatidylinositol signaling system
+101,r_0084,One carbon pool by folate
+102,r_0085,Cysteine and methionine metabolism
+103,r_0086,Cysteine and methionine metabolism
+104,r_0087,Cysteine and methionine metabolism
+106,r_0088,Inositol phosphate metabolism
+108,r_0089,Inositol phosphate metabolism
+110,r_0090,Fructose and mannose metabolism
+112,r_0091,Pentose phosphate pathway
+114,r_0092,Inositol phosphate metabolism
+116,r_0093,Phosphatidylinositol signaling system
+117,r_0094,Biotin metabolism
+118,r_0095,Butanoate metabolism
+121,r_0096,"Valine, leucine and isoleucine metabolism"
+122,r_0097,"Valine, leucine and isoleucine metabolism"
+124,r_0099,Fatty acid biosynthesis
+126,r_0100,Fatty acid degradation
+127,r_0101,Fatty acid degradation
+128,r_0102,Fatty acid degradation
+129,r_0103,Fatty acid degradation
+131,r_0104,Fatty acid degradation
+133,r_0105,Fatty acid degradation
+134,r_0106,Fatty acid degradation
+135,r_0107,Fatty acid degradation
+136,r_0108,Fatty acid biosynthesis
+137,r_0109,Fatty acid biosynthesis
+138,r_0111,Pyruvate metabolism
+139,r_0112,Pyruvate metabolism
+141,r_0113,Pyruvate metabolism
+142,r_0114,Pyruvate metabolism
+143,r_0115,Arginine biosynthesis
+144,r_0116,Riboflavin metabolism
+148,r_0117,Propanoate metabolism
+150,r_0118,Arginine biosynthesis
+151,r_0119,Pantothenate and coa biosynthesis
+152,r_0120,Fatty acid degradation
+153,r_0121,Fatty acid degradation
+154,r_0122,Fatty acid degradation
+155,r_0123,Fatty acid degradation
+156,r_0124,Fatty acid degradation
+157,r_0125,Fatty acid degradation
+158,r_0126,Steroid biosynthesis
+160,r_0127,Steroid biosynthesis
+162,r_0128,Steroid biosynthesis
+164,r_0129,Steroid biosynthesis
+165,r_0130,Steroid biosynthesis
+167,r_0131,Steroid biosynthesis
+169,r_0132,Steroid biosynthesis
+173,r_0133,Steroid biosynthesis
+175,r_0134,Steroid biosynthesis
+177,r_0135,Steroid biosynthesis
+179,r_0137,Glycosylphosphatidylinositol (gpi)-anchor biosynthesis
+181,r_0138,Purine metabolism
+182,r_0139,Purine metabolism
+184,r_0140,Purine metabolism
+185,r_0142,Purine metabolism
+186,r_0143,Purine metabolism
+187,r_0144,Cysteine and methionine metabolism
+188,r_0145,Arginine and proline metabolism
+189,r_0146,Biotin metabolism
+191,r_0147,Purine metabolism
+192,r_0148,Purine metabolism
+194,r_0149,Purine metabolism
+195,r_0150,Purine metabolism
+197,r_0151,Purine metabolism
+198,r_0152,Purine metabolism
+200,r_0153,Purine metabolism
+201,r_0154,Sulfur metabolism
+202,r_0155,Cyclic nucleotide metabolism
+203,r_0156,"Alanine, aspartate and glutamate metabolism"
+204,r_0157,tRNA metabolism
+205,r_0158,Complex alcohol metabolism
+207,r_0159,Complex alcohol metabolism
+209,r_0160,Complex alcohol metabolism
+211,r_0161,Complex alcohol metabolism
+213,r_0162,Complex alcohol metabolism
+215,r_0163,Glycolysis / gluconeogenesis
+216,r_0164,Glycerolipid metabolism
+218,r_0165,Glycolysis / gluconeogenesis
+220,r_0166,Complex alcohol metabolism
+223,r_0167,Complex alcohol metabolism
+225,r_0168,Complex alcohol metabolism
+228,r_0169,Phenylalanine metabolism
+231,r_0170,Phenylalanine metabolism
+233,r_0171,Phenylalanine metabolism
+235,r_0172,Beta-alanine metabolism
+238,r_0173,Glycolysis / gluconeogenesis
+239,r_0174,Glycolysis / gluconeogenesis
+240,r_0175,Pyruvate metabolism
+242,r_0176,Tryptophan metabolism
+243,r_0177,Tryptophan metabolism
+244,r_0178,Tryptophan metabolism
+246,r_0179,Complex alcohol metabolism
+249,r_0180,Complex alcohol metabolism
+251,r_0181,Complex alcohol metabolism
+253,r_0182,Complex alcohol metabolism
+256,r_0183,Complex alcohol metabolism
+258,r_0184,Complex alcohol metabolism
+260,r_0185,Phenylalanine metabolism
+262,r_0186,Tyrosine metabolism
+265,r_0187,Tyrosine metabolism
+267,r_0188,Folate biosynthesis
+268,r_0189,Purine metabolism
+270,r_0190,Purine metabolism
+272,r_0191,Arginine biosynthesis
+273,r_0192,N-glycan biosynthesis
+281,r_0193,Starch and sucrose metabolism
+283,r_0194,Starch and sucrose metabolism
+284,r_0195,Starch and sucrose metabolism
+286,r_0198,Starch and sucrose metabolism
+292,r_0199,Arginine and proline metabolism
+294,r_0200,"Glycine, serine and threonine metabolism"
+295,r_0201,Arginine and proline metabolism
+296,r_0202,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+297,r_0203,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+298,r_0204,Purine metabolism
+300,r_0205,Pentose and glucuronate interconversions
+301,r_0206,Arginine biosynthesis
+302,r_0207,Arginine biosynthesis
+304,r_0208,Arginine biosynthesis
+306,r_0209,tRNA metabolism
+307,r_0210,tRNA metabolism
+308,r_0211,"Alanine, aspartate and glutamate metabolism"
+310,r_0212,tRNA metabolism
+311,r_0213,tRNA metabolism
+312,r_0214,Pyrimidine metabolism
+313,r_0215,"Glycine, serine and threonine metabolism"
+314,r_0216,"Alanine, aspartate and glutamate metabolism"
+316,r_0217,"Alanine, aspartate and glutamate metabolism"
+317,r_0218,"Alanine, aspartate and glutamate metabolism"
+319,r_0219,"Glycine, serine and threonine metabolism"
+320,r_0220,tRNA metabolism
+321,r_0221,tRNA metabolism
+322,r_0222,Purine metabolism
+323,r_0223,Purine metabolism
+324,r_0224,Purine metabolism
+325,r_0225,Histidine metabolism
+326,r_0226,Oxidative phosphorylation
+327,r_0227,"Transport [c, e]"
+330,r_0228,N-glycan biosynthesis
+331,r_0229,Biotin metabolism
+333,r_0230,Biotin metabolism
+334,r_0231,Steroid biosynthesis
+335,r_0233,Steroid biosynthesis
+336,r_0234,Steroid biosynthesis
+337,r_0235,Steroid biosynthesis
+338,r_0236,Steroid biosynthesis
+339,r_0237,Steroid biosynthesis
+340,r_0238,Steroid biosynthesis
+341,r_0239,Steroid biosynthesis
+342,r_0240,Steroid biosynthesis
+343,r_0241,Steroid biosynthesis
+344,r_0242,Steroid biosynthesis
+345,r_0243,Steroid biosynthesis
+346,r_0244,Steroid biosynthesis
+347,r_0249,Terpenoid backbone biosynthesis
+348,r_0250,Pyrimidine metabolism
+349,r_0252,Carnitine metabolism
+351,r_0253,Carnitine metabolism
+352,r_0254,Carnitine metabolism
+353,r_0255,Glyoxylate and dicarboxylate metabolism
+354,r_0256,Glyoxylate and dicarboxylate metabolism
+355,r_0259,Sphingolipid metabolism
+356,r_0260,Sphingolipid metabolism
+357,r_0261,Sphingolipid metabolism
+358,r_0262,Sphingolipid metabolism
+359,r_0263,Sphingolipid metabolism
+360,r_0264,Sphingolipid metabolism
+361,r_0265,Sphingolipid metabolism
+362,r_0266,Sphingolipid metabolism
+363,r_0267,Sphingolipid metabolism
+364,r_0268,Sphingolipid metabolism
+365,r_0269,Sphingolipid metabolism
+366,r_0270,Sphingolipid metabolism
+367,r_0271,Amino sugar and nucleotide sugar metabolism
+369,r_0272,Amino sugar and nucleotide sugar metabolism
+372,r_0273,Glycerophospholipid metabolism
+373,r_0274,Glycerophospholipid metabolism
+374,r_0278,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+375,r_0279,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+376,r_0280,Citrate cycle (TCA cycle)
+378,r_0281,Terpenoid backbone biosynthesis
+380,r_0282,Terpenoid backbone biosynthesis
+382,r_0283,Terpenoid backbone biosynthesis
+384,r_0284,Terpenoid backbone biosynthesis
+386,r_0285,Terpenoid backbone biosynthesis
+388,r_0286,Terpenoid backbone biosynthesis
+390,r_0287,Terpenoid backbone biosynthesis
+392,r_0288,Terpenoid backbone biosynthesis
+394,r_0289,Terpenoid backbone biosynthesis
+396,r_0290,Terpenoid backbone biosynthesis
+398,r_0291,Terpenoid backbone biosynthesis
+400,r_0292,Terpenoid backbone biosynthesis
+402,r_0293,Terpenoid backbone biosynthesis
+404,r_0294,Terpenoid backbone biosynthesis
+408,r_0295,Terpenoid backbone biosynthesis
+412,r_0296,Terpenoid backbone biosynthesis
+414,r_0297,Terpenoid backbone biosynthesis
+416,r_0298,Terpenoid backbone biosynthesis
+418,r_0299,Terpenoid backbone biosynthesis
+420,r_0300,Citrate cycle (TCA cycle)
+422,r_0301,Citrate cycle (TCA cycle)
+423,r_0302,Citrate cycle (TCA cycle)
+425,r_0303,Citrate cycle (TCA cycle)
+427,r_0304,Porphyrin and chlorophyll metabolism
+428,r_0306,Pyrimidine metabolism
+430,r_0307,Pyrimidine metabolism
+432,r_0308,Cysteine and methionine metabolism
+434,r_0309,"Glycine, serine and threonine metabolism"
+435,r_0310,Cysteine and methionine metabolism
+436,r_0311,Cysteine and methionine metabolism
+437,r_0312,Cysteine and methionine metabolism
+438,r_0313,tRNA metabolism
+439,r_0314,Pyrimidine metabolism
+440,r_0315,Pyrimidine metabolism
+441,r_0317,Steroid biosynthesis
+442,r_0318,Pyrimidine metabolism
+443,r_0319,Alternate carbon metabolism
+444,r_0320,Alternate carbon metabolism
+445,r_0321,Alternate carbon metabolism
+446,r_0322,Glycolysis / gluconeogenesis
+448,r_0323,Fructose and mannose metabolism
+450,r_0326,Pyrimidine metabolism
+452,r_0327,Pyrimidine metabolism
+453,r_0328,Purine metabolism
+454,r_0329,Pyrimidine metabolism
+455,r_0330,Purine metabolism
+457,r_0331,Arginine and proline metabolism
+458,r_0332,Pentose phosphate pathway
+459,r_0334,Pantothenate and coa biosynthesis
+460,r_0335,Biotin metabolism
+462,r_0340,Sphingolipid metabolism
+464,r_0341,Sphingolipid metabolism
+466,r_0342,Sphingolipid metabolism
+467,r_0343,Sphingolipid metabolism
+468,r_0344,Folate biosynthesis
+469,r_0345,Folate biosynthesis
+470,r_0346,Folate biosynthesis
+471,r_0347,Folate biosynthesis
+472,r_0348,Folate biosynthesis
+473,r_0349,Pyrimidine metabolism
+475,r_0350,Folate biosynthesis
+476,r_0351,Folate biosynthesis
+477,r_0352,"Valine, leucine and isoleucine metabolism"
+478,r_0353,"Valine, leucine and isoleucine metabolism"
+479,r_0354,Glycerolipid metabolism
+481,r_0355,Terpenoid backbone biosynthesis
+482,r_0356,Glycolysis / gluconeogenesis
+484,r_0357,Inositol phosphate metabolism
+485,r_0358,Phosphatidylinositol signaling system
+486,r_0359,Cysteine and methionine metabolism
+487,r_0360,N-glycan biosynthesis
+488,r_0361,N-glycan biosynthesis
+489,r_0362,N-glycan biosynthesis
+493,r_0363,Pyrimidine metabolism
+494,r_0364,Pyrimidine metabolism
+496,r_0365,Pentose and glucuronate interconversions
+497,r_0366,Glycolysis / gluconeogenesis
+507,r_0368,Glycerophospholipid metabolism
+509,r_0369,Complex alcohol metabolism
+510,r_0370,Starch and sucrose metabolism
+515,r_0373,Terpenoid backbone biosynthesis
+516,r_0399,Fatty acid biosynthesis
+518,r_0400,Fatty acid biosynthesis
+520,r_0402,Fatty acid biosynthesis
+522,r_0410,Fatty acid biosynthesis
+524,r_0412,Fatty acid biosynthesis
+526,r_0436,Porphyrin and chlorophyll metabolism
+527,r_0437,Oxidative phosphorylation
+529,r_0438,Oxidative phosphorylation
+534,r_0439,Oxidative phosphorylation
+536,r_0440,Riboflavin metabolism
+537,r_0441,Riboflavin metabolism
+538,r_0442,Riboflavin metabolism
+539,r_0443,Tyrosine metabolism
+540,r_0445,Glyoxylate and dicarboxylate metabolism
+541,r_0446,One carbon pool by folate
+542,r_0447,One carbon pool by folate
+544,r_0448,Fructose and mannose metabolism
+546,r_0449,Glycolysis / gluconeogenesis
+547,r_0450,Glycolysis / gluconeogenesis
+549,r_0451,Citrate cycle (TCA cycle)
+551,r_0452,Citrate cycle (TCA cycle)
+553,r_0453,Pyrimidine metabolism
+554,r_0454,Citrate cycle (TCA cycle)
+556,r_0455,Cellular response to anaerobic conditions
+558,r_0457,Glutathione metabolism
+559,r_0458,Galactose metabolism
+560,r_0459,Galactose metabolism
+561,r_0460,Glutathione metabolism
+562,r_0461,Ubiquinone and other terpenoid-quinone biosynthesis
+563,r_0462,Terpenoid backbone biosynthesis
+564,r_0463,Starch and sucrose metabolism
+565,r_0464,Starch and sucrose metabolism
+566,r_0465,Amino sugar and nucleotide sugar metabolism
+567,r_0466,Pentose phosphate pathway
+568,r_0467,Glycolysis / gluconeogenesis
+570,r_0468,Arginine and proline metabolism
+571,r_0469,"Alanine, aspartate and glutamate metabolism"
+572,r_0470,"Alanine, aspartate and glutamate metabolism"
+573,r_0471,"Alanine, aspartate and glutamate metabolism"
+575,r_0472,"Alanine, aspartate and glutamate metabolism"
+576,r_0473,Arginine and proline metabolism
+577,r_0475,"Alanine, aspartate and glutamate metabolism"
+579,r_0476,"Alanine, aspartate and glutamate metabolism"
+580,r_0477,"Alanine, aspartate and glutamate metabolism"
+582,r_0478,tRNA metabolism
+583,r_0479,tRNA metabolism
+584,r_0480,tRNA metabolism
+585,r_0481,Glutathione metabolism
+589,r_0482,Glutathione metabolism
+590,r_0483,Glutathione metabolism
+596,r_0484,Glutathione metabolism
+597,r_0485,Glutathione metabolism
+598,r_0486,Glycolysis / gluconeogenesis
+604,r_0487,Glycerolipid metabolism
+605,r_0488,Glycerolipid metabolism
+606,r_0489,Glycerolipid metabolism
+608,r_0490,Glycerophospholipid metabolism
+609,r_0491,Glycerophospholipid metabolism
+611,r_0492,Glycerophospholipid metabolism
+612,r_0497,Glycerophospholipid metabolism
+613,r_0499,Purine metabolism
+614,r_0500,"Glycine, serine and threonine metabolism"
+615,r_0501,"Glycine, serine and threonine metabolism"
+616,r_0502,"Glycine, serine and threonine metabolism"
+618,r_0503,"Glycine, serine and threonine metabolism"
+620,r_0504,"Glycine, serine and threonine metabolism"
+621,r_0505,"Glycine, serine and threonine metabolism"
+623,r_0506,"Glycine, serine and threonine metabolism"
+624,r_0507,"Glycine, serine and threonine metabolism"
+625,r_0508,"Glycine, serine and threonine metabolism"
+626,r_0509,"Glycine, serine and threonine metabolism"
+627,r_0510,Starch and sucrose metabolism
+631,r_0511,Starch and sucrose metabolism
+632,r_0512,tRNA metabolism
+634,r_0514,Purine metabolism
+635,r_0518,Glycosylphosphatidylinositol (gpi)-anchor biosynthesis
+637,r_0519,Glycosylphosphatidylinositol (gpi)-anchor biosynthesis
+639,r_0520,Glycosylphosphatidylinositol (gpi)-anchor biosynthesis
+641,r_0521,Glycosylphosphatidylinositol (gpi)-anchor biosynthesis
+643,r_0522,Glycosylphosphatidylinositol (gpi)-anchor biosynthesis
+645,r_0523,Glycosylphosphatidylinositol (gpi)-anchor biosynthesis
+649,r_0524,Folate biosynthesis
+650,r_0525,Riboflavin metabolism
+651,r_0526,Purine metabolism
+652,r_0527,Purine metabolism
+653,r_0528,Purine metabolism
+654,r_0529,Purine metabolism
+656,r_0530,Porphyrin and chlorophyll metabolism
+658,r_0531,Porphyrin and chlorophyll metabolism
+659,r_0532,Ubiquinone and other terpenoid-quinone biosynthesis
+660,r_0533,Glycolysis / gluconeogenesis
+663,r_0534,Glycolysis / gluconeogenesis
+668,r_0535,Glycolysis / gluconeogenesis
+671,r_0536,Histidine metabolism
+672,r_0537,Histidine metabolism
+673,r_0538,Histidine metabolism
+674,r_0539,tRNA metabolism
+675,r_0540,tRNA metabolism
+676,r_0541,Histidine metabolism
+677,r_0542,Lysine metabolism
+681,r_0543,Pyruvate metabolism
+683,r_0544,Cysteine and methionine metabolism
+685,r_0545,Lysine metabolism
+686,r_0546,"Glycine, serine and threonine metabolism"
+687,r_0547,"Glycine, serine and threonine metabolism"
+688,r_0548,"Glycine, serine and threonine metabolism"
+689,r_0549,Cysteine and methionine metabolism
+690,r_0550,Glutathione metabolism
+692,r_0551,Glutathione metabolism
+693,r_0552,Glutathione metabolism
+695,r_0553,Pyruvate metabolism
+696,r_0554,Pyruvate metabolism
+697,r_0555,Ubiquinone and other terpenoid-quinone biosynthesis
+698,r_0556,Thiamine metabolism
+699,r_0557,Porphyrin and chlorophyll metabolism
+700,r_0558,Terpenoid backbone biosynthesis
+702,r_0559,Terpenoid backbone biosynthesis
+703,r_0560,Terpenoid backbone biosynthesis
+704,r_0561,Thiamine metabolism
+707,r_0562,Purine metabolism
+708,r_0563,Histidine metabolism
+709,r_0564,Histidine metabolism
+710,r_0565,Purine metabolism
+713,r_0566,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+714,r_0567,Tryptophan metabolism
+717,r_0568,Oxidative phosphorylation
+718,r_0569,Oxidative phosphorylation
+719,r_0570,Purine metabolism
+723,r_0571,Inositol phosphate metabolism
+724,r_0572,Inositol phosphate metabolism
+725,r_0573,Inositol phosphate metabolism
+726,r_0574,Inositol phosphate metabolism
+727,r_0575,Inositol phosphate metabolism
+728,r_0596,Sphingolipid metabolism
+729,r_0597,Sphingolipid metabolism
+730,r_0598,Sphingolipid metabolism
+731,r_0599,Sphingolipid metabolism
+732,r_0600,Sphingolipid metabolism
+733,r_0601,Sphingolipid metabolism
+734,r_0602,Sphingolipid metabolism
+735,r_0603,Sphingolipid metabolism
+736,r_0604,Sphingolipid metabolism
+737,r_0605,Sphingolipid metabolism
+738,r_0606,Sphingolipid metabolism
+739,r_0607,Sphingolipid metabolism
+740,r_0608,Sphingolipid metabolism
+741,r_0609,Sphingolipid metabolism
+742,r_0610,Sphingolipid metabolism
+743,r_0611,Sphingolipid metabolism
+744,r_0612,Sphingolipid metabolism
+745,r_0613,Sphingolipid metabolism
+746,r_0614,Sphingolipid metabolism
+747,r_0615,Sphingolipid metabolism
+748,r_0616,Sphingolipid metabolism
+749,r_0617,Sphingolipid metabolism
+750,r_0618,Sphingolipid metabolism
+751,r_0619,Sphingolipid metabolism
+752,r_0620,Sphingolipid metabolism
+753,r_0621,Sphingolipid metabolism
+754,r_0622,Sphingolipid metabolism
+755,r_0623,Sphingolipid metabolism
+756,r_0624,Sphingolipid metabolism
+757,r_0625,Sphingolipid metabolism
+758,r_0626,Sphingolipid metabolism
+759,r_0627,Sphingolipid metabolism
+760,r_0628,Sphingolipid metabolism
+761,r_0629,Sphingolipid metabolism
+762,r_0630,Sphingolipid metabolism
+763,r_0631,Sphingolipid metabolism
+764,r_0632,Sphingolipid metabolism
+765,r_0633,Sphingolipid metabolism
+766,r_0634,Sphingolipid metabolism
+767,r_0635,Sphingolipid metabolism
+768,r_0636,Sphingolipid metabolism
+769,r_0637,Sphingolipid metabolism
+770,r_0638,Sphingolipid metabolism
+771,r_0639,Sphingolipid metabolism
+772,r_0640,Sphingolipid metabolism
+773,r_0641,Sphingolipid metabolism
+774,r_0642,Sphingolipid metabolism
+775,r_0643,Sphingolipid metabolism
+776,r_0644,Sphingolipid metabolism
+777,r_0645,Sphingolipid metabolism
+778,r_0646,Sphingolipid metabolism
+779,r_0647,Sphingolipid metabolism
+780,r_0648,Sphingolipid metabolism
+781,r_0649,Sphingolipid metabolism
+782,r_0650,Sphingolipid metabolism
+783,r_0651,Sphingolipid metabolism
+784,r_0652,Sphingolipid metabolism
+785,r_0653,Sphingolipid metabolism
+786,r_0654,Sphingolipid metabolism
+787,r_0655,Sphingolipid metabolism
+788,r_0656,Complex alcohol metabolism
+789,r_0657,Complex alcohol metabolism
+790,r_0658,Citrate cycle (TCA cycle)
+791,r_0659,Citrate cycle (TCA cycle)
+793,r_0661,Citrate cycle (TCA cycle)
+794,r_0662,Glyoxylate and dicarboxylate metabolism
+795,r_0663,"Valine, leucine and isoleucine metabolism"
+797,r_0664,"Valine, leucine and isoleucine metabolism"
+799,r_0665,tRNA metabolism
+800,r_0666,tRNA metabolism
+801,r_0667,Terpenoid backbone biosynthesis
+803,r_0668,C5-branched dibasic acid metabolism
+805,r_0669,"Valine, leucine and isoleucine metabolism"
+806,r_0670,Tryptophan metabolism
+807,r_0671,Tryptophan metabolism
+808,r_0672,Arginine and proline metabolism
+810,r_0673,Arginine and proline metabolism
+812,r_0674,"Alanine, aspartate and glutamate metabolism"
+814,r_0675,"Glycine, serine and threonine metabolism"
+815,r_0676,"Glycine, serine and threonine metabolism"
+817,r_0678,Lysine metabolism
+818,r_0679,"Alanine, aspartate and glutamate metabolism"
+819,r_0680,"Alanine, aspartate and glutamate metabolism"
+823,r_0681,Arginine and proline metabolism
+824,r_0682,Arginine and proline metabolism
+825,r_0683,Arginine and proline metabolism
+826,r_0687,Arginine and proline metabolism
+827,r_0688,Pyruvate metabolism
+829,r_0689,"Glycine, serine and threonine metabolism"
+830,r_0690,"Glycine, serine and threonine metabolism"
+831,r_0691,Fructose and mannose metabolism
+832,r_0692,"Glycine, serine and threonine metabolism"
+833,r_0693,"Glycine, serine and threonine metabolism"
+834,r_0694,Tryptophan metabolism
+835,r_0695,Tryptophan metabolism
+836,r_0696,Pyruvate metabolism
+837,r_0697,Pyruvate metabolism
+838,r_0698,Steroid biosynthesis
+839,r_0699,"Valine, leucine and isoleucine metabolism"
+841,r_0700,"Valine, leucine and isoleucine metabolism"
+843,r_0701,tRNA metabolism
+844,r_0702,tRNA metabolism
+845,r_0703,Arachidonic acid metabolism
+847,r_0704,Arachidonic acid metabolism
+849,r_0705,Arachidonic acid metabolism
+851,r_0706,Arachidonic acid metabolism
+853,r_0707,Arachidonic acid metabolism
+855,r_0708,Arachidonic acid metabolism
+857,r_0711,tRNA metabolism
+858,r_0712,tRNA metabolism
+859,r_0713,Citrate cycle (TCA cycle)
+861,r_0714,Citrate cycle (TCA cycle)
+863,r_0715,Citrate cycle (TCA cycle)
+865,r_0716,Pyruvate metabolism
+867,r_0717,Pyruvate metabolism
+868,r_0718,Pyruvate metabolism
+869,r_0719,Pyruvate metabolism
+870,r_0721,Fatty acid biosynthesis
+872,r_0722,Fructose and mannose metabolism
+873,r_0723,Fructose and mannose metabolism
+875,r_0724,One carbon pool by folate
+877,r_0725,One carbon pool by folate
+879,r_0726,Cysteine and methionine metabolism
+881,r_0727,Cysteine and methionine metabolism
+882,r_0728,tRNA metabolism
+883,r_0729,tRNA metabolism
+884,r_0730,tRNA metabolism
+885,r_0731,One carbon pool by folate
+886,r_0732,One carbon pool by folate
+888,r_0733,One carbon pool by folate
+890,r_0734,Propanoate metabolism
+891,r_0735,Terpenoid backbone biosynthesis
+892,r_0736,Terpenoid backbone biosynthesis
+893,r_0737,Terpenoid backbone biosynthesis
+894,r_0738,Terpenoid backbone biosynthesis
+895,r_0739,Terpenoid backbone biosynthesis
+896,r_0747,Sphingoglycolipid metabolism
+898,r_0748,Sphingoglycolipid metabolism
+900,r_0749,Sphingoglycolipid metabolism
+902,r_0750,Sphingoglycolipid metabolism
+904,r_0751,Sphingoglycolipid metabolism
+906,r_0752,Sphingoglycolipid metabolism
+908,r_0753,Sphingoglycolipid metabolism
+910,r_0754,Sphingoglycolipid metabolism
+912,r_0755,Sphingoglycolipid metabolism
+914,r_0756,Sphingoglycolipid metabolism
+916,r_0757,Inositol phosphate metabolism
+918,r_0758,Inositol phosphate metabolism
+919,r_0759,Arginine biosynthesis
+920,r_0760,Amino sugar and nucleotide sugar metabolism
+921,r_0761,Arginine biosynthesis
+925,r_0762,Tryptophan metabolism
+926,r_0763,Tryptophan metabolism
+927,r_0764,Nicotinate and nicotinamide metabolism
+928,r_0765,Nicotinate and nicotinamide metabolism
+930,r_0766,Nicotinate and nicotinamide metabolism
+933,r_0767,Nicotinate and nicotinamide metabolism
+938,r_0768,Nicotinate and nicotinamide metabolism
+939,r_0769,Nicotinate and nicotinamide metabolism
+941,r_0770,Oxidative phosphorylation
+943,r_0771,Nicotinate and nicotinamide metabolism
+945,r_0772,Nicotinate and nicotinamide metabolism
+948,r_0773,Oxidative phosphorylation
+949,r_0774,Nicotinate and nicotinamide metabolism
+950,r_0775,Nicotinate and nicotinamide metabolism
+951,r_0781,Nicotinate and nicotinamide metabolism
+952,r_0782,Nicotinate and nicotinamide metabolism
+953,r_0783,Nicotinate and nicotinamide metabolism
+955,r_0784,Nicotinate and nicotinamide metabolism
+957,r_0785,Nicotinate and nicotinamide metabolism
+959,r_0786,Nicotinate and nicotinamide metabolism
+960,r_0787,Nicotinate and nicotinamide metabolism
+961,r_0788,Purine metabolism
+962,r_0789,Purine metabolism
+963,r_0790,Pyrimidine metabolism
+964,r_0791,Pyrimidine metabolism
+965,r_0792,Pyrimidine metabolism
+966,r_0793,Purine metabolism
+967,r_0795,Pyrimidine metabolism
+968,r_0796,Purine metabolism
+969,r_0797,Pyrimidine metabolism
+970,r_0798,Purine metabolism
+971,r_0799,Pyrimidine metabolism
+972,r_0800,Purine metabolism
+973,r_0801,Purine metabolism
+974,r_0802,Purine metabolism
+976,r_0803,Pyrimidine metabolism
+978,r_0804,Purine metabolism
+981,r_0805,Pyrimidine metabolism
+982,r_0806,Pyrimidine metabolism
+983,r_0807,Purine metabolism
+984,r_0810,Purine metabolism
+985,r_0811,Pyrimidine metabolism
+986,r_0812,Cysteine and methionine metabolism
+987,r_0813,Cysteine and methionine metabolism
+988,r_0815,Cysteine and methionine metabolism
+994,r_0816,Arginine biosynthesis
+995,r_0817,Arginine and proline metabolism
+996,r_0818,Arginine biosynthesis
+997,r_0819,Arginine and proline metabolism
+998,r_0820,Pyrimidine metabolism
+1002,r_0821,Pyrimidine metabolism
+1003,r_0831,Citrate cycle (TCA cycle)
+1005,r_0832,Citrate cycle (TCA cycle)
+1007,r_0841,Pantothenate and coa biosynthesis
+1008,r_0842,Pantothenate and coa biosynthesis
+1009,r_0843,Pantothenate and coa biosynthesis
+1010,r_0844,Biosynthesis of unsaturated fatty acids
+1011,r_0845,Biosynthesis of unsaturated fatty acids
+1012,r_0847,Biosynthesis of unsaturated fatty acids
+1013,r_0848,Biosynthesis of unsaturated fatty acids
+1014,r_0849,Biosynthesis of unsaturated fatty acids
+1015,r_0850,Biosynthesis of unsaturated fatty acids
+1016,r_0851,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+1018,r_0852,tRNA metabolism
+1019,r_0853,tRNA metabolism
+1020,r_0854,Phenylalanine metabolism
+1021,r_0855,Purine metabolism
+1022,r_0882,Amino sugar and nucleotide sugar metabolism
+1024,r_0883,Sulfur metabolism
+1026,r_0884,Glycolysis / gluconeogenesis
+1027,r_0885,Glycerophospholipid metabolism
+1028,r_0886,Glycolysis / gluconeogenesis
+1029,r_0887,Glycolysis / gluconeogenesis
+1030,r_0888,Pentose phosphate pathway
+1034,r_0889,Pentose phosphate pathway
+1036,r_0890,Amino sugar and nucleotide sugar metabolism
+1038,r_0891,"Glycine, serine and threonine metabolism"
+1040,r_0892,Glycolysis / gluconeogenesis
+1042,r_0893,Glycolysis / gluconeogenesis
+1046,r_0902,Fructose and mannose metabolism
+1048,r_0903,Thiamine metabolism
+1051,r_0904,Terpenoid backbone biosynthesis
+1052,r_0905,Pantothenate and coa biosynthesis
+1053,r_0906,Pantothenate and coa biosynthesis
+1054,r_0907,Pentose phosphate pathway
+1060,r_0908,Purine metabolism
+1061,r_0909,Histidine metabolism
+1062,r_0910,Histidine metabolism
+1063,r_0911,Purine metabolism
+1064,r_0912,Purine metabolism
+1068,r_0913,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+1069,r_0914,Purine metabolism
+1070,r_0915,Purine metabolism
+1071,r_0916,Pentose phosphate pathway
+1076,r_0917,"Glycine, serine and threonine metabolism"
+1077,r_0918,"Glycine, serine and threonine metabolism"
+1078,r_0919,Sphingolipid metabolism
+1079,r_0920,Tryptophan metabolism
+1080,r_0921,Sphingolipid metabolism
+1081,r_0922,Sphingolipid metabolism
+1082,r_0929,Arginine and proline metabolism
+1083,r_0935,Porphyrin and chlorophyll metabolism
+1084,r_0936,Arginine and proline metabolism
+1085,r_0937,Arginine and proline metabolism
+1086,r_0938,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+1087,r_0939,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+1088,r_0940,Arginine and proline metabolism
+1089,r_0941,tRNA metabolism
+1090,r_0942,Porphyrin and chlorophyll metabolism
+1091,r_0943,Nicotinate and nicotinamide metabolism
+1092,r_0949,Purine metabolism
+1094,r_0950,Purine metabolism
+1096,r_0951,Purine metabolism
+1098,r_0953,Vitamin b6 metabolism
+1099,r_0954,Vitamin b6 metabolism
+1100,r_0955,Vitamin b6 metabolism
+1101,r_0956,Vitamin b6 metabolism
+1102,r_0957,Arginine and proline metabolism
+1103,r_0958,Pyruvate metabolism
+1105,r_0959,Glycolysis / gluconeogenesis
+1108,r_0960,Glycolysis / gluconeogenesis
+1111,r_0961,Glycolysis / gluconeogenesis
+1112,r_0962,Glycolysis / gluconeogenesis
+1114,r_0963,Ubiquinone and other terpenoid-quinone biosynthesis
+1115,r_0964,"Transport [c, v]"
+1116,r_0965,Riboflavin metabolism
+1117,r_0966,Riboflavin metabolism
+1118,r_0967,Riboflavin metabolism
+1119,r_0968,Riboflavin metabolism
+1120,r_0969,Pentose phosphate pathway
+1121,r_0970,Purine metabolism
+1122,r_0971,Pyrimidine metabolism
+1123,r_0972,Purine metabolism
+1124,r_0973,Pyrimidine metabolism
+1125,r_0974,Purine metabolism
+1129,r_0975,Purine metabolism
+1133,r_0976,Pyrimidine metabolism
+1137,r_0977,Pyrimidine metabolism
+1141,r_0978,Purine metabolism
+1145,r_0979,Purine metabolism
+1149,r_0982,Pentose phosphate pathway
+1151,r_0983,Nicotinate and nicotinamide metabolism
+1152,r_0984,Pentose phosphate pathway
+1154,r_0985,Ubiquinone and other terpenoid-quinone biosynthesis
+1155,r_0986,Steroid biosynthesis
+1156,r_0987,Alternate carbon metabolism
+1157,r_0988,Lysine metabolism
+1158,r_0989,Lysine metabolism
+1159,r_0990,Glycolysis / gluconeogenesis
+1161,r_0992,Cysteine and methionine metabolism
+1162,r_0993,Sphingolipid metabolism
+1163,r_0995,tRNA metabolism
+1165,r_0996,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+1166,r_0997,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+1167,r_0998,Porphyrin and chlorophyll metabolism
+1168,r_0999,Porphyrin and chlorophyll metabolism
+1169,r_1000,Cellular response to anaerobic conditions
+1171,r_1001,Arginine and proline metabolism
+1172,r_1002,Arginine and proline metabolism
+1173,r_1003,Sphingolipid metabolism
+1174,r_1004,Sphingolipid metabolism
+1176,r_1005,Sphingolipid metabolism
+1178,r_1006,Sphingolipid metabolism
+1180,r_1007,Sphingolipid metabolism
+1182,r_1008,C5-branched dibasic acid metabolism
+1184,r_1009,C5-branched dibasic acid metabolism
+1186,r_1010,Steroid biosynthesis
+1187,r_1011,Steroid biosynthesis
+1188,r_1012,Steroid biosynthesis
+1189,r_1021,Citrate cycle (TCA cycle)
+1195,r_1022,Citrate cycle (TCA cycle)
+1196,r_1023,"Alanine, aspartate and glutamate metabolism"
+1197,r_1024,Starch and sucrose metabolism
+1198,r_1025,Sulfur metabolism
+1199,r_1026,Sulfur metabolism
+1200,r_1027,Sulfur metabolism
+1201,r_1028,"Transport [c, v]"
+1202,r_1029,Sulfur metabolism
+1203,r_1030,One carbon pool by folate
+1204,r_1031,Folate biosynthesis
+1208,r_1032,Thiamine metabolism
+1209,r_1033,Thiamine metabolism
+1210,r_1034,Thiamine metabolism
+1211,r_1035,Thiamine metabolism
+1212,r_1036,Thiamine metabolism
+1213,r_1037,Glutathione metabolism
+1215,r_1038,Glutathione metabolism
+1218,r_1039,Glutathione metabolism
+1220,r_1040,"Glycine, serine and threonine metabolism"
+1221,r_1041,"Glycine, serine and threonine metabolism"
+1222,r_1042,tRNA metabolism
+1223,r_1043,tRNA metabolism
+1224,r_1045,Pyrimidine metabolism
+1225,r_1046,C5-branched dibasic acid metabolism
+1226,r_1047,Terpenoid backbone biosynthesis
+1227,r_1048,Pentose phosphate pathway
+1231,r_1049,Pentose phosphate pathway
+1235,r_1050,Pentose phosphate pathway
+1239,r_1051,Starch and sucrose metabolism
+1241,r_1054,Glycolysis / gluconeogenesis
+1243,r_1055,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+1244,r_1056,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+1245,r_1057,tRNA metabolism
+1246,r_1058,tRNA metabolism
+1247,r_1063,Tyrosine metabolism
+1249,r_1065,Tyrosine metabolism
+1250,r_1066,tRNA metabolism
+1251,r_1067,tRNA metabolism
+1252,r_1068,Steroid biosynthesis
+1253,r_1069,Amino sugar and nucleotide sugar metabolism
+1255,r_1070,Galactose metabolism
+1257,r_1071,Galactose metabolism
+1259,r_1072,Pyrimidine metabolism
+1260,r_1073,Pyrimidine metabolism
+1261,r_1074,Pyrimidine metabolism
+1262,r_1075,Arginine biosynthesis
+1263,r_1076,Purine metabolism
+1264,r_1077,Pyrimidine metabolism
+1266,r_1078,Pyrimidine metabolism
+1268,r_1079,Pyrimidine metabolism
+1269,r_1080,Pyrimidine metabolism
+1270,r_1081,Porphyrin and chlorophyll metabolism
+1271,r_1082,Porphyrin and chlorophyll metabolism
+1272,r_1083,Porphyrin and chlorophyll metabolism
+1273,r_1084,Galactose metabolism
+1277,r_1085,Oxidative phosphorylation
+1279,r_1086,Oxidative phosphorylation
+1281,r_1087,"Valine, leucine and isoleucine metabolism"
+1283,r_1088,"Valine, leucine and isoleucine metabolism"
+1285,r_1089,tRNA metabolism
+1286,r_1090,tRNA metabolism
+1287,r_1091,Purine metabolism
+1288,r_1092,Pentose and glucuronate interconversions
+1289,r_1093,Pentose and glucuronate interconversions
+1290,r_1094,Pentose and glucuronate interconversions
+1291,r_1095,Pyrimidine metabolism
+1299,r_1096,"Transport [c, e]"
+1303,r_1097,"Transport [c, e]"
+1305,r_1098,"Transport [c, e]"
+1306,r_1099,"Transport [c, m]"
+1310,r_1100,"Transport [c, m]"
+1312,r_1101,"Transport [c, e]"
+1314,r_1102,"Transport [c, e]"
+1315,r_1103,"Transport [c, e]"
+1317,r_1104,"Transport [c, e]"
+1319,r_1106,"Transport [c, e]"
+1321,r_1107,"Transport [c, e]"
+1322,r_1108,"Transport [c, e]"
+1325,r_1109,"Transport [c, e]"
+1326,r_1110,"Transport [c, m]"
+1332,r_1111,"Transport [c, p]"
+1333,r_1112,"Transport [c, m]"
+1335,r_1113,"Transport [c, e]"
+1336,r_1114,"Transport [c, e]"
+1337,r_1115,"Transport [c, e]"
+1345,r_1116,"Transport [c, p]"
+1346,r_1118,"Transport [c, m]"
+1347,r_1119,"Transport [c, e]"
+1348,r_1120,"Transport [c, m]"
+1349,r_1121,"Transport [er, g]"
+1351,r_1122,"Transport [er, g]"
+1353,r_1123,"Transport [er, g]"
+1355,r_1124,"Transport [er, g]"
+1357,r_1125,"Transport [c, e]"
+1358,r_1126,"Transport [c, m]"
+1360,r_1127,"Transport [c, m]"
+1362,r_1128,"Transport [c, m]"
+1364,r_1129,"Transport [c, m]"
+1365,r_1130,"Transport [c, m]"
+1366,r_1131,"Transport [c, m]"
+1367,r_1132,"Transport [c, e]"
+1368,r_1133,"Transport [c, e]"
+1372,r_1134,"Transport [c, e]"
+1387,r_1135,"Transport [c, e]"
+1392,r_1136,"Transport [c, e]"
+1394,r_1137,"Transport [c, m]"
+1395,r_1138,"Transport [c, m]"
+1397,r_1139,"Transport [c, e]"
+1410,r_1146,"Transport [c, e]"
+1414,r_1147,"Transport [c, e]"
+1418,r_1148,"Transport [c, ce]"
+1422,r_1149,"Transport [c, e]"
+1424,r_1151,"Transport [c, m]"
+1425,r_1161,"Transport [c, e]"
+1429,r_1162,"Transport [c, ce]"
+1433,r_1164,"Transport [c, e]"
+1435,r_1165,"Transport [c, g]"
+1436,r_1166,"Transport [c, e]"
+1456,r_1167,"Transport [c, e]"
+1457,r_1168,"Transport [c, v]"
+1461,r_1169,"Transport [c, e]"
+1463,r_1170,"Transport [c, e]"
+1465,r_1171,"Transport [c, e]"
+1468,r_1172,"Transport [c, e]"
+1470,r_1173,"Transport [c, e]"
+1480,r_1174,"Transport [c, v]"
+1481,r_1175,"Transport [c, m]"
+1482,r_1176,"Transport [c, e]"
+1488,r_1177,"Transport [c, e]"
+1490,r_1178,"Transport [c, e]"
+1492,r_1179,"Transport [c, m]"
+1494,r_1180,"Transport [c, e]"
+1495,r_1181,"Transport [c, e]"
+1496,r_1182,"Transport [c, m]"
+1498,r_1183,"Transport [c, e]"
+1506,r_1184,"Transport [c, e]"
+1512,r_1185,"Transport [c, v]"
+1514,r_1186,"Transport [c, e]"
+1522,r_1187,"Transport [c, v]"
+1523,r_1188,"Transport [c, v]"
+1525,r_1189,"Transport [c, v]"
+1526,r_1190,"Transport [c, e]"
+1532,r_1191,"Transport [c, e]"
+1534,r_1192,"Transport [c, e]"
+1548,r_1193,"Transport [c, v]"
+1549,r_1194,"Transport [c, m]"
+1550,r_1195,"Transport [c, v]"
+1551,r_1196,"Transport [c, e]"
+1559,r_1197,"Transport [c, v]"
+1560,r_1198,"Transport [c, v]"
+1562,r_1199,"Transport [c, e]"
+1570,r_1200,"Transport [c, v]"
+1574,r_1201,"Transport [c, e]"
+1580,r_1202,"Transport [c, v]"
+1582,r_1203,"Transport [c, v]"
+1583,r_1204,"Transport [c, v]"
+1585,r_1205,"Transport [c, e]"
+1595,r_1206,"Transport [c, m]"
+1597,r_1207,"Transport [c, e]"
+1598,r_1208,"Transport [c, v]"
+1600,r_1209,"Transport [c, v]"
+1601,r_1210,"Transport [c, v]"
+1603,r_1211,"Transport [c, e]"
+1615,r_1212,"Transport [c, v]"
+1619,r_1213,"Transport [c, e]"
+1623,r_1214,"Transport [c, e]"
+1637,r_1215,"Transport [c, e]"
+1647,r_1216,"Transport [c, e]"
+1651,r_1217,"Transport [c, e]"
+1663,r_1218,"Transport [c, e]"
+1669,r_1219,"Transport [c, e]"
+1679,r_1220,"Transport [c, v]"
+1681,r_1221,"Transport [c, v]"
+1683,r_1222,"Transport [c, v]"
+1685,r_1223,"Transport [c, e]"
+1697,r_1224,"Transport [c, e]"
+1707,r_1225,"Transport [c, e]"
+1711,r_1226,"Transport [c, m]"
+1712,r_1227,"Transport [c, e]"
+1716,r_1228,"Transport [c, e]"
+1717,r_1229,"Transport [c, m]"
+1719,r_1230,"Transport [c, m]"
+1720,r_1231,"Transport [c, m]"
+1721,r_1232,"Transport [c, m]"
+1722,r_1235,"Transport [c, e]"
+1724,r_1236,"Transport [c, p]"
+1726,r_1237,"Transport [c, m]"
+1727,r_1238,"Transport [c, e]"
+1729,r_1239,"Transport [c, m]"
+1730,r_1241,"Transport [c, e]"
+1732,r_1242,"Transport [c, m]"
+1734,r_1243,"Transport [c, e]"
+1735,r_1244,"Transport [c, e]"
+1745,r_1245,"Transport [c, m]"
+1747,r_1249,"Transport [c, e]"
+1751,r_1250,"Transport [c, e]"
+1752,r_1251,"Transport [c, e]"
+1756,r_1252,"Transport [c, v]"
+1760,r_1253,"Transport [c, e]"
+1762,r_1254,"Transport [c, e]"
+1764,r_1255,"Transport [c, e]"
+1765,r_1256,"Transport [c, m]"
+1767,r_1257,"Transport [c, e]"
+1768,r_1258,"Transport [c, e]"
+1772,r_1259,"Transport [c, e]"
+1773,r_1260,"Transport [c, e]"
+1785,r_1261,"Transport [c, v]"
+1789,r_1262,"Transport [c, e]"
+1797,r_1263,"Transport [c, v]"
+1805,r_1264,"Transport [c, m]"
+1806,r_1265,"Transport [c, m]"
+1807,r_1266,"Transport [c, e]"
+1809,r_1267,"Transport [c, e]"
+1810,r_1268,"Transport [c, e]"
+1812,r_1269,"Transport [c, m]"
+1813,r_1270,"Transport [c, e]"
+1816,r_1271,"Transport [c, g]"
+1817,r_1272,"Transport [c, e]"
+1818,r_1273,"Transport [c, e]"
+1820,r_1274,"Transport [c, e]"
+1821,r_1275,"Transport [c, m]"
+1822,r_1276,"Transport [c, m]"
+1823,r_1277,"Transport [c, e]"
+1827,r_1278,"Transport [e, ce]"
+1831,r_1449,SLIME reaction
+1832,r_1450,SLIME reaction
+1833,r_1451,SLIME reaction
+1834,r_1452,SLIME reaction
+1835,r_1453,SLIME reaction
+1836,r_1454,SLIME reaction
+1837,r_1455,SLIME reaction
+1838,r_1456,SLIME reaction
+1839,r_1457,SLIME reaction
+1840,r_1458,SLIME reaction
+1841,r_1479,SLIME reaction
+1842,r_1480,SLIME reaction
+1843,r_1481,SLIME reaction
+1844,r_1482,SLIME reaction
+1845,r_1483,SLIME reaction
+1846,r_1484,SLIME reaction
+1847,r_1485,SLIME reaction
+1848,r_1486,SLIME reaction
+1849,r_1487,SLIME reaction
+1850,r_1488,SLIME reaction
+1851,r_1509,SLIME reaction
+1852,r_1510,SLIME reaction
+1853,r_1511,SLIME reaction
+1854,r_1512,SLIME reaction
+1855,r_1513,SLIME reaction
+1856,r_1514,SLIME reaction
+1857,r_1515,SLIME reaction
+1858,r_1516,SLIME reaction
+1859,r_1517,SLIME reaction
+1860,r_1518,SLIME reaction
+1861,r_1542,Exchange reaction
+1862,r_1543,"Transport [c, ce]"
+1864,r_1545,Exchange reaction
+1865,r_1546,Exchange reaction
+1866,r_1547,Exchange reaction
+1867,r_1548,Exchange reaction
+1868,r_1549,Exchange reaction
+1869,r_1550,Exchange reaction
+1870,r_1551,Exchange reaction
+1871,r_1552,Exchange reaction
+1872,r_1553,Exchange reaction
+1873,r_1554,Exchange reaction
+1874,r_1560,"Transport [c, n]"
+1876,r_1562,"Transport [c, er]"
+1878,r_1563,Exchange reaction
+1879,r_1564,Exchange reaction
+1880,r_1565,Exchange reaction
+1881,r_1566,Exchange reaction
+1882,r_1567,"Transport [c, m]"
+1884,r_1568,"Transport [c, m]"
+1886,r_1572,Exchange reaction
+1887,r_1573,"Transport [c, e]"
+1889,r_1574,"Transport [c, m]"
+1891,r_1575,"Transport [c, e]"
+1893,r_1576,"Transport [c, m]"
+1895,r_1577,Exchange reaction
+1896,r_1578,"Transport [c, e]"
+1898,r_1579,"Transport [c, m]"
+1900,r_1580,Exchange reaction
+1901,r_1581,Exchange reaction
+1902,r_1582,"Transport [c, e]"
+1904,r_1583,"Transport [c, m]"
+1906,r_1585,"Transport [c, m]"
+1910,r_1586,Exchange reaction
+1911,r_1587,"Transport [c, n]"
+1913,r_1588,"Transport [c, e]"
+1915,r_1589,Exchange reaction
+1916,r_1590,"Transport [c, e]"
+1918,r_1591,"Transport [c, m]"
+1920,r_1595,"Transport [c, m]"
+1922,r_1596,"Transport [c, m]"
+1924,r_1597,"Transport [c, e]"
+1926,r_1598,Exchange reaction
+1927,r_1599,"Transport [c, e]"
+1929,r_1600,"Transport [c, m]"
+1931,r_1601,"Transport [c, m]"
+1933,r_1603,Thiamine metabolism
+1934,r_1604,Exchange reaction
+1935,r_1605,"Transport [c, e]"
+1937,r_1606,"Transport [c, m]"
+1939,r_1607,"Transport [c, m]"
+1941,r_1608,"Transport [c, m]"
+1943,r_1609,"Transport [c, m]"
+1945,r_1610,"Transport [c, p]"
+1947,r_1611,"Transport [c, m]"
+1949,r_1613,Purine metabolism
+1950,r_1614,Purine metabolism
+1952,r_1615,Pyrimidine metabolism
+1954,r_1616,Purine metabolism
+1956,r_1617,Pyrimidine metabolism
+1958,r_1618,Pyrimidine metabolism
+1959,r_1619,Purine metabolism
+1960,r_1620,Purine metabolism
+1961,r_1621,Exchange reaction
+1962,r_1622,"Transport [c, m]"
+1964,r_1623,One carbon pool by folate
+1965,r_1624,One carbon pool by folate
+1966,r_1625,Exchange reaction
+1967,r_1627,Exchange reaction
+1968,r_1628,"Transport [c, e]"
+1970,r_1629,Exchange reaction
+1971,r_1630,Exchange reaction
+1972,r_1631,Exchange reaction
+1973,r_1632,"Transport [c, m]"
+1975,r_1633,"Transport [c, e]"
+1977,r_1634,Exchange reaction
+1978,r_1635,"Transport [c, n]"
+1980,r_1637,"Transport [c, n]"
+1982,r_1638,"Transport [c, p]"
+1983,r_1639,Exchange reaction
+1984,r_1640,"Transport [c, m]"
+1986,r_1641,Exchange reaction
+1987,r_1642,"Transport [c, m]"
+1989,r_1643,Exchange reaction
+1990,r_1644,"Transport [c, n]"
+1992,r_1645,"Transport [c, er]"
+1994,r_1647,"Transport [c, p]"
+1996,r_1648,Exchange reaction
+1997,r_1649,Exchange reaction
+1998,r_1650,Exchange reaction
+1999,r_1651,Exchange reaction
+2000,r_1652,"Transport [c, e]"
+2002,r_1654,Exchange reaction
+2003,r_1656,"Transport [c, n]"
+2005,r_1657,"Transport [c, m]"
+2006,r_1658,"Transport [c, m]"
+2007,r_1659,"Transport [c, p]"
+2009,r_1660,"Transport [c, n]"
+2011,r_1661,"Transport [c, er]"
+2013,r_1663,Exchange reaction
+2014,r_1664,Nitrogen metabolism
+2016,r_1665,Nitrogen metabolism
+2018,r_1667,Nitrogen metabolism
+2020,r_1668,Nitrogen metabolism
+2022,r_1669,"Transport [c, n]"
+2024,r_1671,Exchange reaction
+2025,r_1672,Exchange reaction
+2026,r_1673,"Transport [c, p]"
+2027,r_1674,"Transport [c, p]"
+2028,r_1675,"Transport [c, n]"
+2030,r_1676,"Transport [er, g]"
+2032,r_1677,"Transport [er, g]"
+2034,r_1678,"Transport [er, g]"
+2036,r_1679,"Transport [er, g]"
+2038,r_1680,"Transport [er, g]"
+2040,r_1681,"Transport [er, g]"
+2042,r_1682,Steroid biosynthesis
+2043,r_1683,Exchange reaction
+2044,r_1684,"Transport [c, ce]"
+2048,r_1685,Ubiquinone and other terpenoid-quinone biosynthesis
+2049,r_1686,"Transport [c, e]"
+2051,r_1687,Exchange reaction
+2052,r_1688,"Transport [c, p]"
+2054,r_1689,"Transport [c, p]"
+2056,r_1690,Pyrimidine metabolism
+2057,r_1691,"Transport [c, er]"
+2059,r_1694,"Transport [c, n]"
+2061,r_1695,"Transport [c, p]"
+2063,r_1696,"Transport [c, m]"
+2065,r_1697,"Transport [c, e]"
+2067,r_1698,"Transport [c, er]"
+2069,r_1699,"Transport [c, n]"
+2071,r_1700,"Transport [c, p]"
+2073,r_1702,Exchange reaction
+2074,r_1703,Pyrimidine metabolism
+2075,r_1704,Pyrimidine metabolism
+2077,r_1705,Exchange reaction
+2078,r_1706,Exchange reaction
+2079,r_1707,"Transport [c, e]"
+2083,r_1708,"Transport [c, m]"
+2085,r_1709,Exchange reaction
+2086,r_1710,Exchange reaction
+2087,r_1711,Exchange reaction
+2088,r_1712,Exchange reaction
+2089,r_1713,"Transport [c, e]"
+2091,r_1714,Exchange reaction
+2092,r_1715,Exchange reaction
+2093,r_1716,Exchange reaction
+2094,r_1717,"Transport [c, e]"
+2102,r_1718,Exchange reaction
+2103,r_1719,"Transport [c, e]"
+2105,r_1720,"Transport [c, n]"
+2107,r_1721,"Transport [c, n]"
+2109,r_1722,Purine metabolism
+2110,r_1723,Purine metabolism
+2111,r_1724,Purine metabolism
+2112,r_1725,Purine metabolism
+2113,r_1726,"Transport [c, n]"
+2115,r_1727,Exchange reaction
+2116,r_1728,"Transport [c, e]"
+2117,r_1729,Purine metabolism
+2119,r_1730,Exchange reaction
+2120,r_1731,"Transport [c, e]"
+2121,r_1732,"Transport [c, e]"
+2122,r_1733,"Transport [c, e]"
+2123,r_1734,Pyrimidine metabolism
+2124,r_1735,"Transport [c, e]"
+2125,r_1736,Pantothenate and coa biosynthesis
+2126,r_1737,"Transport [c, n]"
+2128,r_1738,"Transport [c, m]"
+2130,r_1739,Arginine and proline metabolism
+2131,r_1743,"Transport [c, m]"
+2133,r_1744,Folate biosynthesis
+2134,r_1745,"Transport [c, m]"
+2136,r_1746,"Transport [c, m]"
+2138,r_1747,"Transport [c, p]"
+2140,r_1748,"Transport [c, er]"
+2142,r_1749,Exchange reaction
+2143,r_1750,"Transport [c, e]"
+2145,r_1751,"Transport [c, n]"
+2147,r_1752,"Transport [c, n]"
+2149,r_1753,Exchange reaction
+2150,r_1754,"Transport [c, er]"
+2152,r_1757,Exchange reaction
+2153,r_1758,"Transport [c, er]"
+2155,r_1759,"Transport [c, lp]"
+2157,r_1761,Exchange reaction
+2158,r_1762,"Transport [c, e]"
+2160,r_1763,"Transport [c, m]"
+2162,r_1764,Exchange reaction
+2163,r_1765,Exchange reaction
+2164,r_1766,"Transport [c, m]"
+2166,r_1770,"Transport [c, p]"
+2168,r_1771,"Transport [c, p]"
+2170,r_1772,"Transport [c, p]"
+2172,r_1774,"Transport [c, p]"
+2174,r_1775,"Transport [c, p]"
+2176,r_1776,"Transport [c, p]"
+2178,r_1777,"Transport [c, e]"
+2180,r_1788,Exchange reaction
+2181,r_1790,Riboflavin metabolism
+2182,r_1791,Exchange reaction
+2183,r_1792,Exchange reaction
+2184,r_1793,Exchange reaction
+2185,r_1794,"Transport [c, m]"
+2186,r_1795,"Transport [c, e]"
+2188,r_1796,"Transport [c, e]"
+2190,r_1797,Fructose and mannose metabolism
+2191,r_1798,Exchange reaction
+2192,r_1800,Exchange reaction
+2193,r_1801,"Transport [c, g]"
+2195,r_1802,"Transport [c, n]"
+2197,r_1803,"Transport [c, g]"
+2199,r_1805,"Transport [c, v]"
+2201,r_1806,Exchange reaction
+2202,r_1807,Exchange reaction
+2203,r_1808,Exchange reaction
+2204,r_1809,"Transport [c, m]"
+2206,r_1810,Exchange reaction
+2207,r_1811,"Transport [c, m]"
+2209,r_1812,"Transport [c, m]"
+2211,r_1813,"Transport [c, e]"
+2213,r_1814,Exchange reaction
+2214,r_1815,Exchange reaction
+2215,r_1816,"Transport [c, e]"
+2217,r_1817,"Transport [c, p]"
+2219,r_1818,Exchange reaction
+2220,r_1819,"Transport [c, m]"
+2222,r_1820,Exchange reaction
+2223,r_1821,Purine metabolism
+2224,r_1822,"Transport [c, m]"
+2225,r_1823,"Transport [c, e]"
+2226,r_1824,"Transport [c, e]"
+2227,r_1825,"Transport [c, er]"
+2229,r_1826,"Transport [c, g]"
+2231,r_1827,"Transport [c, lp]"
+2233,r_1829,"Transport [c, n]"
+2235,r_1830,"Transport [c, p]"
+2237,r_1831,"Transport [c, v]"
+2239,r_1832,Exchange reaction
+2240,r_1833,"Transport [c, er]"
+2242,r_1834,Exchange reaction
+2243,r_1835,"Transport [c, e]"
+2245,r_1836,"Transport [c, e]"
+2247,r_1837,"Transport [c, m]"
+2248,r_1838,Pyruvate metabolism
+2250,r_1839,"Transport [c, n]"
+2252,r_1840,"Transport [c, m]"
+2254,r_1841,Exchange reaction
+2255,r_1842,"Transport [c, e]"
+2257,r_1843,Exchange reaction
+2258,r_1844,"Transport [c, m]"
+2260,r_1845,"Transport [c, e]"
+2262,r_1846,"Transport [c, m]"
+2264,r_1847,Exchange reaction
+2265,r_1848,"Transport [c, e]"
+2266,r_1849,"Transport [c, n]"
+2268,r_1850,Purine metabolism
+2269,r_1851,"Transport [er, g]"
+2271,r_1852,"Transport [er, g]"
+2273,r_1853,"Transport [er, g]"
+2275,r_1854,"Transport [er, g]"
+2277,r_1855,"Transport [er, g]"
+2279,r_1856,"Transport [er, g]"
+2281,r_1857,"Transport [er, g]"
+2283,r_1858,"Transport [er, g]"
+2285,r_1859,"Transport [er, g]"
+2287,r_1860,"Transport [er, g]"
+2289,r_1861,Exchange reaction
+2290,r_1862,Exchange reaction
+2291,r_1863,"Transport [c, e]"
+2293,r_1864,"Transport [c, m]"
+2295,r_1865,Exchange reaction
+2296,r_1866,Exchange reaction
+2297,r_1867,Exchange reaction
+2298,r_1868,"Transport [c, e]"
+2300,r_1869,"Transport [c, m]"
+2302,r_1870,Exchange reaction
+2303,r_1871,Arginine and proline metabolism
+2304,r_1872,"Glycine, serine and threonine metabolism"
+2305,r_1873,Exchange reaction
+2306,r_1874,"Transport [c, m]"
+2307,r_1875,Exchange reaction
+2308,r_1876,"Transport [c, e]"
+2310,r_1877,"Transport [c, e]"
+2314,r_1878,Exchange reaction
+2315,r_1879,Exchange reaction
+2316,r_1880,Exchange reaction
+2317,r_1881,Exchange reaction
+2318,r_1882,"Transport [c, m]"
+2319,r_1883,Exchange reaction
+2320,r_1884,"Transport [c, m]"
+2322,r_1885,"Transport [c, p]"
+2324,r_1886,Exchange reaction
+2325,r_1887,Arginine and proline metabolism
+2327,r_1889,Exchange reaction
+2328,r_1890,"Transport [c, n]"
+2330,r_1891,Exchange reaction
+2331,r_1892,"Transport [c, n]"
+2333,r_1893,Exchange reaction
+2334,r_1895,"Transport [c, e]"
+2336,r_1896,Exchange reaction
+2337,r_1897,Exchange reaction
+2338,r_1898,"Transport [c, m]"
+2339,r_1899,Exchange reaction
+2340,r_1900,Exchange reaction
+2341,r_1901,"Transport [c, e]"
+2343,r_1902,Exchange reaction
+2344,r_1903,Exchange reaction
+2345,r_1904,Exchange reaction
+2346,r_1905,"Transport [c, m]"
+2348,r_1906,Exchange reaction
+2349,r_1907,"Transport [c, er]"
+2351,r_1908,"Transport [c, e]"
+2359,r_1909,Exchange reaction
+2360,r_1910,"Transport [c, e]"
+2386,r_1911,Exchange reaction
+2387,r_1912,Exchange reaction
+2388,r_1913,Exchange reaction
+2389,r_1914,Exchange reaction
+2390,r_1915,Exchange reaction
+2391,r_1916,Exchange reaction
+2392,r_1919,"Transport [c, m]"
+2393,r_1920,"Transport [er, g]"
+2395,r_1921,"Transport [er, g]"
+2397,r_1922,"Transport [er, g]"
+2399,r_1923,"Transport [er, g]"
+2401,r_1924,"Transport [er, g]"
+2403,r_1925,"Transport [er, g]"
+2405,r_1926,"Transport [er, g]"
+2407,r_1927,"Transport [er, g]"
+2409,r_1928,"Transport [er, g]"
+2411,r_1929,"Transport [er, g]"
+2413,r_1930,"Transport [c, p]"
+2415,r_1931,Exchange reaction
+2416,r_1932,"Transport [c, er]"
+2418,r_1935,"Transport [c, m]"
+2419,r_1936,Propanoate metabolism
+2420,r_1937,"Transport [er, g]"
+2422,r_1938,"Transport [er, g]"
+2424,r_1939,"Transport [er, g]"
+2426,r_1940,"Transport [er, g]"
+2428,r_1941,"Transport [er, g]"
+2430,r_1942,"Transport [er, g]"
+2432,r_1943,"Transport [er, g]"
+2434,r_1944,"Transport [er, g]"
+2436,r_1945,"Transport [er, g]"
+2438,r_1946,"Transport [er, g]"
+2440,r_1947,Exchange reaction
+2441,r_1952,Exchange reaction
+2442,r_1963,"Transport [c, er]"
+2444,r_1964,"Transport [c, er]"
+2446,r_1965,"Transport [c, m]"
+2448,r_1966,"Transport [c, n]"
+2450,r_1967,Exchange reaction
+2451,r_1968,Exchange reaction
+2452,r_1970,"Transport [c, n]"
+2454,r_1971,"Transport [c, p]"
+2456,r_1972,"Transport [c, e]"
+2457,r_1974,Purine metabolism
+2458,r_1975,Purine metabolism
+2459,r_1976,"Transport [c, m]"
+2460,r_1977,"Transport [c, er]"
+2462,r_1978,"Transport [c, m]"
+2464,r_1979,"Transport [c, e]"
+2466,r_1980,"Transport [c, p]"
+2468,r_1981,"Transport [c, e]"
+2470,r_1984,Exchange reaction
+2471,r_1987,Exchange reaction
+2472,r_1988,"Transport [c, e]"
+2474,r_1989,Exchange reaction
+2475,r_1990,"Transport [c, e]"
+2476,r_1991,"Transport [c, p]"
+2478,r_1992,Exchange reaction
+2479,r_1993,Exchange reaction
+2480,r_1994,Exchange reaction
+2481,r_1995,"Transport [c, er]"
+2483,r_1996,"Transport [c, m]"
+2485,r_1997,Pantothenate and coa biosynthesis
+2486,r_1998,"Transport [c, e]"
+2488,r_1999,Exchange reaction
+2489,r_2000,Exchange reaction
+2490,r_2001,Exchange reaction
+2491,r_2002,"Transport [c, e]"
+2493,r_2003,"Transport [c, m]"
+2495,r_2004,"Transport [c, m]"
+2496,r_2005,Exchange reaction
+2497,r_2008,"Transport [c, v]"
+2499,r_2020,Exchange reaction
+2500,r_2022,"Transport [c, m]"
+2502,r_2023,"Transport [c, m]"
+2504,r_2024,Exchange reaction
+2505,r_2025,Vitamin b6 metabolism
+2506,r_2026,Vitamin b6 metabolism
+2507,r_2027,Vitamin b6 metabolism
+2508,r_2028,Exchange reaction
+2509,r_2029,Vitamin b6 metabolism
+2510,r_2030,Riboflavin metabolism
+2511,r_2031,Pyrimidine metabolism
+2513,r_2032,"Transport [c, m]"
+2515,r_2033,Exchange reaction
+2516,r_2034,"Transport [c, m]"
+2518,r_2036,"Transport [c, m]"
+2520,r_2037,"Transport [c, p]"
+2522,r_2038,Exchange reaction
+2523,r_2039,"Transport [c, m]"
+2524,r_2040,"Transport [c, e]"
+2525,r_2041,"Transport [c, e]"
+2527,r_2042,"Transport [c, m]"
+2529,r_2043,Exchange reaction
+2530,r_2044,Exchange reaction
+2531,r_2045,"Transport [c, m]"
+2533,r_2046,Exchange reaction
+2534,r_2049,Exchange reaction
+2535,r_2050,Arginine and proline metabolism
+2536,r_2051,Exchange reaction
+2537,r_2052,Exchange reaction
+2538,r_2053,"Transport [c, er]"
+2540,r_2054,"Transport [c, er]"
+2542,r_2055,Exchange reaction
+2543,r_2056,Exchange reaction
+2544,r_2057,"Transport [c, e]"
+2546,r_2058,Exchange reaction
+2547,r_2060,Exchange reaction
+2548,r_2061,Exchange reaction
+2549,r_2062,Exchange reaction
+2550,r_2063,"Transport [c, er]"
+2552,r_2064,Thiamine metabolism
+2553,r_2065,Thiamine metabolism
+2554,r_2066,Exchange reaction
+2555,r_2067,Exchange reaction
+2556,r_2068,Exchange reaction
+2557,r_2069,Thiamine metabolism
+2558,r_2070,Thiamine metabolism
+2559,r_2071,Thiamine metabolism
+2560,r_2072,"Transport [c, m]"
+2561,r_2073,Exchange reaction
+2562,r_2074,Pyrimidine metabolism
+2563,r_2075,"Transport [c, e]"
+2565,r_2079,"Transport [c, e]"
+2567,r_2080,"Transport [c, v]"
+2569,r_2082,"Transport [c, m]"
+2570,r_2083,Exchange reaction
+2571,r_2084,"Transport [c, e]"
+2573,r_2085,"Transport [c, m]"
+2575,r_2086,"Transport [c, m]"
+2576,r_2087,"Transport [c, p]"
+2578,r_2089,"Transport [c, n]"
+2580,r_2090,Exchange reaction
+2581,r_2091,Exchange reaction
+2582,r_2092,Exchange reaction
+2583,r_2093,"Transport [c, m]"
+2585,r_2094,"Transport [c, er]"
+2589,r_2095,"Transport [c, g]"
+2591,r_2096,"Transport [c, m]"
+2593,r_2097,"Transport [c, n]"
+2595,r_2098,"Transport [c, p]"
+2597,r_2099,"Transport [c, v]"
+2599,r_2100,Exchange reaction
+2600,r_2101,"Transport [c, e]"
+2602,r_2102,Exchange reaction
+2603,r_2103,"Transport [c, e]"
+2604,r_2104,Exchange reaction
+2605,r_2105,"Transport [c, e]"
+2609,r_2106,Exchange reaction
+2610,r_2107,"Transport [c, ce]"
+2614,r_2108,Growth
+2615,r_2111,Exchange reaction
+2616,r_2112,Tryptophan metabolism
+2618,r_2113,Tryptophan metabolism
+2619,r_2114,Tryptophan metabolism
+2620,r_2115,Glycolysis / gluconeogenesis
+2622,r_2116,Glycolysis / gluconeogenesis
+2626,r_2117,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+2628,r_2118,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+2629,r_2119,"Phenylalanine, tyrosine and tryptophan biosynthesis"
+2631,r_2125,"Transport [c, lp]"
+2633,r_2126,Glycolysis / gluconeogenesis
+2634,r_2129,"Transport [c, m]"
+2635,r_2131,Citrate cycle (TCA cycle)
+2636,r_2132,"Transport [c, m]"
+2638,r_2134,Exchange reaction
+2639,r_2136,"Transport [c, e]"
+2641,r_2137,Exchange reaction
+2642,r_2139,"Transport [c, e]"
+2644,r_2140,Fatty acid biosynthesis
+2645,r_2141,Fatty acid biosynthesis
+2646,r_2142,Fatty acid biosynthesis
+2647,r_2143,Fatty acid biosynthesis
+2648,r_2144,Fatty acid biosynthesis
+2649,r_2145,Fatty acid biosynthesis
+2650,r_2146,Fatty acid biosynthesis
+2651,r_2147,Fatty acid biosynthesis
+2652,r_2148,Fatty acid biosynthesis
+2654,r_2149,Fatty acid biosynthesis
+2656,r_2150,Fatty acid biosynthesis
+2658,r_2151,Biosynthesis of unsaturated fatty acids
+2659,r_2152,Biosynthesis of unsaturated fatty acids
+2660,r_2153,Biosynthesis of unsaturated fatty acids
+2661,r_2154,Biosynthesis of unsaturated fatty acids
+2662,r_2155,Biosynthesis of unsaturated fatty acids
+2663,r_2156,Biosynthesis of unsaturated fatty acids
+2664,r_2157,Biosynthesis of unsaturated fatty acids
+2666,r_2158,Biosynthesis of unsaturated fatty acids
+2668,r_2159,Biosynthesis of unsaturated fatty acids
+2670,r_2160,Biosynthesis of unsaturated fatty acids
+2671,r_2161,Biosynthesis of unsaturated fatty acids
+2672,r_2162,Biosynthesis of unsaturated fatty acids
+2673,r_2163,Biosynthesis of unsaturated fatty acids
+2674,r_2164,Biosynthesis of unsaturated fatty acids
+2675,r_2165,Biosynthesis of unsaturated fatty acids
+2676,r_2166,Biosynthesis of unsaturated fatty acids
+2677,r_2167,Biosynthesis of unsaturated fatty acids
+2678,r_2168,Biosynthesis of unsaturated fatty acids
+2680,r_2169,Biosynthesis of unsaturated fatty acids
+2682,r_2170,Biosynthesis of unsaturated fatty acids
+2684,r_2171,Biosynthesis of unsaturated fatty acids
+2686,r_2172,Biosynthesis of unsaturated fatty acids
+2688,r_2173,Biosynthesis of unsaturated fatty acids
+2689,r_2174,Biosynthesis of unsaturated fatty acids
+2691,r_2175,Biosynthesis of unsaturated fatty acids
+2692,r_2176,Biosynthesis of unsaturated fatty acids
+2693,r_2177,Biosynthesis of unsaturated fatty acids
+2694,r_2178,Biosynthesis of unsaturated fatty acids
+2695,r_2179,Biosynthesis of unsaturated fatty acids
+2696,r_2180,Biosynthesis of unsaturated fatty acids
+2697,r_2181,Biosynthesis of unsaturated fatty acids
+2698,r_2182,Biosynthesis of unsaturated fatty acids
+2699,r_2183,Biosynthesis of unsaturated fatty acids
+2700,r_2184,"Transport [c, e]"
+2702,r_2185,"Transport [c, e]"
+2704,r_2186,"Transport [c, e]"
+2706,r_2187,Exchange reaction
+2707,r_2188,Exchange reaction
+2708,r_2189,Exchange reaction
+2709,r_2190,"Transport [c, e]"
+2711,r_2191,"Transport [c, e]"
+2713,r_2192,"Transport [c, e]"
+2715,r_2193,Exchange reaction
+2716,r_2194,Fatty acid biosynthesis
+2718,r_2195,Fatty acid biosynthesis
+2722,r_2196,Fatty acid biosynthesis
+2726,r_2197,Fatty acid biosynthesis
+2730,r_2198,Fatty acid biosynthesis
+2734,r_2199,Fatty acid biosynthesis
+2738,r_2200,Fatty acid biosynthesis
+2740,r_2201,Fatty acid biosynthesis
+2744,r_2202,Fatty acid biosynthesis
+2748,r_2203,Fatty acid biosynthesis
+2752,r_2204,Fatty acid biosynthesis
+2756,r_2205,Fatty acid biosynthesis
+2760,r_2206,Fatty acid biosynthesis
+2762,r_2207,Fatty acid biosynthesis
+2764,r_2208,Fatty acid biosynthesis
+2766,r_2209,Fatty acid biosynthesis
+2768,r_2210,Fatty acid biosynthesis
+2770,r_2211,Fatty acid biosynthesis
+2772,r_2212,Fatty acid biosynthesis
+2774,r_2213,Fatty acid biosynthesis
+2776,r_2214,Fatty acid biosynthesis
+2778,r_2215,Fatty acid biosynthesis
+2780,r_2216,Fatty acid biosynthesis
+2782,r_2217,Fatty acid biosynthesis
+2784,r_2218,Fatty acid biosynthesis
+2786,r_2219,"Transport [c, p]"
+2787,r_2220,"Transport [c, p]"
+2788,r_2221,"Transport [c, p]"
+2789,r_2222,"Transport [c, p]"
+2790,r_2223,"Transport [c, p]"
+2791,r_2224,"Transport [c, p]"
+2792,r_2225,"Transport [c, p]"
+2793,r_2226,"Transport [c, p]"
+2794,r_2227,"Transport [c, p]"
+2795,r_2228,"Transport [c, p]"
+2796,r_2229,"Transport [c, p]"
+2798,r_2230,"Transport [c, p]"
+2800,r_2231,"Transport [c, p]"
+2802,r_2232,Biosynthesis of unsaturated fatty acids
+2803,r_2233,Biosynthesis of unsaturated fatty acids
+2804,r_2234,Biosynthesis of unsaturated fatty acids
+2805,r_2235,Biosynthesis of unsaturated fatty acids
+2806,r_2236,Fatty acid degradation
+2807,r_2237,Fatty acid degradation
+2808,r_2238,Fatty acid degradation
+2809,r_2239,Fatty acid degradation
+2810,r_2240,Fatty acid degradation
+2811,r_2241,Fatty acid degradation
+2812,r_2242,Fatty acid degradation
+2813,r_2243,Fatty acid degradation
+2814,r_2244,Fatty acid degradation
+2815,r_2245,Fatty acid degradation
+2816,r_2246,Fatty acid degradation
+2817,r_2247,Fatty acid degradation
+2818,r_2248,Fatty acid degradation
+2819,r_2249,Fatty acid degradation
+2820,r_2250,Fatty acid degradation
+2821,r_2251,Fatty acid degradation
+2822,r_2252,Fatty acid degradation
+2823,r_2253,Fatty acid degradation
+2824,r_2254,Fatty acid degradation
+2825,r_2255,Fatty acid degradation
+2826,r_2256,Fatty acid degradation
+2827,r_2257,Fatty acid degradation
+2828,r_2258,Fatty acid degradation
+2829,r_2259,Fatty acid degradation
+2830,r_2260,Fatty acid degradation
+2831,r_2261,Fatty acid degradation
+2832,r_2262,Fatty acid degradation
+2833,r_2263,Fatty acid degradation
+2834,r_2264,Fatty acid degradation
+2835,r_2265,Fatty acid degradation
+2836,r_2266,Fatty acid degradation
+2837,r_2267,Fatty acid degradation
+2838,r_2268,Fatty acid degradation
+2839,r_2269,Fatty acid degradation
+2840,r_2270,Fatty acid degradation
+2841,r_2271,Fatty acid degradation
+2842,r_2272,Fatty acid degradation
+2843,r_2273,Fatty acid degradation
+2844,r_2274,Fatty acid degradation
+2845,r_2275,Fatty acid degradation
+2846,r_2276,Fatty acid degradation
+2847,r_2277,Fatty acid degradation
+2848,r_2278,Fatty acid degradation
+2849,r_2279,Fatty acid degradation
+2850,r_2280,Fatty acid degradation
+2851,r_2281,Fatty acid degradation
+2852,r_2282,Fatty acid degradation
+2853,r_2283,Fatty acid degradation
+2854,r_2284,Fatty acid degradation
+2855,r_2285,Fatty acid degradation
+2856,r_2286,Fatty acid degradation
+2857,r_2287,Fatty acid degradation
+2858,r_2288,Fatty acid degradation
+2859,r_2289,Fatty acid degradation
+2860,r_2290,Fatty acid degradation
+2861,r_2291,Fatty acid degradation
+2862,r_2292,Fatty acid degradation
+2863,r_2293,Fatty acid degradation
+2864,r_2294,Fatty acid degradation
+2865,r_2295,Fatty acid degradation
+2866,r_2296,Fatty acid degradation
+2867,r_2297,Fatty acid degradation
+2868,r_2298,Fatty acid degradation
+2869,r_2299,Fatty acid degradation
+2870,r_2300,Fatty acid degradation
+2871,r_2301,Fatty acid degradation
+2872,r_2302,Fatty acid degradation
+2873,r_2303,Ascospore biosynthesis
+2874,r_2304,Ascospore biosynthesis
+2875,r_2305,Citrate cycle (TCA cycle)
+2877,r_2308,Glycerolipid metabolism
+2879,r_2309,Glycerolipid metabolism
+2881,r_2310,Glycerolipid metabolism
+2882,r_2311,Glycerolipid metabolism
+2883,r_2312,Glycerolipid metabolism
+2885,r_2313,Glycerolipid metabolism
+2887,r_2314,Glycerolipid metabolism
+2888,r_2315,Glycerolipid metabolism
+2889,r_2316,Glycerolipid metabolism
+2890,r_2317,Glycerolipid metabolism
+2891,r_2318,Glycerolipid metabolism
+2892,r_2319,Glycerolipid metabolism
+2893,r_2320,Glycerolipid metabolism
+2894,r_2321,Glycerolipid metabolism
+2895,r_2322,Glycerolipid metabolism
+2896,r_2323,Glycerolipid metabolism
+2897,r_2324,Glycerophospholipid metabolism
+2898,r_2325,Glycerophospholipid metabolism
+2899,r_2326,Glycerophospholipid metabolism
+2900,r_2327,Glycerophospholipid metabolism
+2901,r_2328,Glycerophospholipid metabolism
+2902,r_2329,Glycerophospholipid metabolism
+2903,r_2330,Glycerophospholipid metabolism
+2904,r_2331,Glycerophospholipid metabolism
+2905,r_2332,Glycerolipid metabolism
+2906,r_2333,Glycerolipid metabolism
+2908,r_2334,Glycerolipid metabolism
+2909,r_2335,Glycerolipid metabolism
+2911,r_2336,Glycerolipid metabolism
+2912,r_2337,Glycerolipid metabolism
+2914,r_2338,Glycerolipid metabolism
+2915,r_2339,Glycerolipid metabolism
+2917,r_2340,Glycerolipid metabolism
+2920,r_2341,Glycerolipid metabolism
+2923,r_2342,Glycerolipid metabolism
+2926,r_2343,Glycerolipid metabolism
+2929,r_2344,Glycerolipid metabolism
+2930,r_2345,Glycerolipid metabolism
+2931,r_2346,Glycerolipid metabolism
+2932,r_2347,Glycerolipid metabolism
+2933,r_2348,Glycerolipid metabolism
+2934,r_2349,Glycerolipid metabolism
+2935,r_2350,Glycerolipid metabolism
+2936,r_2351,Glycerolipid metabolism
+2937,r_2352,Glycerolipid metabolism
+2938,r_2353,Glycerolipid metabolism
+2939,r_2354,Glycerolipid metabolism
+2940,r_2355,Glycerolipid metabolism
+2941,r_2356,Glycerolipid metabolism
+2942,r_2357,Glycerolipid metabolism
+2943,r_2358,Glycerolipid metabolism
+2944,r_2359,Glycerolipid metabolism
+2945,r_2360,Glycerolipid metabolism
+2946,r_2361,Glycerolipid metabolism
+2947,r_2362,Glycerolipid metabolism
+2948,r_2363,Glycerolipid metabolism
+2949,r_2364,Glycerolipid metabolism
+2950,r_2365,Glycerolipid metabolism
+2951,r_2366,Glycerolipid metabolism
+2952,r_2367,Glycerolipid metabolism
+2953,r_2368,Glycerolipid metabolism
+2956,r_2369,Glycerolipid metabolism
+2959,r_2370,Glycerolipid metabolism
+2962,r_2371,Glycerolipid metabolism
+2965,r_2372,Glycerolipid metabolism
+2968,r_2373,Glycerolipid metabolism
+2971,r_2374,Glycerolipid metabolism
+2974,r_2375,Glycerolipid metabolism
+2977,r_2376,Glycerolipid metabolism
+2980,r_2377,Glycerolipid metabolism
+2983,r_2378,Glycerolipid metabolism
+2986,r_2379,Glycerolipid metabolism
+2989,r_2380,Glycerolipid metabolism
+2992,r_2381,Glycerolipid metabolism
+2995,r_2382,Glycerolipid metabolism
+2998,r_2383,Glycerolipid metabolism
+3001,r_2384,Glycerolipid metabolism
+3004,r_2385,Glycerolipid metabolism
+3007,r_2386,Glycerolipid metabolism
+3010,r_2387,Glycerolipid metabolism
+3013,r_2388,Glycerolipid metabolism
+3016,r_2389,Glycerolipid metabolism
+3019,r_2390,Glycerolipid metabolism
+3022,r_2391,Glycerolipid metabolism
+3025,r_2392,Glycerolipid metabolism
+3028,r_2393,Glycerolipid metabolism
+3031,r_2394,Glycerolipid metabolism
+3034,r_2395,Glycerolipid metabolism
+3037,r_2396,Glycerolipid metabolism
+3040,r_2397,Glycerolipid metabolism
+3043,r_2398,Glycerolipid metabolism
+3046,r_2399,Glycerolipid metabolism
+3049,r_2400,Glycerolipid metabolism
+3050,r_2401,Glycerolipid metabolism
+3051,r_2402,Glycerolipid metabolism
+3052,r_2403,Glycerolipid metabolism
+3053,r_2404,Glycerolipid metabolism
+3054,r_2405,Glycerolipid metabolism
+3055,r_2406,Glycerolipid metabolism
+3056,r_2407,Glycerolipid metabolism
+3057,r_2408,Glycerolipid metabolism
+3058,r_2409,Glycerolipid metabolism
+3059,r_2410,Glycerolipid metabolism
+3060,r_2411,Glycerolipid metabolism
+3061,r_2412,Glycerolipid metabolism
+3062,r_2413,Glycerolipid metabolism
+3063,r_2414,Glycerolipid metabolism
+3064,r_2415,Glycerolipid metabolism
+3065,r_2416,Glycerolipid metabolism
+3066,r_2417,Glycerolipid metabolism
+3067,r_2418,Glycerolipid metabolism
+3068,r_2419,Glycerolipid metabolism
+3069,r_2420,Glycerolipid metabolism
+3070,r_2421,Glycerolipid metabolism
+3071,r_2422,Glycerolipid metabolism
+3072,r_2423,Glycerolipid metabolism
+3073,r_2424,Glycerolipid metabolism
+3074,r_2425,Glycerolipid metabolism
+3075,r_2426,Glycerolipid metabolism
+3076,r_2427,Glycerolipid metabolism
+3077,r_2428,Glycerolipid metabolism
+3078,r_2429,Glycerolipid metabolism
+3079,r_2430,Glycerolipid metabolism
+3080,r_2431,Glycerolipid metabolism
+3081,r_2432,Glycerophospholipid metabolism
+3083,r_2433,Glycerophospholipid metabolism
+3085,r_2434,Glycerophospholipid metabolism
+3087,r_2435,Glycerophospholipid metabolism
+3089,r_2436,Glycerophospholipid metabolism
+3091,r_2437,Glycerophospholipid metabolism
+3093,r_2438,Glycerophospholipid metabolism
+3095,r_2439,Glycerophospholipid metabolism
+3097,r_2440,Glycerophospholipid metabolism
+3099,r_2441,Glycerophospholipid metabolism
+3101,r_2442,Glycerophospholipid metabolism
+3103,r_2443,Glycerophospholipid metabolism
+3105,r_2444,Glycerophospholipid metabolism
+3107,r_2445,Glycerophospholipid metabolism
+3109,r_2446,Glycerophospholipid metabolism
+3110,r_2447,Glycerophospholipid metabolism
+3111,r_2448,Glycerophospholipid metabolism
+3112,r_2449,Glycerophospholipid metabolism
+3113,r_2450,Glycerophospholipid metabolism
+3114,r_2451,Glycerophospholipid metabolism
+3115,r_2452,Glycerophospholipid metabolism
+3116,r_2453,Glycerophospholipid metabolism
+3117,r_2454,Inositol phosphate metabolism
+3118,r_2455,Inositol phosphate metabolism
+3119,r_2456,Inositol phosphate metabolism
+3120,r_2457,Inositol phosphate metabolism
+3121,r_2458,Inositol phosphate metabolism
+3122,r_2459,Inositol phosphate metabolism
+3123,r_2460,Inositol phosphate metabolism
+3124,r_2461,Inositol phosphate metabolism
+3125,r_2462,Glycerophospholipid metabolism
+3127,r_2463,Glycerophospholipid metabolism
+3129,r_2464,Glycerophospholipid metabolism
+3130,r_2465,Glycerophospholipid metabolism
+3131,r_2466,Glycerophospholipid metabolism
+3132,r_2467,Glycerophospholipid metabolism
+3133,r_2468,Glycerophospholipid metabolism
+3134,r_2469,Glycerophospholipid metabolism
+3135,r_2470,Glycerophospholipid metabolism
+3136,r_2471,Glycerophospholipid metabolism
+3137,r_2472,Glycerophospholipid metabolism
+3138,r_2473,Glycerophospholipid metabolism
+3139,r_2474,Glycerophospholipid metabolism
+3140,r_2475,Glycerophospholipid metabolism
+3141,r_2476,Glycerophospholipid metabolism
+3142,r_2477,Glycerophospholipid metabolism
+3143,r_2478,Glycerophospholipid metabolism
+3144,r_2479,Glycerophospholipid metabolism
+3145,r_2480,Glycerophospholipid metabolism
+3146,r_2481,Glycerophospholipid metabolism
+3147,r_2482,Glycerophospholipid metabolism
+3148,r_2483,Glycerophospholipid metabolism
+3149,r_2484,Glycerophospholipid metabolism
+3150,r_2485,Glycerophospholipid metabolism
+3151,r_2486,Glycerophospholipid metabolism
+3152,r_2487,Glycerophospholipid metabolism
+3153,r_2488,Glycerophospholipid metabolism
+3155,r_2489,Glycerophospholipid metabolism
+3157,r_2490,Glycerophospholipid metabolism
+3159,r_2491,Glycerophospholipid metabolism
+3161,r_2492,Glycerophospholipid metabolism
+3163,r_2493,Glycerophospholipid metabolism
+3165,r_2494,Glycerophospholipid metabolism
+3167,r_2495,Glycerophospholipid metabolism
+3169,r_2496,Glycerophospholipid metabolism
+3170,r_2497,Glycerophospholipid metabolism
+3171,r_2498,Glycerophospholipid metabolism
+3172,r_2499,Glycerophospholipid metabolism
+3173,r_2500,Glycerophospholipid metabolism
+3174,r_2501,Glycerophospholipid metabolism
+3175,r_2502,Glycerophospholipid metabolism
+3176,r_2503,Glycerophospholipid metabolism
+3177,r_2504,Glycerophospholipid metabolism
+3178,r_2505,Glycerophospholipid metabolism
+3179,r_2506,Glycerophospholipid metabolism
+3180,r_2507,Glycerophospholipid metabolism
+3181,r_2508,Glycerophospholipid metabolism
+3182,r_2509,Glycerophospholipid metabolism
+3183,r_2510,Glycerophospholipid metabolism
+3184,r_2511,Glycerophospholipid metabolism
+3185,r_2512,Glycerophospholipid metabolism
+3186,r_2513,Glycerophospholipid metabolism
+3187,r_2514,Glycerophospholipid metabolism
+3188,r_2515,Glycerophospholipid metabolism
+3189,r_2516,Glycerophospholipid metabolism
+3190,r_2517,Glycerophospholipid metabolism
+3191,r_2518,Glycerophospholipid metabolism
+3192,r_2519,Glycerophospholipid metabolism
+3193,r_2520,Glycerophospholipid metabolism
+3194,r_2521,Glycerophospholipid metabolism
+3195,r_2522,Glycerophospholipid metabolism
+3196,r_2523,Glycerophospholipid metabolism
+3197,r_2524,Glycerophospholipid metabolism
+3198,r_2525,Glycerophospholipid metabolism
+3199,r_2526,Glycerophospholipid metabolism
+3200,r_2527,Glycerophospholipid metabolism
+3201,r_2528,Glycerophospholipid metabolism
+3203,r_2529,Glycerophospholipid metabolism
+3205,r_2530,Glycerophospholipid metabolism
+3207,r_2531,Glycerophospholipid metabolism
+3209,r_2532,Glycerophospholipid metabolism
+3211,r_2533,Glycerophospholipid metabolism
+3213,r_2534,Glycerophospholipid metabolism
+3215,r_2535,Glycerophospholipid metabolism
+3217,r_2536,Glycerophospholipid metabolism
+3218,r_2537,Glycerophospholipid metabolism
+3219,r_2538,Glycerophospholipid metabolism
+3220,r_2539,Glycerophospholipid metabolism
+3221,r_2540,Glycerophospholipid metabolism
+3222,r_2541,Glycerophospholipid metabolism
+3223,r_2542,Glycerophospholipid metabolism
+3224,r_2543,Glycerophospholipid metabolism
+3225,r_2544,Glycerophospholipid metabolism
+3226,r_2545,Glycerophospholipid metabolism
+3227,r_2546,Glycerophospholipid metabolism
+3228,r_2547,Glycerophospholipid metabolism
+3229,r_2548,Glycerophospholipid metabolism
+3230,r_2549,Glycerophospholipid metabolism
+3231,r_2550,Glycerophospholipid metabolism
+3232,r_2551,Glycerophospholipid metabolism
+3233,r_2552,Glycerophospholipid metabolism
+3234,r_2553,Glycerophospholipid metabolism
+3235,r_2554,Glycerophospholipid metabolism
+3236,r_2555,Glycerophospholipid metabolism
+3237,r_2556,Glycerophospholipid metabolism
+3238,r_2557,Glycerophospholipid metabolism
+3239,r_2558,Glycerophospholipid metabolism
+3240,r_2559,Glycerophospholipid metabolism
+3241,r_2560,Glycerophospholipid metabolism
+3242,r_2561,Glycerophospholipid metabolism
+3243,r_2562,Glycerophospholipid metabolism
+3244,r_2563,Glycerophospholipid metabolism
+3245,r_2564,Glycerophospholipid metabolism
+3246,r_2565,Glycerophospholipid metabolism
+3247,r_2566,Glycerophospholipid metabolism
+3248,r_2567,Glycerophospholipid metabolism
+3249,r_2568,Glycerophospholipid metabolism
+3250,r_2569,Glycerophospholipid metabolism
+3251,r_2570,Glycerophospholipid metabolism
+3252,r_2571,Glycerophospholipid metabolism
+3253,r_2572,Glycerophospholipid metabolism
+3254,r_2573,Glycerophospholipid metabolism
+3255,r_2574,Glycerophospholipid metabolism
+3256,r_2575,Glycerophospholipid metabolism
+3257,r_2576,Glycerophospholipid metabolism
+3258,r_2577,Glycerophospholipid metabolism
+3259,r_2578,Glycerophospholipid metabolism
+3260,r_2579,Glycerophospholipid metabolism
+3261,r_2580,Glycerophospholipid metabolism
+3262,r_2581,Glycerophospholipid metabolism
+3263,r_2582,Glycerophospholipid metabolism
+3264,r_2583,Glycerophospholipid metabolism
+3265,r_2584,Glycerophospholipid metabolism
+3266,r_2585,Glycerophospholipid metabolism
+3267,r_2586,Glycerophospholipid metabolism
+3268,r_2587,Glycerophospholipid metabolism
+3269,r_2588,Glycerophospholipid metabolism
+3270,r_2589,Glycerophospholipid metabolism
+3271,r_2590,Glycerophospholipid metabolism
+3272,r_2591,Glycerophospholipid metabolism
+3273,r_2592,Glycerophospholipid metabolism
+3274,r_2593,Glycerophospholipid metabolism
+3275,r_2594,Glycerophospholipid metabolism
+3276,r_2595,Glycerophospholipid metabolism
+3277,r_2596,Glycerophospholipid metabolism
+3278,r_2597,Glycerophospholipid metabolism
+3279,r_2598,Glycerophospholipid metabolism
+3280,r_2599,Glycerophospholipid metabolism
+3281,r_2600,Glycerophospholipid metabolism
+3282,r_2601,Glycerophospholipid metabolism
+3283,r_2602,Glycerophospholipid metabolism
+3284,r_2603,Glycerophospholipid metabolism
+3285,r_2604,Glycerophospholipid metabolism
+3286,r_2605,Glycerophospholipid metabolism
+3287,r_2606,Glycerophospholipid metabolism
+3288,r_2607,Glycerophospholipid metabolism
+3289,r_2608,Glycerophospholipid metabolism
+3290,r_2609,Glycerophospholipid metabolism
+3291,r_2610,Glycerophospholipid metabolism
+3292,r_2611,Glycerophospholipid metabolism
+3293,r_2612,Glycerophospholipid metabolism
+3294,r_2613,Glycerophospholipid metabolism
+3295,r_2614,Glycerophospholipid metabolism
+3296,r_2615,Glycerophospholipid metabolism
+3297,r_2616,Glycerophospholipid metabolism
+3298,r_2617,Glycerophospholipid metabolism
+3299,r_2618,Glycerophospholipid metabolism
+3300,r_2619,Glycerophospholipid metabolism
+3301,r_2620,Glycerophospholipid metabolism
+3303,r_2621,Glycerophospholipid metabolism
+3305,r_2622,Glycerophospholipid metabolism
+3307,r_2623,Glycerophospholipid metabolism
+3309,r_2624,Glycerophospholipid metabolism
+3311,r_2625,Glycerophospholipid metabolism
+3313,r_2626,Glycerophospholipid metabolism
+3315,r_2627,Glycerophospholipid metabolism
+3317,r_2628,Glycerophospholipid metabolism
+3319,r_2629,Glycerophospholipid metabolism
+3321,r_2630,Glycerophospholipid metabolism
+3323,r_2631,Glycerophospholipid metabolism
+3325,r_2632,Glycerophospholipid metabolism
+3327,r_2633,Glycerophospholipid metabolism
+3329,r_2634,Glycerophospholipid metabolism
+3331,r_2635,Glycerophospholipid metabolism
+3333,r_2636,Glycerophospholipid metabolism
+3335,r_2637,Glycerophospholipid metabolism
+3337,r_2638,Glycerophospholipid metabolism
+3339,r_2639,Glycerophospholipid metabolism
+3341,r_2640,Glycerophospholipid metabolism
+3343,r_2641,Glycerophospholipid metabolism
+3345,r_2642,Glycerophospholipid metabolism
+3347,r_2643,Glycerophospholipid metabolism
+3349,r_2644,Glycerophospholipid metabolism
+3351,r_2645,Glycerophospholipid metabolism
+3353,r_2646,Glycerophospholipid metabolism
+3355,r_2647,Glycerophospholipid metabolism
+3357,r_2648,Glycerophospholipid metabolism
+3359,r_2649,Glycerophospholipid metabolism
+3361,r_2650,Glycerophospholipid metabolism
+3363,r_2651,Glycerophospholipid metabolism
+3365,r_2652,Glycerophospholipid metabolism
+3367,r_2653,Glycerophospholipid metabolism
+3369,r_2654,Glycerophospholipid metabolism
+3371,r_2655,Glycerophospholipid metabolism
+3373,r_2656,Glycerophospholipid metabolism
+3375,r_2657,Glycerophospholipid metabolism
+3377,r_2658,Glycerophospholipid metabolism
+3379,r_2659,Glycerophospholipid metabolism
+3381,r_2660,Glycerophospholipid metabolism
+3383,r_2661,Glycerophospholipid metabolism
+3385,r_2662,Glycerophospholipid metabolism
+3387,r_2663,Glycerophospholipid metabolism
+3389,r_2664,Glycerophospholipid metabolism
+3391,r_2665,Glycerophospholipid metabolism
+3393,r_2666,Glycerophospholipid metabolism
+3395,r_2667,Glycerophospholipid metabolism
+3397,r_2668,Glycerophospholipid metabolism
+3399,r_2669,Glycerophospholipid metabolism
+3401,r_2670,Glycerophospholipid metabolism
+3403,r_2671,Glycerophospholipid metabolism
+3405,r_2672,Glycerophospholipid metabolism
+3407,r_2673,Glycerophospholipid metabolism
+3409,r_2674,Glycerophospholipid metabolism
+3411,r_2675,Glycerophospholipid metabolism
+3413,r_2676,Glycerophospholipid metabolism
+3415,r_2677,Glycerophospholipid metabolism
+3417,r_2678,Glycerophospholipid metabolism
+3419,r_2679,Glycerophospholipid metabolism
+3421,r_2680,Glycerophospholipid metabolism
+3423,r_2681,Glycerophospholipid metabolism
+3425,r_2682,Glycerophospholipid metabolism
+3427,r_2683,Glycerophospholipid metabolism
+3429,r_2684,Glycerophospholipid metabolism
+3431,r_2685,Glycerophospholipid metabolism
+3433,r_2686,Glycerophospholipid metabolism
+3435,r_2687,Glycerophospholipid metabolism
+3437,r_2688,Glycerophospholipid metabolism
+3439,r_2689,Glycerophospholipid metabolism
+3441,r_2690,Glycerophospholipid metabolism
+3443,r_2691,Glycerophospholipid metabolism
+3445,r_2692,Glycerophospholipid metabolism
+3447,r_2693,Glycerophospholipid metabolism
+3449,r_2694,Glycerophospholipid metabolism
+3451,r_2695,Glycerophospholipid metabolism
+3453,r_2696,Glycerophospholipid metabolism
+3455,r_2697,Glycerophospholipid metabolism
+3457,r_2698,Glycerophospholipid metabolism
+3459,r_2699,Glycerophospholipid metabolism
+3461,r_2700,Glycerophospholipid metabolism
+3463,r_2701,Glycerophospholipid metabolism
+3465,r_2702,Glycerophospholipid metabolism
+3467,r_2703,Glycerophospholipid metabolism
+3469,r_2704,Glycerophospholipid metabolism
+3471,r_2705,Glycerophospholipid metabolism
+3473,r_2706,Glycerophospholipid metabolism
+3475,r_2707,Glycerophospholipid metabolism
+3477,r_2708,Glycerophospholipid metabolism
+3479,r_2709,Glycerophospholipid metabolism
+3481,r_2710,Glycerophospholipid metabolism
+3483,r_2711,Glycerophospholipid metabolism
+3485,r_2712,Glycerophospholipid metabolism
+3487,r_2713,Glycerophospholipid metabolism
+3489,r_2714,Glycerophospholipid metabolism
+3491,r_2715,Glycerophospholipid metabolism
+3493,r_2716,Glycerophospholipid metabolism
+3495,r_2717,Glycerophospholipid metabolism
+3497,r_2718,Glycerophospholipid metabolism
+3499,r_2719,Glycerophospholipid metabolism
+3501,r_2720,Glycerophospholipid metabolism
+3503,r_2721,Glycerophospholipid metabolism
+3505,r_2722,Glycerophospholipid metabolism
+3507,r_2723,Glycerophospholipid metabolism
+3509,r_2724,Glycerophospholipid metabolism
+3511,r_2725,Glycerophospholipid metabolism
+3513,r_2726,Glycerophospholipid metabolism
+3515,r_2727,Glycerophospholipid metabolism
+3517,r_2728,Glycerophospholipid metabolism
+3519,r_2729,Glycerophospholipid metabolism
+3521,r_2730,Glycerophospholipid metabolism
+3523,r_2731,Glycerophospholipid metabolism
+3525,r_2732,Glycerophospholipid metabolism
+3527,r_2733,Glycerophospholipid metabolism
+3529,r_2734,Glycerophospholipid metabolism
+3531,r_2735,Glycerophospholipid metabolism
+3533,r_2736,Glycerophospholipid metabolism
+3535,r_2737,Glycerophospholipid metabolism
+3537,r_2738,Glycerophospholipid metabolism
+3539,r_2739,Glycerophospholipid metabolism
+3541,r_2740,Glycerophospholipid metabolism
+3543,r_2741,Glycerophospholipid metabolism
+3545,r_2742,Glycerophospholipid metabolism
+3547,r_2743,Glycerophospholipid metabolism
+3549,r_2744,Glycerophospholipid metabolism
+3551,r_2745,Glycerophospholipid metabolism
+3553,r_2746,Glycerophospholipid metabolism
+3555,r_2747,Glycerophospholipid metabolism
+3557,r_2748,Glycerophospholipid metabolism
+3559,r_2749,Glycerophospholipid metabolism
+3561,r_2750,Glycerophospholipid metabolism
+3563,r_2751,Glycerophospholipid metabolism
+3565,r_2752,Glycerophospholipid metabolism
+3567,r_2753,Glycerophospholipid metabolism
+3569,r_2754,Glycerophospholipid metabolism
+3571,r_2755,Glycerophospholipid metabolism
+3573,r_2756,Glycerophospholipid metabolism
+3575,r_2757,Glycerophospholipid metabolism
+3577,r_2758,Glycerophospholipid metabolism
+3579,r_2759,Glycerophospholipid metabolism
+3581,r_2760,Glycerophospholipid metabolism
+3583,r_2761,Glycerophospholipid metabolism
+3585,r_2762,Glycerophospholipid metabolism
+3587,r_2763,Glycerophospholipid metabolism
+3589,r_2764,Glycerophospholipid metabolism
+3591,r_2765,Glycerophospholipid metabolism
+3593,r_2766,Glycerophospholipid metabolism
+3595,r_2767,Glycerophospholipid metabolism
+3597,r_2768,Glycerophospholipid metabolism
+3599,r_2769,Glycerophospholipid metabolism
+3601,r_2770,Glycerophospholipid metabolism
+3603,r_2771,Glycerophospholipid metabolism
+3605,r_2772,Glycerophospholipid metabolism
+3607,r_2773,Glycerophospholipid metabolism
+3609,r_2774,Glycerophospholipid metabolism
+3611,r_2775,Glycerophospholipid metabolism
+3613,r_2776,Glycerophospholipid metabolism
+3615,r_2777,Glycerophospholipid metabolism
+3617,r_2778,Glycerophospholipid metabolism
+3619,r_2779,Glycerophospholipid metabolism
+3621,r_2780,Glycerophospholipid metabolism
+3623,r_2781,Glycerophospholipid metabolism
+3625,r_2782,Glycerophospholipid metabolism
+3627,r_2783,Glycerophospholipid metabolism
+3629,r_2784,Glycerophospholipid metabolism
+3631,r_2785,Glycerophospholipid metabolism
+3633,r_2786,Glycerophospholipid metabolism
+3635,r_2787,Glycerophospholipid metabolism
+3637,r_2788,Glycerophospholipid metabolism
+3639,r_2789,Glycerophospholipid metabolism
+3641,r_2790,Glycerophospholipid metabolism
+3643,r_2791,Glycerophospholipid metabolism
+3645,r_2792,Glycerophospholipid metabolism
+3647,r_2793,Glycerophospholipid metabolism
+3649,r_2794,Glycerophospholipid metabolism
+3651,r_2795,Glycerophospholipid metabolism
+3653,r_2796,Glycerophospholipid metabolism
+3655,r_2797,Glycerophospholipid metabolism
+3657,r_2798,Glycerophospholipid metabolism
+3659,r_2799,Glycerophospholipid metabolism
+3661,r_2800,Glycerophospholipid metabolism
+3663,r_2801,Glycerophospholipid metabolism
+3665,r_2802,Glycerophospholipid metabolism
+3667,r_2803,Glycerophospholipid metabolism
+3669,r_2804,Glycerophospholipid metabolism
+3671,r_2805,Glycerophospholipid metabolism
+3673,r_2806,Glycerophospholipid metabolism
+3675,r_2807,Glycerophospholipid metabolism
+3677,r_2808,Glycerophospholipid metabolism
+3679,r_2809,Glycerophospholipid metabolism
+3681,r_2810,Glycerophospholipid metabolism
+3683,r_2811,Glycerophospholipid metabolism
+3685,r_2812,Glycerophospholipid metabolism
+3686,r_2813,Glycerophospholipid metabolism
+3687,r_2814,Glycerophospholipid metabolism
+3688,r_2815,Glycerophospholipid metabolism
+3689,r_2816,Glycerophospholipid metabolism
+3690,r_2817,Glycerophospholipid metabolism
+3691,r_2818,Glycerophospholipid metabolism
+3692,r_2819,Glycerophospholipid metabolism
+3693,r_2820,Inositol phosphate metabolism
+3695,r_2821,Inositol phosphate metabolism
+3697,r_2822,Inositol phosphate metabolism
+3699,r_2823,Inositol phosphate metabolism
+3701,r_2824,Inositol phosphate metabolism
+3703,r_2825,Inositol phosphate metabolism
+3705,r_2826,Inositol phosphate metabolism
+3707,r_2827,Inositol phosphate metabolism
+3709,r_2828,Inositol phosphate metabolism
+3710,r_2829,Inositol phosphate metabolism
+3711,r_2830,Inositol phosphate metabolism
+3712,r_2831,Inositol phosphate metabolism
+3713,r_2832,Inositol phosphate metabolism
+3714,r_2833,Inositol phosphate metabolism
+3715,r_2834,Inositol phosphate metabolism
+3716,r_2835,Inositol phosphate metabolism
+3717,r_2836,Inositol phosphate metabolism
+3718,r_2837,Inositol phosphate metabolism
+3719,r_2838,Inositol phosphate metabolism
+3720,r_2839,Inositol phosphate metabolism
+3721,r_2840,Inositol phosphate metabolism
+3722,r_2841,Inositol phosphate metabolism
+3723,r_2842,Inositol phosphate metabolism
+3724,r_2843,Inositol phosphate metabolism
+3725,r_2844,Inositol phosphate metabolism
+3726,r_2845,Inositol phosphate metabolism
+3727,r_2846,Inositol phosphate metabolism
+3728,r_2847,Inositol phosphate metabolism
+3729,r_2848,Inositol phosphate metabolism
+3730,r_2849,Inositol phosphate metabolism
+3731,r_2850,Inositol phosphate metabolism
+3732,r_2851,Inositol phosphate metabolism
+3733,r_2852,Inositol phosphate metabolism
+3736,r_2853,Inositol phosphate metabolism
+3739,r_2854,Inositol phosphate metabolism
+3742,r_2855,Inositol phosphate metabolism
+3745,r_2856,Inositol phosphate metabolism
+3748,r_2857,Inositol phosphate metabolism
+3751,r_2858,Inositol phosphate metabolism
+3754,r_2859,Inositol phosphate metabolism
+3757,r_2860,Inositol phosphate metabolism
+3758,r_2861,Inositol phosphate metabolism
+3759,r_2862,Inositol phosphate metabolism
+3760,r_2863,Inositol phosphate metabolism
+3761,r_2864,Inositol phosphate metabolism
+3762,r_2865,Inositol phosphate metabolism
+3763,r_2866,Inositol phosphate metabolism
+3764,r_2867,Inositol phosphate metabolism
+3765,r_2868,Inositol phosphate metabolism
+3766,r_2869,Inositol phosphate metabolism
+3767,r_2870,Inositol phosphate metabolism
+3768,r_2871,Inositol phosphate metabolism
+3769,r_2872,Inositol phosphate metabolism
+3770,r_2873,Inositol phosphate metabolism
+3771,r_2874,Inositol phosphate metabolism
+3772,r_2875,Inositol phosphate metabolism
+3773,r_2876,Inositol phosphate metabolism
+3774,r_2877,Inositol phosphate metabolism
+3775,r_2878,Inositol phosphate metabolism
+3776,r_2879,Inositol phosphate metabolism
+3777,r_2880,Inositol phosphate metabolism
+3778,r_2881,Inositol phosphate metabolism
+3779,r_2882,Inositol phosphate metabolism
+3780,r_2883,Inositol phosphate metabolism
+3781,r_2884,Glycerolipid metabolism
+3783,r_2885,Glycerolipid metabolism
+3785,r_2886,Glycerolipid metabolism
+3787,r_2887,Glycerolipid metabolism
+3789,r_2888,Glycerolipid metabolism
+3791,r_2889,Glycerolipid metabolism
+3793,r_2890,Glycerolipid metabolism
+3795,r_2891,Glycerolipid metabolism
+3797,r_2892,Glycerolipid metabolism
+3799,r_2893,Glycerolipid metabolism
+3801,r_2894,Glycerolipid metabolism
+3803,r_2895,Glycerolipid metabolism
+3805,r_2896,Glycerolipid metabolism
+3807,r_2897,Glycerolipid metabolism
+3809,r_2898,Glycerolipid metabolism
+3811,r_2899,Glycerolipid metabolism
+3813,r_2900,Glycerolipid metabolism
+3815,r_2901,Glycerolipid metabolism
+3817,r_2902,Glycerolipid metabolism
+3819,r_2903,Glycerolipid metabolism
+3821,r_2904,Glycerolipid metabolism
+3823,r_2905,Glycerolipid metabolism
+3825,r_2906,Glycerolipid metabolism
+3827,r_2907,Glycerolipid metabolism
+3829,r_2908,Glycerolipid metabolism
+3831,r_2909,Glycerolipid metabolism
+3833,r_2910,Glycerolipid metabolism
+3835,r_2911,Glycerolipid metabolism
+3837,r_2912,Glycerolipid metabolism
+3839,r_2913,Glycerolipid metabolism
+3841,r_2914,Glycerolipid metabolism
+3843,r_2915,Glycerolipid metabolism
+3845,r_2916,Glycerolipid metabolism
+3847,r_2917,Glycerolipid metabolism
+3849,r_2918,Glycerolipid metabolism
+3851,r_2919,Glycerolipid metabolism
+3853,r_2920,Glycerolipid metabolism
+3855,r_2921,Glycerolipid metabolism
+3857,r_2922,Glycerolipid metabolism
+3859,r_2923,Glycerolipid metabolism
+3861,r_2924,Glycerolipid metabolism
+3863,r_2925,Glycerolipid metabolism
+3865,r_2926,Glycerolipid metabolism
+3867,r_2927,Glycerolipid metabolism
+3869,r_2928,Glycerolipid metabolism
+3871,r_2929,Glycerolipid metabolism
+3873,r_2930,Glycerolipid metabolism
+3875,r_2931,Glycerolipid metabolism
+3877,r_2932,Glycerolipid metabolism
+3879,r_2933,Glycerolipid metabolism
+3881,r_2934,Glycerolipid metabolism
+3883,r_2935,Glycerolipid metabolism
+3885,r_2936,Glycerolipid metabolism
+3887,r_2937,Glycerolipid metabolism
+3889,r_2938,Glycerolipid metabolism
+3891,r_2939,Glycerolipid metabolism
+3893,r_2940,Glycerolipid metabolism
+3895,r_2941,Glycerolipid metabolism
+3897,r_2942,Glycerolipid metabolism
+3899,r_2943,Glycerolipid metabolism
+3901,r_2944,Glycerolipid metabolism
+3903,r_2945,Glycerolipid metabolism
+3905,r_2946,Glycerolipid metabolism
+3907,r_2947,Glycerolipid metabolism
+3909,r_2948,Glycerolipid metabolism
+3911,r_2949,Glycerolipid metabolism
+3913,r_2950,Glycerolipid metabolism
+3915,r_2951,Glycerolipid metabolism
+3917,r_2952,Glycerolipid metabolism
+3919,r_2953,Glycerolipid metabolism
+3921,r_2954,Glycerolipid metabolism
+3923,r_2955,Glycerolipid metabolism
+3925,r_2956,Glycerolipid metabolism
+3927,r_2957,Glycerolipid metabolism
+3929,r_2958,Glycerolipid metabolism
+3931,r_2959,Glycerolipid metabolism
+3933,r_2960,Glycerolipid metabolism
+3935,r_2961,Glycerolipid metabolism
+3937,r_2962,Glycerolipid metabolism
+3939,r_2963,Glycerolipid metabolism
+3941,r_2964,Glycerolipid metabolism
+3943,r_2965,Glycerolipid metabolism
+3945,r_2966,Glycerolipid metabolism
+3947,r_2967,Glycerolipid metabolism
+3949,r_2968,Glycerolipid metabolism
+3951,r_2969,Glycerolipid metabolism
+3953,r_2970,Glycerolipid metabolism
+3955,r_2971,Glycerolipid metabolism
+3957,r_2972,Glycerolipid metabolism
+3959,r_2973,Glycerolipid metabolism
+3961,r_2974,Glycerolipid metabolism
+3963,r_2975,Glycerolipid metabolism
+3965,r_2976,Glycerolipid metabolism
+3967,r_2977,Glycerolipid metabolism
+3969,r_2978,Glycerolipid metabolism
+3971,r_2979,Glycerolipid metabolism
+3973,r_2980,Glycerolipid metabolism
+3975,r_2981,Glycerolipid metabolism
+3977,r_2982,Glycerolipid metabolism
+3979,r_2983,Glycerolipid metabolism
+3981,r_2984,Glycerolipid metabolism
+3983,r_2985,Glycerolipid metabolism
+3985,r_2986,Glycerolipid metabolism
+3987,r_2987,Glycerolipid metabolism
+3989,r_2988,Glycerolipid metabolism
+3991,r_2989,Glycerolipid metabolism
+3993,r_2990,Glycerolipid metabolism
+3995,r_2991,Glycerolipid metabolism
+3997,r_2992,Glycerolipid metabolism
+3999,r_2993,Glycerolipid metabolism
+4001,r_2994,Glycerolipid metabolism
+4003,r_2995,Glycerolipid metabolism
+4005,r_2996,Glycerolipid metabolism
+4007,r_2997,Glycerolipid metabolism
+4009,r_2998,Glycerolipid metabolism
+4011,r_2999,Glycerolipid metabolism
+4013,r_3000,Glycerolipid metabolism
+4015,r_3001,Glycerolipid metabolism
+4017,r_3002,Glycerolipid metabolism
+4019,r_3003,Glycerolipid metabolism
+4021,r_3004,Glycerolipid metabolism
+4023,r_3005,Glycerolipid metabolism
+4025,r_3006,Glycerolipid metabolism
+4027,r_3007,Glycerolipid metabolism
+4029,r_3008,Glycerolipid metabolism
+4031,r_3009,Glycerolipid metabolism
+4033,r_3010,Glycerolipid metabolism
+4035,r_3011,Glycerolipid metabolism
+4037,r_3022,Glycerophospholipid metabolism
+4038,r_3023,Glycerophospholipid metabolism
+4039,r_3024,Glycerophospholipid metabolism
+4040,r_3025,Glycerophospholipid metabolism
+4041,r_3026,Glycerophospholipid metabolism
+4042,r_3027,Glycerophospholipid metabolism
+4043,r_3028,Glycerophospholipid metabolism
+4044,r_3029,Glycerophospholipid metabolism
+4045,r_3030,Glycerophospholipid metabolism
+4046,r_3031,Glycerophospholipid metabolism
+4047,r_3032,Glycerophospholipid metabolism
+4048,r_3033,Glycerophospholipid metabolism
+4049,r_3034,Glycerophospholipid metabolism
+4050,r_3035,Glycerophospholipid metabolism
+4051,r_3036,Glycerophospholipid metabolism
+4052,r_3037,Glycerophospholipid metabolism
+4053,r_3038,Glycerophospholipid metabolism
+4054,r_3039,Glycerophospholipid metabolism
+4055,r_3040,Glycerophospholipid metabolism
+4056,r_3041,Glycerophospholipid metabolism
+4057,r_3042,Glycerophospholipid metabolism
+4058,r_3043,Glycerophospholipid metabolism
+4059,r_3044,Glycerophospholipid metabolism
+4060,r_3045,Glycerophospholipid metabolism
+4061,r_3046,Glycerophospholipid metabolism
+4063,r_3047,Glycerophospholipid metabolism
+4065,r_3048,Glycerophospholipid metabolism
+4067,r_3049,Glycerophospholipid metabolism
+4069,r_3050,Glycerophospholipid metabolism
+4071,r_3051,Glycerophospholipid metabolism
+4073,r_3052,Glycerophospholipid metabolism
+4075,r_3053,Glycerophospholipid metabolism
+4077,r_3054,Glycerophospholipid metabolism
+4079,r_3055,Glycerophospholipid metabolism
+4081,r_3056,Glycerophospholipid metabolism
+4083,r_3057,Glycerophospholipid metabolism
+4085,r_3058,Glycerophospholipid metabolism
+4087,r_3059,Glycerophospholipid metabolism
+4089,r_3060,Glycerophospholipid metabolism
+4091,r_3061,Glycerophospholipid metabolism
+4093,r_3062,Glycerophospholipid metabolism
+4095,r_3063,Glycerophospholipid metabolism
+4097,r_3064,Glycerophospholipid metabolism
+4099,r_3065,Glycerophospholipid metabolism
+4101,r_3066,Glycerophospholipid metabolism
+4103,r_3067,Glycerophospholipid metabolism
+4105,r_3068,Glycerophospholipid metabolism
+4107,r_3069,Glycerophospholipid metabolism
+4109,r_3070,Glycerophospholipid metabolism
+4110,r_3071,Glycerophospholipid metabolism
+4111,r_3072,Glycerophospholipid metabolism
+4112,r_3073,Glycerophospholipid metabolism
+4113,r_3074,Glycerophospholipid metabolism
+4114,r_3075,Glycerophospholipid metabolism
+4115,r_3076,Glycerophospholipid metabolism
+4116,r_3077,Glycerophospholipid metabolism
+4117,r_3078,Glycerophospholipid metabolism
+4118,r_3079,Glycerophospholipid metabolism
+4119,r_3080,Glycerophospholipid metabolism
+4120,r_3081,Glycerophospholipid metabolism
+4121,r_3082,Inositol phosphate metabolism
+4122,r_3083,Inositol phosphate metabolism
+4123,r_3084,Inositol phosphate metabolism
+4124,r_3085,Inositol phosphate metabolism
+4125,r_3086,Inositol phosphate metabolism
+4126,r_3087,Inositol phosphate metabolism
+4127,r_3088,Inositol phosphate metabolism
+4128,r_3089,Inositol phosphate metabolism
+4129,r_3090,Inositol phosphate metabolism
+4130,r_3091,Inositol phosphate metabolism
+4131,r_3092,Inositol phosphate metabolism
+4132,r_3093,Inositol phosphate metabolism
+4133,r_3094,Inositol phosphate metabolism
+4134,r_3095,Inositol phosphate metabolism
+4135,r_3096,Inositol phosphate metabolism
+4136,r_3097,Inositol phosphate metabolism
+4137,r_3098,Glycerophospholipid metabolism
+4138,r_3099,Glycerophospholipid metabolism
+4139,r_3100,Glycerophospholipid metabolism
+4140,r_3101,Glycerophospholipid metabolism
+4141,r_3102,Glycerophospholipid metabolism
+4142,r_3103,Glycerophospholipid metabolism
+4143,r_3104,Glycerophospholipid metabolism
+4144,r_3105,Glycerophospholipid metabolism
+4145,r_3106,Glycerophospholipid metabolism
+4146,r_3107,Glycerophospholipid metabolism
+4147,r_3108,Glycerophospholipid metabolism
+4148,r_3109,Glycerophospholipid metabolism
+4149,r_3110,Glycerophospholipid metabolism
+4150,r_3111,Glycerophospholipid metabolism
+4151,r_3112,Inositol phosphate metabolism
+4153,r_3113,Inositol phosphate metabolism
+4155,r_3114,Inositol phosphate metabolism
+4157,r_3115,Inositol phosphate metabolism
+4159,r_3116,Inositol phosphate metabolism
+4161,r_3117,Inositol phosphate metabolism
+4163,r_3118,Inositol phosphate metabolism
+4165,r_3119,Inositol phosphate metabolism
+4167,r_3120,Inositol phosphate metabolism
+4170,r_3121,Inositol phosphate metabolism
+4173,r_3122,Inositol phosphate metabolism
+4176,r_3123,Inositol phosphate metabolism
+4179,r_3124,Inositol phosphate metabolism
+4182,r_3125,Inositol phosphate metabolism
+4185,r_3126,Inositol phosphate metabolism
+4188,r_3127,Inositol phosphate metabolism
+4191,r_3128,Inositol phosphate metabolism
+4192,r_3129,Inositol phosphate metabolism
+4193,r_3130,Inositol phosphate metabolism
+4194,r_3131,Inositol phosphate metabolism
+4195,r_3132,Inositol phosphate metabolism
+4196,r_3133,Inositol phosphate metabolism
+4197,r_3134,Inositol phosphate metabolism
+4198,r_3135,Inositol phosphate metabolism
+4199,r_3136,Inositol phosphate metabolism
+4200,r_3137,Inositol phosphate metabolism
+4201,r_3138,Inositol phosphate metabolism
+4202,r_3139,Inositol phosphate metabolism
+4203,r_3140,Inositol phosphate metabolism
+4204,r_3141,Inositol phosphate metabolism
+4205,r_3142,Inositol phosphate metabolism
+4206,r_3143,Inositol phosphate metabolism
+4207,r_3144,Inositol phosphate metabolism
+4209,r_3145,Inositol phosphate metabolism
+4211,r_3146,Inositol phosphate metabolism
+4213,r_3147,Inositol phosphate metabolism
+4215,r_3148,Inositol phosphate metabolism
+4217,r_3149,Inositol phosphate metabolism
+4219,r_3150,Inositol phosphate metabolism
+4221,r_3151,Inositol phosphate metabolism
+4223,r_3152,Inositol phosphate metabolism
+4225,r_3153,Inositol phosphate metabolism
+4227,r_3154,Inositol phosphate metabolism
+4229,r_3155,Inositol phosphate metabolism
+4231,r_3156,Inositol phosphate metabolism
+4233,r_3157,Inositol phosphate metabolism
+4235,r_3158,Inositol phosphate metabolism
+4237,r_3159,Inositol phosphate metabolism
+4239,r_3160,Inositol phosphate metabolism
+4240,r_3161,Inositol phosphate metabolism
+4241,r_3162,Inositol phosphate metabolism
+4242,r_3163,Inositol phosphate metabolism
+4243,r_3164,Inositol phosphate metabolism
+4244,r_3165,Inositol phosphate metabolism
+4245,r_3166,Inositol phosphate metabolism
+4246,r_3167,Inositol phosphate metabolism
+4247,r_3168,Inositol phosphate metabolism
+4248,r_3169,Inositol phosphate metabolism
+4249,r_3170,Inositol phosphate metabolism
+4250,r_3171,Inositol phosphate metabolism
+4251,r_3172,Inositol phosphate metabolism
+4252,r_3173,Inositol phosphate metabolism
+4253,r_3174,Inositol phosphate metabolism
+4254,r_3175,Inositol phosphate metabolism
+4255,r_3176,Inositol phosphate metabolism
+4257,r_3177,Inositol phosphate metabolism
+4259,r_3178,Inositol phosphate metabolism
+4261,r_3179,Inositol phosphate metabolism
+4263,r_3180,Inositol phosphate metabolism
+4265,r_3181,Inositol phosphate metabolism
+4267,r_3182,Inositol phosphate metabolism
+4269,r_3183,Inositol phosphate metabolism
+4271,r_3184,Inositol phosphate metabolism
+4273,r_3185,Inositol phosphate metabolism
+4275,r_3186,Inositol phosphate metabolism
+4277,r_3187,Inositol phosphate metabolism
+4279,r_3188,Inositol phosphate metabolism
+4281,r_3189,Inositol phosphate metabolism
+4283,r_3190,Inositol phosphate metabolism
+4285,r_3191,Inositol phosphate metabolism
+4287,r_3192,Inositol phosphate metabolism
+4290,r_3193,Inositol phosphate metabolism
+4293,r_3194,Inositol phosphate metabolism
+4296,r_3195,Inositol phosphate metabolism
+4299,r_3196,Inositol phosphate metabolism
+4302,r_3197,Inositol phosphate metabolism
+4305,r_3198,Inositol phosphate metabolism
+4308,r_3199,Inositol phosphate metabolism
+4311,r_3200,Inositol phosphate metabolism
+4314,r_3201,Inositol phosphate metabolism
+4317,r_3202,Inositol phosphate metabolism
+4320,r_3203,Inositol phosphate metabolism
+4323,r_3204,Inositol phosphate metabolism
+4326,r_3205,Inositol phosphate metabolism
+4329,r_3206,Inositol phosphate metabolism
+4332,r_3207,Inositol phosphate metabolism
+4335,r_3208,Inositol phosphate metabolism
+4336,r_3209,Inositol phosphate metabolism
+4337,r_3210,Inositol phosphate metabolism
+4338,r_3211,Inositol phosphate metabolism
+4339,r_3212,Inositol phosphate metabolism
+4340,r_3213,Inositol phosphate metabolism
+4341,r_3214,Inositol phosphate metabolism
+4342,r_3215,Inositol phosphate metabolism
+4343,r_3216,Inositol phosphate metabolism
+4344,r_3217,Inositol phosphate metabolism
+4345,r_3218,Inositol phosphate metabolism
+4346,r_3219,Inositol phosphate metabolism
+4347,r_3220,Inositol phosphate metabolism
+4348,r_3221,Inositol phosphate metabolism
+4349,r_3222,Inositol phosphate metabolism
+4350,r_3223,Inositol phosphate metabolism
+4351,r_3224,Glycerolipid metabolism
+4352,r_3225,Glycerolipid metabolism
+4353,r_3226,Glycerolipid metabolism
+4354,r_3227,Glycerolipid metabolism
+4355,r_3228,Glycerolipid metabolism
+4356,r_3229,Glycerolipid metabolism
+4357,r_3230,Glycerolipid metabolism
+4358,r_3231,Glycerolipid metabolism
+4359,r_3232,Glycerolipid metabolism
+4360,r_3233,Glycerolipid metabolism
+4361,r_3234,Glycerolipid metabolism
+4362,r_3235,Glycerolipid metabolism
+4363,r_3236,Glycerolipid metabolism
+4364,r_3237,Glycerolipid metabolism
+4365,r_3238,Glycerolipid metabolism
+4366,r_3239,Glycerolipid metabolism
+4367,r_3240,Glycerolipid metabolism
+4368,r_3241,Glycerolipid metabolism
+4369,r_3242,Glycerolipid metabolism
+4370,r_3243,Glycerolipid metabolism
+4371,r_3244,Glycerolipid metabolism
+4372,r_3245,Glycerolipid metabolism
+4373,r_3246,Glycerolipid metabolism
+4374,r_3247,Glycerolipid metabolism
+4375,r_3248,Glycerolipid metabolism
+4376,r_3249,Glycerolipid metabolism
+4377,r_3250,Glycerolipid metabolism
+4378,r_3251,Glycerolipid metabolism
+4379,r_3252,Steroid biosynthesis
+4381,r_3253,Steroid biosynthesis
+4383,r_3254,Steroid biosynthesis
+4384,r_3255,Steroid biosynthesis
+4385,r_3256,Steroid biosynthesis
+4386,r_3257,Steroid biosynthesis
+4387,r_3258,Steroid biosynthesis
+4388,r_3259,Steroid biosynthesis
+4389,r_3260,Steroid biosynthesis
+4390,r_3261,Steroid biosynthesis
+4391,r_3262,Steroid biosynthesis
+4392,r_3263,Steroid biosynthesis
+4393,r_3264,Glycerolipid metabolism
+4398,r_3265,Glycerolipid metabolism
+4402,r_3266,Glycerolipid metabolism
+4406,r_3267,Glycerolipid metabolism
+4410,r_3268,Glycerolipid metabolism
+4414,r_3269,Glycerolipid metabolism
+4418,r_3270,Glycerolipid metabolism
+4422,r_3271,Glycerolipid metabolism
+4426,r_3272,Glycerolipid metabolism
+4430,r_3273,Glycerolipid metabolism
+4434,r_3274,Glycerolipid metabolism
+4438,r_3275,Glycerolipid metabolism
+4442,r_3276,Glycerolipid metabolism
+4446,r_3277,Glycerolipid metabolism
+4450,r_3278,Glycerolipid metabolism
+4454,r_3279,Glycerolipid metabolism
+4458,r_3280,Glycerolipid metabolism
+4462,r_3281,Glycerolipid metabolism
+4466,r_3282,Glycerolipid metabolism
+4470,r_3283,Glycerolipid metabolism
+4474,r_3284,Glycerolipid metabolism
+4478,r_3285,Glycerolipid metabolism
+4482,r_3286,Glycerolipid metabolism
+4486,r_3287,Glycerolipid metabolism
+4490,r_3288,Glycerolipid metabolism
+4494,r_3289,Glycerolipid metabolism
+4498,r_3290,Glycerolipid metabolism
+4502,r_3291,Glycerolipid metabolism
+4506,r_3292,Glycerolipid metabolism
+4510,r_3293,Glycerolipid metabolism
+4514,r_3294,Glycerolipid metabolism
+4518,r_3295,Glycerolipid metabolism
+4522,r_3296,Glycerolipid metabolism
+4523,r_3297,Glycerolipid metabolism
+4525,r_3298,Glycerolipid metabolism
+4526,r_3299,Glycerolipid metabolism
+4527,r_3300,Glycerolipid metabolism
+4528,r_3301,Glycerolipid metabolism
+4529,r_3302,Glycerolipid metabolism
+4530,r_3303,Glycerolipid metabolism
+4531,r_3304,Glycerolipid metabolism
+4532,r_3305,Glycerolipid metabolism
+4533,r_3306,Glycerolipid metabolism
+4534,r_3307,Glycerolipid metabolism
+4535,r_3308,Glycerolipid metabolism
+4536,r_3309,Glycerolipid metabolism
+4537,r_3310,Glycerolipid metabolism
+4538,r_3311,Glycerolipid metabolism
+4539,r_3312,Glycerolipid metabolism
+4540,r_3313,Glycerolipid metabolism
+4541,r_3314,Glycerolipid metabolism
+4542,r_3315,Glycerolipid metabolism
+4543,r_3316,Glycerolipid metabolism
+4544,r_3317,Glycerolipid metabolism
+4545,r_3318,Glycerolipid metabolism
+4546,r_3319,Glycerolipid metabolism
+4547,r_3320,Glycerolipid metabolism
+4548,r_3321,Glycerolipid metabolism
+4549,r_3322,Glycerolipid metabolism
+4550,r_3323,Glycerolipid metabolism
+4551,r_3324,Glycerolipid metabolism
+4552,r_3325,Glycerolipid metabolism
+4553,r_3326,Glycerolipid metabolism
+4554,r_3327,Glycerolipid metabolism
+4555,r_3328,Glycerolipid metabolism
+4556,r_3329,Glycerolipid metabolism
+4557,r_3330,Glycerolipid metabolism
+4558,r_3331,Glycerolipid metabolism
+4559,r_3332,Glycerolipid metabolism
+4561,r_3333,Glycerolipid metabolism
+4563,r_3334,Glycerolipid metabolism
+4565,r_3335,Glycerolipid metabolism
+4567,r_3336,Glycerolipid metabolism
+4569,r_3337,Glycerolipid metabolism
+4571,r_3338,Glycerolipid metabolism
+4573,r_3339,Glycerolipid metabolism
+4575,r_3340,Glycerolipid metabolism
+4577,r_3341,Glycerolipid metabolism
+4579,r_3342,Glycerolipid metabolism
+4581,r_3343,Glycerolipid metabolism
+4583,r_3344,Glycerolipid metabolism
+4585,r_3345,Glycerolipid metabolism
+4587,r_3346,Glycerolipid metabolism
+4589,r_3347,Glycerolipid metabolism
+4591,r_3348,Sphingoglycolipid metabolism
+4592,r_3349,Sphingoglycolipid metabolism
+4593,r_3350,Sphingoglycolipid metabolism
+4594,r_3351,Sphingoglycolipid metabolism
+4595,r_3352,Sphingoglycolipid metabolism
+4596,r_3353,Sphingoglycolipid metabolism
+4597,r_3354,Sphingoglycolipid metabolism
+4598,r_3355,Sphingoglycolipid metabolism
+4599,r_3356,Sphingoglycolipid metabolism
+4600,r_3357,Sphingoglycolipid metabolism
+4601,r_3358,Sphingoglycolipid metabolism
+4602,r_3359,Sphingoglycolipid metabolism
+4603,r_3360,Sphingoglycolipid metabolism
+4604,r_3361,Sphingoglycolipid metabolism
+4605,r_3362,Sphingoglycolipid metabolism
+4606,r_3363,Sphingoglycolipid metabolism
+4607,r_3364,Sphingoglycolipid metabolism
+4608,r_3365,Sphingoglycolipid metabolism
+4609,r_3366,Sphingoglycolipid metabolism
+4610,r_3367,Sphingoglycolipid metabolism
+4611,r_3368,Sphingoglycolipid metabolism
+4612,r_3369,Sphingoglycolipid metabolism
+4613,r_3370,Sphingoglycolipid metabolism
+4614,r_3371,Sphingoglycolipid metabolism
+4615,r_3372,Sphingoglycolipid metabolism
+4616,r_3373,Sphingoglycolipid metabolism
+4617,r_3374,Sphingoglycolipid metabolism
+4618,r_3375,Sphingoglycolipid metabolism
+4619,r_3376,Sphingoglycolipid metabolism
+4620,r_3377,Sphingoglycolipid metabolism
+4621,r_3378,Sphingoglycolipid metabolism
+4622,r_3379,Sphingoglycolipid metabolism
+4623,r_3380,Sphingoglycolipid metabolism
+4624,r_3381,Sphingoglycolipid metabolism
+4625,r_3382,Sphingoglycolipid metabolism
+4626,r_3383,Sphingoglycolipid metabolism
+4627,r_3384,Sphingoglycolipid metabolism
+4628,r_3385,Sphingoglycolipid metabolism
+4629,r_3386,Sphingoglycolipid metabolism
+4630,r_3387,Sphingoglycolipid metabolism
+4631,r_3388,Sphingoglycolipid metabolism
+4632,r_3389,Sphingoglycolipid metabolism
+4633,r_3390,Sphingoglycolipid metabolism
+4634,r_3391,Sphingoglycolipid metabolism
+4635,r_3392,Sphingoglycolipid metabolism
+4636,r_3393,Sphingoglycolipid metabolism
+4637,r_3394,Sphingoglycolipid metabolism
+4638,r_3395,Sphingoglycolipid metabolism
+4639,r_3396,Sphingoglycolipid metabolism
+4640,r_3397,Sphingoglycolipid metabolism
+4641,r_3398,Sphingoglycolipid metabolism
+4642,r_3399,Sphingoglycolipid metabolism
+4643,r_3400,Sphingoglycolipid metabolism
+4644,r_3401,Sphingoglycolipid metabolism
+4645,r_3402,Sphingoglycolipid metabolism
+4646,r_3403,Sphingoglycolipid metabolism
+4647,r_3404,Sphingoglycolipid metabolism
+4648,r_3405,Sphingoglycolipid metabolism
+4649,r_3406,Sphingoglycolipid metabolism
+4650,r_3407,Sphingoglycolipid metabolism
+4651,r_3408,Sphingoglycolipid metabolism
+4652,r_3409,Sphingoglycolipid metabolism
+4653,r_3410,Sphingoglycolipid metabolism
+4654,r_3411,Sphingoglycolipid metabolism
+4655,r_3412,Sphingoglycolipid metabolism
+4656,r_3413,Sphingoglycolipid metabolism
+4657,r_3414,Sphingoglycolipid metabolism
+4658,r_3415,Sphingoglycolipid metabolism
+4659,r_3416,Sphingoglycolipid metabolism
+4660,r_3417,Sphingoglycolipid metabolism
+4661,r_3418,Sphingoglycolipid metabolism
+4662,r_3419,Sphingoglycolipid metabolism
+4663,r_3420,Sphingoglycolipid metabolism
+4664,r_3421,Sphingoglycolipid metabolism
+4665,r_3422,Sphingoglycolipid metabolism
+4666,r_3423,Sphingoglycolipid metabolism
+4667,r_3424,Sphingoglycolipid metabolism
+4668,r_3425,Sphingoglycolipid metabolism
+4669,r_3426,Sphingoglycolipid metabolism
+4670,r_3427,Sphingoglycolipid metabolism
+4671,r_3428,Sphingoglycolipid metabolism
+4672,r_3429,Sphingoglycolipid metabolism
+4673,r_3430,Sphingoglycolipid metabolism
+4674,r_3431,Sphingoglycolipid metabolism
+4675,r_3432,Sphingoglycolipid metabolism
+4676,r_3433,Sphingoglycolipid metabolism
+4677,r_3434,Sphingoglycolipid metabolism
+4678,r_3435,Sphingoglycolipid metabolism
+4679,r_3436,Sphingoglycolipid metabolism
+4680,r_3437,Sphingoglycolipid metabolism
+4681,r_3438,Sphingoglycolipid metabolism
+4682,r_3439,Sphingoglycolipid metabolism
+4683,r_3440,Sphingoglycolipid metabolism
+4684,r_3441,Sphingoglycolipid metabolism
+4685,r_3442,Sphingoglycolipid metabolism
+4686,r_3443,Sphingoglycolipid metabolism
+4687,r_3444,Sphingoglycolipid metabolism
+4688,r_3445,Sphingoglycolipid metabolism
+4689,r_3446,Sphingoglycolipid metabolism
+4690,r_3447,Sphingoglycolipid metabolism
+4691,r_3448,Sphingoglycolipid metabolism
+4692,r_3449,Sphingoglycolipid metabolism
+4693,r_3450,Sphingoglycolipid metabolism
+4694,r_3451,Sphingoglycolipid metabolism
+4695,r_3452,Sphingoglycolipid metabolism
+4696,r_3453,Sphingoglycolipid metabolism
+4697,r_3454,Sphingoglycolipid metabolism
+4698,r_3455,Sphingoglycolipid metabolism
+4699,r_3456,Sphingoglycolipid metabolism
+4700,r_3457,Sphingoglycolipid metabolism
+4701,r_3458,Sphingoglycolipid metabolism
+4702,r_3459,Sphingoglycolipid metabolism
+4703,r_3460,Sphingoglycolipid metabolism
+4704,r_3461,Sphingoglycolipid metabolism
+4705,r_3462,Sphingoglycolipid metabolism
+4706,r_3463,Sphingoglycolipid metabolism
+4707,r_3464,Sphingoglycolipid metabolism
+4708,r_3465,Sphingoglycolipid metabolism
+4709,r_3466,Sphingoglycolipid metabolism
+4710,r_3467,Sphingoglycolipid metabolism
+4711,r_3468,Sphingoglycolipid metabolism
+4712,r_3469,Sphingoglycolipid metabolism
+4713,r_3470,Sphingoglycolipid metabolism
+4714,r_3471,Sphingoglycolipid metabolism
+4715,r_3472,Sphingoglycolipid metabolism
+4716,r_3473,Sphingoglycolipid metabolism
+4717,r_3474,Sphingoglycolipid metabolism
+4718,r_3475,Sphingoglycolipid metabolism
+4719,r_3476,Sphingoglycolipid metabolism
+4720,r_3477,Sphingoglycolipid metabolism
+4721,r_3478,Sphingoglycolipid metabolism
+4722,r_3479,Sphingoglycolipid metabolism
+4723,r_3480,Sphingoglycolipid metabolism
+4724,r_3481,Sphingoglycolipid metabolism
+4725,r_3482,Sphingoglycolipid metabolism
+4726,r_3483,Sphingoglycolipid metabolism
+4727,r_3484,Sphingoglycolipid metabolism
+4728,r_3485,Sphingoglycolipid metabolism
+4729,r_3486,Sphingoglycolipid metabolism
+4730,r_3487,Sphingoglycolipid metabolism
+4731,r_3488,Sphingoglycolipid metabolism
+4732,r_3489,Sphingoglycolipid metabolism
+4733,r_3490,Sphingoglycolipid metabolism
+4734,r_3491,Sphingoglycolipid metabolism
+4735,r_3492,Sphingoglycolipid metabolism
+4736,r_3493,Sphingoglycolipid metabolism
+4737,r_3494,Sphingoglycolipid metabolism
+4738,r_3495,Sphingoglycolipid metabolism
+4739,r_3496,Sphingoglycolipid metabolism
+4740,r_3497,Sphingoglycolipid metabolism
+4741,r_3498,Sphingoglycolipid metabolism
+4742,r_3499,Sphingoglycolipid metabolism
+4743,r_3500,Sphingoglycolipid metabolism
+4744,r_3501,Sphingoglycolipid metabolism
+4745,r_3502,Sphingoglycolipid metabolism
+4746,r_3503,Sphingoglycolipid metabolism
+4747,r_3504,Sphingoglycolipid metabolism
+4748,r_3505,Sphingoglycolipid metabolism
+4749,r_3506,Sphingoglycolipid metabolism
+4750,r_3507,Sphingoglycolipid metabolism
+4751,r_3508,"Transport [c, erm]"
+4753,r_3509,"Transport [c, erm]"
+4755,r_3510,"Transport [c, erm]"
+4757,r_3511,"Transport [c, erm]"
+4759,r_3512,"Transport [c, erm]"
+4761,r_3513,"Transport [c, erm]"
+4763,r_3514,"Transport [c, erm]"
+4765,r_3515,"Transport [c, erm]"
+4767,r_3516,"Transport [c, erm]"
+4769,r_3517,"Transport [c, erm]"
+4771,r_3518,"Transport [c, erm]"
+4773,r_3519,"Transport [c, erm]"
+4775,r_3520,"Transport [c, erm]"
+4777,r_3521,"Transport [c, erm]"
+4779,r_3522,"Transport [c, erm]"
+4781,r_3523,"Transport [c, erm]"
+4783,r_3524,"Transport [c, erm]"
+4785,r_3525,"Transport [c, erm]"
+4787,r_3526,"Transport [c, erm]"
+4791,r_3527,"Transport [c, erm]"
+4793,r_3528,"Transport [c, erm]"
+4795,r_3529,"Transport [c, erm]"
+4797,r_3530,"Transport [c, erm]"
+4799,r_3531,"Transport [c, erm]"
+4801,r_3532,"Transport [c, erm]"
+4803,r_3533,"Transport [c, erm]"
+4805,r_3534,"Transport [c, erm]"
+4807,r_3535,"Transport [c, erm]"
+4809,r_3536,"Transport [c, erm]"
+4811,r_3537,"Transport [c, erm]"
+4813,r_3538,"Transport [c, erm]"
+4815,r_3539,"Transport [c, erm]"
+4817,r_3540,"Transport [c, erm]"
+4819,r_3541,"Transport [c, erm]"
+4821,r_3542,"Transport [c, erm]"
+4823,r_3543,"Transport [c, erm]"
+4825,r_3544,"Transport [c, erm]"
+4827,r_3545,"Transport [c, erm]"
+4829,r_3546,"Transport [c, erm]"
+4831,r_3547,"Transport [c, erm]"
+4833,r_3548,"Transport [c, erm]"
+4835,r_3549,"Transport [c, erm]"
+4837,r_3550,"Transport [c, erm]"
+4839,r_3551,"Transport [c, erm]"
+4841,r_3552,"Transport [c, erm]"
+4843,r_3553,"Transport [c, erm]"
+4845,r_3554,"Transport [c, erm]"
+4847,r_3555,"Transport [c, erm]"
+4849,r_3556,"Transport [c, erm]"
+4851,r_3557,"Transport [c, erm]"
+4853,r_3558,"Transport [c, erm]"
+4855,r_3559,"Transport [c, erm]"
+4857,r_3560,"Transport [c, erm]"
+4859,r_3561,"Transport [c, erm]"
+4861,r_3562,"Transport [c, erm]"
+4863,r_3563,"Transport [c, erm]"
+4865,r_3564,"Transport [c, erm]"
+4867,r_3565,"Transport [c, erm]"
+4869,r_3566,"Transport [c, erm]"
+4871,r_3567,"Transport [c, erm]"
+4873,r_3568,"Transport [c, erm]"
+4875,r_3569,"Transport [c, erm]"
+4877,r_3570,"Transport [c, erm]"
+4879,r_3571,"Transport [c, lp]"
+4881,r_3572,"Transport [c, lp]"
+4883,r_3573,"Transport [c, lp]"
+4885,r_3574,"Transport [c, lp]"
+4887,r_3575,"Transport [c, lp]"
+4889,r_3576,"Transport [c, lp]"
+4891,r_3577,"Transport [c, lp]"
+4893,r_3578,"Transport [c, lp]"
+4895,r_3579,"Transport [c, lp]"
+4897,r_3580,"Transport [c, lp]"
+4899,r_3581,"Transport [c, lp]"
+4901,r_3582,"Transport [c, lp]"
+4903,r_3583,"Transport [c, lp]"
+4905,r_3584,"Transport [c, lp]"
+4907,r_3585,"Transport [c, lp]"
+4909,r_3586,"Transport [c, lp]"
+4911,r_3587,"Transport [c, lp]"
+4913,r_3588,"Transport [c, lp]"
+4915,r_3589,"Transport [c, lp]"
+4917,r_3590,"Transport [c, lp]"
+4919,r_3591,"Transport [c, lp]"
+4921,r_3592,"Transport [c, lp]"
+4923,r_3593,"Transport [c, lp]"
+4925,r_3594,"Transport [c, lp]"
+4927,r_3595,"Transport [c, lp]"
+4929,r_3596,"Transport [c, lp]"
+4931,r_3597,"Transport [c, lp]"
+4933,r_3598,"Transport [c, lp]"
+4935,r_3599,"Transport [c, lp]"
+4937,r_3600,"Transport [c, lp]"
+4939,r_3601,"Transport [c, ce]"
+4941,r_3602,"Transport [c, ce]"
+4943,r_3603,"Transport [c, ce]"
+4945,r_3604,"Transport [c, ce]"
+4951,r_3605,"Transport [c, ce]"
+4957,r_3606,"Transport [c, ce]"
+4959,r_3607,"Transport [c, ce]"
+4961,r_3608,"Transport [c, ce]"
+4963,r_3609,"Transport [c, ce]"
+4965,r_3610,"Transport [c, ce]"
+4967,r_3611,"Transport [c, ce]"
+4969,r_3612,"Transport [c, ce]"
+4971,r_3613,"Transport [c, ce]"
+4973,r_3614,"Transport [c, ce]"
+4975,r_3615,"Transport [c, ce]"
+4977,r_3616,"Transport [c, ce]"
+4979,r_3617,"Transport [c, ce]"
+4981,r_3618,"Transport [c, ce]"
+4983,r_3619,"Transport [c, ce]"
+4985,r_3620,"Transport [c, ce]"
+4987,r_3621,"Transport [c, ce]"
+4989,r_3622,"Transport [c, ce]"
+4991,r_3623,"Transport [c, ce]"
+4993,r_3624,"Transport [c, ce]"
+4995,r_3625,"Transport [c, ce]"
+4997,r_3626,"Transport [c, ce]"
+4999,r_3627,"Transport [c, ce]"
+5001,r_3628,"Transport [c, ce]"
+5003,r_3629,"Transport [c, ce]"
+5005,r_3630,"Transport [c, ce]"
+5007,r_3631,"Transport [c, ce]"
+5009,r_3632,"Transport [c, n]"
+5011,r_3633,"Transport [c, n]"
+5013,r_3634,"Transport [c, n]"
+5015,r_3635,"Transport [c, n]"
+5017,r_3636,"Transport [c, n]"
+5019,r_3637,"Transport [c, n]"
+5021,r_3638,"Transport [c, n]"
+5023,r_3639,"Transport [c, n]"
+5025,r_3640,"Transport [c, n]"
+5027,r_3641,"Transport [c, n]"
+5029,r_3642,"Transport [c, n]"
+5031,r_3643,"Transport [c, n]"
+5033,r_3644,"Transport [c, n]"
+5035,r_3645,"Transport [c, n]"
+5037,r_3646,"Transport [c, n]"
+5039,r_3647,"Transport [c, n]"
+5041,r_3648,"Transport [c, vm]"
+5043,r_3649,"Transport [c, vm]"
+5045,r_3650,"Transport [c, vm]"
+5047,r_3651,"Transport [c, vm]"
+5049,r_3652,"Transport [c, vm]"
+5051,r_3653,"Transport [c, vm]"
+5053,r_3654,"Transport [c, vm]"
+5055,r_3655,"Transport [c, vm]"
+5057,r_3656,"Transport [c, vm]"
+5059,r_3657,"Transport [c, vm]"
+5061,r_3658,"Transport [c, vm]"
+5063,r_3659,"Transport [c, vm]"
+5065,r_3660,"Transport [c, vm]"
+5067,r_3661,"Transport [c, vm]"
+5069,r_3662,"Transport [c, gm]"
+5071,r_3663,"Transport [c, gm]"
+5073,r_3664,"Transport [c, gm]"
+5075,r_3665,"Transport [c, gm]"
+5077,r_3666,"Transport [c, gm]"
+5079,r_3667,"Transport [c, gm]"
+5081,r_3668,"Transport [c, mm]"
+5083,r_3669,"Transport [c, mm]"
+5085,r_3670,"Transport [c, mm]"
+5087,r_3671,"Transport [c, mm]"
+5089,r_3672,"Transport [c, mm]"
+5091,r_3673,"Transport [c, mm]"
+5093,r_3674,"Transport [c, mm]"
+5095,r_3675,"Transport [c, mm]"
+5097,r_3676,"Transport [c, mm]"
+5099,r_3677,"Transport [c, mm]"
+5101,r_3678,"Transport [c, mm]"
+5103,r_3679,"Transport [c, mm]"
+5105,r_3680,"Transport [c, mm]"
+5107,r_3681,"Transport [erm, lp]"
+5109,r_3682,"Transport [erm, lp]"
+5111,r_3683,"Transport [erm, lp]"
+5113,r_3684,"Transport [erm, lp]"
+5115,r_3685,"Transport [erm, lp]"
+5117,r_3686,"Transport [erm, lp]"
+5119,r_3687,"Transport [erm, lp]"
+5121,r_3688,"Transport [erm, lp]"
+5123,r_3689,"Transport [erm, lp]"
+5125,r_3690,"Transport [erm, lp]"
+5127,r_3691,"Transport [erm, lp]"
+5129,r_3692,"Transport [erm, lp]"
+5131,r_3693,"Transport [erm, lp]"
+5133,r_3694,"Transport [erm, lp]"
+5135,r_3695,"Transport [erm, lp]"
+5137,r_3696,"Transport [erm, lp]"
+5139,r_3697,"Transport [erm, lp]"
+5141,r_3698,"Transport [erm, lp]"
+5143,r_3699,"Transport [erm, lp]"
+5145,r_3700,"Transport [erm, lp]"
+5147,r_3701,"Transport [erm, lp]"
+5149,r_3702,"Transport [erm, lp]"
+5151,r_3703,"Transport [erm, lp]"
+5153,r_3704,"Transport [erm, lp]"
+5155,r_3705,"Transport [erm, lp]"
+5157,r_3706,"Transport [erm, lp]"
+5159,r_3707,"Transport [erm, lp]"
+5161,r_3708,"Transport [erm, lp]"
+5163,r_3709,"Transport [erm, lp]"
+5165,r_3710,"Transport [erm, lp]"
+5167,r_3711,"Transport [erm, lp]"
+5169,r_3712,"Transport [erm, lp]"
+5171,r_3713,"Transport [erm, lp]"
+5173,r_3714,"Transport [erm, lp]"
+5175,r_3715,"Transport [erm, lp]"
+5177,r_3716,"Transport [erm, lp]"
+5179,r_3717,"Transport [erm, lp]"
+5181,r_3718,"Transport [erm, lp]"
+5183,r_3719,"Transport [erm, lp]"
+5185,r_3720,"Transport [erm, lp]"
+5187,r_3721,"Transport [erm, lp]"
+5189,r_3722,"Transport [erm, lp]"
+5191,r_3723,"Transport [erm, lp]"
+5193,r_3724,"Transport [erm, lp]"
+5195,r_3725,"Transport [erm, lp]"
+5197,r_3726,"Transport [erm, lp]"
+5199,r_3727,"Transport [erm, lp]"
+5201,r_3728,"Transport [erm, lp]"
+5203,r_3729,"Transport [erm, lp]"
+5205,r_3730,"Transport [erm, lp]"
+5207,r_3731,"Transport [erm, lp]"
+5209,r_3732,"Transport [erm, lp]"
+5211,r_3733,"Transport [erm, lp]"
+5213,r_3734,"Transport [erm, lp]"
+5215,r_3735,"Transport [erm, lp]"
+5217,r_3736,"Transport [erm, lp]"
+5219,r_3737,"Transport [erm, lp]"
+5221,r_3738,"Transport [erm, lp]"
+5223,r_3739,"Transport [erm, lp]"
+5225,r_3740,"Transport [erm, lp]"
+5227,r_3741,"Transport [erm, lp]"
+5229,r_3742,"Transport [erm, lp]"
+5231,r_3743,"Transport [erm, lp]"
+5233,r_3744,"Transport [erm, lp]"
+5235,r_3745,"Transport [erm, lp]"
+5237,r_3746,"Transport [erm, lp]"
+5239,r_3747,"Transport [erm, lp]"
+5241,r_3748,"Transport [erm, lp]"
+5243,r_3749,"Transport [erm, lp]"
+5245,r_3750,"Transport [erm, lp]"
+5247,r_3751,"Transport [erm, lp]"
+5249,r_3752,"Transport [erm, lp]"
+5251,r_3753,"Transport [erm, lp]"
+5253,r_3754,"Transport [erm, lp]"
+5255,r_3755,"Transport [erm, lp]"
+5257,r_3756,"Transport [erm, lp]"
+5259,r_3757,"Transport [erm, lp]"
+5261,r_3758,"Transport [erm, lp]"
+5263,r_3759,"Transport [erm, mm]"
+5265,r_3760,"Transport [erm, mm]"
+5267,r_3761,"Transport [erm, mm]"
+5269,r_3762,"Transport [erm, mm]"
+5271,r_3763,"Transport [erm, mm]"
+5273,r_3764,"Transport [erm, mm]"
+5275,r_3765,"Transport [erm, mm]"
+5277,r_3766,"Transport [erm, mm]"
+5279,r_3767,"Transport [erm, mm]"
+5281,r_3768,"Transport [erm, mm]"
+5283,r_3769,"Transport [erm, mm]"
+5285,r_3770,"Transport [erm, mm]"
+5287,r_3771,"Transport [erm, mm]"
+5289,r_3772,"Transport [erm, mm]"
+5291,r_3773,"Transport [erm, mm]"
+5293,r_3774,"Transport [erm, mm]"
+5295,r_3775,"Transport [erm, mm]"
+5297,r_3776,"Transport [erm, mm]"
+5299,r_3777,"Transport [erm, mm]"
+5301,r_3778,"Transport [erm, mm]"
+5303,r_3779,"Transport [erm, mm]"
+5305,r_3780,"Transport [erm, mm]"
+5307,r_3781,"Transport [erm, mm]"
+5309,r_3782,"Transport [erm, mm]"
+5311,r_3783,"Transport [erm, mm]"
+5313,r_3784,"Transport [erm, mm]"
+5315,r_3785,"Transport [erm, mm]"
+5317,r_3786,"Transport [erm, mm]"
+5319,r_3787,"Transport [erm, mm]"
+5321,r_3788,"Transport [erm, mm]"
+5323,r_3789,"Transport [erm, gm]"
+5325,r_3790,"Transport [erm, gm]"
+5327,r_3791,"Transport [erm, gm]"
+5329,r_3792,"Transport [erm, gm]"
+5331,r_3793,"Transport [erm, gm]"
+5333,r_3794,"Transport [erm, gm]"
+5335,r_3795,"Transport [erm, gm]"
+5337,r_3796,"Transport [erm, gm]"
+5339,r_3797,"Transport [erm, gm]"
+5341,r_3798,"Transport [erm, gm]"
+5343,r_3799,"Transport [erm, gm]"
+5345,r_3800,"Transport [erm, gm]"
+5347,r_3801,"Transport [erm, gm]"
+5349,r_3802,"Transport [erm, gm]"
+5351,r_3803,"Transport [erm, gm]"
+5353,r_3804,"Transport [erm, gm]"
+5355,r_3805,"Transport [erm, gm]"
+5357,r_3806,"Transport [erm, gm]"
+5359,r_3807,"Transport [erm, gm]"
+5361,r_3808,"Transport [erm, gm]"
+5363,r_3809,"Transport [erm, gm]"
+5365,r_3810,"Transport [erm, gm]"
+5367,r_3811,"Transport [erm, gm]"
+5369,r_3812,"Transport [erm, gm]"
+5371,r_3813,"Transport [erm, gm]"
+5375,r_3814,"Transport [erm, gm]"
+5379,r_3815,"Transport [erm, gm]"
+5383,r_3816,"Transport [erm, gm]"
+5387,r_3817,"Transport [erm, gm]"
+5391,r_3818,"Transport [erm, gm]"
+5395,r_3819,"Transport [erm, gm]"
+5399,r_3820,"Transport [erm, gm]"
+5403,r_3821,"Transport [erm, gm]"
+5405,r_3822,"Transport [erm, gm]"
+5407,r_3823,"Transport [erm, gm]"
+5409,r_3824,"Transport [erm, gm]"
+5411,r_3825,"Transport [erm, gm]"
+5413,r_3826,"Transport [erm, gm]"
+5415,r_3827,"Transport [erm, gm]"
+5417,r_3828,"Transport [erm, gm]"
+5419,r_3829,"Transport [erm, vm]"
+5421,r_3830,"Transport [erm, vm]"
+5423,r_3831,"Transport [erm, vm]"
+5425,r_3832,"Transport [erm, vm]"
+5427,r_3833,"Transport [erm, vm]"
+5429,r_3834,"Transport [erm, vm]"
+5431,r_3835,"Transport [erm, vm]"
+5433,r_3836,"Transport [erm, vm]"
+5435,r_3837,"Transport [erm, vm]"
+5437,r_3838,"Transport [erm, vm]"
+5439,r_3839,"Transport [erm, vm]"
+5441,r_3840,"Transport [erm, vm]"
+5443,r_3841,"Transport [erm, vm]"
+5445,r_3842,"Transport [erm, vm]"
+5447,r_3843,"Transport [erm, vm]"
+5449,r_3844,"Transport [erm, vm]"
+5451,r_3845,"Transport [erm, vm]"
+5453,r_3846,"Transport [erm, vm]"
+5455,r_3847,"Transport [erm, vm]"
+5457,r_3848,"Transport [erm, vm]"
+5459,r_3849,"Transport [erm, vm]"
+5461,r_3850,"Transport [erm, vm]"
+5463,r_3851,"Transport [erm, vm]"
+5465,r_3852,"Transport [erm, vm]"
+5467,r_3853,"Transport [erm, vm]"
+5469,r_3854,"Transport [erm, vm]"
+5471,r_3855,"Transport [erm, vm]"
+5473,r_3856,"Transport [erm, vm]"
+5475,r_3857,"Transport [erm, vm]"
+5477,r_3858,"Transport [erm, vm]"
+5479,r_3859,"Transport [erm, vm]"
+5481,r_3860,"Transport [erm, vm]"
+5483,r_3861,"Transport [erm, vm]"
+5485,r_3862,"Transport [erm, vm]"
+5487,r_3863,"Transport [erm, vm]"
+5489,r_3864,"Transport [erm, vm]"
+5491,r_3865,"Transport [erm, vm]"
+5493,r_3866,"Transport [erm, vm]"
+5495,r_3867,"Transport [erm, vm]"
+5497,r_3868,"Transport [erm, vm]"
+5499,r_3869,"Transport [ce, erm]"
+5501,r_3870,"Transport [ce, erm]"
+5503,r_3871,"Transport [ce, erm]"
+5505,r_3872,"Transport [ce, erm]"
+5507,r_3873,"Transport [ce, erm]"
+5509,r_3874,"Transport [ce, erm]"
+5511,r_3875,"Transport [ce, erm]"
+5513,r_3876,"Transport [ce, erm]"
+5515,r_3877,"Transport [ce, erm]"
+5517,r_3878,"Transport [ce, erm]"
+5519,r_3879,"Transport [ce, erm]"
+5521,r_3880,"Transport [ce, erm]"
+5523,r_3881,"Transport [ce, erm]"
+5525,r_3882,"Transport [ce, erm]"
+5527,r_3883,"Transport [ce, erm]"
+5529,r_3884,"Transport [ce, erm]"
+5531,r_3885,"Transport [ce, erm]"
+5533,r_3886,"Transport [ce, erm]"
+5535,r_3887,"Transport [ce, erm]"
+5537,r_3888,"Transport [ce, erm]"
+5539,r_3889,"Transport [ce, erm]"
+5541,r_3890,"Transport [ce, erm]"
+5543,r_3891,"Transport [ce, erm]"
+5545,r_3892,"Transport [ce, erm]"
+5547,r_3893,"Transport [ce, erm]"
+5549,r_3894,"Transport [ce, erm]"
+5551,r_3895,"Transport [ce, erm]"
+5553,r_3896,"Transport [ce, erm]"
+5555,r_3897,"Transport [ce, erm]"
+5557,r_3898,"Transport [ce, erm]"
+5559,r_3899,"Transport [ce, erm]"
+5561,r_3900,"Transport [ce, erm]"
+5563,r_3901,"Transport [ce, erm]"
+5565,r_3902,"Transport [ce, erm]"
+5567,r_3903,"Transport [ce, erm]"
+5569,r_3904,"Transport [ce, erm]"
+5571,r_3905,"Transport [ce, erm]"
+5573,r_3906,"Transport [ce, erm]"
+5575,r_3907,"Transport [ce, erm]"
+5577,r_3908,"Transport [ce, erm]"
+5579,r_3909,"Transport [ce, erm]"
+5581,r_3910,"Transport [ce, erm]"
+5583,r_3911,"Transport [ce, erm]"
+5585,r_3912,"Transport [ce, erm]"
+5587,r_3913,"Transport [ce, erm]"
+5589,r_3914,"Transport [ce, erm]"
+5591,r_3915,"Transport [ce, erm]"
+5593,r_3916,"Transport [ce, erm]"
+5595,r_3917,"Transport [ce, erm]"
+5597,r_3918,"Transport [ce, erm]"
+5599,r_3919,"Transport [ce, erm]"
+5601,r_3920,"Transport [ce, erm]"
+5603,r_3921,"Transport [ce, erm]"
+5605,r_3922,"Transport [ce, erm]"
+5607,r_3923,"Transport [ce, erm]"
+5609,r_3924,"Transport [ce, erm]"
+5611,r_3925,"Transport [ce, erm]"
+5613,r_3926,"Transport [ce, erm]"
+5615,r_3927,"Transport [ce, erm]"
+5617,r_3928,"Transport [ce, erm]"
+5619,r_3929,"Transport [erm, n]"
+5621,r_3930,"Transport [erm, n]"
+5623,r_3931,"Transport [erm, n]"
+5625,r_3932,"Transport [erm, n]"
+5627,r_3933,"Transport [erm, n]"
+5629,r_3934,"Transport [erm, n]"
+5631,r_3935,"Transport [erm, n]"
+5633,r_3936,"Transport [erm, n]"
+5635,r_3937,"Transport [erm, er]"
+5637,r_3938,"Transport [erm, er]"
+5639,r_3939,"Transport [erm, er]"
+5641,r_3940,"Transport [erm, er]"
+5642,r_3941,"Transport [vm, gm]"
+5644,r_3942,"Transport [vm, gm]"
+5646,r_3943,"Transport [vm, gm]"
+5648,r_3944,"Transport [vm, gm]"
+5650,r_3945,"Transport [vm, gm]"
+5652,r_3946,"Transport [vm, gm]"
+5654,r_3947,"Transport [vm, gm]"
+5656,r_3948,"Transport [vm, gm]"
+5658,r_3949,"Transport [vm, ce]"
+5660,r_3950,"Transport [vm, ce]"
+5662,r_3951,"Transport [vm, ce]"
+5664,r_3952,"Transport [vm, ce]"
+5666,r_3953,"Transport [vm, ce]"
+5668,r_3954,"Transport [vm, ce]"
+5670,r_3955,"Transport [vm, ce]"
+5672,r_3956,"Transport [vm, ce]"
+5674,r_3957,"Transport [m, mm]"
+5676,r_3958,"Transport [m, mm]"
+5678,r_3959,"Transport [m, mm]"
+5680,r_3960,"Transport [m, mm]"
+5682,r_3961,"Transport [m, mm]"
+5686,r_3962,"Transport [m, mm]"
+5688,r_3963,SLIME reaction
+5689,r_3964,SLIME reaction
+5690,r_3965,SLIME reaction
+5691,r_3966,SLIME reaction
+5692,r_3967,SLIME reaction
+5693,r_3968,SLIME reaction
+5694,r_3969,SLIME reaction
+5695,r_3970,SLIME reaction
+5696,r_3971,SLIME reaction
+5697,r_3972,SLIME reaction
+5698,r_3973,"Transport [c, erm]"
+5700,r_3975,SLIME reaction
+5701,r_3976,SLIME reaction
+5702,r_3977,SLIME reaction
+5703,r_3978,SLIME reaction
+5704,r_3979,SLIME reaction
+5705,r_3980,SLIME reaction
+5706,r_3981,SLIME reaction
+5707,r_3982,SLIME reaction
+5708,r_3983,SLIME reaction
+5709,r_3984,SLIME reaction
+5710,r_3985,SLIME reaction
+5711,r_3986,SLIME reaction
+5712,r_3987,"Transport [c, erm]"
+5714,r_3988,SLIME reaction
+5715,r_3989,SLIME reaction
+5716,r_3990,SLIME reaction
+5717,r_3991,SLIME reaction
+5718,r_3992,SLIME reaction
+5719,r_3993,SLIME reaction
+5720,r_3994,SLIME reaction
+5721,r_3995,SLIME reaction
+5722,r_3996,"Transport [c, erm]"
+5724,r_3997,SLIME reaction
+5725,r_3998,SLIME reaction
+5726,r_3999,SLIME reaction
+5727,r_4000,SLIME reaction
+5728,r_4001,SLIME reaction
+5729,r_4002,SLIME reaction
+5730,r_4003,SLIME reaction
+5731,r_4004,SLIME reaction
+5732,r_4005,"Transport [c, erm]"
+5734,r_4006,SLIME reaction
+5735,r_4007,SLIME reaction
+5736,r_4008,SLIME reaction
+5737,r_4009,SLIME reaction
+5738,r_4010,SLIME reaction
+5739,r_4011,SLIME reaction
+5740,r_4012,SLIME reaction
+5741,r_4013,SLIME reaction
+5742,r_4014,SLIME reaction
+5743,r_4015,SLIME reaction
+5744,r_4016,SLIME reaction
+5745,r_4017,SLIME reaction
+5746,r_4018,SLIME reaction
+5747,r_4019,SLIME reaction
+5748,r_4020,SLIME reaction
+5749,r_4021,SLIME reaction
+5750,r_4022,SLIME reaction
+5751,r_4023,SLIME reaction
+5752,r_4024,SLIME reaction
+5753,r_4025,SLIME reaction
+5754,r_4026,SLIME reaction
+5755,r_4027,SLIME reaction
+5756,r_4028,SLIME reaction
+5757,r_4029,SLIME reaction
+5758,r_4030,SLIME reaction
+5759,r_4031,SLIME reaction
+5760,r_4032,SLIME reaction
+5761,r_4033,SLIME reaction
+5762,r_4034,SLIME reaction
+5763,r_4035,SLIME reaction
+5764,r_4036,SLIME reaction
+5765,r_4037,SLIME reaction
+5766,r_4038,"Transport [c, erm]"
+5768,r_4039,Pyruvate metabolism
+5770,r_4040,"Transport [c, m]"
+5772,r_4041,Growth
+5773,r_4042,Histidine metabolism
+5774,r_4043,Exchange reaction
+5775,r_4044,Exchange reaction
+5776,r_4045,Pyrimidine metabolism
+5777,r_4046,Growth
+5778,r_4047,Growth
+5779,r_4048,Growth
+5780,r_4049,Growth
+5781,r_4050,Growth
+5782,r_4051,"Transport [c, g]"
+5783,r_4052,"Transport [c, g]"
+5784,r_4053,"Transport [c, g]"
+5785,r_4054,"Transport [c, g]"
+5786,r_4055,"Transport [c, er]"
+5787,r_4056,"Transport [c, er]"
+5788,r_4057,"Transport [c, erm]"
+5789,r_4058,"Transport [c, erm]"
+5790,r_4059,"Transport [c, erm]"
+5791,r_4060,"Transport [c, mm]"
+5792,r_4061,"Transport [c, mm]"
+5793,r_4062,Exchange reaction
+5794,r_4063,SLIME reaction
+5795,r_4064,Exchange reaction
+5796,r_4065,SLIME reaction
+5797,r_4066,SLIME reaction
+5798,r_4067,SLIME reaction
+5799,r_4068,SLIME reaction
+5800,r_4069,SLIME reaction
+5801,r_4070,SLIME reaction
+5802,r_4071,SLIME reaction
+5803,r_4072,SLIME reaction
+5804,r_4073,SLIME reaction
+5805,r_4074,SLIME reaction
+5806,r_4075,SLIME reaction
+5807,r_4076,SLIME reaction
+5808,r_4077,SLIME reaction
+5809,r_4078,SLIME reaction
+5810,r_4079,SLIME reaction
+5811,r_4080,SLIME reaction
+5812,r_4081,SLIME reaction
+5813,r_4082,SLIME reaction
+5814,r_4083,SLIME reaction
+5815,r_4084,SLIME reaction
+5816,r_4085,SLIME reaction
+5817,r_4086,SLIME reaction
+5818,r_4087,SLIME reaction
+5819,r_4088,SLIME reaction
+5820,r_4089,SLIME reaction
+5821,r_4090,SLIME reaction
+5822,r_4091,SLIME reaction
+5823,r_4092,SLIME reaction
+5824,r_4093,SLIME reaction
+5825,r_4094,SLIME reaction
+5826,r_4095,SLIME reaction
+5827,r_4096,SLIME reaction
+5828,r_4097,SLIME reaction
+5829,r_4098,SLIME reaction
+5830,r_4099,SLIME reaction
+5831,r_4100,SLIME reaction
+5832,r_4101,SLIME reaction
+5833,r_4102,SLIME reaction
+5834,r_4103,SLIME reaction
+5835,r_4104,SLIME reaction
+5836,r_4105,SLIME reaction
+5837,r_4106,SLIME reaction
+5838,r_4107,SLIME reaction
+5839,r_4108,SLIME reaction
+5840,r_4109,SLIME reaction
+5841,r_4110,SLIME reaction
+5842,r_4111,SLIME reaction
+5843,r_4112,SLIME reaction
+5844,r_4113,SLIME reaction
+5845,r_4114,SLIME reaction
+5846,r_4115,SLIME reaction
+5847,r_4116,SLIME reaction
+5848,r_4117,SLIME reaction
+5849,r_4118,SLIME reaction
+5850,r_4119,SLIME reaction
+5851,r_4120,SLIME reaction
+5852,r_4121,SLIME reaction
+5853,r_4122,SLIME reaction
+5854,r_4123,SLIME reaction
+5855,r_4124,SLIME reaction
+5856,r_4125,SLIME reaction
+5857,r_4126,SLIME reaction
+5858,r_4127,SLIME reaction
+5859,r_4128,SLIME reaction
+5860,r_4129,SLIME reaction
+5861,r_4130,SLIME reaction
+5862,r_4131,SLIME reaction
+5863,r_4132,SLIME reaction
+5864,r_4133,SLIME reaction
+5865,r_4134,SLIME reaction
+5866,r_4135,SLIME reaction
+5867,r_4136,SLIME reaction
+5868,r_4137,SLIME reaction
+5869,r_4138,SLIME reaction
+5870,r_4139,SLIME reaction
+5871,r_4140,SLIME reaction
+5872,r_4141,SLIME reaction
+5873,r_4142,SLIME reaction
+5874,r_4143,SLIME reaction
+5875,r_4144,SLIME reaction
+5876,r_4145,SLIME reaction
+5877,r_4146,SLIME reaction
+5878,r_4147,SLIME reaction
+5879,r_4148,SLIME reaction
+5880,r_4149,SLIME reaction
+5881,r_4150,SLIME reaction
+5882,r_4151,SLIME reaction
+5883,r_4152,Porphyrin and chlorophyll metabolism
+5887,r_4153,Butanoate metabolism
+5888,r_4154,Butanoate metabolism
+5890,r_4155,tRNA metabolism
+5891,r_4156,Dipeptidases
+5895,r_4157,Purine metabolism
+5899,r_4158,Ubiquinone and other terpenoid-quinone biosynthesis
+5901,r_4159,N-glycan biosynthesis
+5903,r_4160,Purine metabolism
+5905,r_4161,"Transport [c, v]"
+5909,r_4162,"Transport [c, v]"
+5913,r_4163,"Transport [c, v]"
+5917,r_4164,Glyoxylate and dicarboxylate metabolism
+5919,r_4165,N-glycan biosynthesis
+5921,r_4166,N-glycan biosynthesis
+5923,r_4167,"Transport [c, v]"
+5925,r_4168,"Transport [c, v]"
+5927,r_4169,"Transport [c, v]"
+5929,r_4170,N-glycan biosynthesis
+5931,r_4171,Glutathione metabolism
+5932,r_4172,"Transport [c, e]"
+5933,r_4173,Thiamine metabolism
+5935,r_4174,"Transport [erm, er]"
+5937,r_4175,Methylglyoxal metabolism
+5949,r_4176,Methylglyoxal metabolism
+5961,r_4177,Methylglyoxal metabolism
+5973,r_4178,Methylglyoxal metabolism
+5985,r_4179,Methylglyoxal metabolism
+5997,r_4180,Methylglyoxal metabolism
+6009,r_4181,"Transport [c, er]"
+6011,r_4183,Fructose and mannose metabolism
+6015,r_4184,C5-branched dibasic acid metabolism
+6017,r_4185,Pyruvate metabolism
+6018,r_4186,Cysteine and methionine metabolism
+6020,r_4187,tRNA metabolism
+6021,r_4188,Glutathione metabolism
+6022,r_4189,Folate biosynthesis
+6024,r_4190,Superoxide metabolism
+6025,r_4191,Alternate carbon metabolism
+6029,r_4192,Lysine metabolism
+6031,r_4193,Lysine metabolism
+6037,r_4194,"Transport [c, er]"
+6039,r_4195,"Transport [m, v]"
+6043,r_4196,Amino sugar and nucleotide sugar metabolism
+6047,r_4197,Amino sugar and nucleotide sugar metabolism
+6053,r_4198,Other
+6055,r_4199,Glutathione metabolism
+6057,r_4200,Glutathione metabolism
+6061,r_4201,Glutathione metabolism
+6063,r_4202,Cysteine and methionine metabolism
+6065,r_4203,Dipeptidases
+6067,r_4204,Dipeptidases
+6069,r_4205,Glutathione metabolism
+6070,r_4206,"Alanine, aspartate and glutamate metabolism"
+6072,r_4207,Glutathione metabolism
+6074,r_4208,Glutathione metabolism
+6076,r_4209,Glutathione metabolism
+6078,r_4210,Alternate carbon metabolism
+6082,r_4211,Vitamin b6 metabolism
+6086,r_4212,Vitamin b6 metabolism
+6090,r_4214,Glutathione metabolism
+6092,r_4215,Glutathione metabolism
+6094,r_4216,Riboflavin metabolism
+6096,r_4217,Porphyrin and chlorophyll metabolism
+6098,r_4218,tRNA metabolism
+6100,r_4219,tRNA metabolism
+6102,r_4220,Alternate carbon metabolism
+6104,r_4221,Pentose and glucuronate interconversions
+6106,r_4222,Galactose metabolism
+6107,r_4223,"Valine, leucine and isoleucine metabolism"
+6108,r_4224,"Transport [c, e]"
+6111,r_4225,"Transport [c, e]"
+6115,r_4226,"Alanine, aspartate and glutamate metabolism"
+6117,r_4227,Phenylalanine metabolism
+6119,r_4228,Tryptophan metabolism
+6120,r_4230,Alternate carbon metabolism
+6122,r_4231,Other
+6124,r_4232,Pentose phosphate pathway
+6126,r_4233,Terpenoid backbone biosynthesis
+6128,r_4234,Glycosylphosphatidylinositol (gpi)-anchor biosynthesis
+6130,r_4236,Pyruvate metabolism
+6138,r_4237,"Transport [c, v]"
+6139,r_4238,"Transport [c, g]"
+6140,r_4239,tRNA metabolism
+6142,r_4240,N-glycan biosynthesis
+6144,r_4241,N-glycan biosynthesis
+6146,r_4242,N-glycan biosynthesis
+6148,r_4243,N-glycan biosynthesis
+6150,r_4244,N-glycan biosynthesis
+6152,r_4245,Fructose and mannose metabolism
+6153,r_4246,Fructose and mannose metabolism
+6154,r_4247,Threonylcarbamoyladenosine metabolism
+6155,r_4248,"Glycine, serine and threonine metabolism"
+6156,r_4249,Cysteine and methionine metabolism
+6158,r_4250,N-glycan biosynthesis
+6160,r_4251,Glycerophospholipid metabolism
+6162,r_4252,Thiamine metabolism
+6164,r_4253,N-glycan biosynthesis
+6166,r_4254,Nitrogen metabolism
+6167,r_4255,Nitrogen metabolism
+6168,r_4256,Lipoic acid metabolism
+6169,r_4258,Lipoic acid metabolism
+6170,r_4260,Glutathione metabolism
+6172,r_4261,Glutathione metabolism
+6174,r_4262,Lysine metabolism
+6176,r_4263,"Transport [c, g]"
+6178,r_4264,Cellular response to anaerobic conditions
+6179,r_4265,Purine metabolism
+6180,r_4266,Purine metabolism
+6181,r_4267,Purine metabolism
+6182,r_4268,Purine metabolism
+6183,r_4269,Purine metabolism
+6185,r_4270,Superoxide metabolism
+6186,r_4271,N-glycan biosynthesis
+6190,r_4272,N-glycan biosynthesis
+6194,r_4273,Nitrogen metabolism
+6196,r_4274,Cysteine and methionine metabolism
+6198,r_4275,Porphyrin and chlorophyll metabolism
+6212,r_4276,Porphyrin and chlorophyll metabolism
+6214,r_4277,Glycerolipid metabolism
+6218,r_4278,Peptidyl-diphthamide biosynthetic process
+6219,r_4279,DNA repair
+6220,r_4280,Lipoic acid metabolism
+6222,r_4281,Lipoic acid metabolism
+6224,r_4282,Fructose and mannose metabolism
+6225,r_4283,Glycolysis / gluconeogenesis
+6226,r_4284,Glycolysis / gluconeogenesis
+6227,r_4285,Glycolysis / gluconeogenesis
+6228,r_4286,Glycolysis / gluconeogenesis
+6229,r_4287,Glycolysis / gluconeogenesis
+6230,r_4288,Glycolysis / gluconeogenesis
+6232,r_4291,Glycerolipid metabolism
+6234,r_4292,Arginine and proline metabolism
+6236,r_4293,Arginine and proline metabolism
+6237,r_4294,Tryptophan metabolism
+6238,r_4295,Sphingolipid metabolism
+6240,r_4296,Ascorbate and aldarate metabolism
+6241,r_4297,Ascorbate and aldarate metabolism
+6243,r_4298,"Valine, leucine and isoleucine metabolism"
+6245,r_4299,Histidine metabolism
+6247,r_4300,Sphingolipid metabolism
+6249,r_4301,Tryptophan metabolism
+6251,r_4302,Arginine and proline metabolism
+6253,r_4303,Alternate carbon metabolism
+6255,r_4304,Alternate carbon metabolism
+6257,r_4305,Alternate carbon metabolism
+6259,r_4306,Alternate carbon metabolism
+6261,r_4307,Insect hormone biosynthesis
+6263,r_4308,"Transport [erm, gm]"
+6264,r_4309,Glycerophospholipid metabolism
+6265,r_4310,N-glycan biosynthesis
+6267,r_4311,N-glycan biosynthesis
+6269,r_4312,Histidine metabolism
+6271,r_4313,N-glycan biosynthesis
+6273,r_4314,N-glycan biosynthesis
+6275,r_4315,Glyoxylate and dicarboxylate metabolism
+6277,r_4316,N-glycan biosynthesis
+6279,r_4317,Starch and sucrose metabolism
+6281,r_4318,Starch and sucrose metabolism
+6283,r_4319,Starch and sucrose metabolism
+6285,r_4320,N-glycan biosynthesis
+6287,r_4321,N-glycan biosynthesis
+6289,r_4322,Glycosylphosphatidylinositol (gpi)-anchor biosynthesis
+6291,r_4323,Lipoic acid metabolism
+6293,r_4324,Lipoic acid metabolism
+6295,r_4325,Cysteine and methionine metabolism
+6297,r_4326,Sulfur metabolism
+6303,r_4327,"Transport [c, m]"
+6307,r_4328,N-glycan biosynthesis
+6309,r_4329,"Transport [c, er]"
+6311,r_4330,Vitamin b6 metabolism
+6313,r_4331,Amino sugar and nucleotide sugar metabolism
+6317,r_4332,"Transport [c, e]"
+6319,r_4333,Purine metabolism
+6323,r_4334,"Transport [c, g]"
+6324,r_4335,Purine metabolism
+6325,r_4336,"Alanine, aspartate and glutamate metabolism"
+6327,r_4337,"Transport [c, m]"
+6329,r_4338,Starch and sucrose metabolism
+6331,r_4339,"Transport [er, g]"
+6333,r_4340,Phenylalanine metabolism
+6335,r_4341,"Transport [c, e]"
+6337,r_4342,Glycerolipid metabolism
+6338,r_4343,"Transport [c, e]"
+6340,r_4344,"Glycine, serine and threonine metabolism"
+6341,r_4345,Purine metabolism
+6342,r_4346,"Transport [c, e]"
+6344,r_4347,Purine metabolism
+6345,r_4348,"Transport [c, e]"
+6347,r_4349,"Transport [c, e]"
+6349,r_4350,Glyoxylate and dicarboxylate metabolism
+6350,r_4351,Taurine and hypotaurine metabolism
+6351,r_4352,"Transport [c, e]"
+6353,r_4353,Taurine and hypotaurine metabolism
+6354,r_4354,Sulfur metabolism
+6355,r_4355,Cysteine and methionine metabolism
+6357,r_4356,"Transport [c, e]"
+6359,r_4357,Pyrimidine metabolism
+6360,r_4358,"Transport [c, e]"
+6362,r_4359,Pyrimidine metabolism
+6363,r_4360,"Transport [c, e]"
+6365,r_4361,"Transport [c, e]"
+6369,r_4362,Dipeptidases
+6370,r_4363,Arginine and proline metabolism
+6371,r_4364,"Transport [c, e]"
+6373,r_4365,"Transport [c, e]"
+6375,r_4366,Arginine and proline metabolism
+6377,r_4367,"Transport [c, e]"
+6379,r_4368,Tyrosine metabolism
+6380,r_4369,"Transport [c, e]"
+6382,r_4370,Pyrimidine metabolism
+6383,r_4371,"Transport [c, e]"
+6385,r_4372,Cyclic nucleotide metabolism
+6386,r_4373,"Transport [c, e]"
+6388,r_4374,Cysteine and methionine metabolism
+6389,r_4375,"Transport [c, e]"
+6391,r_4376,Purine metabolism
+6392,r_4377,"Transport [c, e]"
+6394,r_4378,Starch and sucrose metabolism
+6395,r_4379,"Transport [c, e]"
+6397,r_4380,Cysteine and methionine metabolism
+6399,r_4381,"Transport [c, e]"
+6401,r_4382,Oxidative phosphorylation
+6403,r_4383,"Transport [c, e]"
+6405,r_4384,Pentose phosphate pathway
+6406,r_4385,"Transport [c, e]"
+6408,r_4386,Dipeptidases
+6409,r_4387,"Transport [c, e]"
+6413,r_4388,Cyclic nucleotide metabolism
+6414,r_4389,"Transport [c, e]"
+6416,r_4390,Alternate carbon metabolism
+6418,r_4391,"Transport [c, e]"
+6419,r_4392,"Transport [c, e]"
+6421,r_4393,Galactose metabolism
+6422,r_4394,Galactose metabolism
+6424,r_4395,"Transport [c, e]"
+6454,r_4396,Butanoate metabolism
+6455,r_4397,Cysteine and methionine metabolism
+6457,r_4398,"Transport [c, e]"
+6461,r_4399,"Transport [c, v]"
+6463,r_4400,Starch and sucrose metabolism
+6465,r_4401,"Transport [c, v]"
+6467,r_4402,"Transport [c, e]"
+6471,r_4403,Purine metabolism
+6473,r_4404,"Transport [c, e]"
+6477,r_4405,"Transport [c, e]"
+6479,r_4406,"Transport [c, e]"
+6481,r_4407,"Glycine, serine and threonine metabolism"
+6483,r_4408,"Transport [c, e]"
+6487,r_4409,Dipeptidases
+6488,r_4410,Glyoxylate and dicarboxylate metabolism
+6490,r_4411,Cysteine and methionine metabolism
+6491,r_4412,Purine metabolism
+6492,r_4413,Pyrimidine metabolism
+6493,r_4414,Dipeptidases
+6494,r_4415,Dipeptidases
+6495,r_4416,Dipeptidases
+6496,r_4417,Dipeptidases
+6497,r_4418,Dipeptidases
+6498,r_4419,"Transport [c, e]"
+6500,r_4420,Starch and sucrose metabolism
+6504,r_4421,"Transport [c, e]"
+6506,r_4422,"Transport [c, e]"
+6508,r_4423,"Transport [c, v]"
+6510,r_4424,"Transport [c, e]"
+6514,r_4425,"Transport [c, v]"
+6516,r_4426,"Transport [c, v]"
+6518,r_4427,"Transport [c, e]"
+6520,r_4428,"Transport [c, e]"
+6522,r_4429,"Transport [c, e]"
+6526,r_4430,"Transport [c, v]"
+6528,r_4431,"Transport [c, v]"
+6530,r_4432,Sulfur metabolism
+6531,r_4433,"Transport [c, e]"
+6533,r_4434,"Transport [c, e]"
+6535,r_4435,Glycerolipid metabolism
+6537,r_4436,Pyrimidine metabolism
+6538,r_4437,"Transport [c, e]"
+6542,r_4438,"Transport [c, v]"
+6544,r_4439,Dipeptidases
+6545,r_4440,"Transport [c, v]"
+6547,r_4441,"Transport [c, v]"
+6549,r_4442,Exchange reaction
+6550,r_4443,"Transport [c, e]"
+6552,r_4444,"Transport [c, e]"
+6554,r_4445,"Transport [c, e]"
+6556,r_4446,"Transport [c, e]"
+6558,r_4447,"Transport [c, e]"
+6560,r_4448,"Transport [c, e]"
+6564,r_4449,"Transport [c, v]"
+6566,r_4450,"Transport [c, e]"
+6568,r_4451,"Transport [c, e]"
+6570,r_4452,"Transport [c, e]"
+6572,r_4453,"Transport [c, e]"
+6574,r_4454,"Transport [c, e]"
+6576,r_4455,"Transport [c, e]"
+6578,r_4456,"Transport [c, e]"
+6580,r_4457,"Transport [c, e]"
+6582,r_4458,"Transport [c, e]"
+6584,r_4459,"Transport [c, e]"
+6586,r_4460,"Transport [c, e]"
+6588,r_4461,"Transport [c, e]"
+6590,r_4462,"Transport [c, e]"
+6592,r_4463,"Transport [c, e]"
+6594,r_4464,"Transport [c, e]"
+6596,r_4465,"Transport [c, e]"
+6598,r_4466,"Transport [c, e]"
+6600,r_4467,"Transport [c, e]"
+6602,r_4468,"Transport [c, e]"
+6606,r_4469,"Transport [c, e]"
+6608,r_4470,"Transport [c, e]"
+6610,r_4471,"Transport [c, e]"
+6614,r_4472,"Transport [c, v]"
+6616,r_4473,"Transport [c, e]"
+6620,r_4474,"Transport [c, v]"
+6622,r_4475,"Transport [c, e]"
+6624,r_4476,"Transport [c, m]"
+6626,r_4477,"Transport [c, e]"
+6628,r_4478,"Transport [c, e]"
+6630,r_4479,"Transport [c, v]"
+6632,r_4480,"Transport [c, e]"
+6634,r_4481,Sulfur metabolism
+6635,r_4482,"Transport [c, v]"
+6637,r_4483,"Transport [c, v]"
+6639,r_4484,Cysteine and methionine metabolism
+6645,r_4485,Tyrosine metabolism
+6646,r_4486,Tyrosine metabolism
+6647,r_4487,Tyrosine metabolism
+6648,r_4488,Tyrosine metabolism
+6649,r_4489,Pentose and glucuronate interconversions
+6650,r_4490,Pentose and glucuronate interconversions
+6652,r_4491,Alternate carbon metabolism
+6653,r_4492,Pentose and glucuronate interconversions
+6654,r_4493,"Transport [c, e]"
+6656,r_4494,Exchange reaction
+6657,r_4495,Purine metabolism
+6658,r_4496,Exchange reaction
+6659,r_4497,Exchange reaction
+6660,r_4498,Exchange reaction
+6661,r_4499,Exchange reaction
+6662,r_4500,Exchange reaction
+6663,r_4501,Exchange reaction
+6664,r_4502,Exchange reaction
+6665,r_4503,Exchange reaction
+6666,r_4504,Exchange reaction
+6667,r_4505,Exchange reaction
+6668,r_4506,Exchange reaction
+6669,r_4507,Exchange reaction
+6670,r_4508,Exchange reaction
+6671,r_4509,Exchange reaction
+6672,r_4510,Exchange reaction
+6673,r_4511,Exchange reaction
+6674,r_4512,Exchange reaction
+6675,r_4513,Exchange reaction
+6676,r_4514,Exchange reaction
+6677,r_4515,Exchange reaction
+6678,r_4516,Exchange reaction
+6679,r_4517,Exchange reaction
+6680,r_4518,Exchange reaction
+6681,r_4519,Exchange reaction
+6682,r_4520,Exchange reaction
+6683,r_4521,Exchange reaction
+6684,r_4522,Exchange reaction
+6685,r_4523,Exchange reaction
+6686,r_4524,Exchange reaction
+6687,r_4525,Exchange reaction
+6688,r_4526,Exchange reaction
+6689,r_4527,Exchange reaction
+6690,r_4528,Exchange reaction
+6691,r_4529,Exchange reaction
+6692,r_4530,Exchange reaction
+6693,r_4531,Exchange reaction
+6694,r_4532,Exchange reaction
+6695,r_4533,Exchange reaction
+6696,r_4534,Exchange reaction
+6697,r_4535,Exchange reaction
+6698,r_4536,Exchange reaction
+6699,r_4537,Exchange reaction
+6700,r_4538,Exchange reaction
+6701,r_4539,Exchange reaction
+6702,r_4540,Exchange reaction
+6703,r_4541,Exchange reaction
+6704,r_4542,Exchange reaction
+6705,r_4543,Exchange reaction
+6706,r_4544,Exchange reaction
+6707,r_4545,Exchange reaction
+6708,r_4546,Exchange reaction
+6709,r_4547,Exchange reaction
+6710,r_4548,Exchange reaction
+6711,r_4549,Exchange reaction
+6712,r_4550,Exchange reaction
+6713,r_4551,Exchange reaction
+6714,r_4552,Exchange reaction
+6715,r_4553,Exchange reaction
+6716,r_4554,Exchange reaction
+6717,r_4555,Exchange reaction
+6718,r_4556,Exchange reaction
+6719,r_4557,Exchange reaction
+6720,r_4558,Exchange reaction
+6721,r_4559,Exchange reaction
+6722,r_4560,Exchange reaction
+6723,r_4561,Exchange reaction
+6724,r_4562,Exchange reaction
+6725,r_4563,Exchange reaction
+6726,r_4564,Exchange reaction
+6727,r_4565,Exchange reaction
+6728,r_4567,Pentose phosphate pathway
+6729,r_4568,Phenylalanine metabolism
+6730,r_4569,Alternate carbon metabolism
+6731,r_4570,"Glycine, serine and threonine metabolism"
+6735,r_4571,Glyoxylate and dicarboxylate metabolism
+6737,r_4572,Beta-alanine metabolism
+6739,r_4573,Beta-alanine metabolism
+6740,r_4574,Beta-alanine metabolism
+6741,r_4575,Alternate carbon metabolism
+6742,r_4581,"Valine, leucine and isoleucine metabolism"
+6743,r_4582,Glyoxylate and dicarboxylate metabolism
+6744,r_4583,Biosynthesis of unsaturated fatty acids
+6745,r_4584,Fatty acid biosynthesis
+6749,r_4585,Galactose metabolism
+6750,r_4586,Galactose metabolism
+6751,r_4587,"Transport [c, e]"
+6753,r_4588,"Transport [c, e]"
+6755,r_4589,"Transport [c, e]"
+6757,r_4590,"Transport [c, e]"
+6759,r_4591,"Transport [c, e]"
+6763,r_4592,"Transport [c, e]"
+6767,r_4593,Exchange reaction
+6768,r_4594,Exchange reaction
+6769,r_4595,Exchange reaction
+6770,r_4596,Exchange reaction
+6771,r_4597,Exchange reaction
+6772,r_4598,Growth
+6773,r_4599,Growth
+6774,r_4600,Exchange reaction
+6775,r_4601,"Transport [c, p]"
+6777,r_4602,"Transport [c, er]"
+6779,r_4603,"Transport [c, n]"
+6781,r_4604,"Transport [c, lp]"
+6783,r_4605,"Transport [c, m]"
+6785,r_4606,"Transport [c, er]"
+6787,r_4607,"Transport [c, g]"
+6789,r_4608,"Transport [c, m]"
+6790,r_4609,"Transport [c, g]"
+6792,r_4610,"Transport [c, n]"
+6794,r_4611,"Transport [c, g]"
+6796,r_4612,"Transport [c, n]"
+6798,r_4613,"Transport [c, m]"
+6800,r_4614,"Transport [c, n]"
+6802,r_4615,"Transport [c, m]"
+6804,r_4616,"Transport [c, er]"
+6806,r_4617,"Transport [c, n]"
+6808,r_4618,"Transport [c, er]"
+6810,r_4619,"Transport [c, v]"
+6812,r_4620,"Transport [c, v]"
+6814,r_4621,"Transport [c, m]"
+6816,r_4622,"Transport [c, m]"
+6818,r_4623,"Transport [c, m]"
+6820,r_4624,"Transport [c, erm]"
+6822,r_4625,"Transport [c, m]"
+6824,r_4626,"Transport [c, m]"
+6826,r_4627,"Transport [c, er]"
+6828,r_4628,"Transport [c, g]"
+6830,r_4629,Fatty acid ester pathway
+6834,r_4630,Fatty acid ester pathway
+6838,r_4631,Fatty acid ester pathway
+6842,r_4632,Fatty acid ester pathway
+6848,r_4633,Fatty acid ester pathway
+6852,r_4634,"Transport [c, m]"
+6854,r_4635,"Transport [c, m]"
+6856,r_4636,"Transport [c, m]"
+6858,r_4637,"Transport [c, m]"
+6859,r_4638,"Transport [c, m]"
+6860,r_4639,"Transport [c, e]"
+6862,r_4640,"Transport [c, e]"
+6864,r_4641,"Transport [c, e]"
+6866,r_4642,"Transport [c, e]"
+6867,r_4643,"Transport [c, e]"
+6868,r_4644,Exchange reaction
+6869,r_4645,Exchange reaction
+6870,r_4646,Exchange reaction
+6871,r_4647,Exchange reaction
+6872,r_4648,Exchange reaction
+6873,r_4649,Fatty acid ester pathway
+6874,r_4650,"Transport [c, m]"
+6875,r_4651,Fatty acid ester pathway
+6878,r_4652,Fatty acid ester pathway
+6881,r_4653,Fatty acid ester pathway
+6883,r_4654,Fatty acid ester pathway
+6886,r_4655,"Transport [c, m]"
+6888,r_4656,"Transport [c, e]"
+6890,r_4657,"Transport [c, e]"
+6892,r_4658,Exchange reaction
+6893,r_4659,Exchange reaction
+6894,r_4660,Fatty acid ester pathway
+6896,r_4661,Fatty acid ester pathway
+6899,r_4662,Fatty acid ester pathway
+6901,r_4663,Fatty acid ester pathway
+6904,r_4664,"Transport [c, m]"
+6906,r_4665,"Transport [c, e]"
+6908,r_4666,"Transport [c, e]"
+6910,r_4667,Exchange reaction
+6911,r_4668,Exchange reaction
+6912,r_4669,Fatty acid ester pathway
+6915,r_4670,Fatty acid ester pathway
+6918,r_4671,Fatty acid ester pathway
+6920,r_4672,Fatty acid ester pathway
+6923,r_4673,"Transport [c, m]"
+6925,r_4674,"Transport [c, e]"
+6927,r_4675,"Transport [c, e]"
+6929,r_4676,Exchange reaction
+6930,r_4677,Exchange reaction
+6931,r_4678,Fatty acid ester pathway
+6937,r_4679,Fatty acid ester pathway
+6945,r_4680,Fatty acid ester pathway
+6949,r_4681,"Transport [p, m]"
+6951,r_4682,"Transport [p, m]"
+6953,r_4683,"Transport [p, m]"
+6955,r_4684,"Transport [p, m]"
+6957,r_4685,"Transport [p, m]"
+6959,r_4686,"Transport [c, p]"
+6961,r_4687,Fatty acid ester pathway
+6964,r_4688,"Transport [c, e]"
+6965,r_4689,Exchange reaction
+6966,r_4690,Fatty acid ester pathway
+6969,r_4691,"Transport [c, e]"
+6970,r_4692,Exchange reaction
+6971,r_4693,Fatty acid ester pathway
+6974,r_4694,"Transport [c, e]"
+6975,r_4695,Exchange reaction
+6976,r_4697,"Transport [c, m]"
+6978,r_4698,"Transport [c, e]"
+6980,r_4699,Exchange reaction
+6981,r_4700,"Transport[c, e]"
+6982,r_4701,Sulfur metabolism
+6984,r_4702,Sulfur metabolism
+6986,r_4703,Sulfur metabolism
+6988,r_4704,"Transport[c, e]"
+6989,r_4705,"Transport[c, e]"
+6990,r_4706,Sulfur metabolism
+6992,r_4707,Sulfur metabolism
+6994,r_4708,Exchange reaction
+6995,r_4709,Exchange reaction
+6996,r_4710,Exchange reaction
