@@ -108,74 +108,76 @@ def plot_subsystem_sumfluxes(ymodel, s, ax):
     ax.set_xlabel("Sum of fluxes")
 
 
-# Initialise model
-glc_exch_rate = 16.89
-wt_ec = Yeast8Model("./models/ecYeastGEM_batch_8-6-0.xml")
-wt_ec.model.reactions.get_by_id("r_1714").bounds = (-glc_exch_rate, 0)
-wt_ec.model.reactions.get_by_id("r_1714_REV").bounds = (0, glc_exch_rate)
+if __name__ == "__main__":
+    # Initialise model
+    glc_exch_rate = 16.89
+    wt_ec = Yeast8Model("./models/ecYeastGEM_batch_8-6-0.xml")
+    wt_ec.model.reactions.get_by_id("r_1714").bounds = (-glc_exch_rate, 0)
+    wt_ec.model.reactions.get_by_id("r_1714_REV").bounds = (0, glc_exch_rate)
 
-# Ablate and store fluxes in each round
-wt_ec.ablation_result = wt_ec.ablate()
+    # Ablate and store fluxes in each round
+    wt_ec.ablation_result = wt_ec.ablate()
 
-ablation_fluxes = wt_ec.ablation_fluxes
-ablation_fluxes_diff = ablation_fluxes.copy()
-ablation_fluxes_diff.pop("original")
-for biomass_component, fluxes in ablation_fluxes_diff.items():
-    ablation_fluxes_diff[biomass_component] = (
-        ablation_fluxes[biomass_component] - ablation_fluxes["original"]
-    )
-    if plot_options["print_flux_extrema"]:
-        print(f"{biomass_component}")
-        print(f"min {1e5 * ablation_fluxes_diff[biomass_component].min()} * 1e-5")
-        print(f"max {1e5 * ablation_fluxes_diff[biomass_component].max()} * 1e-5")
-
-
-if plot_options["histogram"]:
-    # subplots
-    # binrange=(-16e-5, ~90e-5) covers all diffs,
-    #   but using a smaller range to emphasise the interesting part
-    fig, ax = plt.subplots(nrows=len(ablation_fluxes_diff), ncols=1, sharex=True)
-    for idx, (biomass_component, fluxes) in enumerate(ablation_fluxes_diff.items()):
-        sns.histplot(
-            fluxes * 1e5,
-            bins=100,
-            binrange=(-16, +20),
-            log_scale=(False, True),
-            ax=ax[idx],
+    ablation_fluxes = wt_ec.ablation_fluxes
+    ablation_fluxes_diff = ablation_fluxes.copy()
+    ablation_fluxes_diff.pop("original")
+    for biomass_component, fluxes in ablation_fluxes_diff.items():
+        ablation_fluxes_diff[biomass_component] = (
+            ablation_fluxes[biomass_component] - ablation_fluxes["original"]
         )
-        ax[idx].set_title(biomass_component)
-        ax[idx].set_xlabel("")
-        ax[idx].set_ylabel("")
-    # global labels
-    fig.add_subplot(111, frameon=False)
-    plt.tick_params(labelcolor="none", top=False, bottom=False, left=False, right=False)
-    plt.grid(False)
-    plt.xlabel(r"Flux ($\times 10^{-5}$)")
-    plt.ylabel("Number of reactions")
-    plt.title("Changes in enzyme usage fluxes in biomass component ablation")
-    plt.show()
+        if plot_options["print_flux_extrema"]:
+            print(f"{biomass_component}")
+            print(f"min {1e5 * ablation_fluxes_diff[biomass_component].min()} * 1e-5")
+            print(f"max {1e5 * ablation_fluxes_diff[biomass_component].max()} * 1e-5")
 
-if plot_options["subsystem_freqs"]:
-    n = plot_options["subsystem_freqs/n"]
-    for idx, (biomass_component, fluxes) in enumerate(ablation_fluxes_diff.items()):
-        fig, ax = plt.subplots()
-        s = fluxes.copy()
-        s = s.sort_values(ascending=False)[:n]
-        plot_subsystem_freqs(wt_ec, s, ax)
-        ax.set_title(biomass_component)
-    plt.show()
+    if plot_options["histogram"]:
+        # subplots
+        # binrange=(-16e-5, ~90e-5) covers all diffs,
+        #   but using a smaller range to emphasise the interesting part
+        fig, ax = plt.subplots(nrows=len(ablation_fluxes_diff), ncols=1, sharex=True)
+        for idx, (biomass_component, fluxes) in enumerate(ablation_fluxes_diff.items()):
+            sns.histplot(
+                fluxes * 1e5,
+                bins=100,
+                binrange=(-16, +20),
+                log_scale=(False, True),
+                ax=ax[idx],
+            )
+            ax[idx].set_title(biomass_component)
+            ax[idx].set_xlabel("")
+            ax[idx].set_ylabel("")
+        # global labels
+        fig.add_subplot(111, frameon=False)
+        plt.tick_params(
+            labelcolor="none", top=False, bottom=False, left=False, right=False
+        )
+        plt.grid(False)
+        plt.xlabel(r"Flux ($\times 10^{-5}$)")
+        plt.ylabel("Number of reactions")
+        plt.title("Changes in enzyme usage fluxes in biomass component ablation")
+        plt.show()
 
-if plot_options["subsystem_sumfluxes"]:
-    for idx, (biomass_component, fluxes) in enumerate(ablation_fluxes_diff.items()):
-        fig, ax = plt.subplots(nrows=1, ncols=2, figsize=(20, 10))
-        s = fluxes.copy()
-        s_negative = s[s < 0]
-        s_positive = s[s > 0]
-        plot_subsystem_sumfluxes(wt_ec, s_positive, ax[0])
-        ax[0].set_title(f"{biomass_component}, flux increases")
-        plot_subsystem_sumfluxes(wt_ec, -s_negative, ax[1])
-        ax[1].set_title(f"{biomass_component}, flux decreases")
-        fig.tight_layout()
-    plt.show()
+    if plot_options["subsystem_freqs"]:
+        n = plot_options["subsystem_freqs/n"]
+        for idx, (biomass_component, fluxes) in enumerate(ablation_fluxes_diff.items()):
+            fig, ax = plt.subplots()
+            s = fluxes.copy()
+            s = s.sort_values(ascending=False)[:n]
+            plot_subsystem_freqs(wt_ec, s, ax)
+            ax.set_title(biomass_component)
+        plt.show()
+
+    if plot_options["subsystem_sumfluxes"]:
+        for idx, (biomass_component, fluxes) in enumerate(ablation_fluxes_diff.items()):
+            fig, ax = plt.subplots(nrows=1, ncols=2, figsize=(20, 10))
+            s = fluxes.copy()
+            s_negative = s[s < 0]
+            s_positive = s[s > 0]
+            plot_subsystem_sumfluxes(wt_ec, s_positive, ax[0])
+            ax[0].set_title(f"{biomass_component}, flux increases")
+            plot_subsystem_sumfluxes(wt_ec, -s_negative, ax[1])
+            ax[1].set_title(f"{biomass_component}, flux decreases")
+            fig.tight_layout()
+        plt.show()
 
 breakpoint()
