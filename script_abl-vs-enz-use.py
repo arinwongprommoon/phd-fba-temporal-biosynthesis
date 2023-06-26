@@ -8,14 +8,18 @@ import seaborn as sns
 from yeast8model import Yeast8Model
 
 plot_options = {
+    # Fraction of original sum of absolute values of fluxes to constrain fluxes
+    # to.  If None, do not impose this constraint.  Otherwise, supply a float
+    # from 0 to 1.
+    "constrain_fluxes": 0.25,
     # When computing how enzyme usage fluxes change during each round of
     # ablation, print mininum (greatest magnitude of negative flux change) and
     # maximum (greatest magnitude of positive flux change) when each biomass
     # component is prioritised.
-    "print_flux_extrema": False,
+    "print_flux_extrema": True,
     # Draw a histogram showing how these fluxes changes.  Horizontal axis = flux
     # change (binned), vertical axis = how many reactions (log scale).
-    "histogram": False,
+    "histogram": True,
     # Take the top N greatest-magnitude (negative and positive) enzyme usage
     # flux changes, see which reactions these enzymes correspond to, and count
     # how many times each subsystem is represented.  Draw bar plots for each
@@ -25,7 +29,7 @@ plot_options = {
     "subsystem_freqs/n": 100,
     # For each of negative and positive enzyme usage flux changes, see which
     # reactions these enzymes correspond to, and sum all the flux changes for
-    # each subssystem.  Draw bar plots for each biomass component.
+    # each subsystem.  Draw bar plots for each biomass component.
     "subsystem_sumfluxes": True,
 }
 
@@ -154,6 +158,14 @@ if __name__ == "__main__":
     wt_ec = Yeast8Model("./models/ecYeastGEM_batch_8-6-0.xml")
     wt_ec.model.reactions.get_by_id("r_1714").bounds = (-glc_exch_rate, 0)
     wt_ec.model.reactions.get_by_id("r_1714_REV").bounds = (0, glc_exch_rate)
+
+    # Constrain fluxes
+    if plot_options["constrain_fluxes"] is not None:
+        sol = wt_ec.optimize()
+        orig_flux_sum = sol.fluxes.abs().sum()
+        ub = plot_options["constrain_fluxes"] * orig_flux_sum
+        wt_ec.set_flux_constraint(upper_bound=ub)
+        sol = wt_ec.optimize()
 
     # Ablate and store fluxes in each round
     wt_ec.ablation_result = wt_ec.ablate()
