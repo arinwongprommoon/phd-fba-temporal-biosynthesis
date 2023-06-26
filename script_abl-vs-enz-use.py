@@ -8,10 +8,24 @@ import seaborn as sns
 from yeast8model import Yeast8Model
 
 plot_options = {
+    # When computing how enzyme usage fluxes change during each round of
+    # ablation, print mininum (greatest magnitude of negative flux change) and
+    # maximum (greatest magnitude of positive flux change) when each biomass
+    # component is prioritised.
     "print_flux_extrema": False,
+    # Draw a histogram showing how these fluxes changes.  Horizontal axis = flux
+    # change (binned), vertical axis = how many reactions (log scale).
     "histogram": False,
+    # Take the top N greatest-magnitude (negative and positive) enzyme usage
+    # flux changes, see which reactions these enzymes correspond to, and count
+    # how many times each subsystem is represented.  Draw bar plots for each
+    # biomass component.
     "subsystem_freqs": False,
+    # N for the above.
     "subsystem_freqs/n": 100,
+    # For each of negative and positive enzyme usage flux changes, see which
+    # reactions these enzymes correspond to, and sum all the flux changes for
+    # each subssystem.  Draw bar plots for each biomass component.
     "subsystem_sumfluxes": True,
 }
 
@@ -24,6 +38,7 @@ subsystem_dict = dict(
 
 
 def extract_protein_ids(s):
+    """Extract protein metabolite IDs (GECKO) from a list of draw_prot reactions."""
     rxn_idx_list = s.index.to_list()
     enz_metabolite_ids = [
         rxn_idx.replace("draw_", "") + "[c]" for rxn_idx in rxn_idx_list
@@ -32,6 +47,26 @@ def extract_protein_ids(s):
 
 
 def get_participating_rxn_ids(enz_metabolite_ids, s, ymodel):
+    """Get IDs of reactions that a list of enzymes participates in.
+
+    Parameters
+    ----------
+    enz_metabolite_ids : list of str
+        List of enzyme metabolite IDs (GECKO), in the form of "protein_XXXX[c]".
+    s : pandas.Series
+        List of fluxes, each associated with a "draw_prot_XXXX" reaction.
+    ymodel : yeast8model.Yeast8Model object
+        Model object, needed for the reaction list
+
+    Returns
+    -------
+    participating_rxn_ids : list of str
+        List of participating reaction IDs.  This list may have more elements
+        than enz_metabolite_ids.
+    enz_usage_fluxes : list of float
+        List of fluxes.  This list has the same number of elements as
+        participating_rxn_ids.
+    """
     participating_rxn_ids = []
     enz_usage_fluxes = []
     for enz_metabolite_id in enz_metabolite_ids:
@@ -47,6 +82,7 @@ def get_participating_rxn_ids(enz_metabolite_ids, s, ymodel):
 
 
 def get_subsystem_list(participating_rxn_ids, subsystem_dict):
+    """Get list of subsystems based on a list of reaction IDs."""
     subsystem_list = [
         subsystem_dict[rxn_id[:6]] if rxn_id[:2] == "r_" else "Enzyme usage"
         for rxn_id in participating_rxn_ids
@@ -55,11 +91,13 @@ def get_subsystem_list(participating_rxn_ids, subsystem_dict):
 
 
 def make_subsystem_freq_table(subsystem_list):
+    """Make a frequency table of subsystems based on a list of subsystems."""
     subsystem_freqs = pd.Series(subsystem_list).value_counts()
     return subsystem_freqs
 
 
 def make_subsystem_sum_pivot(participating_rxn_ids, subsystem_list, enz_usage_fluxes):
+    """Make a pivot table that lists the sum of fluxes for each subsystem."""
     # Construct new DF
     participating_rxn_df = pd.DataFrame(
         {
@@ -79,6 +117,7 @@ def make_subsystem_sum_pivot(participating_rxn_ids, subsystem_list, enz_usage_fl
 
 
 def plot_subsystem_freqs(ymodel, s, ax):
+    """Draw bar plot showing occurences of each subsystem in a list of reactions."""
     enz_metabolite_ids = extract_protein_ids(s)
     participating_rxn_ids, _ = get_participating_rxn_ids(enz_metabolite_ids, s, ymodel)
     # unique
@@ -93,6 +132,7 @@ def plot_subsystem_freqs(ymodel, s, ax):
 
 
 def plot_subsystem_sumfluxes(ymodel, s, ax):
+    """Draw bar plot showing sum of fluxes corresponding to each subsystem"""
     enz_metabolite_ids = extract_protein_ids(s)
     participating_rxn_ids, enz_usage_fluxes = get_participating_rxn_ids(
         enz_metabolite_ids, s, ymodel
@@ -117,8 +157,8 @@ if __name__ == "__main__":
 
     # Ablate and store fluxes in each round
     wt_ec.ablation_result = wt_ec.ablate()
-
     ablation_fluxes = wt_ec.ablation_fluxes
+
     ablation_fluxes_diff = ablation_fluxes.copy()
     ablation_fluxes_diff.pop("original")
     for biomass_component, fluxes in ablation_fluxes_diff.items():
