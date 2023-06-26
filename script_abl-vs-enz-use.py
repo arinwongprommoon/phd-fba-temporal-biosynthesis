@@ -105,7 +105,7 @@ def plot_subsystem_sumfluxes(ymodel, s, ax):
     # plot
     table.plot.barh(ax=ax)
     ax.invert_yaxis()
-    ax.set_xlabel("Insert sensible x label here")
+    ax.set_xlabel("Sum of fluxes")
 
 
 # Initialise model
@@ -167,7 +167,7 @@ if plot_options["subsystem_freqs"]:
 
 if plot_options["subsystem_sumfluxes"]:
     for idx, (biomass_component, fluxes) in enumerate(ablation_fluxes_diff.items()):
-        fig, ax = plt.subplots(nrows=1, ncols=2)
+        fig, ax = plt.subplots(nrows=1, ncols=2, figsize=(20, 10))
         s = fluxes.copy()
         s_negative = s[s < 0]
         s_positive = s[s > 0]
@@ -175,6 +175,7 @@ if plot_options["subsystem_sumfluxes"]:
         ax[0].set_title(f"{biomass_component}, flux increases")
         plot_subsystem_sumfluxes(wt_ec, -s_negative, ax[1])
         ax[1].set_title(f"{biomass_component}, flux decreases")
+        fig.tight_layout()
     plt.show()
 
 breakpoint()
