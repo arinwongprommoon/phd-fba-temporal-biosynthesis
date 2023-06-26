@@ -2,6 +2,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+from matplotlib.backends.backend_pdf import PdfPages
 from yeast8model import (
     Yeast8Model,
     heatmap_ablation_grid,
@@ -10,13 +11,13 @@ from yeast8model import (
 )
 
 # CHOOSE MODEL
-if True:
+if False:
     glc_exch_rate = 16.89
     wt_ec = Yeast8Model("./models/ecYeastGEM_batch_8-6-0.xml")
     wt_ec.model.reactions.get_by_id("r_1714").bounds = (-glc_exch_rate, 0)
     wt_ec.model.reactions.get_by_id("r_1714_REV").bounds = (0, glc_exch_rate)
 
-if False:
+if True:
     glucose_bounds = (-4.75, 0)  # gives a sensible growth rate for wt
     wt_y8 = Yeast8Model(
         "./models/yeast-GEM_8-6-0.xml", growth_id="r_2111", biomass_id="r_4041"
@@ -27,24 +28,25 @@ if False:
 
 # PARAMETERS
 # Step down, because 'phantom' values or copying issues (that I don't want to fix)
-fractions = np.linspace(1, 0, num=21)
+fractions = np.linspace(1, 0, num=6)
 
 exch_rate_dict = {
-    "r_1714": np.linspace(0, 2 * 8.45, 32),  # glucose
-    "r_1654": np.linspace(0, 2 * 1.45, 32),  # ammonium
+    "r_1714": np.linspace(0, 2 * 4.75, 16),  # glucose
+    "r_1654": np.linspace(0, 2 * 2.88, 16),  # ammonium
 }
 
 # WORK
-sol = wt_ec.optimize()
+sol = wt_y8.optimize()
 orig_flux_sum = sol.fluxes.abs().sum()
 
 ablation_result_array_list = []
 
 for fraction in fractions:
+    print(f'CONSTRAIN FLUXES fraction {fraction}')
     ub = fraction * orig_flux_sum
-    wt_ec.set_flux_constraint(upper_bound=ub)
-    sol = wt_ec.optimize()
-    ablation_result_array = wt_ec.ablation_grid(exch_rate_dict)
+    wt_y8.set_flux_constraint(upper_bound=ub)
+    sol = wt_y8.optimize()
+    ablation_result_array = wt_y8.ablation_grid(exch_rate_dict)
     ablation_result_array_list.append(ablation_result_array)
 
 # PLOT
