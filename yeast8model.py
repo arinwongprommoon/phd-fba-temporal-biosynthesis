@@ -3,7 +3,7 @@
 import cobra
 import numpy as np
 import os
-import matplotlib as mpl
+import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
@@ -1602,8 +1602,18 @@ def barchart_ablation_grid(
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
     # Legend: colour = biomass component
-    # fig.legend(artists[0], component_list, loc="center right")
-    # fig.subplots_adjust(right=0.75)
+    handles = []
+    # assumes that default_mpl_colors (usually 10 elements) is longer than
+    # component_list (usually 7 elements)
+    # Using colour patches ref:
+    # https://matplotlib.org/stable/tutorials/intermediate/legend_guide.html#creating-artists-specifically-for-adding-to-the-legend-aka-proxy-artists
+    for color, component in zip(
+        default_mpl_colors[: len(component_list)], component_list
+    ):
+        color_patch = mpatches.Patch(color=color, label=component)
+        handles.append(color_patch)
+    fig.legend(handles, component_list, loc="center right")
+    fig.subplots_adjust(right=0.75)
 
 
 def _bar_vals_from_ablation_df(ablation_result):
