@@ -1563,6 +1563,9 @@ def barchart_ablation_grid(
                         artists = ax[row_idx, col_idx].bar(
                             bar_positions, ablation_times
                         )
+                        # TODO: Determine `top` based on the max of all in the
+                        # grid, rather than hard-coding
+                        ax[row_idx, col_idx].set_ylim(bottom=0, top=1)
                     except:
                         print(f"Unable to draw bar chart at [{row_idx}, {col_idx}].")
                         ax[row_idx, col_idx].set_axis_off()
