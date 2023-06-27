@@ -1561,6 +1561,9 @@ def barchart_ablation_grid(
                         ablation_result.columns == "ablated_est_time",
                     ]
                     ablation_times = ablation_times_df.to_numpy().T[0]
+                    print(
+                        f"max time for [{row_idx}, {col_idx}] = {np.max(ablation_times)}"
+                    )
                     # Deal with edge cases, e.g. negative values when exch rate is 0
                     try:
                         bar_positions = list(range(len(ablation_times)))
@@ -1572,7 +1575,7 @@ def barchart_ablation_grid(
                         )
                         # TODO: Determine `top` based on the max of all in the
                         # grid, rather than hard-coding
-                        ax[row_idx, col_idx].set_ylim(bottom=0, top=1)
+                        ax[row_idx, col_idx].set_ylim(bottom=0, top=2.7)
                         # Minimalist plot
                         ax[row_idx, col_idx].spines["top"].set_visible(False)
                         ax[row_idx, col_idx].spines["right"].set_visible(False)
