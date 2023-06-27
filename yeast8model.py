@@ -331,6 +331,8 @@ class Yeast8Model:
         self.deleted_genes = []
         self.ablation_result = None
 
+        self.ablation_fluxes = dict()
+
         # For set_flux_penalty(); store data to save time.
         self._flux_penalty_sum = None
         self._penalty_coefficient = None
@@ -631,9 +633,22 @@ class Yeast8Model:
         else:
             model_working = input_model
 
+        # DICT TO STORE ENZYME USAGE FLUXES
+        self.ablation_fluxes = dict.fromkeys(
+            ["original"]
+            + [
+                biomass_component.metabolite_label
+                for biomass_component in self.biomass_component_list
+            ]
+        )
+
         # UN-ABLATED
         fba_solution = self.optimize(model_working)
         original_flux = fba_solution.fluxes[self.growth_id]
+        # get enzyme usage fluxes
+        self.ablation_fluxes["original"] = fba_solution.fluxes.loc[
+            fba_solution.fluxes.index.str.startswith("draw_prot")
+        ]
         original_est_time = np.log(2) / original_flux
         # ABLATED
         # Set up lists
@@ -666,6 +681,12 @@ class Yeast8Model:
             fba_solution = model_working.optimize()
             # store outputs
             biomass_component.ablated_flux = fba_solution.fluxes[self.growth_id]
+            # get enzyme usage fluxes
+            self.ablation_fluxes[
+                biomass_component.metabolite_label
+            ] = fba_solution.fluxes.loc[
+                fba_solution.fluxes.index.str.startswith("draw_prot")
+            ]
             biomass_component.get_est_time()
 
             # restore metabolites after ablation
