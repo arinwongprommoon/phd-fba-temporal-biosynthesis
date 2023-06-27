@@ -3,6 +3,7 @@
 import cobra
 import numpy as np
 import os
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
@@ -95,6 +96,9 @@ AUXOTROPH_DICT = {
 # TODO: Add lookup tables:
 # - Carbon sources/other nutrients
 # - Genes (systematic vs common)
+
+prop_cycle = plt.rcParams["axes.prop_cycle"]
+default_mpl_colors = prop_cycle.by_key()["color"]
 
 
 class BiomassComponent:
@@ -1564,6 +1568,7 @@ def barchart_ablation_grid(
                             x=bar_positions,
                             height=ablation_times,
                             width=1,
+                            color=default_mpl_colors,
                         )
                         # TODO: Determine `top` based on the max of all in the
                         # grid, rather than hard-coding
