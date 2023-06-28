@@ -73,7 +73,7 @@ def get_participating_rxn_ids(enz_metabolite_ids, s, ymodel):
     """
     participating_rxn_ids = []
     enz_usage_fluxes = []
-    for enz_metabolite_id in enz_metabolite_ids:
+    for idx, enz_metabolite_id in enumerate(enz_metabolite_ids):
         enz_participating_rxns = list(
             ymodel.model.metabolites.get_by_id(enz_metabolite_id)._reaction
         )
