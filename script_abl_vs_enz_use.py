@@ -31,6 +31,14 @@ plot_options = {
     # reactions these enzymes correspond to, and sum all the flux changes for
     # each subsystem.  Draw bar plots for each biomass component.
     "subsystem_sumfluxes": True,
+    # Draw a heatmap, columns showing the biomass component, rows showing
+    # each enzyme, and colours showing flux changes.  Rows are grouped by sub-
+    # system, alphabetically, and are labelled by subsystem.
+    "subsystem_heatmap": True,
+    # Tolerance value for heatmap -- heatmap excludes flux difference magnitudes
+    # that are below this value.  Useful for excluding lots of 'uninteresting'
+    # fluxes.
+    "subsystem_heatmap/tol": 3e-6,
 }
 
 # Load subsystems lookup
@@ -73,7 +81,7 @@ def get_participating_rxn_ids(enz_metabolite_ids, s, ymodel):
     """
     participating_rxn_ids = []
     enz_usage_fluxes = []
-    for enz_metabolite_id in enz_metabolite_ids:
+    for idx, enz_metabolite_id in enumerate(enz_metabolite_ids):
         enz_participating_rxns = list(
             ymodel.model.metabolites.get_by_id(enz_metabolite_id)._reaction
         )
@@ -230,6 +238,92 @@ if __name__ == "__main__":
             plot_subsystem_sumfluxes(wt_ec, -s_negative, ax[1])
             ax[1].set_title(f"{biomass_component}, flux decreases")
             fig.tight_layout()
+        plt.show()
+
+    if plot_options["subsystem_heatmap"]:
+        list_participating_rxn_df = []
+        # Make DF for each biomass component
+        for idx, (biomass_component, fluxes) in enumerate(ablation_fluxes_diff.items()):
+            # get fluxes
+            s = fluxes.copy()
+            # get data needed for DF
+            enz_metabolite_ids = extract_protein_ids(s)
+            participating_rxn_ids, enz_usage_fluxes = get_participating_rxn_ids(
+                enz_metabolite_ids, s, wt_ec
+            )
+            subsystem_list = get_subsystem_list(participating_rxn_ids, subsystem_dict)
+            # construct DF
+            enz_usage_flux_column = "enz_usage_flux_" + biomass_component
+            participating_rxn_df = pd.DataFrame(
+                {
+                    "participating_rxn_id": participating_rxn_ids,
+                    "subsystem": subsystem_list,
+                    enz_usage_flux_column: enz_usage_fluxes,
+                }
+            )
+            list_participating_rxn_df.append(participating_rxn_df)
+        # construct master DF with info from all biomass components
+        left_columns = list_participating_rxn_df[0].iloc[:, 0:2]
+        enz_usage_columns = pd.concat(
+            [
+                list_participating_rxn_df[idx].iloc[:, -1]
+                for idx in range(len(list_participating_rxn_df))
+            ],
+            axis=1,
+        )
+        all_fluxes_df = pd.concat([left_columns, enz_usage_columns], axis=1)
+        # Drop enzyme usage reactions
+        all_fluxes_df = all_fluxes_df[all_fluxes_df.subsystem != "Enzyme usage"]
+        # Deal with duplicate reaction IDs by summing the fluxes
+        all_fluxes_df = all_fluxes_df.groupby(
+            ["participating_rxn_id", "subsystem"], as_index=False
+        ).sum(numeric_only=True)
+        # Sort alphabetically by subsystem
+        all_fluxes_df = all_fluxes_df.sort_values(by=["subsystem"])
+
+        # Drop fluxes with magnitude below a certain tol value
+        enz_usage_colnames = [
+            colname
+            for colname in all_fluxes_df.columns.to_list()
+            if colname.startswith("enz_usage_flux_")
+        ]
+        tol = plot_options["subsystem_heatmap/tol"]
+        farzero_fluxes_df = all_fluxes_df.loc[
+            (all_fluxes_df[enz_usage_colnames].abs() >= tol).any(axis=1)
+        ]
+        print(f"heatmap has {len(farzero_fluxes_df)} rows")
+
+        # Define y-labels for heatmap: subsystem names
+        subsystem_list_sorted = farzero_fluxes_df.subsystem.to_list()
+        # Replace duplicates with space so that the subsystem name is only
+        # present the first time it occurs
+        subsystem_labels = []
+        compare_string = ""
+        for subsystem_string in subsystem_list_sorted:
+            if subsystem_string == compare_string:
+                subsystem_string = " "
+            else:
+                compare_string = subsystem_string
+            subsystem_labels.append(subsystem_string)
+
+        # Draw 2d heatmap
+        fig, ax = plt.subplots(figsize=(10, 25))
+        sns.heatmap(
+            farzero_fluxes_df.iloc[:, 2:] * 1e4,
+            xticklabels=list(ablation_fluxes_diff.keys()),
+            yticklabels=subsystem_labels,
+            center=0,
+            robust=True,
+            cmap="PiYG",
+            cbar_kws={
+                "label": r"Flux change [$\times 10^{-4} mmol \cdot g_{DW}^{-1} \cdot h^{-1}$]"
+            },
+            ax=ax,
+        )
+        ax.tick_params(top=True, labeltop=True, bottom=False, labelbottom=False)
+        ax.set_title(
+            f"Flux changes as a result of ablation\n(magnitudes smaller than {tol} excluded)"
+        )
         plt.show()
 
 breakpoint()
