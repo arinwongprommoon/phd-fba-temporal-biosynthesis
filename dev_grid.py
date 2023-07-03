@@ -29,8 +29,8 @@ print(largest_component)
 breakpoint()
 
 exch_rate_dict = {
-    "r_1714": np.linspace(0, 2 * 8.45, 5),  # glucose
-    "r_1654": np.linspace(0, 2 * 1.45, 5),  # ammonium
+    "r_1714": np.linspace(0, 2 * 8.45, 8),  # glucose
+    "r_1654": np.linspace(0, 2 * 1.45, 8),  # ammonium
 }
 ablation_result_array = wt_ec.ablation_grid(exch_rate_dict)
 print(ablation_result_array)
@@ -58,7 +58,7 @@ heatmap_ablation_grid(
 )
 ax.set_xlabel("Glucose exchange (% max = 16.9)")
 ax.set_ylabel("Ammonium exchange (% max = 2.9)")
-ax.set_title("Gradient, axis 0")
+ax.set_title("Gradient, glucose axis")
 plt.show()
 
 fig, ax = plt.subplots()
@@ -67,5 +67,5 @@ heatmap_ablation_grid(
 )
 ax.set_xlabel("Glucose exchange (% max = 16.9)")
 ax.set_ylabel("Ammonium exchange (% max = 2.9)")
-ax.set_title("Gradient, axis 1")
+ax.set_title("Gradient, ammonium axis")
 plt.show()
