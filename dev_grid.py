@@ -53,14 +53,18 @@ plt.show()
 breakpoint()
 
 fig, ax = plt.subplots()
-heatmap_ablation_grid(ax, exch_rate_dict, ratio_gradient[0], percent_saturation=True)
+heatmap_ablation_grid(
+    ax, exch_rate_dict, ratio_gradient[0], percent_saturation=True, vmin=None, vmax=None
+)
 ax.set_xlabel("Glucose exchange (% max = 16.9)")
 ax.set_ylabel("Ammonium exchange (% max = 2.9)")
 ax.set_title("Gradient, axis 0")
 plt.show()
 
 fig, ax = plt.subplots()
-heatmap_ablation_grid(ax, exch_rate_dict, ratio_gradient[1], percent_saturation=True)
+heatmap_ablation_grid(
+    ax, exch_rate_dict, ratio_gradient[1], percent_saturation=True, vmin=None, vmax=None
+)
 ax.set_xlabel("Glucose exchange (% max = 16.9)")
 ax.set_ylabel("Ammonium exchange (% max = 2.9)")
 ax.set_title("Gradient, axis 1")
