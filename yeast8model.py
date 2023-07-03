@@ -1215,6 +1215,7 @@ def heatmap_ablation_grid(
     percent_saturation=False,
     vmin=0,
     vmax=2,
+    cmap="RdBu_r",
     cbar_label="ratio",
 ):
     """Draw heatmap from 2d ablation grid
@@ -1280,7 +1281,7 @@ def heatmap_ablation_grid(
         yticklabels=np.around(heatmap_yticklabels, decimals=3),
         vmin=vmin,
         vmax=vmax,
-        cmap="RdBu_r",
+        cmap=cmap,
         cbar_kws={"label": cbar_label},
         fmt="",
         ax=ax,
