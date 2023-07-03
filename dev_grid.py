@@ -40,6 +40,7 @@ breakpoint()
 ratio_array = vget_ablation_ratio(ablation_result_array)
 largest_component_array = vget_ablation_largest_component(ablation_result_array)
 ratio_gradient = np.gradient(ratio_array)
+ratio_gradient_greater = np.abs(ratio_gradient[0]) > np.abs(ratio_gradient[1])
 
 breakpoint()
 
@@ -81,3 +82,18 @@ ax.set_xlabel("Glucose exchange (% max = 16.9)")
 ax.set_ylabel("Ammonium exchange (% max = 2.9)")
 ax.set_title("Gradient, ammonium axis")
 plt.show()
+
+breakpoint()
+
+fig, ax = plt.subplots()
+heatmap_ablation_grid(
+    ax, exch_rate_dict, ratio_gradient_greater, percent_saturation=True
+)
+ax.set_xlabel("Glucose exchange (% max = 16.9)")
+ax.set_ylabel("Ammonium exchange (% max = 2.9)")
+ax.set_title(
+    "1 = change in glucose axis has greater magnitude\n0 = change in ammonium axis has greater magnitude"
+)
+plt.show()
+
+breakpoint()
