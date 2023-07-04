@@ -1215,6 +1215,7 @@ def heatmap_ablation_grid(
     percent_saturation=False,
     vmin=0,
     vmax=2,
+    center=None,
     cmap="RdBu_r",
     cbar_label="ratio",
 ):
@@ -1279,8 +1280,10 @@ def heatmap_ablation_grid(
         annot=annot_input,
         xticklabels=np.around(heatmap_xticklabels, decimals=3),
         yticklabels=np.around(heatmap_yticklabels, decimals=3),
+        robust=True,
         vmin=vmin,
         vmax=vmax,
+        center=center,
         cmap=cmap,
         cbar_kws={"label": cbar_label},
         fmt="",
