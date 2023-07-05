@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 
+import matplotlib.patches as mpatches
+import matplotlib.pyplot as plt
+import numpy as np
+import seaborn as sns
+
 prop_cycle = plt.rcParams["axes.prop_cycle"]
 default_mpl_colors = prop_cycle.by_key()["color"]
 

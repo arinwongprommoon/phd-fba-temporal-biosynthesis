@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import numpy as np
+
 
 def compare_ablation_times(ablation_result1, ablation_result2, ax):
     """Compare two ablation study results

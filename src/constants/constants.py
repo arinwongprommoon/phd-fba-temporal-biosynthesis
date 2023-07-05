@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+from collections import namedtuple
+
 # Constants needed for ablation calculations
 # From Bionumbers
 CELL_DRY_MASS = 15e-12  # g

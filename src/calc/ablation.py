@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import numpy as np
+
 
 def get_ablation_ratio(ablation_result):
     """Get ratio to represent ablation study
