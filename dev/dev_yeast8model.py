@@ -1,16 +1,14 @@
 #!/usr/bin/env python3
 
-import matplotlib.pyplot as plt
-import numpy as np
 import time
-from yeast8model import (
-    Yeast8Model,
-    biomass_component_list_orig,
-    compare_fluxes,
-    compare_ablation_times,
-    get_exch_saturation,
-    heatmap_ablation_grid,
-)
+
+from src.calc.flux import compare_fluxes
+from src.calc.growth import get_exch_saturation
+from src.data.biomasscomponent import biomass_component_list_orig
+from src.gem.yeast8model import Yeast8Model
+from src.viz.bar import compare_ablation_times
+from src.viz.grid import heatmap_ablation_grid
+
 
 y = Yeast8Model("./models/yeast-GEM_8-6-0.xml")
 print("model obj initd")

@@ -3,7 +3,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-from yeast8model import Yeast8Model, barchart_ablation_grid
+from src.gem.yeast8model import Yeast8Model
+from src.viz.grid import barchart_ablation_grid
 
 glc_exch_rate = 16.89
 wt_ec = Yeast8Model("./models/ecYeastGEM_batch_8-6-0.xml")

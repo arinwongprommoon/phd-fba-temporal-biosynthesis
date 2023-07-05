@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from yeast8model import Yeast8Model
+from src.gem.yeast8model import Yeast8Model
 
 glc_exch_rate = 16.89
 wt_ec = Yeast8Model("./models/ecYeastGEM_batch_8-6-0.xml")

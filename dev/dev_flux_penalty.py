@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
-import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
-import cobra
-
-from yeast8model import Yeast8Model, biomass_component_list_orig
 import time
+
+from src.gem.yeast8model import Yeast8Model
+from src.data.biomasscomponent import biomass_component_list_orig
 
 penalty_coeff_range = np.linspace(0, 1, 3)
 
@@ -39,7 +37,7 @@ for effect_item in effect_list:
 
     sol_pen = y.optimize()  # check if this line is necessary
 
-    ablation_result = y.ablate(verbose=False)
+    ablation_result = y.ablate()
     effect_item["ablation_result"] = ablation_result
 
 print(effect_list)

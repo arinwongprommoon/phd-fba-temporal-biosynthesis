@@ -2,17 +2,16 @@
 
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
-import cobra
 
-from yeast8model import Yeast8Model
-from yeast8model import (
-    heatmap_ablation_grid,
+from src.gem.yeast8model import Yeast8Model
+from src.viz.grid import heatmap_ablation_grid
+from src.calc.ablation import (
     get_ablation_ratio,
     get_ablation_largest_component,
     vget_ablation_ratio,
     vget_ablation_largest_component,
 )
+
 
 glc_exch_rate = 16.89
 wt_ec = Yeast8Model("./models/ecYeastGEM_batch_8-6-0.xml")
