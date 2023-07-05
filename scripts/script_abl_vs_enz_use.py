@@ -43,7 +43,7 @@ plot_options = {
 
 # Load subsystems lookup
 # Load subsystems.csv as a lookup table, convert to dict for speed
-subsystem_df = pd.read_csv("easy_subsystems.csv", index_col=0)
+subsystem_df = pd.read_csv("../data/lookup/easy_subsystems.csv", index_col=0)
 subsystem_dict = dict(
     zip(subsystem_df.reaction_id.to_list(), subsystem_df.subsystem.to_list())
 )
