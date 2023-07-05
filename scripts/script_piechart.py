@@ -4,7 +4,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from matplotlib.backends.backend_pdf import PdfPages
-from yeast8model import Yeast8Model, piechart_ablation_grid, biomass_component_list_orig
+from src.data.biomasscomponent import biomass_component_list_orig
+from src.gem.yeast8model import Yeast8Model
+from src.viz.grid import piechart_ablation_grid
 
 # ec
 # glc_exch_rate = 16.89
@@ -25,12 +27,12 @@ wt_y8.add_media_components(["r_1992"])
 #     "r_1714": np.linspace(0, 2 * 8.45, 8),  # glucose
 #     "r_2033": np.linspace(0, 2 * 4.27, 8), # pyruvate
 #     "r_1654": np.linspace(0, 2 * 1.45, 8),  # ammonium
-#}
-#ablation_result_array = wt_ec.ablation_grid(exch_rate_dict)
+# }
+# ablation_result_array = wt_ec.ablation_grid(exch_rate_dict)
 
 exch_rate_dict = {
-#     "r_1714": np.linspace(0, 2 * 4.75, 8),  # glucose
-    "r_2033": np.linspace(0, 2 * 13.32, 8), # pyruvate
+    #     "r_1714": np.linspace(0, 2 * 4.75, 8),  # glucose
+    "r_2033": np.linspace(0, 2 * 13.32, 8),  # pyruvate
     "r_1654": np.linspace(0, 2 * 2.88, 8),  # ammonium
 }
 ablation_result_array = wt_y8.ablation_grid(exch_rate_dict)

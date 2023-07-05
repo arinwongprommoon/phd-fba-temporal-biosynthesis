@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 
-from yeast8model import Yeast8Model
+from src.gem.yeast8model import Yeast8Model
 
 plot_options = {
     # Fraction of original sum of absolute values of fluxes to constrain fluxes

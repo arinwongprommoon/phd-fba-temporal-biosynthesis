@@ -3,12 +3,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from matplotlib.backends.backend_pdf import PdfPages
-from yeast8model import (
-    Yeast8Model,
-    heatmap_ablation_grid,
-    vget_ablation_ratio,
-    biomass_component_list_orig,
-)
+from src.calc.ablation import vget_ablation_ratio
+from src.data.biomasscomponent import biomass_component_list_orig
+from src.gem.yeast8model import Yeast8Model
+from src.viz.grid import heatmap_ablation_grid
 
 # CHOOSE MODEL
 if False:
@@ -42,7 +40,7 @@ orig_flux_sum = sol.fluxes.abs().sum()
 ablation_result_array_list = []
 
 for fraction in fractions:
-    print(f'CONSTRAIN FLUXES fraction {fraction}')
+    print(f"CONSTRAIN FLUXES fraction {fraction}")
     ub = fraction * orig_flux_sum
     wt_y8.set_flux_constraint(upper_bound=ub)
     sol = wt_y8.optimize()
