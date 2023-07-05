@@ -7,7 +7,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = ">=3.8, <3.11"
-markupsafe = "^2.0.1"
+markupsafe = "2.0.1"
 cobra = "^0.26.3"
 numpy = ">=1.13,<1.24"
 pandas = ">=1.0,<2.0"
