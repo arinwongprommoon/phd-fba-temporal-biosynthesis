@@ -21,7 +21,7 @@ def get_exch_saturation(ymodel, exch_id, exch_rates, remove_glucose=True):
 
     Examples
     --------
-    y = Yeast8Model("./models/ecYeastGEM_batch_8-6-0.xml")
+    y = Yeast8Model("../data/gemfiles/ecYeastGEM_batch_8-6-0.xml")
     glc_exch_rates = np.linspace(0, 18.6, 10)
     grs = get_exch_saturation(y, "r_1714", glc_exch_rates)
 

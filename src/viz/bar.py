@@ -27,8 +27,8 @@ def compare_ablation_times(ablation_result1, ablation_result2, ax):
     Examples
     --------
     # Initialise model-handling objects
-    y = Yeast8Model("./models/ecYeastGEM_batch.xml")
-    z = Yeast8Model("./models/ecYeastGEM_batch.xml")
+    y = Yeast8Model("../data/gemfiles/ecYeastGEM_batch.xml")
+    z = Yeast8Model("../data/gemfiles/ecYeastGEM_batch.xml")
 
     # Make z different
     z.make_auxotroph("BY4741")

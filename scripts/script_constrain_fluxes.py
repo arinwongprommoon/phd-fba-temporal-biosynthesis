@@ -11,14 +11,14 @@ from src.viz.grid import heatmap_ablation_grid
 # CHOOSE MODEL
 if False:
     glc_exch_rate = 16.89
-    wt_ec = Yeast8Model("./models/ecYeastGEM_batch_8-6-0.xml")
+    wt_ec = Yeast8Model("../data/gemfiles/ecYeastGEM_batch_8-6-0.xml")
     wt_ec.model.reactions.get_by_id("r_1714").bounds = (-glc_exch_rate, 0)
     wt_ec.model.reactions.get_by_id("r_1714_REV").bounds = (0, glc_exch_rate)
 
 if True:
     glucose_bounds = (-4.75, 0)  # gives a sensible growth rate for wt
     wt_y8 = Yeast8Model(
-        "./models/yeast-GEM_8-6-0.xml", growth_id="r_2111", biomass_id="r_4041"
+        "../data/gemfiles/yeast-GEM_8-6-0.xml", growth_id="r_2111", biomass_id="r_4041"
     )
     wt_y8.biomass_component_list = biomass_component_list_orig
     wt_y8.model.reactions.r_1714.bounds = glucose_bounds

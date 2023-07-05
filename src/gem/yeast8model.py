@@ -268,7 +268,7 @@ class Yeast8Model:
         Examples
         --------
         # Instantiate model object
-        y = Yeast8Model("./models/yeast-GEM_8-6-0.xml")
+        y = Yeast8Model("../data/gemfiles/yeast-GEM_8-6-0.xml")
 
         # Set flux penalty
         y.set_flux_penalty(penalty_coefficient=0.1)
@@ -319,7 +319,7 @@ class Yeast8Model:
 
         Examples
         --------
-        wt_ec = Yeast8Model("./models/ecYeastGEM_batch_8-6-0.xml")
+        wt_ec = Yeast8Model("../data/gemfiles/ecYeastGEM_batch_8-6-0.xml")
         wt_ec.set_flux_constraint(upper_bound=900)
         sol = wt_ec.optimize()
 
@@ -601,7 +601,7 @@ class Yeast8Model:
         Examples
         --------
         # Instantiate model
-        y = Yeast8Model("./models/ecYeastGEM_batch_8-6-0.xml")
+        y = Yeast8Model("../data/gemfiles/ecYeastGEM_batch_8-6-0.xml")
 
         # Define exchange rate dict
         exch_rate_dict = {

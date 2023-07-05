@@ -22,7 +22,7 @@ for effect_item in effect_list:
 
     print(f"coeff {effect_item['penalty_coeff']}")
     start = time.time()
-    y = Yeast8Model("./models/yeast-GEM_8-6-0.xml")
+    y = Yeast8Model("../data/gemfiles/yeast-GEM_8-6-0.xml")
     glucose_bounds = (-4.75, 0)  # gives a sensible growth rate for wt
     y.add_media_components(["r_1992"])
     y.model.reactions.r_1714.bounds = glucose_bounds

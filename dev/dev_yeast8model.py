@@ -10,7 +10,7 @@ from src.viz.bar import compare_ablation_times
 from src.viz.grid import heatmap_ablation_grid
 
 
-y = Yeast8Model("./models/yeast-GEM_8-6-0.xml")
+y = Yeast8Model("../data/gemfiles/yeast-GEM_8-6-0.xml")
 print("model obj initd")
 
 glucose_bounds = (-4.75, 0)  # gives a sensible growth rate for wt
@@ -33,7 +33,7 @@ sol_pen1 = y.optimize()
 print("optimized with penalty")
 
 abl_res = y.ablate()
-# z = Yeast8Model("./models/ecYeastGEMfull.yml")
+# z = Yeast8Model("../data/gemfiles/ecYeastGEMfull.yml")
 # y.knock_out_list(["YML120C"])
 # y.knock_out_list(["YML120C", "foo"])
 
@@ -66,7 +66,7 @@ abl_res = y.ablate()
 # plt.show()
 # # y.ablation_barplot(ax)
 
-# z = Yeast8Model("./models/ecYeastGEM_batch.xml")
+# z = Yeast8Model("../data/gemfiles/ecYeastGEM_batch.xml")
 # z.make_auxotroph("BY4741")
 
 # z.ablation_result = z.ablate()
