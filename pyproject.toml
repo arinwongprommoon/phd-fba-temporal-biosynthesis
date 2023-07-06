@@ -1,5 +1,8 @@
 [tool.poetry]
 name = "fba-temporal-biosynthesis"
+packages = [
+    { include = "src"}
+]
 version = "0.1.0"
 description = ""
 authors = ["arinwongprommoon <arin.wongprommoon@ed.ac.uk>"]
