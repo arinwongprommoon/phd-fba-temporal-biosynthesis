@@ -316,13 +316,13 @@ if __name__ == "__main__":
             robust=True,
             cmap="PiYG",
             cbar_kws={
-                "label": r"Flux change [$\times 10^{-4} mmol \cdot g_{DW}^{-1} \cdot h^{-1}$]"
+                "label": r"Flux change [$\times 10^{-4} \mathrm{protein} mmol \cdot g_{DW}^{-1}$]"
             },
             ax=ax,
         )
         ax.tick_params(top=True, labeltop=True, bottom=False, labelbottom=False)
         ax.set_title(
-            f"Flux changes as a result of ablation\n(magnitudes smaller than {tol} excluded)"
+            f"Enzyme usage changes as a result of ablation\n(magnitudes smaller than {tol} excluded)"
         )
         plt.show()
 
