@@ -21,7 +21,6 @@ from src.data.biomasscomponent import (
     Cofactors,
     Ions,
 )
-from src.viz.bar import _bar_vals_from_ablation_df
 from wrapt_timeout_decorator import *
 
 
@@ -106,10 +105,6 @@ class Yeast8Model:
 
         self.ablation_fluxes = dict()
 
-        # For set_flux_penalty(); store data to save time.
-        self._flux_penalty_sum = None
-        self._penalty_coefficient = None
-
     def reset_to_file(self, hard=False):
         """Reset model to filepath
 
@@ -134,11 +129,6 @@ class Yeast8Model:
             f"yeast8model.unrestrict_growth()",
             sep=os.linesep,
         )
-
-    def reset(self):
-        """(Deprecated) Reset model to filepath"""
-        print("Warning-- reset() method deprecated.  Use reset_to_file() instead.")
-        self.reset_to_file(hard=True)
 
     def checkpoint_model(self):
         """Save a copy of the current model."""
@@ -251,63 +241,6 @@ class Yeast8Model:
             raise Exception(
                 f"Invalid string for auxotroph strain background: {auxo_strain}"
             )
-
-    def set_flux_penalty(self, penalty_coefficient=0.0):
-        """Add a penalty to the objective function proportional to the sum of squares of fluxes
-
-        Add a penalty to the objective function, proportional to the sum of
-        squares of fluxes. The penalty coefficient is supplied by the user.
-        This method relies on the proprietary ($$$) Gurobi solver, and usually
-        takes a couple minutes to run.
-
-        Parameters
-        ----------
-        penalty_coefficient : float
-            Penalty coefficient, default 0 (i.e. no penalty applied).
-
-        Examples
-        --------
-        # Instantiate model object
-        y = Yeast8Model("../data/gemfiles/yeast-GEM_8-6-0.xml")
-
-        # Set flux penalty
-        y.set_flux_penalty(penalty_coefficient=0.1)
-
-        # Optimize and store solution
-        sol_pen = y.optimize()
-        """
-        self.model.solver = "gurobi"
-
-        # Define expression for objective function.
-        # This value is ADDED to the existing objective that has growth already
-        # defined.
-
-        # TODO: Speed this up even more
-        # Re-using possible because I don't expect the flux expression to change
-        # as there are no methods to add or erase reactions.
-        if self._flux_penalty_sum is None:
-            print("Defining flux penalty sum for the first time.")
-            print("Allow a couple minutes...")
-            reaction_flux_expressions = np.array(
-                [reaction.flux_expression for reaction in self._non_biomass_reactions],
-                dtype="object",
-            )
-            flux_penalty_sum = np.sum(np.square(reaction_flux_expressions))
-            self._flux_penalty_sum = flux_penalty_sum
-        else:
-            print("Re-using flux penalty sum.")
-            flux_penalty_sum = self._flux_penalty_sum
-        flux_penalty_expression = penalty_coefficient * flux_penalty_sum
-
-        # Set the objective.
-        flux_penalty_objective = self.model.problem.Objective(
-            flux_penalty_expression, direction="min"
-        )
-        self.model.objective = flux_penalty_objective
-        # User then uses the optimize() method below to solve it.
-
-        # Save penalty coefficient, useful for ablate()
-        self._penalty_coefficient = penalty_coefficient
 
     def set_flux_constraint(self, upper_bound):
         """Set upper bound to sum of absolute values of fluxes
@@ -498,82 +431,6 @@ class Yeast8Model:
             ],
         }
         return pd.DataFrame(data=d)
-
-    def ablation_barplot(self, ax, ablation_result=None):
-        """Draws bar plot showing synthesis times from ablation study
-
-        Parameters
-        ----------
-        ax : matplotlib.pyplot.Axes object
-            Axes to draw bar plot on.
-        ablation_result : pandas.DataFrame object
-            Results of ablation study.  Columns: 'priority component' (biomass
-            component being prioritised), 'ablated_flux' (flux of ablated
-            biomass reaction), 'ablated_est_time' (estimated doubling time based
-            on flux), 'proportional_est_time' (estimated biomass synthesis time,
-            proportional to mass fraction).  Rows: 'original' (un-ablated
-            biomass), other rows indicate biomass component.
-
-        Examples
-        --------
-        # Initialise model
-        y = Yeast8Model('./path/to/model.xml')
-
-        # Ablate
-        y.ablation_result = y.ablate()
-
-        # Draw bar plot
-        fig, ax = plt.subplots()
-        y.ablation_barplot(ax)
-        plt.show()
-        """
-        # Default argument
-        if ablation_result is None:
-            ablation_result = self.ablation_result
-        # Check if ablation already done.  If not, then the value should still
-        # be None despite above if statement.  If ablation already done, draw.
-        if ablation_result is not None:
-            # Get values for each bar plot series from ablation result DataFrame
-            values_ablated, values_proportion = _bar_vals_from_ablation_df(
-                ablation_result
-            )
-
-            # Draw bar plot
-            # https://www.python-graph-gallery.com/8-add-confidence-interval-on-barplot
-            barwidth = 0.4
-
-            bar_labels = ablation_result.priority_component.to_list()
-            bar_labels[0] = "all biomass"
-
-            x_ablated = np.arange(len(bar_labels))
-            x_proportion = [x + barwidth for x in x_ablated]
-
-            ax.bar(
-                x=x_ablated,
-                height=values_ablated,
-                width=barwidth,
-                color="#3714b0",
-                label="From ablating components\n in the biomass reaction",
-            )
-            ax.bar(
-                x=x_proportion,
-                height=values_proportion,
-                width=barwidth,
-                color="#cb0077",
-                label="From mass fractions\n of each biomass component",
-            )
-            ax.set_xticks(
-                ticks=[x + barwidth / 2 for x in range(len(x_ablated))],
-                labels=bar_labels,
-                rotation=45,
-            )
-            ax.set_xlabel("Biomass component")
-            ax.set_ylabel("Estimated synthesis time (hours)")
-            ax.legend()
-        else:
-            print(
-                "No ablation result. Please run ablate() to generate results before plotting."
-            )
 
     def ablation_grid(self, exch_rate_dict):
         """Array of ablation ratios from varying two exchange reactions
