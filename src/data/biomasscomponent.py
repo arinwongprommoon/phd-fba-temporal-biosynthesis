@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
 
 import numpy as np
+
 from src.constants.constants import (
+    MW_BIOMASS,
     MW_CARB,
-    MW_DNA,
-    MW_RNA,
-    MW_PROTEIN,
     MW_COFACTOR,
+    MW_DNA,
     MW_ION,
     MW_LIPID,
-    MW_BIOMASS,
+    MW_PROTEIN,
+    MW_RNA,
 )
 
 

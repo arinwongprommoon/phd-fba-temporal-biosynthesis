@@ -9,7 +9,6 @@ from src.gem.yeast8model import Yeast8Model
 from src.viz.bar import compare_ablation_times
 from src.viz.grid import heatmap_ablation_grid
 
-
 y = Yeast8Model("../data/gemfiles/yeast-GEM_8-6-0.xml")
 print("model obj initd")
 

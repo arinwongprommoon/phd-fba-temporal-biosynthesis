@@ -1,27 +1,28 @@
 #!/usr/bin/env python3
 
+import os
+
 import cobra
 import numpy as np
-import os
 import pandas as pd
+from wrapt_timeout_decorator import *
 
 from src.constants.constants import (
-    GROWTH_ID,
-    BIOMASS_ID,
-    GROWTH_SUBSYSTEM_IDS,
     AUXOTROPH_DICT,
+    BIOMASS_ID,
+    GROWTH_ID,
+    GROWTH_SUBSYSTEM_IDS,
     MW_BIOMASS,
 )
 from src.data.biomasscomponent import (
-    Lipids,
-    Proteins,
-    Carbohydrates,
     DNA,
     RNA,
+    Carbohydrates,
     Cofactors,
     Ions,
+    Lipids,
+    Proteins,
 )
-from wrapt_timeout_decorator import *
 
 
 class Yeast8Model:

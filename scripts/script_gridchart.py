@@ -2,11 +2,11 @@
 
 import matplotlib.pyplot as plt
 import numpy as np
-
 from matplotlib.backends.backend_pdf import PdfPages
+
 from src.data.biomasscomponent import biomass_component_list_orig
 from src.gem.yeast8model import Yeast8Model
-from src.viz.grid import piechart_ablation_grid, barchart_ablation_grid
+from src.viz.grid import barchart_ablation_grid, piechart_ablation_grid
 
 plot_options = {
     # "ec" or "y8"
