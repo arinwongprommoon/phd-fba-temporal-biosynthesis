@@ -21,7 +21,6 @@ from src.data.biomasscomponent import (
     Cofactors,
     Ions,
 )
-from src.viz.bar import _bar_vals_from_ablation_df
 from wrapt_timeout_decorator import *
 
 
@@ -432,82 +431,6 @@ class Yeast8Model:
             ],
         }
         return pd.DataFrame(data=d)
-
-    def ablation_barplot(self, ax, ablation_result=None):
-        """Draws bar plot showing synthesis times from ablation study
-
-        Parameters
-        ----------
-        ax : matplotlib.pyplot.Axes object
-            Axes to draw bar plot on.
-        ablation_result : pandas.DataFrame object
-            Results of ablation study.  Columns: 'priority component' (biomass
-            component being prioritised), 'ablated_flux' (flux of ablated
-            biomass reaction), 'ablated_est_time' (estimated doubling time based
-            on flux), 'proportional_est_time' (estimated biomass synthesis time,
-            proportional to mass fraction).  Rows: 'original' (un-ablated
-            biomass), other rows indicate biomass component.
-
-        Examples
-        --------
-        # Initialise model
-        y = Yeast8Model('./path/to/model.xml')
-
-        # Ablate
-        y.ablation_result = y.ablate()
-
-        # Draw bar plot
-        fig, ax = plt.subplots()
-        y.ablation_barplot(ax)
-        plt.show()
-        """
-        # Default argument
-        if ablation_result is None:
-            ablation_result = self.ablation_result
-        # Check if ablation already done.  If not, then the value should still
-        # be None despite above if statement.  If ablation already done, draw.
-        if ablation_result is not None:
-            # Get values for each bar plot series from ablation result DataFrame
-            values_ablated, values_proportion = _bar_vals_from_ablation_df(
-                ablation_result
-            )
-
-            # Draw bar plot
-            # https://www.python-graph-gallery.com/8-add-confidence-interval-on-barplot
-            barwidth = 0.4
-
-            bar_labels = ablation_result.priority_component.to_list()
-            bar_labels[0] = "all biomass"
-
-            x_ablated = np.arange(len(bar_labels))
-            x_proportion = [x + barwidth for x in x_ablated]
-
-            ax.bar(
-                x=x_ablated,
-                height=values_ablated,
-                width=barwidth,
-                color="#3714b0",
-                label="From ablating components\n in the biomass reaction",
-            )
-            ax.bar(
-                x=x_proportion,
-                height=values_proportion,
-                width=barwidth,
-                color="#cb0077",
-                label="From mass fractions\n of each biomass component",
-            )
-            ax.set_xticks(
-                ticks=[x + barwidth / 2 for x in range(len(x_ablated))],
-                labels=bar_labels,
-                rotation=45,
-            )
-            ax.set_xlabel("Biomass component")
-            ax.set_ylabel("Estimated synthesis time (hours)")
-            ax.legend()
-        else:
-            print(
-                "No ablation result. Please run ablate() to generate results before plotting."
-            )
 
     def ablation_grid(self, exch_rate_dict):
         """Array of ablation ratios from varying two exchange reactions

@@ -3,6 +3,71 @@
 import numpy as np
 
 
+def ablation_barplot(ablation_result, ax):
+    """Draws bar plot showing synthesis times from ablation study
+
+    Parameters
+    ----------
+    ablation_result : pandas.DataFrame object
+        Results of ablation study.  Columns: 'priority component' (biomass
+        component being prioritised), 'ablated_flux' (flux of ablated
+        biomass reaction), 'ablated_est_time' (estimated doubling time based
+        on flux), 'proportional_est_time' (estimated biomass synthesis time,
+        proportional to mass fraction).  Rows: 'original' (un-ablated
+        biomass), other rows indicate biomass component.
+    ax : matplotlib.pyplot.Axes object
+        Axes to draw bar plot on.
+
+    Examples
+    --------
+    # Initialise model
+    y = Yeast8Model('./path/to/model.xml')
+
+    # Ablate
+    y.ablation_result = y.ablate()
+
+    # Draw bar plot
+    fig, ax = plt.subplots()
+    ablation_barplot(y.ablation_result, ax)
+    plt.show()
+    """
+    # Get values for each bar plot series from ablation result DataFrame
+    values_ablated, values_proportion = _bar_vals_from_ablation_df(ablation_result)
+
+    # Draw bar plot
+    # https://www.python-graph-gallery.com/8-add-confidence-interval-on-barplot
+    barwidth = 0.4
+
+    bar_labels = ablation_result.priority_component.to_list()
+    bar_labels[0] = "all biomass"
+
+    x_ablated = np.arange(len(bar_labels))
+    x_proportion = [x + barwidth for x in x_ablated]
+
+    ax.bar(
+        x=x_ablated,
+        height=values_ablated,
+        width=barwidth,
+        color="#3714b0",
+        label="From ablating components\n in the biomass reaction",
+    )
+    ax.bar(
+        x=x_proportion,
+        height=values_proportion,
+        width=barwidth,
+        color="#cb0077",
+        label="From mass fractions\n of each biomass component",
+    )
+    ax.set_xticks(
+        ticks=[x + barwidth / 2 for x in range(len(x_ablated))],
+        labels=bar_labels,
+        rotation=45,
+    )
+    ax.set_xlabel("Biomass component")
+    ax.set_ylabel("Estimated synthesis time (hours)")
+    ax.legend()
+
+
 def compare_ablation_times(ablation_result1, ablation_result2, ax):
     """Compare two ablation study results
 
