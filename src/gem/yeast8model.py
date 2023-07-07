@@ -106,10 +106,6 @@ class Yeast8Model:
 
         self.ablation_fluxes = dict()
 
-        # For set_flux_penalty(); store data to save time.
-        self._flux_penalty_sum = None
-        self._penalty_coefficient = None
-
     def reset_to_file(self, hard=False):
         """Reset model to filepath
 
@@ -134,11 +130,6 @@ class Yeast8Model:
             f"yeast8model.unrestrict_growth()",
             sep=os.linesep,
         )
-
-    def reset(self):
-        """(Deprecated) Reset model to filepath"""
-        print("Warning-- reset() method deprecated.  Use reset_to_file() instead.")
-        self.reset_to_file(hard=True)
 
     def checkpoint_model(self):
         """Save a copy of the current model."""
@@ -251,63 +242,6 @@ class Yeast8Model:
             raise Exception(
                 f"Invalid string for auxotroph strain background: {auxo_strain}"
             )
-
-    def set_flux_penalty(self, penalty_coefficient=0.0):
-        """Add a penalty to the objective function proportional to the sum of squares of fluxes
-
-        Add a penalty to the objective function, proportional to the sum of
-        squares of fluxes. The penalty coefficient is supplied by the user.
-        This method relies on the proprietary ($$$) Gurobi solver, and usually
-        takes a couple minutes to run.
-
-        Parameters
-        ----------
-        penalty_coefficient : float
-            Penalty coefficient, default 0 (i.e. no penalty applied).
-
-        Examples
-        --------
-        # Instantiate model object
-        y = Yeast8Model("../data/gemfiles/yeast-GEM_8-6-0.xml")
-
-        # Set flux penalty
-        y.set_flux_penalty(penalty_coefficient=0.1)
-
-        # Optimize and store solution
-        sol_pen = y.optimize()
-        """
-        self.model.solver = "gurobi"
-
-        # Define expression for objective function.
-        # This value is ADDED to the existing objective that has growth already
-        # defined.
-
-        # TODO: Speed this up even more
-        # Re-using possible because I don't expect the flux expression to change
-        # as there are no methods to add or erase reactions.
-        if self._flux_penalty_sum is None:
-            print("Defining flux penalty sum for the first time.")
-            print("Allow a couple minutes...")
-            reaction_flux_expressions = np.array(
-                [reaction.flux_expression for reaction in self._non_biomass_reactions],
-                dtype="object",
-            )
-            flux_penalty_sum = np.sum(np.square(reaction_flux_expressions))
-            self._flux_penalty_sum = flux_penalty_sum
-        else:
-            print("Re-using flux penalty sum.")
-            flux_penalty_sum = self._flux_penalty_sum
-        flux_penalty_expression = penalty_coefficient * flux_penalty_sum
-
-        # Set the objective.
-        flux_penalty_objective = self.model.problem.Objective(
-            flux_penalty_expression, direction="min"
-        )
-        self.model.objective = flux_penalty_objective
-        # User then uses the optimize() method below to solve it.
-
-        # Save penalty coefficient, useful for ablate()
-        self._penalty_coefficient = penalty_coefficient
 
     def set_flux_constraint(self, upper_bound):
         """Set upper bound to sum of absolute values of fluxes
