@@ -117,22 +117,6 @@ grid_ylabel_leader = axis_options["grid_ylabel_leader"]
 grid_xlabel = f"{grid_xlabel_leader} (% saturation)"
 grid_ylabel = f"{grid_ylabel_leader} (% saturation)"
 
-# Construct dict that tells which ax to draw names plots in
-plot_axs_keys = list(plot_choices.keys())
-plot_axs_values = []
-idx = 0
-for plot_choice in list(plot_choices.values()):
-    if plot_choice:
-        plot_axs_values.append(idx)
-        idx += 1
-    else:
-        plot_axs_values.append(None)
-plot_axs = dict(zip(plot_axs_keys, plot_axs_values))
-
-# Set up subplots
-numplots = sum(plot_choices.values())
-fig, ax = plt.subplots(nrows=numplots, ncols=1, figsize=(7, 7 * numplots))
-
 # Plot!
 
 if plot_choices["heatmap_ratio"]:
