@@ -11,15 +11,15 @@ plot_options = {
     # Fraction of original sum of absolute values of fluxes to constrain fluxes
     # to.  If None, do not impose this constraint.  Otherwise, supply a float
     # from 0 to 1.
-    "constrain_fluxes": 0.25,
+    "constrain_fluxes": None,
     # When computing how enzyme usage fluxes change during each round of
     # ablation, print mininum (greatest magnitude of negative flux change) and
     # maximum (greatest magnitude of positive flux change) when each biomass
     # component is prioritised.
-    "print_flux_extrema": True,
+    "print_flux_extrema": False,
     # Draw a histogram showing how these fluxes changes.  Horizontal axis = flux
     # change (binned), vertical axis = how many reactions (log scale).
-    "histogram": True,
+    "histogram": False,
     # Take the top N greatest-magnitude (negative and positive) enzyme usage
     # flux changes, see which reactions these enzymes correspond to, and count
     # how many times each subsystem is represented.  Draw bar plots for each
@@ -30,7 +30,7 @@ plot_options = {
     # For each of negative and positive enzyme usage flux changes, see which
     # reactions these enzymes correspond to, and sum all the flux changes for
     # each subsystem.  Draw bar plots for each biomass component.
-    "subsystem_sumfluxes": True,
+    "subsystem_sumfluxes": False,
     # Draw a heatmap, columns showing the biomass component, rows showing
     # each enzyme, and colours showing flux changes.  Rows are grouped by sub-
     # system, alphabetically, and are labelled by subsystem.
