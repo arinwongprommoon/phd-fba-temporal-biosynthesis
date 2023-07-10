@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
+from matplotlib.backends.backend_pdf import PdfPages
 
 from src.gem.yeast8model import Yeast8Model
 
@@ -215,7 +216,6 @@ if __name__ == "__main__":
         plt.xlabel(r"Flux ($\times 10^{-5}$)")
         plt.ylabel("Number of reactions")
         plt.title("Changes in enzyme usage fluxes in biomass component ablation")
-        plt.show()
 
     if plot_options["subsystem_freqs"]:
         n = plot_options["subsystem_freqs/n"]
@@ -225,7 +225,6 @@ if __name__ == "__main__":
             s = s.sort_values(ascending=False)[:n]
             plot_subsystem_freqs(wt_ec, s, ax)
             ax.set_title(biomass_component)
-        plt.show()
 
     if plot_options["subsystem_sumfluxes"]:
         for idx, (biomass_component, fluxes) in enumerate(ablation_fluxes_diff.items()):
@@ -238,7 +237,6 @@ if __name__ == "__main__":
             plot_subsystem_sumfluxes(wt_ec, -s_negative, ax[1])
             ax[1].set_title(f"{biomass_component}, flux decreases")
             fig.tight_layout()
-        plt.show()
 
     if plot_options["subsystem_heatmap"]:
         list_participating_rxn_df = []
@@ -324,7 +322,6 @@ if __name__ == "__main__":
         ax.set_title(
             f"Enzyme usage changes as a result of ablation\n(magnitudes smaller than {tol} excluded)"
         )
-        plt.show()
 
 pdf_filename = "../reports/abl_vs_enz_use_plots.pdf"
 with PdfPages(pdf_filename) as pdf:
