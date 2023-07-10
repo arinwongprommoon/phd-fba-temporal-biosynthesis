@@ -27,8 +27,8 @@ print(largest_component)
 breakpoint()
 
 exch_rate_dict = {
-    "r_1714": np.linspace(0, 2 * 8.45, 8),  # glucose
-    "r_1654": np.linspace(0, 2 * 1.45, 8),  # ammonium
+    "r_1714": np.linspace(0, 2 * 8.45, 3),  # glucose
+    "r_1654": np.linspace(0, 2 * 1.45, 3),  # ammonium
 }
 ablation_result_array = wt_ec.ablation_grid(exch_rate_dict)
 print(ablation_result_array)
@@ -43,7 +43,13 @@ ratio_gradient_greater = np.abs(ratio_gradient[0]) > np.abs(ratio_gradient[1])
 breakpoint()
 
 fig, ax = plt.subplots()
-heatmap_ablation_grid(ax, exch_rate_dict, ratio_array, percent_saturation=True)
+heatmap_ablation_grid(
+    ax,
+    exch_rate_dict,
+    ratio_array,
+    percent_saturation=True,
+    saturation_point=(8.45, 1.45),
+)
 ax.set_xlabel("Glucose exchange (% max = 16.9)")
 ax.set_ylabel("Ammonium exchange (% max = 2.9)")
 ax.set_title("Ratio")
