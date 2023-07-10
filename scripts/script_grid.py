@@ -117,27 +117,12 @@ grid_ylabel_leader = axis_options["grid_ylabel_leader"]
 grid_xlabel = f"{grid_xlabel_leader} (% saturation)"
 grid_ylabel = f"{grid_ylabel_leader} (% saturation)"
 
-# Construct dict that tells which ax to draw names plots in
-plot_axs_keys = list(plot_choices.keys())
-plot_axs_values = []
-idx = 0
-for plot_choice in list(plot_choices.values()):
-    if plot_choice:
-        plot_axs_values.append(idx)
-        idx += 1
-    else:
-        plot_axs_values.append(None)
-plot_axs = dict(zip(plot_axs_keys, plot_axs_values))
-
-# Set up subplots
-numplots = sum(plot_choices.values())
-fig, ax = plt.subplots(nrows=numplots, ncols=1, figsize=(7, 7 * numplots))
-
 # Plot!
 
 if plot_choices["heatmap_ratio"]:
+    fig_heatmap_ratio, ax_heatmap_ratio = plt.subplots()
     heatmap_ablation_grid(
-        ax[plot_axs["heatmap_ratio"]],
+        ax_heatmap_ratio,
         exch_rate_dict,
         ratio_array,
         percent_saturation=True,
@@ -147,13 +132,14 @@ if plot_choices["heatmap_ratio"]:
         vmax=axis_options["ratio_vmax"],
         cbar_label="Ratio",
     )
-    ax[plot_axs["heatmap_ratio"]].set_xlabel(grid_xlabel)
-    ax[plot_axs["heatmap_ratio"]].set_ylabel(grid_ylabel)
-    ax[plot_axs["heatmap_ratio"]].set_title("Ratio")
+    ax_heatmap_ratio.set_xlabel(grid_xlabel)
+    ax_heatmap_ratio.set_ylabel(grid_ylabel)
+    ax_heatmap_ratio.set_title("Ratio")
 
 if plot_choices["heatmap_growthrate"]:
+    fig_heatmap_growthrate, ax_heatmap_growthrate = plt.subplots()
     heatmap_ablation_grid(
-        ax[plot_axs["heatmap_growthrate"]],
+        ax_heatmap_growthrate,
         exch_rate_dict,
         growthrate_array,
         percent_saturation=True,
@@ -161,19 +147,21 @@ if plot_choices["heatmap_growthrate"]:
         saturation_grid=True,
         cbar_label="Growth rate",
     )
-    ax[plot_axs["heatmap_growthrate"]].set_xlabel(grid_xlabel)
-    ax[plot_axs["heatmap_growthrate"]].set_ylabel(grid_ylabel)
-    ax[plot_axs["heatmap_growthrate"]].set_title("Growth rate")
+    ax_heatmap_growthrate.set_xlabel(grid_xlabel)
+    ax_heatmap_growthrate.set_ylabel(grid_ylabel)
+    ax_heatmap_growthrate.set_title("Growth rate")
 
 if plot_choices["scatter_growthrate_ratio"]:
-    ax[plot_axs["scatter_growthrate_ratio"]].scatter(growthrates, ratios)
-    ax[plot_axs["scatter_growthrate_ratio"]].set_xlabel(r"Growth rate ($h^{-1}$)")
-    ax[plot_axs["scatter_growthrate_ratio"]].set_ylabel("Ablation ratio")
-    ax[plot_axs["scatter_growthrate_ratio"]].set_title("Growth rate vs ablation ratio")
+    fig_heatmap_scatter_growthrate_ratio, ax_scatter_growthrate_ratio = plt.subplots()
+    ax_scatter_growthrate_ratio.scatter(growthrates, ratios)
+    ax_scatter_growthrate_ratio.set_xlabel(r"Growth rate ($h^{-1}$)")
+    ax_scatter_growthrate_ratio.set_ylabel("Ablation ratio")
+    ax_scatter_growthrate_ratio.set_title("Growth rate vs ablation ratio")
 
 if plot_choices["heatmap_gradient_c"]:
+    fig_heatmap_gradient_c, ax_heatmap_gradient_c = plt.subplots()
     heatmap_ablation_grid(
-        ax[plot_axs["heatmap_gradient_c"]],
+        ax_heatmap_gradient_c,
         exch_rate_dict,
         growthrate_gradient[0],
         percent_saturation=True,
@@ -185,15 +173,16 @@ if plot_choices["heatmap_gradient_c"]:
         cmap="PiYG",
         cbar_label="Gradient",
     )
-    ax[plot_axs["heatmap_gradient_c"]].set_xlabel(grid_xlabel)
-    ax[plot_axs["heatmap_gradient_c"]].set_ylabel(grid_ylabel)
-    ax[plot_axs["heatmap_gradient_c"]].set_title(
+    ax_heatmap_gradient_c.set_xlabel(grid_xlabel)
+    ax_heatmap_gradient_c.set_ylabel(grid_ylabel)
+    ax_heatmap_gradient_c.set_title(
         f"Gradient of growth rate,\nalong {grid_xlabel_leader} axis"
     )
 
 if plot_choices["heatmap_gradient_n"]:
+    fig_heatmap_gradient_n, ax_heatmap_gradient_n = plt.subplots()
     heatmap_ablation_grid(
-        ax[plot_axs["heatmap_gradient_n"]],
+        ax_heatmap_gradient_n,
         exch_rate_dict,
         growthrate_gradient[1],
         percent_saturation=True,
@@ -205,15 +194,16 @@ if plot_choices["heatmap_gradient_n"]:
         cmap="PiYG",
         cbar_label="Gradient",
     )
-    ax[plot_axs["heatmap_gradient_n"]].set_xlabel(grid_xlabel)
-    ax[plot_axs["heatmap_gradient_n"]].set_ylabel(grid_ylabel)
-    ax[plot_axs["heatmap_gradient_n"]].set_title(
+    ax_heatmap_gradient_n.set_xlabel(grid_xlabel)
+    ax_heatmap_gradient_n.set_ylabel(grid_ylabel)
+    ax_heatmap_gradient_n.set_title(
         f"Gradient of growth rate,\nalong {grid_ylabel_leader} axis"
     )
 
 if plot_choices["heatmap_gradient_compare"]:
+    fig_heatmap_gradient_compare, ax_heatmap_gradient_compare = plt.subplots()
     heatmap_ablation_grid(
-        ax[plot_axs["heatmap_gradient_compare"]],
+        ax_heatmap_gradient_compare,
         exch_rate_dict,
         growthrate_gradient_greater,
         percent_saturation=True,
@@ -225,15 +215,16 @@ if plot_choices["heatmap_gradient_compare"]:
         cmap="PuOr",
         cbar_label="Gradient difference",
     )
-    ax[plot_axs["heatmap_gradient_compare"]].set_xlabel(grid_xlabel)
-    ax[plot_axs["heatmap_gradient_compare"]].set_ylabel(grid_ylabel)
-    ax[plot_axs["heatmap_gradient_compare"]].set_title(
+    ax_heatmap_gradient_compare.set_xlabel(grid_xlabel)
+    ax_heatmap_gradient_compare.set_ylabel(grid_ylabel)
+    ax_heatmap_gradient_compare.set_title(
         f"Differences in magnitude of gradient,\n{grid_xlabel_leader} -- {grid_ylabel_leader}"
     )
 
 if plot_choices["heatmap_ratio_whereone"]:
+    fig_heatmap_ratio_whereone, ax_heatmap_ratio_whereone = plt.subplots()
     heatmap_ablation_grid(
-        ax[plot_axs["heatmap_ratio_whereone"]],
+        ax_heatmap_ratio_whereone,
         exch_rate_dict,
         ratio_array_mask,
         percent_saturation=True,
@@ -244,13 +235,14 @@ if plot_choices["heatmap_ratio_whereone"]:
         cmap="cividis",
         cbar_label=" ",
     )
-    ax[plot_axs["heatmap_ratio_whereone"]].set_xlabel(grid_xlabel)
-    ax[plot_axs["heatmap_ratio_whereone"]].set_ylabel(grid_ylabel)
-    ax[plot_axs["heatmap_ratio_whereone"]].set_title(r"Conditions in which $r > 1$")
+    ax_heatmap_ratio_whereone.set_xlabel(grid_xlabel)
+    ax_heatmap_ratio_whereone.set_ylabel(grid_ylabel)
+    ax_heatmap_ratio_whereone.set_title(r"Conditions in which $r > 1$")
 
 if plot_choices["heatmap_carb_to_prot"]:
+    fig_heatmap_carb_to_prot, ax_heatmap_carb_to_prot = plt.subplots()
     heatmap_ablation_grid(
-        ax[plot_axs["heatmap_carb_to_prot"]],
+        ax_heatmap_carb_to_prot,
         exch_rate_dict,
         carb_to_prot_array,
         percent_saturation=True,
@@ -261,25 +253,26 @@ if plot_choices["heatmap_carb_to_prot"]:
         cmap="Reds",
         cbar_label="Ratio",
     )
-    ax[plot_axs["heatmap_carb_to_prot"]].contour(np.rot90(ratio_array_mask))
-    ax[plot_axs["heatmap_carb_to_prot"]].set_xlabel(grid_xlabel)
-    ax[plot_axs["heatmap_carb_to_prot"]].set_ylabel(grid_ylabel)
-    ax[plot_axs["heatmap_carb_to_prot"]].set_title(
+    ax_heatmap_carb_to_prot.contour(np.rot90(ratio_array_mask))
+    ax_heatmap_carb_to_prot.set_xlabel(grid_xlabel)
+    ax_heatmap_carb_to_prot.set_ylabel(grid_ylabel)
+    ax_heatmap_carb_to_prot.set_title(
         "Ratio of carbohydrate synthesis time\nto protein synthesis time"
     )
 
 if plot_choices["histogram_carb_to_prot"]:
+    fig_histogram_carb_to_prot, ax_histogram_carb_to_prot = plt.subplots()
     sns.histplot(
         data=carb_to_prot_df,
         x="carb_to_prot_ratio",
         hue="ratio_bool",
         element="step",
         binwidth=0.02,
-        ax=ax[plot_axs["histogram_carb_to_prot"]],
+        ax=ax_histogram_carb_to_prot,
     )
-    ax[plot_axs["histogram_carb_to_prot"]].set_xlabel("Carbohydrate:Protein time ratio")
-    ax[plot_axs["histogram_carb_to_prot"]].set_ylabel("Count")
-    ax[plot_axs["histogram_carb_to_prot"]].get_legend().set_title("Ratio > 1")
+    ax_histogram_carb_to_prot.set_xlabel("Carbohydrate:Protein time ratio")
+    ax_histogram_carb_to_prot.set_ylabel("Count")
+    ax_histogram_carb_to_prot.get_legend().set_title("Ratio > 1")
 
 pdf_filename = "../reports/" + filename + ".pdf"
 with PdfPages(pdf_filename) as pdf:
