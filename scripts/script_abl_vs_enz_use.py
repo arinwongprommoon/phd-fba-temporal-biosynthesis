@@ -326,4 +326,7 @@ if __name__ == "__main__":
         )
         plt.show()
 
-breakpoint()
+pdf_filename = "abl_vs_enz_use_plots.pdf"
+with PdfPages(pdf_filename) as pdf:
+    for fig in range(1, plt.gcf().number + 1):
+        pdf.savefig(fig)
