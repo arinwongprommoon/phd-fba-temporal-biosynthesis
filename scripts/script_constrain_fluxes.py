@@ -73,6 +73,6 @@ for idx, fraction in enumerate(fractions):
     ax[idx].set_ylabel(grid_ylabel)
     ax[idx].set_title(f"Constraint: {fraction:.3f} of max sum of fluxes")
 
-with PdfPages(f"constrain_fluxes_plots.pdf") as pdf:
+with PdfPages(f"../reports/constrain_fluxes_plots.pdf") as pdf:
     for fig in range(1, plt.gcf().number + 1):
         pdf.savefig(fig)

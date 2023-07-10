@@ -73,7 +73,7 @@ elif plot_options["chart_mode"] == "bar":
         ylabel="Ammonium exchange",
     )
 
-pdf_filename = plot_options["chart_mode"] + "chart_plots.pdf"
+pdf_filename = "../reports/" + plot_options["chart_mode"] + "chart_plots.pdf"
 with PdfPages(pdf_filename) as pdf:
     for fig in range(1, plt.gcf().number + 1):
         pdf.savefig(fig)
