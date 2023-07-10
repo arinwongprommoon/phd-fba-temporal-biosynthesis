@@ -67,8 +67,8 @@ def heatmap_ablation_grid(
     else:
         annot_input = np.rot90(largest_component_array)
 
-    heatmap_xticklabels = list(exch_rate_dict.values())[0]
-    heatmap_yticklabels = list(exch_rate_dict.values())[1][::-1]
+    heatmap_xticklabels = list(exch_rate_dict.values())[0].copy()
+    heatmap_yticklabels = list(exch_rate_dict.values())[1][::-1].copy()
     saturation_x = saturation_point[0]
     saturation_y = saturation_point[1]
     if percent_saturation:
