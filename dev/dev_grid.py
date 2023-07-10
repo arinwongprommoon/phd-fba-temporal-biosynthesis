@@ -49,6 +49,7 @@ heatmap_ablation_grid(
     ratio_array,
     percent_saturation=True,
     saturation_point=(8.45, 1.45),
+    saturation_grid=True,
 )
 ax.set_xlabel("Glucose exchange (% max = 16.9)")
 ax.set_ylabel("Ammonium exchange (% max = 2.9)")
