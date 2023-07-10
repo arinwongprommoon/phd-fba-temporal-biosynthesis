@@ -27,13 +27,13 @@ axis_options = {
 plot_choices = {
     "heatmap_ratio": True,
     "heatmap_growthrate": True,
-    "scatter_growthrate_ratio": True,
+    "scatter_growthrate_ratio": False,
     "heatmap_gradient_c": True,
     "heatmap_gradient_n": True,
     "heatmap_gradient_compare": True,
     "heatmap_ratio_whereone": True,
     "heatmap_carb_to_prot": True,
-    "histogram_carb_to_prot": True,
+    "histogram_carb_to_prot": False,
 }
 
 
@@ -49,16 +49,22 @@ def vget_carb_to_prot_ratio(x):
 
 
 if model_options["model"] == "ec":
+    saturation_glc = 8.45
+    saturation_pyr = 4.27
+    saturation_amm = 1.45
     exch_rate_dict = {
-        "r_1714": np.linspace(0, 2 * 8.45, 32),  # glucose
-        "r_2033": np.linspace(0, 2 * 4.27, 32),  # pyruvate
-        "r_1654": np.linspace(0, 2 * 1.45, 32),  # ammonium
+        "r_1714": np.linspace(0, 2 * saturation_glc, 32),  # glucose
+        "r_2033": np.linspace(0, 2 * saturation_pyr, 32),  # pyruvate
+        "r_1654": np.linspace(0, 2 * saturation_amm, 32),  # ammonium
     }
 elif model_options["model"] == "y8":
+    saturation_glc = 4.75
+    saturation_pyr = 13.32
+    saturation_amm = 2.88
     exch_rate_dict = {
-        "r_1714": np.linspace(0, 2 * 4.75, 32),  # glucose
-        "r_2033": np.linspace(0, 2 * 13.32, 32),  # pyruvate
-        "r_1654": np.linspace(0, 2 * 2.88, 32),  # ammonium
+        "r_1714": np.linspace(0, 2 * saturation_glc, 32),  # glucose
+        "r_2033": np.linspace(0, 2 * saturation_pyr, 32),  # pyruvate
+        "r_1654": np.linspace(0, 2 * saturation_amm, 32),  # ammonium
     }
 else:
     m = model_options["model"]
@@ -67,9 +73,11 @@ else:
 if model_options["carbon_source"] == "glc":
     exch_rate_dict.pop("r_2033")
     axis_options["grid_xlabel_leader"] = "Glucose exchange"
+    saturation_carb = saturation_glc
 elif model_options["carbon_source"] == "pyr":
     exch_rate_dict.pop("r_1714")
     axis_options["grid_xlabel_leader"] = "Pyruvate exchange"
+    saturation_carb = saturation_pyr
 
 # Load saved data
 filename = model_options["model"] + "_grid_" + model_options["carbon_source"] + "_amm"
@@ -104,12 +112,10 @@ carb_to_prot_df = pd.DataFrame(
 )
 
 # Set up axes parameters
-xmax = np.max(list(exch_rate_dict.values())[0])
-ymax = np.max(list(exch_rate_dict.values())[0])
 grid_xlabel_leader = axis_options["grid_xlabel_leader"]
 grid_ylabel_leader = axis_options["grid_ylabel_leader"]
-grid_xlabel = f"{grid_xlabel_leader} (% max = {xmax:.2f})"
-grid_ylabel = f"{grid_ylabel_leader} (% max = {ymax:.2f})"
+grid_xlabel = f"{grid_xlabel_leader} (% saturation)"
+grid_ylabel = f"{grid_ylabel_leader} (% saturation)"
 
 # Construct dict that tells which ax to draw names plots in
 plot_axs_keys = list(plot_choices.keys())
@@ -135,8 +141,11 @@ if plot_choices["heatmap_ratio"]:
         exch_rate_dict,
         ratio_array,
         percent_saturation=True,
+        saturation_point=(saturation_carb, saturation_amm),
+        saturation_grid=True,
         vmin=axis_options["ratio_vmin"],
         vmax=axis_options["ratio_vmax"],
+        cbar_label="Ratio",
     )
     ax[plot_axs["heatmap_ratio"]].set_xlabel(grid_xlabel)
     ax[plot_axs["heatmap_ratio"]].set_ylabel(grid_ylabel)
@@ -148,7 +157,9 @@ if plot_choices["heatmap_growthrate"]:
         exch_rate_dict,
         growthrate_array,
         percent_saturation=True,
-        cbar_label="growth rate",
+        saturation_point=(saturation_carb, saturation_amm),
+        saturation_grid=True,
+        cbar_label="Growth rate",
     )
     ax[plot_axs["heatmap_growthrate"]].set_xlabel(grid_xlabel)
     ax[plot_axs["heatmap_growthrate"]].set_ylabel(grid_ylabel)
@@ -156,7 +167,7 @@ if plot_choices["heatmap_growthrate"]:
 
 if plot_choices["scatter_growthrate_ratio"]:
     ax[plot_axs["scatter_growthrate_ratio"]].scatter(growthrates, ratios)
-    ax[plot_axs["scatter_growthrate_ratio"]].set_xlabel("Growth rate (/h)")
+    ax[plot_axs["scatter_growthrate_ratio"]].set_xlabel(r"Growth rate ($h^{-1}$)")
     ax[plot_axs["scatter_growthrate_ratio"]].set_ylabel("Ablation ratio")
     ax[plot_axs["scatter_growthrate_ratio"]].set_title("Growth rate vs ablation ratio")
 
@@ -166,14 +177,19 @@ if plot_choices["heatmap_gradient_c"]:
         exch_rate_dict,
         growthrate_gradient[0],
         percent_saturation=True,
+        saturation_point=(saturation_carb, saturation_amm),
+        saturation_grid=True,
         vmin=None,
         vmax=None,
         center=0,
         cmap="PiYG",
+        cbar_label="Gradient",
     )
     ax[plot_axs["heatmap_gradient_c"]].set_xlabel(grid_xlabel)
     ax[plot_axs["heatmap_gradient_c"]].set_ylabel(grid_ylabel)
-    ax[plot_axs["heatmap_gradient_c"]].set_title(f"Gradient, {grid_xlabel_leader} axis")
+    ax[plot_axs["heatmap_gradient_c"]].set_title(
+        f"Gradient of growth rate,\nalong {grid_xlabel_leader} axis"
+    )
 
 if plot_choices["heatmap_gradient_n"]:
     heatmap_ablation_grid(
@@ -181,14 +197,19 @@ if plot_choices["heatmap_gradient_n"]:
         exch_rate_dict,
         growthrate_gradient[1],
         percent_saturation=True,
+        saturation_point=(saturation_carb, saturation_amm),
+        saturation_grid=True,
         vmin=None,
         vmax=None,
         center=0,
         cmap="PiYG",
+        cbar_label="Gradient",
     )
     ax[plot_axs["heatmap_gradient_n"]].set_xlabel(grid_xlabel)
     ax[plot_axs["heatmap_gradient_n"]].set_ylabel(grid_ylabel)
-    ax[plot_axs["heatmap_gradient_n"]].set_title(f"Gradient, {grid_ylabel_leader} axis")
+    ax[plot_axs["heatmap_gradient_n"]].set_title(
+        f"Gradient of growth rate,\nalong {grid_ylabel_leader} axis"
+    )
 
 if plot_choices["heatmap_gradient_compare"]:
     heatmap_ablation_grid(
@@ -196,15 +217,18 @@ if plot_choices["heatmap_gradient_compare"]:
         exch_rate_dict,
         growthrate_gradient_greater,
         percent_saturation=True,
+        saturation_point=(saturation_carb, saturation_amm),
+        saturation_grid=True,
         vmin=None,
         vmax=None,
         center=0,
         cmap="PuOr",
+        cbar_label="Gradient difference",
     )
     ax[plot_axs["heatmap_gradient_compare"]].set_xlabel(grid_xlabel)
     ax[plot_axs["heatmap_gradient_compare"]].set_ylabel(grid_ylabel)
     ax[plot_axs["heatmap_gradient_compare"]].set_title(
-        "1 = change in glucose axis has greater magnitude\n0 = change in ammonium axis has greater magnitude"
+        f"Differences in magnitude of gradient,\n{grid_xlabel_leader} -- {grid_ylabel_leader}"
     )
 
 if plot_choices["heatmap_ratio_whereone"]:
@@ -213,13 +237,16 @@ if plot_choices["heatmap_ratio_whereone"]:
         exch_rate_dict,
         ratio_array_mask,
         percent_saturation=True,
+        saturation_point=(saturation_carb, saturation_amm),
+        saturation_grid=True,
         vmin=None,
         vmax=None,
         cmap="cividis",
+        cbar_label=" ",
     )
     ax[plot_axs["heatmap_ratio_whereone"]].set_xlabel(grid_xlabel)
     ax[plot_axs["heatmap_ratio_whereone"]].set_ylabel(grid_ylabel)
-    ax[plot_axs["heatmap_ratio_whereone"]].set_title("0: ratio < 1; 1: ratio > 1")
+    ax[plot_axs["heatmap_ratio_whereone"]].set_title(r"Conditions in which $r > 1$")
 
 if plot_choices["heatmap_carb_to_prot"]:
     heatmap_ablation_grid(
@@ -227,14 +254,19 @@ if plot_choices["heatmap_carb_to_prot"]:
         exch_rate_dict,
         carb_to_prot_array,
         percent_saturation=True,
+        saturation_point=(saturation_carb, saturation_amm),
+        saturation_grid=True,
         vmin=None,
         vmax=None,
         cmap="Reds",
+        cbar_label="Ratio",
     )
     ax[plot_axs["heatmap_carb_to_prot"]].contour(np.rot90(ratio_array_mask))
     ax[plot_axs["heatmap_carb_to_prot"]].set_xlabel(grid_xlabel)
     ax[plot_axs["heatmap_carb_to_prot"]].set_ylabel(grid_ylabel)
-    ax[plot_axs["heatmap_carb_to_prot"]].set_title("Carbohydrate:Protein ratio (times)")
+    ax[plot_axs["heatmap_carb_to_prot"]].set_title(
+        "Ratio of carbohydrate synthesis time\nto protein synthesis time"
+    )
 
 if plot_choices["histogram_carb_to_prot"]:
     sns.histplot(

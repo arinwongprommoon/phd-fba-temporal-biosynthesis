@@ -15,6 +15,8 @@ def heatmap_ablation_grid(
     ratio_array,
     largest_component_array=None,
     percent_saturation=False,
+    saturation_point=(None, None),
+    saturation_grid=False,
     vmin=0,
     vmax=2,
     center=None,
@@ -42,7 +44,12 @@ def heatmap_ablation_grid(
         Array of largest biomass components, output from ablation_grid()
     percent_saturation : bool, optional
         Whether to scale axis labels so that the numbers displayed are percent
-        of the highest value of the axis (usually saturation).  Default False.
+        of saturation.  Default False.
+    saturation_point : (float, float) tuple, optional
+        Values of exchange fluxes to use as saturation.  If either element is
+        None, use the max as saturation.
+    saturation_grid : bool, optional
+        Whether to draw grid lines to show where saturation is.  Default False.
     vmin : float, optional
         Minimum of range for colour bar.  Default 0.
     vmax : float, optional
@@ -63,13 +70,36 @@ def heatmap_ablation_grid(
     else:
         annot_input = np.rot90(largest_component_array)
 
-    heatmap_xticklabels = list(exch_rate_dict.values())[0]
-    heatmap_yticklabels = list(exch_rate_dict.values())[1][::-1]
+    # Define x & y tick labels
+    heatmap_xticklabels = list(exch_rate_dict.values())[0].copy()
+    heatmap_yticklabels = list(exch_rate_dict.values())[1][::-1].copy()
+    saturation_x = saturation_point[0]
+    saturation_y = saturation_point[1]
+    # ... depending on saturation-related arguments
     if percent_saturation:
-        heatmap_xticklabels /= np.max(heatmap_xticklabels)
+        if saturation_x is not None:
+            heatmap_xticklabels /= saturation_x
+        else:
+            heatmap_xticklabels /= np.max(heatmap_xticklabels)
         heatmap_xticklabels *= 100
-        heatmap_yticklabels /= np.max(heatmap_yticklabels)
+
+        if saturation_y is not None:
+            heatmap_yticklabels /= saturation_y
+        else:
+            heatmap_yticklabels /= np.max(heatmap_yticklabels)
         heatmap_yticklabels *= 100
+
+        # and draw grid lines if specified
+        # This only makes sense if percent_saturation is True.
+        if saturation_grid:
+            ax.axvline(
+                np.searchsorted(heatmap_xticklabels, 100, side="left"), color="k"
+            )
+            # doing this because y axis is defined 'in reverse' & to have line
+            # position consistent with x axis
+            ax.axhline(
+                np.searchsorted(heatmap_yticklabels[::-1], 100, side="right"), color="k"
+            )
 
     # Draws heatmap.
     # Rounding directly on the x/yticklabels variables because of known
@@ -80,8 +110,8 @@ def heatmap_ablation_grid(
     sns.heatmap(
         data=np.rot90(ratio_array),
         annot=annot_input,
-        xticklabels=np.around(heatmap_xticklabels, decimals=3),
-        yticklabels=np.around(heatmap_yticklabels, decimals=3),
+        xticklabels=np.around(heatmap_xticklabels, decimals=1),
+        yticklabels=np.around(heatmap_yticklabels, decimals=1),
         robust=True,
         vmin=vmin,
         vmax=vmax,
