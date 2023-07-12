@@ -49,9 +49,9 @@ def vget_carb_to_prot_ratio(x):
 
 
 if model_options["model"] == "ec":
-    saturation_glc = 8.45
-    saturation_pyr = 4.27
-    saturation_amm = 1.45
+    saturation_glc = 8.6869
+    saturation_pyr = 4.4444
+    saturation_amm = 1.4848
     exch_rate_dict = {
         "r_1714": np.linspace(0, 2 * saturation_glc, 32),  # glucose
         "r_2033": np.linspace(0, 2 * saturation_pyr, 32),  # pyruvate
@@ -76,6 +76,9 @@ if model_options["carbon_source"] == "glc":
     saturation_carb = saturation_glc
 elif model_options["carbon_source"] == "pyr":
     exch_rate_dict.pop("r_1714")
+    # bodge
+    saturation_amm = 1.0
+    exch_rate_dict["r_1654"] = np.linspace(0, 2 * saturation_amm, 32)
     axis_options["grid_xlabel_leader"] = "Pyruvate exchange"
     saturation_carb = saturation_pyr
 
