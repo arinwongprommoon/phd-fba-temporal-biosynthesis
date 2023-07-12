@@ -24,9 +24,9 @@ if plot_options["model"] == "ec":
     wt.model.reactions.get_by_id("r_1714_REV").bounds = (0, glc_exch_rate)
 
     exch_rate_dict = {
-        "r_1714": np.linspace(0, 2 * 8.45, 8),  # glucose
-        "r_2033": np.linspace(0, 2 * 4.27, 8),  # pyruvate
-        "r_1654": np.linspace(0, 2 * 1.45, 8),  # ammonium
+        "r_1714": np.linspace(0, 2 * 8.6869, 8),  # glucose
+        "r_2033": np.linspace(0, 2 * 4.4444, 8),  # pyruvate
+        "r_1654": np.linspace(0, 2 * 1.4848, 8),  # ammonium
     }
 
 elif plot_options["model"] == "y8":
@@ -54,6 +54,7 @@ if plot_options["carbon_source"] == "glc":
     xlabel = "Glucose exchange"
 elif plot_options["carbon_source"] == "pyr":
     exch_rate_dict.pop("r_1714")
+    exch_rate_dict["r_1654"] = np.linspace(0, 2 * 1.0, 8)
     xlabel = "Pyruvate exchange"
 
 ablation_result_array = wt.ablation_grid(exch_rate_dict)
