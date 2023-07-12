@@ -32,6 +32,8 @@ plot_choices = {
     "heatmap_gradient_n": True,
     "heatmap_gradient_compare": True,
     "heatmap_ratio_whereone": True,
+    "heatmap_carb": True,
+    "heatmap_prot": True,
     "heatmap_carb_to_prot": True,
     "histogram_carb_to_prot": False,
 }
@@ -43,9 +45,15 @@ def vget_growthrate(x):
 
 
 @np.vectorize
-def vget_carb_to_prot_ratio(x):
-    carb_to_prot = x.ablated_est_time[3] / x.ablated_est_time[2]
-    return carb_to_prot
+def vget_carb(x):
+    carb = x.ablated_est_time[3]
+    return carb
+
+
+@np.vectorize
+def vget_prot(x):
+    prot = x.ablated_est_time[2]
+    return prot
 
 
 if model_options["model"] == "ec":
@@ -94,7 +102,9 @@ growthrate_gradient_greater = np.abs(growthrate_gradient[0]) - np.abs(
     growthrate_gradient[1]
 )
 ratio_array_mask = ratio_array > 1
-carb_to_prot_array = vget_carb_to_prot_ratio(ablation_result_array)
+carb_array = vget_carb(ablation_result_array)
+prot_array = vget_prot(ablation_result_array)
+carb_to_prot_array = carb_array / prot_array
 
 # Prepare lists for ratio vs growthrate plot
 ratios = ratio_array[1:, 1:].ravel()
@@ -239,6 +249,46 @@ if plot_choices["heatmap_ratio_whereone"]:
     ax_heatmap_ratio_whereone.set_ylabel(grid_ylabel)
     ax_heatmap_ratio_whereone.set_title(r"Conditions in which $r > 1$")
 
+if plot_choices["heatmap_carb"]:
+    fig_heatmap_carb, ax_heatmap_carb = plt.subplots()
+    heatmap_ablation_grid(
+        ax_heatmap_carb,
+        exch_rate_dict,
+        carb_array,
+        percent_saturation=True,
+        saturation_point=(saturation_carb, saturation_amm),
+        saturation_grid=True,
+        vmin=0,
+        vmax=0.3,  # sensible real max 1.2, lower for 'robustness'
+        cmap="Reds",
+        cbar_label="Time (hours)",
+    )
+    ax_heatmap_carb.contour(np.rot90(ratio_array_mask))
+    ax_heatmap_carb.set_xlabel(grid_xlabel)
+    ax_heatmap_carb.set_ylabel(grid_ylabel)
+    ax_heatmap_carb.set_title("Predicted carbohydrate synthesis time")
+
+
+if plot_choices["heatmap_prot"]:
+    fig_heatmap_prot, ax_heatmap_prot = plt.subplots()
+    heatmap_ablation_grid(
+        ax_heatmap_prot,
+        exch_rate_dict,
+        prot_array,
+        percent_saturation=True,
+        saturation_point=(saturation_carb, saturation_amm),
+        saturation_grid=True,
+        vmin=0,
+        vmax=3,  # sensible real max 12, lower for 'robustness'
+        cmap="Blues",
+        cbar_label="Time (hours)",
+    )
+    ax_heatmap_prot.contour(np.rot90(ratio_array_mask))
+    ax_heatmap_prot.set_xlabel(grid_xlabel)
+    ax_heatmap_prot.set_ylabel(grid_ylabel)
+    ax_heatmap_prot.set_title("Predicted protein synthesis time")
+
+
 if plot_choices["heatmap_carb_to_prot"]:
     fig_heatmap_carb_to_prot, ax_heatmap_carb_to_prot = plt.subplots()
     heatmap_ablation_grid(
@@ -250,7 +300,7 @@ if plot_choices["heatmap_carb_to_prot"]:
         saturation_grid=True,
         vmin=None,
         vmax=None,
-        cmap="Reds",
+        cmap="Purples",
         cbar_label="Ratio",
     )
     ax_heatmap_carb_to_prot.contour(np.rot90(ratio_array_mask))
