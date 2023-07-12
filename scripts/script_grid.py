@@ -106,21 +106,6 @@ carb_array = vget_carb(ablation_result_array)
 prot_array = vget_prot(ablation_result_array)
 carb_to_prot_array = carb_array / prot_array
 
-# Prepare lists for ratio vs growthrate plot
-ratios = ratio_array[1:, 1:].ravel()
-growthrates = growthrate_array[1:, 1:].ravel()
-
-# Prepare data structures for carb:prot ratio vs abl ratio plots
-carb_to_prot_ratios = carb_to_prot_array[1:, 1:].ravel()
-ratio_bools = ratio_array_mask[1:, 1:].ravel()
-
-carb_to_prot_df = pd.DataFrame(
-    {
-        "carb_to_prot_ratio": carb_to_prot_ratios,
-        "ratio_bool": ratio_bools,
-    }
-)
-
 # Set up axes parameters
 grid_xlabel_leader = axis_options["grid_xlabel_leader"]
 grid_ylabel_leader = axis_options["grid_ylabel_leader"]
@@ -164,6 +149,8 @@ if plot_choices["heatmap_growthrate"]:
     ax_heatmap_growthrate.set_title("Growth rate")
 
 if plot_choices["scatter_growthrate_ratio"]:
+    ratios = ratio_array[1:, 1:].ravel()
+    growthrates = growthrate_array[1:, 1:].ravel()
     fig_heatmap_scatter_growthrate_ratio, ax_scatter_growthrate_ratio = plt.subplots()
     ax_scatter_growthrate_ratio.scatter(growthrates, ratios)
     ax_scatter_growthrate_ratio.set_xlabel(r"Growth rate ($h^{-1}$)")
@@ -316,6 +303,14 @@ if plot_choices["heatmap_carb_to_prot"]:
     )
 
 if plot_choices["histogram_carb_to_prot"]:
+    carb_to_prot_ratios = carb_to_prot_array[1:, 1:].ravel()
+    ratio_bools = ratio_array_mask[1:, 1:].ravel()
+    carb_to_prot_df = pd.DataFrame(
+        {
+            "carb_to_prot_ratio": carb_to_prot_ratios,
+            "ratio_bool": ratio_bools,
+        }
+    )
     fig_histogram_carb_to_prot, ax_histogram_carb_to_prot = plt.subplots()
     sns.histplot(
         data=carb_to_prot_df,
