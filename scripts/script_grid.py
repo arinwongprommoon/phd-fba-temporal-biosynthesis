@@ -259,7 +259,7 @@ if plot_choices["heatmap_carb"]:
         saturation_point=(saturation_carb, saturation_amm),
         saturation_grid=True,
         vmin=0,
-        vmax=0.3,  # sensible real max 1.2, lower for 'robustness'
+        vmax=3,
         cmap="Reds",
         cbar_label="Time (hours)",
     )
@@ -279,7 +279,7 @@ if plot_choices["heatmap_prot"]:
         saturation_point=(saturation_carb, saturation_amm),
         saturation_grid=True,
         vmin=0,
-        vmax=3,  # sensible real max 12, lower for 'robustness'
+        vmax=10,
         cmap="Blues",
         cbar_label="Time (hours)",
     )
