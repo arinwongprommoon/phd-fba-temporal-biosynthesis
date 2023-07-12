@@ -142,6 +142,7 @@ if plot_choices["heatmap_ratio"]:
         vmax=axis_options["ratio_vmax"],
         cbar_label="Ratio",
     )
+    ax_heatmap_ratio.contour(np.rot90(ratio_array_mask))
     ax_heatmap_ratio.set_xlabel(grid_xlabel)
     ax_heatmap_ratio.set_ylabel(grid_ylabel)
     ax_heatmap_ratio.set_title("Ratio")
@@ -157,6 +158,7 @@ if plot_choices["heatmap_growthrate"]:
         saturation_grid=True,
         cbar_label="Growth rate",
     )
+    ax_heatmap_growthrate.contour(np.rot90(ratio_array_mask))
     ax_heatmap_growthrate.set_xlabel(grid_xlabel)
     ax_heatmap_growthrate.set_ylabel(grid_ylabel)
     ax_heatmap_growthrate.set_title("Growth rate")
@@ -183,6 +185,7 @@ if plot_choices["heatmap_gradient_c"]:
         cmap="PiYG",
         cbar_label="Gradient",
     )
+    ax_heatmap_gradient_c.contour(np.rot90(ratio_array_mask))
     ax_heatmap_gradient_c.set_xlabel(grid_xlabel)
     ax_heatmap_gradient_c.set_ylabel(grid_ylabel)
     ax_heatmap_gradient_c.set_title(
@@ -204,6 +207,7 @@ if plot_choices["heatmap_gradient_n"]:
         cmap="PiYG",
         cbar_label="Gradient",
     )
+    ax_heatmap_gradient_n.contour(np.rot90(ratio_array_mask))
     ax_heatmap_gradient_n.set_xlabel(grid_xlabel)
     ax_heatmap_gradient_n.set_ylabel(grid_ylabel)
     ax_heatmap_gradient_n.set_title(
@@ -225,6 +229,7 @@ if plot_choices["heatmap_gradient_compare"]:
         cmap="PuOr",
         cbar_label="Gradient difference",
     )
+    ax_heatmap_gradient_compare.contour(np.rot90(ratio_array_mask))
     ax_heatmap_gradient_compare.set_xlabel(grid_xlabel)
     ax_heatmap_gradient_compare.set_ylabel(grid_ylabel)
     ax_heatmap_gradient_compare.set_title(
