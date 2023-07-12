@@ -28,10 +28,12 @@ plot_choices = {
     "heatmap_ratio": True,
     "heatmap_growthrate": True,
     "scatter_growthrate_ratio": False,
-    "heatmap_gradient_c": True,
-    "heatmap_gradient_n": True,
+    "heatmap_gradient_c": False,
+    "heatmap_gradient_n": False,
     "heatmap_gradient_compare": True,
-    "heatmap_ratio_whereone": True,
+    "heatmap_ratio_whereone": False,
+    "heatmap_carb": True,
+    "heatmap_prot": True,
     "heatmap_carb_to_prot": True,
     "histogram_carb_to_prot": False,
 }
@@ -43,9 +45,15 @@ def vget_growthrate(x):
 
 
 @np.vectorize
-def vget_carb_to_prot_ratio(x):
-    carb_to_prot = x.ablated_est_time[3] / x.ablated_est_time[2]
-    return carb_to_prot
+def vget_carb(x):
+    carb = x.ablated_est_time[3]
+    return carb
+
+
+@np.vectorize
+def vget_prot(x):
+    prot = x.ablated_est_time[2]
+    return prot
 
 
 if model_options["model"] == "ec":
@@ -94,22 +102,9 @@ growthrate_gradient_greater = np.abs(growthrate_gradient[0]) - np.abs(
     growthrate_gradient[1]
 )
 ratio_array_mask = ratio_array > 1
-carb_to_prot_array = vget_carb_to_prot_ratio(ablation_result_array)
-
-# Prepare lists for ratio vs growthrate plot
-ratios = ratio_array[1:, 1:].ravel()
-growthrates = growthrate_array[1:, 1:].ravel()
-
-# Prepare data structures for carb:prot ratio vs abl ratio plots
-carb_to_prot_ratios = carb_to_prot_array[1:, 1:].ravel()
-ratio_bools = ratio_array_mask[1:, 1:].ravel()
-
-carb_to_prot_df = pd.DataFrame(
-    {
-        "carb_to_prot_ratio": carb_to_prot_ratios,
-        "ratio_bool": ratio_bools,
-    }
-)
+carb_array = vget_carb(ablation_result_array)
+prot_array = vget_prot(ablation_result_array)
+carb_to_prot_array = carb_array / prot_array
 
 # Set up axes parameters
 grid_xlabel_leader = axis_options["grid_xlabel_leader"]
@@ -132,6 +127,7 @@ if plot_choices["heatmap_ratio"]:
         vmax=axis_options["ratio_vmax"],
         cbar_label="Ratio",
     )
+    ax_heatmap_ratio.contour(np.rot90(ratio_array_mask))
     ax_heatmap_ratio.set_xlabel(grid_xlabel)
     ax_heatmap_ratio.set_ylabel(grid_ylabel)
     ax_heatmap_ratio.set_title("Ratio")
@@ -147,11 +143,14 @@ if plot_choices["heatmap_growthrate"]:
         saturation_grid=True,
         cbar_label="Growth rate",
     )
+    ax_heatmap_growthrate.contour(np.rot90(ratio_array_mask))
     ax_heatmap_growthrate.set_xlabel(grid_xlabel)
     ax_heatmap_growthrate.set_ylabel(grid_ylabel)
     ax_heatmap_growthrate.set_title("Growth rate")
 
 if plot_choices["scatter_growthrate_ratio"]:
+    ratios = ratio_array[1:, 1:].ravel()
+    growthrates = growthrate_array[1:, 1:].ravel()
     fig_heatmap_scatter_growthrate_ratio, ax_scatter_growthrate_ratio = plt.subplots()
     ax_scatter_growthrate_ratio.scatter(growthrates, ratios)
     ax_scatter_growthrate_ratio.set_xlabel(r"Growth rate ($h^{-1}$)")
@@ -173,6 +172,7 @@ if plot_choices["heatmap_gradient_c"]:
         cmap="PiYG",
         cbar_label="Gradient",
     )
+    ax_heatmap_gradient_c.contour(np.rot90(ratio_array_mask))
     ax_heatmap_gradient_c.set_xlabel(grid_xlabel)
     ax_heatmap_gradient_c.set_ylabel(grid_ylabel)
     ax_heatmap_gradient_c.set_title(
@@ -194,6 +194,7 @@ if plot_choices["heatmap_gradient_n"]:
         cmap="PiYG",
         cbar_label="Gradient",
     )
+    ax_heatmap_gradient_n.contour(np.rot90(ratio_array_mask))
     ax_heatmap_gradient_n.set_xlabel(grid_xlabel)
     ax_heatmap_gradient_n.set_ylabel(grid_ylabel)
     ax_heatmap_gradient_n.set_title(
@@ -215,6 +216,7 @@ if plot_choices["heatmap_gradient_compare"]:
         cmap="PuOr",
         cbar_label="Gradient difference",
     )
+    ax_heatmap_gradient_compare.contour(np.rot90(ratio_array_mask))
     ax_heatmap_gradient_compare.set_xlabel(grid_xlabel)
     ax_heatmap_gradient_compare.set_ylabel(grid_ylabel)
     ax_heatmap_gradient_compare.set_title(
@@ -239,6 +241,46 @@ if plot_choices["heatmap_ratio_whereone"]:
     ax_heatmap_ratio_whereone.set_ylabel(grid_ylabel)
     ax_heatmap_ratio_whereone.set_title(r"Conditions in which $r > 1$")
 
+if plot_choices["heatmap_carb"]:
+    fig_heatmap_carb, ax_heatmap_carb = plt.subplots()
+    heatmap_ablation_grid(
+        ax_heatmap_carb,
+        exch_rate_dict,
+        carb_array,
+        percent_saturation=True,
+        saturation_point=(saturation_carb, saturation_amm),
+        saturation_grid=True,
+        vmin=0,
+        vmax=3,
+        cmap="Reds",
+        cbar_label="Time (hours)",
+    )
+    ax_heatmap_carb.contour(np.rot90(ratio_array_mask))
+    ax_heatmap_carb.set_xlabel(grid_xlabel)
+    ax_heatmap_carb.set_ylabel(grid_ylabel)
+    ax_heatmap_carb.set_title("Predicted carbohydrate synthesis time")
+
+
+if plot_choices["heatmap_prot"]:
+    fig_heatmap_prot, ax_heatmap_prot = plt.subplots()
+    heatmap_ablation_grid(
+        ax_heatmap_prot,
+        exch_rate_dict,
+        prot_array,
+        percent_saturation=True,
+        saturation_point=(saturation_carb, saturation_amm),
+        saturation_grid=True,
+        vmin=0,
+        vmax=10,
+        cmap="Blues",
+        cbar_label="Time (hours)",
+    )
+    ax_heatmap_prot.contour(np.rot90(ratio_array_mask))
+    ax_heatmap_prot.set_xlabel(grid_xlabel)
+    ax_heatmap_prot.set_ylabel(grid_ylabel)
+    ax_heatmap_prot.set_title("Predicted protein synthesis time")
+
+
 if plot_choices["heatmap_carb_to_prot"]:
     fig_heatmap_carb_to_prot, ax_heatmap_carb_to_prot = plt.subplots()
     heatmap_ablation_grid(
@@ -250,7 +292,7 @@ if plot_choices["heatmap_carb_to_prot"]:
         saturation_grid=True,
         vmin=None,
         vmax=None,
-        cmap="Reds",
+        cmap="Purples",
         cbar_label="Ratio",
     )
     ax_heatmap_carb_to_prot.contour(np.rot90(ratio_array_mask))
@@ -261,6 +303,14 @@ if plot_choices["heatmap_carb_to_prot"]:
     )
 
 if plot_choices["histogram_carb_to_prot"]:
+    carb_to_prot_ratios = carb_to_prot_array[1:, 1:].ravel()
+    ratio_bools = ratio_array_mask[1:, 1:].ravel()
+    carb_to_prot_df = pd.DataFrame(
+        {
+            "carb_to_prot_ratio": carb_to_prot_ratios,
+            "ratio_bool": ratio_bools,
+        }
+    )
     fig_histogram_carb_to_prot, ax_histogram_carb_to_prot = plt.subplots()
     sns.histplot(
         data=carb_to_prot_df,
