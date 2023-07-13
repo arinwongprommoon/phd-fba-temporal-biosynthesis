@@ -36,3 +36,17 @@ x_susceptibility = np.multiply(x_coeff_array, growthrate_gradient[0])
 y_susceptibility = np.multiply(y_coeff_array, growthrate_gradient[1])
 
 breakpoint()
+
+growthrate_gradient_greater = np.abs(growthrate_gradient[0]) - np.abs(
+    growthrate_gradient[1]
+)
+sns.heatmap(growthrate_gradient_greater, cmap="PuOr")
+plt.show()
+
+breakpoint()
+
+susceptibility_greater = np.abs(x_susceptibility) - np.abs(y_susceptibility)
+sns.heatmap(susceptibility_greater, cmap="PuOr")
+plt.show()
+
+breakpoint()
