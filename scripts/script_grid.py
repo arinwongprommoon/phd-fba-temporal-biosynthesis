@@ -144,6 +144,9 @@ if plot_choices["heatmap_growthrate"]:
         percent_saturation=True,
         saturation_point=(saturation_carb, saturation_amm),
         saturation_grid=True,
+        vmin=None,
+        vmax=None,
+        cmap="cividis",
         cbar_label="Growth rate",
     )
     ax_heatmap_growthrate.contour(np.rot90(ratio_array_mask), origin="lower")
