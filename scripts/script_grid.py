@@ -8,6 +8,7 @@ import seaborn as sns
 from matplotlib.backends.backend_pdf import PdfPages
 
 from src.calc.ablation import vget_ablation_ratio
+from src.calc.matrix import get_susceptibility
 from src.viz.grid import heatmap_ablation_grid
 
 model_options = {
@@ -31,6 +32,7 @@ plot_choices = {
     "heatmap_gradient_c": False,
     "heatmap_gradient_n": False,
     "heatmap_gradient_compare": True,
+    "heatmap_sus_compare": True,
     "heatmap_ratio_whereone": False,
     "heatmap_carb": True,
     "heatmap_prot": True,
@@ -82,6 +84,7 @@ if model_options["carbon_source"] == "glc":
     exch_rate_dict.pop("r_2033")
     axis_options["grid_xlabel_leader"] = "Glucose exchange"
     saturation_carb = saturation_glc
+    x_axis = exch_rate_dict["r_1714"]
 elif model_options["carbon_source"] == "pyr":
     exch_rate_dict.pop("r_1714")
     # bodge
@@ -89,6 +92,8 @@ elif model_options["carbon_source"] == "pyr":
     exch_rate_dict["r_1654"] = np.linspace(0, 2 * saturation_amm, 32)
     axis_options["grid_xlabel_leader"] = "Pyruvate exchange"
     saturation_carb = saturation_pyr
+    x_axis = exch_rate_dict["r_2033"]
+y_axis = exch_rate_dict["r_1654"]
 
 # Load saved data
 filename = model_options["model"] + "_grid_" + model_options["carbon_source"] + "_amm"
@@ -103,6 +108,8 @@ ratio_array = vget_ablation_ratio(ablation_result_array)
 ratio_array[0, :] = np.nan
 ratio_array[:, 0] = np.nan
 
+ratio_sus = get_susceptibility(ratio_array, x_axis, y_axis)
+
 growthrate_array = vget_growthrate(ablation_result_array)
 growthrate_array[0, :] = np.nan
 growthrate_array[:, 0] = np.nan
@@ -111,6 +118,9 @@ growthrate_gradient = np.gradient(growthrate_array)
 growthrate_gradient_greater = np.abs(growthrate_gradient[0]) - np.abs(
     growthrate_gradient[1]
 )
+
+growthrate_sus = get_susceptibility(growthrate_array, x_axis, y_axis)
+growthrate_sus_greater = np.abs(growthrate_sus[0]) - np.abs(growthrate_sus[1])
 
 ratio_array_mask = ratio_array > 1
 
@@ -242,6 +252,29 @@ if plot_choices["heatmap_gradient_compare"]:
     ax_heatmap_gradient_compare.set_title(
         f"Differences in magnitude of gradient,\n{grid_xlabel_leader} -- {grid_ylabel_leader}"
     )
+
+if plot_choices["heatmap_sus_compare"]:
+    fig_heatmap_sus_compare, ax_heatmap_sus_compare = plt.subplots()
+    heatmap_ablation_grid(
+        ax_heatmap_sus_compare,
+        exch_rate_dict,
+        growthrate_sus_greater,
+        percent_saturation=True,
+        saturation_point=(saturation_carb, saturation_amm),
+        saturation_grid=True,
+        vmin=None,
+        vmax=None,
+        center=0,
+        cmap="PuOr",
+        cbar_label="Susceptibility difference",
+    )
+    ax_heatmap_sus_compare.contour(np.rot90(ratio_array_mask), origin="lower")
+    ax_heatmap_sus_compare.set_xlabel(grid_xlabel)
+    ax_heatmap_sus_compare.set_ylabel(grid_ylabel)
+    ax_heatmap_sus_compare.set_title(
+        f"Differences in magnitude of susceptibility,\n{grid_xlabel_leader} -- {grid_ylabel_leader}"
+    )
+
 
 if plot_choices["heatmap_ratio_whereone"]:
     fig_heatmap_ratio_whereone, ax_heatmap_ratio_whereone = plt.subplots()
