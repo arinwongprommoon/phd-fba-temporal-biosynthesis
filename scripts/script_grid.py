@@ -27,6 +27,7 @@ axis_options = {
 
 plot_choices = {
     "heatmap_ratio": True,
+    "heatmap_ratio_sus_compare": True,
     "heatmap_gr": True,
     "scatter_gr_ratio": False,
     "heatmap_gr_gradient_c": False,
@@ -109,6 +110,7 @@ ratio_array[0, :] = np.nan
 ratio_array[:, 0] = np.nan
 
 ratio_sus = get_susceptibility(ratio_array, x_axis, y_axis)
+ratio_sus_greater = np.abs(ratio_sus[0]) - np.abs(ratio_sus[1])
 
 gr_array = vget_gr(ablation_result_array)
 gr_array[0, :] = np.nan
@@ -156,6 +158,28 @@ if plot_choices["heatmap_ratio"]:
     ax_heatmap_ratio.set_xlabel(grid_xlabel)
     ax_heatmap_ratio.set_ylabel(grid_ylabel)
     ax_heatmap_ratio.set_title("Ratio")
+
+if plot_choices["heatmap_ratio_sus_compare"]:
+    fig_heatmap_ratio_sus_compare, ax_heatmap_ratio_sus_compare = plt.subplots()
+    heatmap_ablation_grid(
+        ax_heatmap_ratio_sus_compare,
+        exch_rate_dict,
+        ratio_sus_greater,
+        percent_saturation=True,
+        saturation_point=(saturation_carb, saturation_amm),
+        saturation_grid=True,
+        vmin=None,
+        vmax=None,
+        center=0,
+        cmap="PuOr",
+        cbar_label="Susceptibility difference",
+    )
+    ax_heatmap_ratio_sus_compare.contour(np.rot90(ratio_array_mask), origin="lower")
+    ax_heatmap_ratio_sus_compare.set_xlabel(grid_xlabel)
+    ax_heatmap_ratio_sus_compare.set_ylabel(grid_ylabel)
+    ax_heatmap_ratio_sus_compare.set_title(
+        f"Differences in magnitude of susceptibility of ratio,\n{grid_xlabel_leader} -- {grid_ylabel_leader}"
+    )
 
 if plot_choices["heatmap_gr"]:
     fig_heatmap_gr, ax_heatmap_gr = plt.subplots()
@@ -270,7 +294,7 @@ if plot_choices["heatmap_gr_sus_compare"]:
     ax_heatmap_gr_sus_compare.set_xlabel(grid_xlabel)
     ax_heatmap_gr_sus_compare.set_ylabel(grid_ylabel)
     ax_heatmap_gr_sus_compare.set_title(
-        f"Differences in magnitude of susceptibility,\n{grid_xlabel_leader} -- {grid_ylabel_leader}"
+        f"Differences in magnitude of susceptibility of growth rate,\n{grid_xlabel_leader} -- {grid_ylabel_leader}"
     )
 
 
