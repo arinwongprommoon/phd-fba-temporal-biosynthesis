@@ -99,6 +99,10 @@ with open(filepath, "rb") as handle:
 # Compute data
 # Generate numpy arrays from ablation_result_array
 ratio_array = vget_ablation_ratio(ablation_result_array)
+# Replace pixels that correspond to exch rate 0 with NaNs
+ratio_array[0, :] = np.nan
+ratio_array[:, 0] = np.nan
+
 growthrate_array = vget_growthrate(ablation_result_array)
 growthrate_gradient = np.gradient(growthrate_array)
 growthrate_gradient_greater = np.abs(growthrate_gradient[0]) - np.abs(
@@ -106,7 +110,11 @@ growthrate_gradient_greater = np.abs(growthrate_gradient[0]) - np.abs(
 )
 ratio_array_mask = ratio_array > 1
 carb_array = vget_carb(ablation_result_array)
+carb_array[0, :] = np.nan
+carb_array[:, 0] = np.nan
 prot_array = vget_prot(ablation_result_array)
+prot_array[0, :] = np.nan
+prot_array[:, 0] = np.nan
 carb_to_prot_array = carb_array / prot_array
 
 # Set up axes parameters
