@@ -50,3 +50,19 @@ sns.heatmap(susceptibility_greater, cmap="PuOr")
 plt.show()
 
 breakpoint()
+
+
+def get_susceptibility(array, x_axis, y_axis):
+    array_gradient = np.gradient(array, x_axis, y_axis)
+    array_reciprocal = np.reciprocal(array)
+    x_coeff_array = np.multiply(array_reciprocal, x_axis[np.newaxis, :])
+    y_coeff_array = np.multiply(array_reciprocal, y_axis[:, np.newaxis])
+    x_susceptibility = np.multiply(x_coeff_array, array_gradient[0])
+    y_susceptibility = np.multiply(y_coeff_array, array_gradient[1])
+
+    return (x_susceptibility, y_susceptibility)
+
+
+susceptibility = get_susceptibility(growthrate_array, x_axis, y_axis)
+
+breakpoint()
