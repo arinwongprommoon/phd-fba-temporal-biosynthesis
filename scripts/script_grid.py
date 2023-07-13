@@ -134,8 +134,9 @@ if plot_choices["heatmap_ratio"]:
         percent_saturation=True,
         saturation_point=(saturation_carb, saturation_amm),
         saturation_grid=True,
-        vmin=axis_options["ratio_vmin"],
-        vmax=axis_options["ratio_vmax"],
+        vmin=0.70,
+        vmax=1.20,
+        center=1,
         cbar_label="Ratio",
     )
     ax_heatmap_ratio.contour(np.rot90(ratio_array_mask), origin="lower")
@@ -152,8 +153,8 @@ if plot_choices["heatmap_growthrate"]:
         percent_saturation=True,
         saturation_point=(saturation_carb, saturation_amm),
         saturation_grid=True,
-        vmin=None,
-        vmax=None,
+        vmin=0,
+        vmax=0.40,
         cmap="cividis",
         cbar_label="Growth rate",
     )
@@ -304,8 +305,8 @@ if plot_choices["heatmap_carb_to_prot"]:
         percent_saturation=True,
         saturation_point=(saturation_carb, saturation_amm),
         saturation_grid=True,
-        vmin=None,
-        vmax=None,
+        vmin=0,
+        vmax=0.5,
         cmap="Purples",
         cbar_label="Ratio",
     )
