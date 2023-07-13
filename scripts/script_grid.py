@@ -104,11 +104,16 @@ ratio_array[0, :] = np.nan
 ratio_array[:, 0] = np.nan
 
 growthrate_array = vget_growthrate(ablation_result_array)
+growthrate_array[0, :] = np.nan
+growthrate_array[:, 0] = np.nan
+
 growthrate_gradient = np.gradient(growthrate_array)
 growthrate_gradient_greater = np.abs(growthrate_gradient[0]) - np.abs(
     growthrate_gradient[1]
 )
+
 ratio_array_mask = ratio_array > 1
+
 carb_array = vget_carb(ablation_result_array)
 carb_array[0, :] = np.nan
 carb_array[:, 0] = np.nan
