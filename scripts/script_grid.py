@@ -13,7 +13,7 @@ from src.viz.grid import heatmap_ablation_grid
 
 model_options = {
     # "glc" or "pyr"
-    "carbon_source": "glc",
+    "carbon_source": "pyr",
 }
 
 axis_options = {
@@ -55,27 +55,28 @@ def vget_prot(x):
 
 saturation_glc = 8.6869
 saturation_pyr = 4.4444
-saturation_amm = 1.4848
-exch_rate_dict = {
-    "r_1714": np.linspace(0, 2 * saturation_glc, 32),  # glucose
-    "r_2033": np.linspace(0, 2 * saturation_pyr, 32),  # pyruvate
-    "r_1654": np.linspace(0, 2 * saturation_amm, 32),  # ammonium
-}
+
+exch_rate_dict = {}
 
 if model_options["carbon_source"] == "glc":
-    exch_rate_dict.pop("r_2033")
-    axis_options["grid_xlabel_leader"] = "Glucose exchange"
-    saturation_carb = saturation_glc
+    # build exch_rate_dict
+    saturation_amm = 1.4848
+    exch_rate_dict["r_1714"] = np.linspace(0, 2 * saturation_glc, 32)
+    # plot options
     x_axis = exch_rate_dict["r_1714"]
+    saturation_carb = saturation_glc
+    axis_options["grid_xlabel_leader"] = "Glucose exchange"
 elif model_options["carbon_source"] == "pyr":
-    exch_rate_dict.pop("r_1714")
-    # bodge
+    # build exch_rate_dict
     saturation_amm = 1.0
-    exch_rate_dict["r_1654"] = np.linspace(0, 2 * saturation_amm, 32)
-    axis_options["grid_xlabel_leader"] = "Pyruvate exchange"
-    saturation_carb = saturation_pyr
+    exch_rate_dict["r_2033"] = np.linspace(0, 2 * saturation_pyr, 32)
+    # plot options
     x_axis = exch_rate_dict["r_2033"]
+    saturation_carb = saturation_pyr
+    axis_options["grid_xlabel_leader"] = "Pyruvate exchange"
+exch_rate_dict["r_1654"] = np.linspace(0, 2 * saturation_amm, 32)
 y_axis = exch_rate_dict["r_1654"]
+
 
 # Load saved data
 filename = "ec_grid_" + model_options["carbon_source"] + "_amm"
