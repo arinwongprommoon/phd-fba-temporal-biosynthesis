@@ -105,7 +105,32 @@ def riced_heatmap(
     cmap="RdBu_r",
     streamplot=False,
 ):
-    """Convenience function for drawing heatmaps with streamplots"""
+    """Convenience function to draw heatmaps with streamplots
+
+    Parameters
+    ----------
+    ax : matplotlib.pyplot Axes
+        axes to draw on
+    acoll : ArrayCollection
+        array collection object
+    attribute : string
+        attribute of acoll to access to draw on heatmap. default "array"
+    cbar_label : string
+        colour bar label
+    title : string
+        title of plot
+    vmin : float
+        min value to show on heatmap
+    vmax : float
+        max value to show on heatmap
+    center : float
+        centre value for heatmap
+    cmap : string
+        matplotlib colour palette to use for colours
+    streamplot : bool
+        if true, draw streamplot based on susceptibility
+
+    """
     heatmap_ablation_grid(
         ax,
         exch_rate_dict,
