@@ -231,6 +231,7 @@ if plot_choices["heatmap_carb"]:
         vmin=0,
         vmax=3,
         cmap="Reds",
+        streamplot=True,
     )
 
 if plot_choices["heatmap_prot"]:
@@ -243,6 +244,7 @@ if plot_choices["heatmap_prot"]:
         vmin=0,
         vmax=10,
         cmap="Blues",
+        streamplot=True,
     )
 
 if plot_choices["heatmap_carb_to_prot"]:
@@ -255,6 +257,7 @@ if plot_choices["heatmap_carb_to_prot"]:
         vmin=0,
         vmax=0.5,
         cmap="Purples",
+        streamplot=True,
     )
 
 
