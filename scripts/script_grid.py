@@ -9,7 +9,7 @@ import seaborn as sns
 from matplotlib.backends.backend_pdf import PdfPages
 
 from src.calc.ablation import vget_ablation_ratio
-from src.calc.matrix import get_susceptibility
+from src.calc.matrix import ArrayCollection, get_susceptibility
 from src.viz.grid import heatmap_ablation_grid
 
 model_options = {
@@ -77,7 +77,8 @@ grid_ylabel_leader = "Ammonium exchange"
 # Set up axes parameters
 grid_xlabel = f"{grid_xlabel_leader} (% saturation)"
 grid_ylabel = f"{grid_ylabel_leader} (% saturation)"
-
+# For streamplot
+X, Y = np.meshgrid(np.linspace(0, 31, 32), np.linspace(0, 31, 32))
 
 # Load saved data
 filename = "ec_grid_" + model_options["carbon_source"] + "_amm"
@@ -85,72 +86,13 @@ filepath = "../data/interim/" + filename + ".pkl"
 with open(filepath, "rb") as handle:
     ablation_result_array = pickle.load(handle)
 
-
 # Compute data
-X, Y = np.meshgrid(np.linspace(0, 31, 32), np.linspace(0, 31, 32))
-
-
-class ArrayCollection:
-    def __init__(self, raw_array, x_axis, y_axis):
-        # Store raw input
-        self.raw = raw_array
-
-        # Main use
-        self.array = self.raw
-        # Replace pixels that correspond to exch rate 0 with NaNs
-        # These are prone to weird values
-        self.array[0, :] = np.nan
-        self.array[:, 0] = np.nan
-
-        # Susceptibility
-        _sus = get_susceptibility(self.array, x_axis, y_axis)
-        self.sus = GradientCollection(*_sus)
-
-        # Gradient
-        _gradient = np.gradient(self.array)
-        self.gradient = GradientCollection(*_gradient)
-
-        # For streamplots
-        # rot90 and flipping values to get orientation & arrow right because
-        # matplotlib and seaborn use different axes directions
-        # Only sus for now -- will extend to gradient when needed
-        _sus_sp = get_susceptibility(np.rot90(self.array), x_axis, y_axis[::-1])
-        self.sus_sp = StreamplotInputs(*_sus_sp)
-
-
-class GradientCollection:
-    def __init__(self, x_gradient_array, y_gradient_array):
-        # Store raw input
-        self.x = x_gradient_array
-        self.y = y_gradient_array
-
-        # Magnitude
-        self.magnitudes = np.sqrt(self.x**2, self.y**2)
-
-        # Magnitude of x subtracted by magnitude of y
-        # Useful for seeing which area is x- or y-limiting
-        self.greater = np.abs(self.x) - np.abs(self.y)
-
-
-class StreamplotInputs:
-    def __init__(self, x_gradient_array, y_gradient_array):
-        # Store raw input
-        self.x = x_gradient_array
-        self.y = y_gradient_array
-
-        # Flipping to play well with streamplot
-        self.y = -self.y
-
-        # Magnitude
-        self.magnitudes = np.sqrt(self.x**2, self.y**2)
-
-
 ratio = ArrayCollection(vget_ablation_ratio(ablation_result_array), x_axis, y_axis)
 gr = ArrayCollection(vget_gr(ablation_result_array), x_axis, y_axis)
 carb = ArrayCollection(vget_carb(ablation_result_array), x_axis, y_axis)
 prot = ArrayCollection(vget_prot(ablation_result_array), x_axis, y_axis)
 carb_to_prot = ArrayCollection(carb.array / prot.array, x_axis, y_axis)
-
+# Mask
 ratio_array_mask = ratio.array > 1
 
 
