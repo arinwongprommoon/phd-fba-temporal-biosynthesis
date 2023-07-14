@@ -29,4 +29,4 @@ def get_susceptibility(array, x_axis, y_axis):
     x_susceptibility = np.multiply(x_coeff_array, array_gradient[0])
     y_susceptibility = np.multiply(y_coeff_array, array_gradient[1])
 
-    return (x_susceptibility, y_susceptibility)
+    return [x_susceptibility, y_susceptibility]
