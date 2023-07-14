@@ -6,7 +6,6 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 from matplotlib.backends.backend_pdf import PdfPages
-from matplotlib import transforms
 
 from src.calc.ablation import vget_ablation_ratio
 from src.calc.matrix import get_susceptibility
@@ -103,11 +102,6 @@ filepath = "../data/interim/" + filename + ".pkl"
 with open(filepath, "rb") as handle:
     ablation_result_array = pickle.load(handle)
 
-# matplotlib boilerplate
-base = plt.gca().transData
-rot = transforms.Affine2D().rotate_deg(90)
-transl = transforms.Affine2D().translate(32, 0)
-
 # Compute data
 X, Y = np.meshgrid(np.linspace(0, 31, 32), np.linspace(0, 31, 32))
 # Generate numpy arrays from ablation_result_array
@@ -126,10 +120,8 @@ gr_array[:, 0] = np.nan
 gr_gradient = np.gradient(gr_array)
 gr_gradient_greater = np.abs(gr_gradient[0]) - np.abs(gr_gradient[1])
 # doing on rot90 to get streamplot arrows right...
-# gr_sus = get_susceptibility(gr_array, x_axis, y_axis)
-# gr_sus_magnitudes_ = np.sqrt(gr_sus[0] ** 2, gr_sus[1] ** 2)
-# gr_sus_greater_ = np.abs(gr_sus[0]) - np.abs(gr_sus[1])
 gr_sus_rot90 = get_susceptibility(np.rot90(gr_array), x_axis, y_axis[::-1])
+gr_sus_rot90[1] = -gr_sus_rot90[1]
 gr_sus_magnitudes_rot90 = np.sqrt(gr_sus_rot90[0] ** 2, gr_sus_rot90[1] ** 2)
 gr_sus_greater_rot90 = np.abs(gr_sus_rot90[0]) - np.abs(gr_sus_rot90[1])
 gr_sus_greater = np.rot90(gr_sus_greater_rot90, 3)
@@ -211,8 +203,8 @@ if plot_choices["heatmap_gr"]:
     ax_heatmap_gr.streamplot(
         X,
         Y,
-        gr_sus_rot90[0],
         gr_sus_rot90[1],
+        gr_sus_rot90[0],
         color=gr_sus_magnitudes_rot90,
         cmap="magma",
     )
