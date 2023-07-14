@@ -12,8 +12,6 @@ from src.calc.matrix import get_susceptibility
 from src.viz.grid import heatmap_ablation_grid
 
 model_options = {
-    # "ec" or "y8"
-    "model": "ec",
     # "glc" or "pyr"
     "carbon_source": "glc",
 }
@@ -59,27 +57,14 @@ def vget_prot(x):
     return prot
 
 
-if model_options["model"] == "ec":
-    saturation_glc = 8.6869
-    saturation_pyr = 4.4444
-    saturation_amm = 1.4848
-    exch_rate_dict = {
-        "r_1714": np.linspace(0, 2 * saturation_glc, 32),  # glucose
-        "r_2033": np.linspace(0, 2 * saturation_pyr, 32),  # pyruvate
-        "r_1654": np.linspace(0, 2 * saturation_amm, 32),  # ammonium
-    }
-elif model_options["model"] == "y8":
-    saturation_glc = 4.75
-    saturation_pyr = 13.32
-    saturation_amm = 2.88
-    exch_rate_dict = {
-        "r_1714": np.linspace(0, 2 * saturation_glc, 32),  # glucose
-        "r_2033": np.linspace(0, 2 * saturation_pyr, 32),  # pyruvate
-        "r_1654": np.linspace(0, 2 * saturation_amm, 32),  # ammonium
-    }
-else:
-    m = model_options["model"]
-    print(f"Invalid model {m}")
+saturation_glc = 8.6869
+saturation_pyr = 4.4444
+saturation_amm = 1.4848
+exch_rate_dict = {
+    "r_1714": np.linspace(0, 2 * saturation_glc, 32),  # glucose
+    "r_2033": np.linspace(0, 2 * saturation_pyr, 32),  # pyruvate
+    "r_1654": np.linspace(0, 2 * saturation_amm, 32),  # ammonium
+}
 
 if model_options["carbon_source"] == "glc":
     exch_rate_dict.pop("r_2033")
@@ -97,7 +82,7 @@ elif model_options["carbon_source"] == "pyr":
 y_axis = exch_rate_dict["r_1654"]
 
 # Load saved data
-filename = model_options["model"] + "_grid_" + model_options["carbon_source"] + "_amm"
+filename = "ec_grid_" + model_options["carbon_source"] + "_amm"
 filepath = "../data/interim/" + filename + ".pkl"
 with open(filepath, "rb") as handle:
     ablation_result_array = pickle.load(handle)
