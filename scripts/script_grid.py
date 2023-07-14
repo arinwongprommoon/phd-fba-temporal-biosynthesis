@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import operator
 import pickle
 
 import matplotlib.pyplot as plt
@@ -24,7 +25,6 @@ plot_choices = {
     "heatmap_gr_gradient_n": False,
     "heatmap_gr_gradient_compare": True,
     "heatmap_gr_sus_compare": True,
-    "heatmap_ratio_whereone": False,
     "heatmap_carb": True,
     "heatmap_prot": True,
     "heatmap_carb_to_prot": True,
@@ -154,253 +154,170 @@ carb_to_prot = ArrayCollection(carb.array / prot.array, x_axis, y_axis)
 ratio_array_mask = ratio.array > 1
 
 
+def riced_heatmap(
+    ax,
+    acoll,
+    attribute="array",
+    cbar_label=" ",
+    title=" ",
+    vmin=None,
+    vmax=None,
+    center=None,
+    cmap="RdBu_r",
+    streamplot=False,
+):
+    """Convenience function for drawing heatmaps with streamplots"""
+    heatmap_ablation_grid(
+        ax,
+        exch_rate_dict,
+        operator.attrgetter(attribute)(acoll),
+        percent_saturation=True,
+        saturation_point=(saturation_carb, saturation_amm),
+        saturation_grid=True,
+        vmin=vmin,
+        vmax=vmax,
+        center=center,
+        cmap=cmap,
+        cbar_label=cbar_label,
+    )
+    ax.contour(np.rot90(ratio_array_mask), origin="lower")
+    if streamplot:
+        ax.streamplot(
+            X,
+            Y,
+            acoll.sus_sp.y,
+            acoll.sus_sp.x,
+            color=acoll.sus_sp.magnitudes,
+            arrowstyle="->",
+            cmap="autumn",
+        )
+    ax.set_xlabel(grid_xlabel)
+    ax.set_ylabel(grid_ylabel)
+    ax.set_title(title)
+
+
 # Plot!
 
 if plot_choices["heatmap_ratio"]:
     fig_heatmap_ratio, ax_heatmap_ratio = plt.subplots()
-    heatmap_ablation_grid(
+    riced_heatmap(
         ax_heatmap_ratio,
-        exch_rate_dict,
-        ratio.array,
-        percent_saturation=True,
-        saturation_point=(saturation_carb, saturation_amm),
-        saturation_grid=True,
+        acoll=ratio,
+        cbar_label="Ratio",
+        title="Ratio",
         vmin=0.70,
         vmax=1.20,
         center=1,
-        cbar_label="Ratio",
+        streamplot=True,
     )
-    ax_heatmap_ratio.contour(np.rot90(ratio_array_mask), origin="lower")
-    ax_heatmap_ratio.streamplot(
-        X,
-        Y,
-        ratio.sus_sp.y,
-        ratio.sus_sp.x,
-        color=ratio.sus_sp.magnitudes,
-        arrowstyle="->",
-        cmap="autumn",
-    )
-    ax_heatmap_ratio.set_xlabel(grid_xlabel)
-    ax_heatmap_ratio.set_ylabel(grid_ylabel)
-    ax_heatmap_ratio.set_title("Ratio")
 
 if plot_choices["heatmap_ratio_sus_compare"]:
     fig_heatmap_ratio_sus_compare, ax_heatmap_ratio_sus_compare = plt.subplots()
-    heatmap_ablation_grid(
+    riced_heatmap(
         ax_heatmap_ratio_sus_compare,
-        exch_rate_dict,
-        ratio_sus_greater,
-        percent_saturation=True,
-        saturation_point=(saturation_carb, saturation_amm),
-        saturation_grid=True,
-        vmin=None,
-        vmax=None,
+        acoll=ratio,
+        attribute="sus.greater",
+        cbar_label="Susceptibility difference",
+        title=f"Differences in magnitude of susceptibility of ratio,\n{grid_xlabel_leader} -- {grid_ylabel_leader}",
         center=0,
         cmap="PuOr",
-        cbar_label="Susceptibility difference",
     )
-    ax_heatmap_ratio_sus_compare.contour(np.rot90(ratio_array_mask), origin="lower")
-    ax_heatmap_ratio_sus_compare.set_xlabel(grid_xlabel)
-    ax_heatmap_ratio_sus_compare.set_ylabel(grid_ylabel)
-    ax_heatmap_ratio_sus_compare.set_title(
-        f"Differences in magnitude of susceptibility of ratio,\n{grid_xlabel_leader} -- {grid_ylabel_leader}"
-    )
+
 
 if plot_choices["heatmap_gr"]:
     fig_heatmap_gr, ax_heatmap_gr = plt.subplots()
-    heatmap_ablation_grid(
+    riced_heatmap(
         ax_heatmap_gr,
-        exch_rate_dict,
-        gr_array,
-        percent_saturation=True,
-        saturation_point=(saturation_carb, saturation_amm),
-        saturation_grid=True,
+        acoll=gr,
+        cbar_label="Growth rate",
+        title="Growth rate",
         vmin=0,
         vmax=0.40,
         cmap="cividis",
-        cbar_label="Growth rate",
+        streamplot=True,
     )
-    ax_heatmap_gr.contour(np.rot90(ratio_array_mask), origin="lower")
-    ax_heatmap_gr.streamplot(
-        X,
-        Y,
-        gr_sus_rot90[1],
-        gr_sus_rot90[0],
-        color=gr_sus_magnitudes_rot90,
-        arrowstyle="->",
-        cmap="autumn",
-    )
-    ax_heatmap_gr.set_xlabel(grid_xlabel)
-    ax_heatmap_gr.set_ylabel(grid_ylabel)
-    ax_heatmap_gr.set_title("Growth rate")
 
 if plot_choices["heatmap_gr_gradient_c"]:
-    fig_heatmap_gr_gradient_c, ax_heatmap_gr_gradient_c = plt.subplots()
-    heatmap_ablation_grid(
-        ax_heatmap_gr_gradient_c,
-        exch_rate_dict,
-        gr_gradient[0],
-        percent_saturation=True,
-        saturation_point=(saturation_carb, saturation_amm),
-        saturation_grid=True,
-        vmin=None,
-        vmax=None,
-        center=0,
-        cmap="PiYG",
+    fig_heatmap_gr_gradient_c, ax_heatmap_gradient_c = plt.subplots()
+    riced_heatmap(
+        ax_heatmap_gradient_c,
+        acoll=gr,
+        attribute="gradient.x",
         cbar_label="Gradient",
-    )
-    ax_heatmap_gr_gradient_c.contour(np.rot90(ratio_array_mask), origin="lower")
-    ax_heatmap_gr_gradient_c.set_xlabel(grid_xlabel)
-    ax_heatmap_gr_gradient_c.set_ylabel(grid_ylabel)
-    ax_heatmap_gr_gradient_c.set_title(
-        f"Gradient of growth rate,\nalong {grid_xlabel_leader} axis"
+        title=f"Gradient of growth rate,\nalong {grid_xlabel_leader} axis",
+        cmap="PiYG",
     )
 
 if plot_choices["heatmap_gr_gradient_n"]:
-    fig_heatmap_gr_gradient_n, ax_heatmap_gr_gradient_n = plt.subplots()
-    heatmap_ablation_grid(
-        ax_heatmap_gr_gradient_n,
-        exch_rate_dict,
-        gr_gradient[1],
-        percent_saturation=True,
-        saturation_point=(saturation_carb, saturation_amm),
-        saturation_grid=True,
-        vmin=None,
-        vmax=None,
-        center=0,
-        cmap="PiYG",
+    fig_heatmap_gr_gradient_n, ax_heatmap_gradient_n = plt.subplots()
+    riced_heatmap(
+        ax_heatmap_gradient_n,
+        acoll=gr,
+        attribute="gradient.y",
         cbar_label="Gradient",
-    )
-    ax_heatmap_gr_gradient_n.contour(np.rot90(ratio_array_mask), origin="lower")
-    ax_heatmap_gr_gradient_n.set_xlabel(grid_xlabel)
-    ax_heatmap_gr_gradient_n.set_ylabel(grid_ylabel)
-    ax_heatmap_gr_gradient_n.set_title(
-        f"Gradient of growth rate,\nalong {grid_ylabel_leader} axis"
+        title=f"Gradient of growth rate,\nalong {grid_ylabel_leader} axis",
+        cmap="PiYG",
     )
 
 if plot_choices["heatmap_gr_gradient_compare"]:
     fig_heatmap_gr_gradient_compare, ax_heatmap_gr_gradient_compare = plt.subplots()
-    heatmap_ablation_grid(
+    riced_heatmap(
         ax_heatmap_gr_gradient_compare,
-        exch_rate_dict,
-        gr_gradient_greater,
-        percent_saturation=True,
-        saturation_point=(saturation_carb, saturation_amm),
-        saturation_grid=True,
-        vmin=None,
-        vmax=None,
+        acoll=gr,
+        attribute="gradient.greater",
+        cbar_label="Gradient difference",
+        title=f"Differences in magnitude of gradient,\n{grid_xlabel_leader} -- {grid_ylabel_leader}",
         center=0,
         cmap="PuOr",
-        cbar_label="Gradient difference",
-    )
-    ax_heatmap_gr_gradient_compare.contour(np.rot90(ratio_array_mask), origin="lower")
-    ax_heatmap_gr_gradient_compare.set_xlabel(grid_xlabel)
-    ax_heatmap_gr_gradient_compare.set_ylabel(grid_ylabel)
-    ax_heatmap_gr_gradient_compare.set_title(
-        f"Differences in magnitude of gradient,\n{grid_xlabel_leader} -- {grid_ylabel_leader}"
     )
 
 if plot_choices["heatmap_gr_sus_compare"]:
     fig_heatmap_gr_sus_compare, ax_heatmap_gr_sus_compare = plt.subplots()
-    heatmap_ablation_grid(
+    riced_heatmap(
         ax_heatmap_gr_sus_compare,
-        exch_rate_dict,
-        gr_sus_greater,
-        percent_saturation=True,
-        saturation_point=(saturation_carb, saturation_amm),
-        saturation_grid=True,
-        vmin=None,
-        vmax=None,
-        center=0,
-        cmap="PuOr",
+        acoll=gr,
+        attribute="sus.greater",
         cbar_label="Susceptibility difference",
+        title=f"Differences in magnitude of susceptibility,\n{grid_xlabel_leader} -- {grid_ylabel_leader}",
+        cmap="PuOr",
     )
-    ax_heatmap_gr_sus_compare.contour(np.rot90(ratio_array_mask), origin="lower")
-    ax_heatmap_gr_sus_compare.set_xlabel(grid_xlabel)
-    ax_heatmap_gr_sus_compare.set_ylabel(grid_ylabel)
-    ax_heatmap_gr_sus_compare.set_title(
-        f"Differences in magnitude of susceptibility of growth rate,\n{grid_xlabel_leader} -- {grid_ylabel_leader}"
-    )
-
-
-if plot_choices["heatmap_ratio_whereone"]:
-    fig_heatmap_ratio_whereone, ax_heatmap_ratio_whereone = plt.subplots()
-    heatmap_ablation_grid(
-        ax_heatmap_ratio_whereone,
-        exch_rate_dict,
-        ratio_array_mask,
-        percent_saturation=True,
-        saturation_point=(saturation_carb, saturation_amm),
-        saturation_grid=True,
-        vmin=None,
-        vmax=None,
-        cmap="cividis",
-        cbar_label=" ",
-    )
-    ax_heatmap_ratio_whereone.set_xlabel(grid_xlabel)
-    ax_heatmap_ratio_whereone.set_ylabel(grid_ylabel)
-    ax_heatmap_ratio_whereone.set_title(r"Conditions in which $r > 1$")
 
 if plot_choices["heatmap_carb"]:
     fig_heatmap_carb, ax_heatmap_carb = plt.subplots()
-    heatmap_ablation_grid(
+    riced_heatmap(
         ax_heatmap_carb,
-        exch_rate_dict,
-        carb_array,
-        percent_saturation=True,
-        saturation_point=(saturation_carb, saturation_amm),
-        saturation_grid=True,
+        acoll=carb,
+        cbar_label="Time (hours)",
+        title="Predicted carbohydrate synthesis time",
         vmin=0,
         vmax=3,
         cmap="Reds",
-        cbar_label="Time (hours)",
     )
-    ax_heatmap_carb.contour(np.rot90(ratio_array_mask), origin="lower")
-    ax_heatmap_carb.set_xlabel(grid_xlabel)
-    ax_heatmap_carb.set_ylabel(grid_ylabel)
-    ax_heatmap_carb.set_title("Predicted carbohydrate synthesis time")
-
 
 if plot_choices["heatmap_prot"]:
     fig_heatmap_prot, ax_heatmap_prot = plt.subplots()
-    heatmap_ablation_grid(
+    riced_heatmap(
         ax_heatmap_prot,
-        exch_rate_dict,
-        prot_array,
-        percent_saturation=True,
-        saturation_point=(saturation_carb, saturation_amm),
-        saturation_grid=True,
+        acoll=prot,
+        cbar_label="Time (hours)",
+        title="Predicted protein synthesis time",
         vmin=0,
         vmax=10,
         cmap="Blues",
-        cbar_label="Time (hours)",
     )
-    ax_heatmap_prot.contour(np.rot90(ratio_array_mask), origin="lower")
-    ax_heatmap_prot.set_xlabel(grid_xlabel)
-    ax_heatmap_prot.set_ylabel(grid_ylabel)
-    ax_heatmap_prot.set_title("Predicted protein synthesis time")
-
 
 if plot_choices["heatmap_carb_to_prot"]:
     fig_heatmap_carb_to_prot, ax_heatmap_carb_to_prot = plt.subplots()
-    heatmap_ablation_grid(
+    riced_heatmap(
         ax_heatmap_carb_to_prot,
-        exch_rate_dict,
-        carb_to_prot_array,
-        percent_saturation=True,
-        saturation_point=(saturation_carb, saturation_amm),
-        saturation_grid=True,
+        acoll=carb_to_prot,
+        cbar_label="Ratio",
+        title="Ratio of carbohydrate synthesis time\nto protein synthesis time",
         vmin=0,
         vmax=0.5,
         cmap="Purples",
-        cbar_label="Ratio",
     )
-    ax_heatmap_carb_to_prot.contour(np.rot90(ratio_array_mask), origin="lower")
-    ax_heatmap_carb_to_prot.set_xlabel(grid_xlabel)
-    ax_heatmap_carb_to_prot.set_ylabel(grid_ylabel)
-    ax_heatmap_carb_to_prot.set_title(
-        "Ratio of carbohydrate synthesis time\nto protein synthesis time"
-    )
+
 
 pdf_filename = "../reports/" + filename + ".pdf"
 with PdfPages(pdf_filename) as pdf:
