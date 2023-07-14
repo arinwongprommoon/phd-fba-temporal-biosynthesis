@@ -125,10 +125,14 @@ gr_array[:, 0] = np.nan
 
 gr_gradient = np.gradient(gr_array)
 gr_gradient_greater = np.abs(gr_gradient[0]) - np.abs(gr_gradient[1])
-
-gr_sus = get_susceptibility(gr_array, x_axis, y_axis)
-gr_sus_magnitudes = np.sqrt(gr_sus[0] ** 2, gr_sus[1] ** 2)
-gr_sus_greater = np.abs(gr_sus[0]) - np.abs(gr_sus[1])
+# doing on rot90 to get streamplot arrows right...
+# gr_sus = get_susceptibility(gr_array, x_axis, y_axis)
+# gr_sus_magnitudes_ = np.sqrt(gr_sus[0] ** 2, gr_sus[1] ** 2)
+# gr_sus_greater_ = np.abs(gr_sus[0]) - np.abs(gr_sus[1])
+gr_sus_rot90 = get_susceptibility(np.rot90(gr_array), x_axis, y_axis[::-1])
+gr_sus_magnitudes_rot90 = np.sqrt(gr_sus_rot90[0] ** 2, gr_sus_rot90[1] ** 2)
+gr_sus_greater_rot90 = np.abs(gr_sus_rot90[0]) - np.abs(gr_sus_rot90[1])
+gr_sus_greater = np.rot90(gr_sus_greater_rot90, 3)
 
 ratio_array_mask = ratio_array > 1
 
@@ -207,9 +211,9 @@ if plot_choices["heatmap_gr"]:
     ax_heatmap_gr.streamplot(
         X,
         Y,
-        gr_sus[0],
-        gr_sus[1],
-        color=gr_sus_magnitudes,
+        gr_sus_rot90[0],
+        gr_sus_rot90[1],
+        color=gr_sus_magnitudes_rot90,
         cmap="magma",
     )
     ax_heatmap_gr.set_xlabel(grid_xlabel)
