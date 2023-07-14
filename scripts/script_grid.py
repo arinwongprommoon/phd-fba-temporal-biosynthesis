@@ -161,7 +161,7 @@ if plot_choices["heatmap_ratio"]:
     heatmap_ablation_grid(
         ax_heatmap_ratio,
         exch_rate_dict,
-        ratio_array,
+        ratio.array,
         percent_saturation=True,
         saturation_point=(saturation_carb, saturation_amm),
         saturation_grid=True,
@@ -174,9 +174,9 @@ if plot_choices["heatmap_ratio"]:
     ax_heatmap_ratio.streamplot(
         X,
         Y,
-        ratio_sus_rot90[1],
-        ratio_sus_rot90[0],
-        color=ratio_sus_magnitudes_rot90,
+        ratio.sus_sp.y,
+        ratio.sus_sp.x,
+        color=ratio.sus_sp.magnitudes,
         arrowstyle="->",
         cmap="autumn",
     )
