@@ -16,11 +16,6 @@ model_options = {
     "carbon_source": "glc",
 }
 
-axis_options = {
-    "grid_xlabel_leader": None,
-    "grid_ylabel_leader": "Ammonium exchange",
-}
-
 plot_choices = {
     "heatmap_ratio": True,
     "heatmap_ratio_sus_compare": True,
@@ -65,7 +60,7 @@ if model_options["carbon_source"] == "glc":
     # plot options
     x_axis = exch_rate_dict["r_1714"]
     saturation_carb = saturation_glc
-    axis_options["grid_xlabel_leader"] = "Glucose exchange"
+    grid_xlabel_leader = "Glucose exchange"
 elif model_options["carbon_source"] == "pyr":
     # build exch_rate_dict
     saturation_amm = 1.0
@@ -73,9 +68,15 @@ elif model_options["carbon_source"] == "pyr":
     # plot options
     x_axis = exch_rate_dict["r_2033"]
     saturation_carb = saturation_pyr
-    axis_options["grid_xlabel_leader"] = "Pyruvate exchange"
+    grid_xlabel_leader = "Pyruvate exchange"
+
 exch_rate_dict["r_1654"] = np.linspace(0, 2 * saturation_amm, 32)
 y_axis = exch_rate_dict["r_1654"]
+grid_ylabel_leader = "Ammonium exchange"
+
+# Set up axes parameters
+grid_xlabel = f"{grid_xlabel_leader} (% saturation)"
+grid_ylabel = f"{grid_ylabel_leader} (% saturation)"
 
 
 # Load saved data
@@ -152,11 +153,6 @@ carb_to_prot = ArrayCollection(carb.array / prot.array, x_axis, y_axis)
 
 ratio_array_mask = ratio.array > 1
 
-# Set up axes parameters
-grid_xlabel_leader = axis_options["grid_xlabel_leader"]
-grid_ylabel_leader = axis_options["grid_ylabel_leader"]
-grid_xlabel = f"{grid_xlabel_leader} (% saturation)"
-grid_ylabel = f"{grid_ylabel_leader} (% saturation)"
 
 # Plot!
 
