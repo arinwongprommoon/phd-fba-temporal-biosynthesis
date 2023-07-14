@@ -13,7 +13,7 @@ from src.viz.grid import heatmap_ablation_grid
 
 model_options = {
     # "glc" or "pyr"
-    "carbon_source": "pyr",
+    "carbon_source": "glc",
 }
 
 axis_options = {
@@ -84,43 +84,73 @@ filepath = "../data/interim/" + filename + ".pkl"
 with open(filepath, "rb") as handle:
     ablation_result_array = pickle.load(handle)
 
+
 # Compute data
 X, Y = np.meshgrid(np.linspace(0, 31, 32), np.linspace(0, 31, 32))
-# Generate numpy arrays from ablation_result_array
-ratio_array = vget_ablation_ratio(ablation_result_array)
-# Replace pixels that correspond to exch rate 0 with NaNs
-ratio_array[0, :] = np.nan
-ratio_array[:, 0] = np.nan
 
-# doing on rot90 to get streamplot arrows right...
-ratio_sus_rot90 = get_susceptibility(np.rot90(ratio_array), x_axis, y_axis[::-1])
-ratio_sus_rot90[1] = -ratio_sus_rot90[1]
-ratio_sus_magnitudes_rot90 = np.sqrt(ratio_sus_rot90[0] ** 2, ratio_sus_rot90[1] ** 2)
-ratio_sus_greater_rot90 = np.abs(ratio_sus_rot90[0]) - np.abs(ratio_sus_rot90[1])
-ratio_sus_greater = np.rot90(ratio_sus_greater_rot90, 3)
 
-gr_array = vget_gr(ablation_result_array)
-gr_array[0, :] = np.nan
-gr_array[:, 0] = np.nan
+class ArrayCollection:
+    def __init__(self, raw_array, x_axis, y_axis):
+        # Store raw input
+        self.raw = raw_array
 
-gr_gradient = np.gradient(gr_array)
-gr_gradient_greater = np.abs(gr_gradient[0]) - np.abs(gr_gradient[1])
-# doing on rot90 to get streamplot arrows right...
-gr_sus_rot90 = get_susceptibility(np.rot90(gr_array), x_axis, y_axis[::-1])
-gr_sus_rot90[1] = -gr_sus_rot90[1]
-gr_sus_magnitudes_rot90 = np.sqrt(gr_sus_rot90[0] ** 2, gr_sus_rot90[1] ** 2)
-gr_sus_greater_rot90 = np.abs(gr_sus_rot90[0]) - np.abs(gr_sus_rot90[1])
-gr_sus_greater = np.rot90(gr_sus_greater_rot90, 3)
+        # Main use
+        self.array = self.raw
+        # Replace pixels that correspond to exch rate 0 with NaNs
+        # These are prone to weird values
+        self.array[0, :] = np.nan
+        self.array[:, 0] = np.nan
 
-ratio_array_mask = ratio_array > 1
+        # Susceptibility
+        _sus = get_susceptibility(self.array, x_axis, y_axis)
+        self.sus = GradientCollection(*_sus)
 
-carb_array = vget_carb(ablation_result_array)
-carb_array[0, :] = np.nan
-carb_array[:, 0] = np.nan
-prot_array = vget_prot(ablation_result_array)
-prot_array[0, :] = np.nan
-prot_array[:, 0] = np.nan
-carb_to_prot_array = carb_array / prot_array
+        # Gradient
+        _gradient = np.gradient(self.array)
+        self.gradient = GradientCollection(*_gradient)
+
+        # For streamplots
+        # rot90 and flipping values to get orientation & arrow right because
+        # matplotlib and seaborn use different axes directions
+        # Only sus for now -- will extend to gradient when needed
+        _sus_sp = get_susceptibility(np.rot90(self.array), x_axis, y_axis[::-1])
+        self.sus_sp = StreamplotInputs(*_sus_sp)
+
+
+class GradientCollection:
+    def __init__(self, x_gradient_array, y_gradient_array):
+        # Store raw input
+        self.x = x_gradient_array
+        self.y = y_gradient_array
+
+        # Magnitude
+        self.magnitudes = np.sqrt(self.x**2, self.y**2)
+
+        # Magnitude of x subtracted by magnitude of y
+        # Useful for seeing which area is x- or y-limiting
+        self.greater = np.abs(self.x) - np.abs(self.y)
+
+
+class StreamplotInputs:
+    def __init__(self, x_gradient_array, y_gradient_array):
+        # Store raw input
+        self.x = x_gradient_array
+        self.y = y_gradient_array
+
+        # Flipping to play well with streamplot
+        self.y = -self.y
+
+        # Magnitude
+        self.magnitudes = np.sqrt(self.x**2, self.y**2)
+
+
+ratio = ArrayCollection(vget_ablation_ratio(ablation_result_array), x_axis, y_axis)
+gr = ArrayCollection(vget_gr(ablation_result_array), x_axis, y_axis)
+carb = ArrayCollection(vget_carb(ablation_result_array), x_axis, y_axis)
+prot = ArrayCollection(vget_prot(ablation_result_array), x_axis, y_axis)
+carb_to_prot = ArrayCollection(carb.array / prot.array, x_axis, y_axis)
+
+ratio_array_mask = ratio.array > 1
 
 # Set up axes parameters
 grid_xlabel_leader = axis_options["grid_xlabel_leader"]
