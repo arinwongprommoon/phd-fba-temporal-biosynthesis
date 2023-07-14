@@ -33,7 +33,8 @@ growthrate_array[0, :] = np.nan
 growthrate_array[:, 0] = np.nan
 
 # Compute susceptibility
-sus = get_susceptibility(growthrate_array, x_axis, y_axis)
+# sus = get_susceptibility(growthrate_array, x_axis, y_axis)
+sus = np.gradient(growthrate_array)
 
 # Draw susceptibility
 fig, ax = plt.subplots()
@@ -52,6 +53,7 @@ X, Y = np.meshgrid(np.linspace(0, 31, 32), np.linspace(0, 31, 32))
 magnitudes = np.sqrt(sus[0] ** 2, sus[1] ** 2)
 
 fig, ax = plt.subplots()
+sns.heatmap(data=growthrate_array, ax=ax)
 # ax.streamplot(X, Y, sus[0], sus[1], color=magnitudes, cmap="magma")
 ax.quiver(X, Y, sus[0], sus[1])
 ax.set_title("quiver")
