@@ -33,9 +33,9 @@ growthrate_array[0, :] = np.nan
 growthrate_array[:, 0] = np.nan
 
 # Compute susceptibility
-# sus = get_susceptibility(growthrate_array, x_axis, y_axis)
-sus = np.gradient(np.rot90(growthrate_array))
-# sus[0] = -sus[0]
+sus = get_susceptibility(np.rot90(growthrate_array), x_axis, y_axis[::-1])
+# sus = np.gradient(np.rot90(growthrate_array))
+sus[1] = -sus[1]
 
 # Draw susceptibility
 fig, ax = plt.subplots()
