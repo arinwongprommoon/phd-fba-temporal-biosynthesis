@@ -110,8 +110,12 @@ ratio_array = vget_ablation_ratio(ablation_result_array)
 ratio_array[0, :] = np.nan
 ratio_array[:, 0] = np.nan
 
-ratio_sus = get_susceptibility(ratio_array, x_axis, y_axis)
-ratio_sus_greater = np.abs(ratio_sus[0]) - np.abs(ratio_sus[1])
+# doing on rot90 to get streamplot arrows right...
+ratio_sus_rot90 = get_susceptibility(np.rot90(ratio_array), x_axis, y_axis[::-1])
+ratio_sus_rot90[1] = -ratio_sus_rot90[1]
+ratio_sus_magnitudes_rot90 = np.sqrt(ratio_sus_rot90[0] ** 2, ratio_sus_rot90[1] ** 2)
+ratio_sus_greater_rot90 = np.abs(ratio_sus_rot90[0]) - np.abs(ratio_sus_rot90[1])
+ratio_sus_greater = np.rot90(ratio_sus_greater_rot90, 3)
 
 gr_array = vget_gr(ablation_result_array)
 gr_array[0, :] = np.nan
@@ -159,6 +163,15 @@ if plot_choices["heatmap_ratio"]:
         cbar_label="Ratio",
     )
     ax_heatmap_ratio.contour(np.rot90(ratio_array_mask), origin="lower")
+    ax_heatmap_ratio.streamplot(
+        X,
+        Y,
+        ratio_sus_rot90[1],
+        ratio_sus_rot90[0],
+        color=ratio_sus_magnitudes_rot90,
+        arrowstyle="->",
+        cmap="autumn",
+    )
     ax_heatmap_ratio.set_xlabel(grid_xlabel)
     ax_heatmap_ratio.set_ylabel(grid_ylabel)
     ax_heatmap_ratio.set_title("Ratio")
