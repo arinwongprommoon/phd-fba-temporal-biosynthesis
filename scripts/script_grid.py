@@ -4,12 +4,9 @@ import pickle
 
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
-import seaborn as sns
 from matplotlib.backends.backend_pdf import PdfPages
-
 from src.calc.ablation import vget_ablation_ratio
-from src.calc.matrix import ArrayCollection, get_susceptibility
+from src.calc.matrix import ArrayCollection
 from src.viz.grid import heatmap_ablation_grid
 
 model_options = {
