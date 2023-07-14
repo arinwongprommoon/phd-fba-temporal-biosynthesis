@@ -17,8 +17,6 @@ model_options = {
 }
 
 axis_options = {
-    "ratio_vmin": 0.5,
-    "ratio_vmax": 1.5,
     "grid_xlabel_leader": None,
     "grid_ylabel_leader": "Ammonium exchange",
 }
@@ -27,7 +25,6 @@ plot_choices = {
     "heatmap_ratio": True,
     "heatmap_ratio_sus_compare": True,
     "heatmap_gr": True,
-    "scatter_gr_ratio": False,
     "heatmap_gr_gradient_c": False,
     "heatmap_gr_gradient_n": False,
     "heatmap_gr_gradient_compare": True,
@@ -36,7 +33,6 @@ plot_choices = {
     "heatmap_carb": True,
     "heatmap_prot": True,
     "heatmap_carb_to_prot": True,
-    "histogram_carb_to_prot": False,
 }
 
 
@@ -211,15 +207,6 @@ if plot_choices["heatmap_gr"]:
     ax_heatmap_gr.set_ylabel(grid_ylabel)
     ax_heatmap_gr.set_title("Growth rate")
 
-if plot_choices["scatter_gr_ratio"]:
-    ratios = ratio_array[1:, 1:].ravel()
-    grs = gr_array[1:, 1:].ravel()
-    fig_heatmap_scatter_gr_ratio, ax_scatter_gr_ratio = plt.subplots()
-    ax_scatter_gr_ratio.scatter(grs, ratios)
-    ax_scatter_gr_ratio.set_xlabel(r"Growth rate ($h^{-1}$)")
-    ax_scatter_gr_ratio.set_ylabel("Ablation ratio")
-    ax_scatter_gr_ratio.set_title("Growth rate vs ablation ratio")
-
 if plot_choices["heatmap_gr_gradient_c"]:
     fig_heatmap_gr_gradient_c, ax_heatmap_gr_gradient_c = plt.subplots()
     heatmap_ablation_grid(
@@ -387,28 +374,6 @@ if plot_choices["heatmap_carb_to_prot"]:
     ax_heatmap_carb_to_prot.set_title(
         "Ratio of carbohydrate synthesis time\nto protein synthesis time"
     )
-
-if plot_choices["histogram_carb_to_prot"]:
-    carb_to_prot_ratios = carb_to_prot_array[1:, 1:].ravel()
-    ratio_bools = ratio_array_mask[1:, 1:].ravel()
-    carb_to_prot_df = pd.DataFrame(
-        {
-            "carb_to_prot_ratio": carb_to_prot_ratios,
-            "ratio_bool": ratio_bools,
-        }
-    )
-    fig_histogram_carb_to_prot, ax_histogram_carb_to_prot = plt.subplots()
-    sns.histplot(
-        data=carb_to_prot_df,
-        x="carb_to_prot_ratio",
-        hue="ratio_bool",
-        element="step",
-        binwidth=0.02,
-        ax=ax_histogram_carb_to_prot,
-    )
-    ax_histogram_carb_to_prot.set_xlabel("Carbohydrate:Protein time ratio")
-    ax_histogram_carb_to_prot.set_ylabel("Count")
-    ax_histogram_carb_to_prot.get_legend().set_title("Ratio > 1")
 
 pdf_filename = "../reports/" + filename + ".pdf"
 with PdfPages(pdf_filename) as pdf:
