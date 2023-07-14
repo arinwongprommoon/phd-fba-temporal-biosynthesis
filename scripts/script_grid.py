@@ -206,7 +206,8 @@ if plot_choices["heatmap_gr"]:
         gr_sus_rot90[1],
         gr_sus_rot90[0],
         color=gr_sus_magnitudes_rot90,
-        cmap="magma",
+        arrowstyle="->",
+        cmap="autumn",
     )
     ax_heatmap_gr.set_xlabel(grid_xlabel)
     ax_heatmap_gr.set_ylabel(grid_ylabel)
