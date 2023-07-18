@@ -6,6 +6,7 @@ import seaborn as sns
 
 from matplotlib.backends.backend_pdf import PdfPages
 from scipy.spatial.distance import pdist, squareform
+from scipy.stats import zscore
 from sklearn.decomposition import PCA
 from src.gem.yeast8model import Yeast8Model
 
@@ -15,6 +16,10 @@ plot_choices = {
     "pca": True,
     "nonzero": True,
     "topflux": True,
+}
+
+compute_options = {
+    "zscore": True,
     "topflux/ntop": 200,
 }
 
@@ -56,10 +61,13 @@ enz_use_array = np.stack([df.to_numpy() for df in ablation_fluxes.values()])
 # because (a) they're not informative,
 # (b) they cause problems in downstream functions
 enz_use_array = enz_use_array[:, np.any(enz_use_array, axis=0)]
+if compute_options["zscore"]:
+    # Standardise vector -- compute z-scores
+    # Accounts for different dynamic ranges of fluxes for each enzyme
+    enz_use_array = zscore(enz_use_array, axis=1)
 
 list_components = list(ablation_fluxes.keys())
 
-# TODO: Add option to standardise vector (z-scores)
 
 if plot_choices["euclidean"]:
     distances = pdist(enz_use_array, metric="euclidean")
@@ -101,7 +109,9 @@ if plot_choices["pca"]:
         ax.annotate(label, (pca1[idx], pca2[idx]))
 
 if plot_choices["nonzero"]:
-    enz_use_nonzero = enz_use_array == 0
+    if compute_options["zscore"]:
+        print("Warning: zscore option is True, nonzero analysis is invalidated.")
+    enz_use_nonzero = enz_use_array != 0
     commons = pdist(enz_use_nonzero, and_wrapper)
     commons_matrix = squareform(commons)
     commons_triangle = np.tril(commons_matrix)
@@ -120,7 +130,7 @@ if plot_choices["nonzero"]:
     )
 
 if plot_choices["topflux"]:
-    ntop = plot_choices["topflux/ntop"]
+    ntop = compute_options["topflux/ntop"]
 
     # List of top N reactions, original (un-ablated)
     original_topn_list = get_topn_list(ablation_fluxes["original"], ntop)
