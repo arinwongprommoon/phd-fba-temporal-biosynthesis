@@ -18,10 +18,25 @@ plot_choices = {
     "topflux": True,
 }
 
+model_options = {
+    "glc_exch_rate": 16.89,
+    "pyr_exch_rate": None,
+    "amm_exch_rate": None,
+}
+
 compute_options = {
     "zscore": True,
     "topflux/ntop": 200,
 }
+
+
+def prettyfloat(x):
+    if x is None:
+        # Unrestricted
+        out_str = "Unres"
+    else:
+        out_str = f"{x:05.2f}".replace(".", "p")
+    return out_str
 
 
 def and_wrapper(a, b):
@@ -45,12 +60,37 @@ def rxns_to_hues(rxn_list, hue_lookup):
     return hues
 
 
-glc_exch_rate = 16.89
-
-# TODO: Add options to exchange glucose/pyruvate and ammonium exchange
 wt = Yeast8Model("../data/gemfiles/ecYeastGEM_batch_8-6-0.xml")
-wt.model.reactions.get_by_id("r_1714").bounds = (-glc_exch_rate, 0)
-wt.model.reactions.get_by_id("r_1714_REV").bounds = (0, glc_exch_rate)
+
+if model_options["glc_exch_rate"] is None:
+    wt.model.reactions.get_by_id("r_1714").bounds = (-16.89, 0)
+    wt.model.reactions.get_by_id("r_1714_REV").bounds = (0, 16.89)
+else:
+    wt.model.reactions.get_by_id("r_1714").bounds = (-model_options["glc_exch_rate"], 0)
+    wt.model.reactions.get_by_id("r_1714_REV").bounds = (
+        0,
+        model_options["glc_exch_rate"],
+    )
+
+if model_options["pyr_exch_rate"] is None:
+    pass
+else:
+    # wt.model.reactions.get_by_id("r_1714").bounds = (0, 0)
+    wt.model.reactions.get_by_id("r_2033").bounds = (-model_options["pyr_exch_rate"], 0)
+    wt.model.reactions.get_by_id("r_2033_REV").bounds = (
+        0,
+        model_options["pyr_exch_rate"],
+    )
+
+if model_options["amm_exch_rate"] is None:
+    pass
+else:
+    wt.model.reactions.get_by_id("r_1654").bounds = (-model_options["amm_exch_rate"], 0)
+    wt.model.reactions.get_by_id("r_1654_REV").bounds = (
+        0,
+        model_options["amm_exch_rate"],
+    )
+
 wt.solution = wt.optimize()
 wt.ablation_result = wt.ablate()
 ablation_fluxes = wt.ablation_fluxes
@@ -158,7 +198,16 @@ if plot_choices["topflux"]:
     ax.set_xlabel("Biomass component")
     ax.set_ylabel("Rank")
 
-filename = "compare_enz_use"
+filename = (
+    "CompareEnzUse"
+    + "_glc"
+    + prettyfloat(model_options["glc_exch_rate"])
+    + "_pyr"
+    + prettyfloat(model_options["pyr_exch_rate"])
+    + "_amm"
+    + prettyfloat(model_options["amm_exch_rate"])
+)
+
 pdf_filename = "../reports/" + filename + ".pdf"
 with PdfPages(pdf_filename) as pdf:
     for fig in range(1, plt.gcf().number + 1):
