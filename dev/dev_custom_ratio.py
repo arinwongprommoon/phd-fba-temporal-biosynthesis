@@ -1,7 +1,20 @@
 #!/usr/bin/env python3
+import pickle
 
-from src.calc.ablation import get_ablation_ratio, get_custom_ablation_ratio
+from src.calc.ablation import (
+    get_ablation_ratio,
+    get_custom_ablation_ratio,
+    vget_custom_ablation_ratio,
+)
 from src.gem.yeast8model import Yeast8Model
+
+filepath = "../data/interim/ec_grid_glc_amm.pkl"
+with open(filepath, "rb") as handle:
+    ablation_result_array = pickle.load(handle)
+
+r_array = vget_custom_ablation_ratio(ablation_result_array, ["protein", "carbohydrate"])
+
+breakpoint()
 
 glc_exch_rate = 16.89
 wt_ec = Yeast8Model("../data/gemfiles/ecYeastGEM_batch_8-6-0.xml")

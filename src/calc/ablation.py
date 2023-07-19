@@ -67,10 +67,48 @@ def vget_ablation_ratio(ablation_result_array):
 
     Examples
     --------
-    FIXME: Add docs.
+    from src.calc.ablation import get_custom_ablation_ratio
+    from src.gem.yeast8model import Yeast8Model
 
+    wt_ec = Yeast8Model("../data/gemfiles/ecYeastGEM_batch_8-6-0.xml")
+    ablation_result = wt_ec.ablate()
+    r = get_ablation_ratio(ablation_result)
     """
     return get_ablation_ratio(ablation_result_array)
+
+
+def vget_custom_ablation_ratio(ablation_result_array, component_list):
+    """Get custom ratio to represent ablation study, apply to an array
+
+    Get ratio between sum of times from ablation and longest time from
+    proportional estimation, as a summary of ablation study.  The biomass
+    components whose times are chosen for the calculation can be specified.
+
+    This is a vectorised version of get_custom_ablation_ratio(), for convenience.
+
+    Parameters
+    ----------
+    ablation_result_array : 2-dimensional numpy.ndarray of objects
+        Array of ablation result DataFrames.
+    component_list : list of str
+        List of biomass components to use in sum of times.
+
+    Examples
+    --------
+    from src.calc.ablation import get_custom_ablation_ratio
+    from src.gem.yeast8model import Yeast8Model
+
+    wt_ec = Yeast8Model("../data/gemfiles/ecYeastGEM_batch_8-6-0.xml")
+    ablation_result = wt_ec.ablate()
+    r = get_custom_ablation_ratio(ablation_result, ["protein", "carbohydrate"])
+    """
+    # numpy.vectorize has a 'smart' behaviour in that it tries to coerce the
+    # 2nd argument to arrays.  I don't want this, hence these lines.
+    # See https://stackoverflow.com/questions/4495882/numpy-vectorize-using-lists-as-arguments
+    component_list_obj = np.ndarray((1,), dtype=object)
+    component_list_obj[0] = component_list
+    _vfunc = np.vectorize(get_custom_ablation_ratio)
+    return _vfunc(ablation_result_array, component_list_obj)
 
 
 @np.vectorize
