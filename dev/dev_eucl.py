@@ -1,8 +1,28 @@
 #!/usr/bin/env python3
 
+import pickle
 import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 from src.gem.yeast8model import Yeast8Model
+
+carbon_source = "glc"
+
+# Load saved data
+filename = "ec_eucl_" + carbon_source + "_amm"
+filepath = "../data/interim/" + filename + ".pkl"
+with open(filepath, "rb") as handle:
+    ablation_result_array = pickle.load(handle)
+# Convert dtype object to float, because of pickle
+ablation_result_array = np.array(ablation_result_array, dtype=float)
+
+breakpoint()
+
+sns.heatmap(ablation_result_array)
+plt.show()
+
+breakpoint()
 
 glc_exch_rate = 16.89
 wt_ec = Yeast8Model("../data/gemfiles/ecYeastGEM_batch_8-6-0.xml")
