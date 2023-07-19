@@ -5,7 +5,7 @@ import pickle
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.backends.backend_pdf import PdfPages
-from src.calc.ablation import vget_ablation_ratio
+from src.calc.ablation import vget_ablation_ratio, vget_custom_ablation_ratio
 from src.calc.matrix import ArrayCollection
 from src.viz.grid import heatmap_ablation_grid
 
@@ -16,6 +16,8 @@ model_options = {
 
 plot_choices = {
     "heatmap_ratio": True,
+    "heatmap_ratio_prot": True,
+    "heatmap_ratio_prot_carb": True,
     "heatmap_ratio_sus_compare": True,
     "heatmap_gr": True,
     "heatmap_gr_gradient_c": False,
@@ -93,11 +95,23 @@ eucl_array = np.array(eucl_array, dtype=float)
 
 # Compute data
 ratio = ArrayCollection(vget_ablation_ratio(ablation_result_array), x_axis, y_axis)
+ratio_prot = ArrayCollection(
+    vget_custom_ablation_ratio(ablation_result_array, ["protein"]), x_axis, y_axis
+)
+ratio_prot_carb = ArrayCollection(
+    vget_custom_ablation_ratio(ablation_result_array, ["protein", "carbohydrate"]),
+    x_axis,
+    y_axis,
+)
+
 gr = ArrayCollection(vget_gr(ablation_result_array), x_axis, y_axis)
+
 carb = ArrayCollection(vget_carb(ablation_result_array), x_axis, y_axis)
 prot = ArrayCollection(vget_prot(ablation_result_array), x_axis, y_axis)
 carb_to_prot = ArrayCollection(carb.array / prot.array, x_axis, y_axis)
+
 eucl = ArrayCollection(eucl_array, x_axis, y_axis)
+
 # Mask
 ratio_array_mask = ratio.array > 1
 
@@ -178,6 +192,32 @@ if plot_choices["heatmap_ratio"]:
         acoll=ratio,
         cbar_label="Ratio",
         title="Ratio",
+        vmin=0.70,
+        vmax=1.20,
+        center=1,
+        streamplot=True,
+    )
+
+if plot_choices["heatmap_ratio_prot"]:
+    fig_heatmap_ratio_prot, ax_heatmap_ratio_prot = plt.subplots()
+    riced_heatmap(
+        ax_heatmap_ratio_prot,
+        acoll=ratio_prot,
+        cbar_label="Ratio",
+        title="Ratio (from protein component only)",
+        vmin=0.70,
+        vmax=1.20,
+        center=1,
+        streamplot=True,
+    )
+
+if plot_choices["heatmap_ratio_prot_carb"]:
+    fig_heatmap_ratio_prot_carb, ax_heatmap_ratio_prot_carb = plt.subplots()
+    riced_heatmap(
+        ax_heatmap_ratio_prot_carb,
+        acoll=ratio_prot_carb,
+        cbar_label="Ratio",
+        title="Ratio (from protein & carbohydrate components only)",
         vmin=0.70,
         vmax=1.20,
         center=1,
