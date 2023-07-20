@@ -86,13 +86,6 @@ grid_filepath = "../data/interim/" + grid_filename + ".pkl"
 with open(grid_filepath, "rb") as handle:
     ablation_result_array = pickle.load(handle)
 
-pdist_filename = "ec_pdist_" + model_options["carbon_source"] + "_amm"
-pdist_filepath = "../data/interim/" + pdist_filename + ".pkl"
-with open(pdist_filepath, "rb") as handle:
-    pdist_array = pickle.load(handle)
-# Convert dtype object to float, because of pickle
-pdist_array = np.array(pdist_array, dtype=float)
-
 # Compute data
 ratio = ArrayCollection(vget_ablation_ratio(ablation_result_array), x_axis, y_axis)
 ratio_prot = ArrayCollection(
@@ -109,8 +102,6 @@ gr = ArrayCollection(vget_gr(ablation_result_array), x_axis, y_axis)
 carb = ArrayCollection(vget_carb(ablation_result_array), x_axis, y_axis)
 prot = ArrayCollection(vget_prot(ablation_result_array), x_axis, y_axis)
 carb_to_prot = ArrayCollection(carb.array / prot.array, x_axis, y_axis)
-
-pdist = ArrayCollection(pdist_array, x_axis, y_axis)
 
 # Mask
 ratio_array_mask = ratio.array > 1
@@ -335,6 +326,16 @@ if plot_choices["heatmap_carb_to_prot"]:
     )
 
 if plot_choices["heatmap_pdist"]:
+    # Load saved data
+    pdist_filename = "ec_pdist_" + model_options["carbon_source"] + "_amm"
+    pdist_filepath = "../data/interim/" + pdist_filename + ".pkl"
+    with open(pdist_filepath, "rb") as handle:
+        pdist_array = pickle.load(handle)
+    # Convert dtype object to float, because of pickle
+    pdist_array = np.array(pdist_array, dtype=float)
+
+    pdist = ArrayCollection(pdist_array, x_axis, y_axis)
+
     fig_heatmap_pdist, ax_heatmap_pdist = plt.subplots()
     riced_heatmap(
         ax_heatmap_pdist,
