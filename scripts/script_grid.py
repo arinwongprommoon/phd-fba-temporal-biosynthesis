@@ -18,6 +18,7 @@ plot_choices = {
     "heatmap_ratio": True,
     "heatmap_ratio_prot": True,
     "heatmap_ratio_prot_carb": True,
+    "heatmap_ratio_prot_lipid": True,
     "heatmap_ratio_sus_compare": True,
     "heatmap_gr": True,
     "heatmap_gr_gradient_c": False,
@@ -86,13 +87,6 @@ grid_filepath = "../data/interim/" + grid_filename + ".pkl"
 with open(grid_filepath, "rb") as handle:
     ablation_result_array = pickle.load(handle)
 
-pdist_filename = "ec_pdist_" + model_options["carbon_source"] + "_amm"
-pdist_filepath = "../data/interim/" + pdist_filename + ".pkl"
-with open(pdist_filepath, "rb") as handle:
-    pdist_array = pickle.load(handle)
-# Convert dtype object to float, because of pickle
-pdist_array = np.array(pdist_array, dtype=float)
-
 # Compute data
 ratio = ArrayCollection(vget_ablation_ratio(ablation_result_array), x_axis, y_axis)
 ratio_prot = ArrayCollection(
@@ -103,14 +97,18 @@ ratio_prot_carb = ArrayCollection(
     x_axis,
     y_axis,
 )
+ratio_prot_lipid = ArrayCollection(
+    vget_custom_ablation_ratio(ablation_result_array, ["protein", "lipid"]),
+    x_axis,
+    y_axis,
+)
+
 
 gr = ArrayCollection(vget_gr(ablation_result_array), x_axis, y_axis)
 
 carb = ArrayCollection(vget_carb(ablation_result_array), x_axis, y_axis)
 prot = ArrayCollection(vget_prot(ablation_result_array), x_axis, y_axis)
 carb_to_prot = ArrayCollection(carb.array / prot.array, x_axis, y_axis)
-
-pdist = ArrayCollection(pdist_array, x_axis, y_axis)
 
 # Mask
 ratio_array_mask = ratio.array > 1
@@ -126,6 +124,7 @@ def riced_heatmap(
     vmax=None,
     center=None,
     cmap="RdBu_r",
+    isratio=False,
     streamplot=False,
 ):
     """Convenience function to draw heatmaps with streamplots
@@ -150,14 +149,19 @@ def riced_heatmap(
         centre value for heatmap
     cmap : string
         matplotlib colour palette to use for colours
+    isratio : bool
+       if true, treats the input array as a ratio, and define contour based on
+       where values are less than or greater than 1.  if false, draws contour
+       based on the regular definition of ratio.
     streamplot : bool
         if true, draw streamplot based on susceptibility
 
     """
+    data = operator.attrgetter(attribute)(acoll)
     heatmap_ablation_grid(
         ax,
         exch_rate_dict,
-        operator.attrgetter(attribute)(acoll),
+        data,
         percent_saturation=True,
         saturation_point=(saturation_carb, saturation_amm),
         saturation_grid=True,
@@ -167,7 +171,11 @@ def riced_heatmap(
         cmap=cmap,
         cbar_label=cbar_label,
     )
-    ax.contour(np.rot90(ratio_array_mask), origin="lower")
+    if isratio:
+        mask = data > 1
+        ax.contour(np.rot90(mask), origin="lower")
+    else:
+        ax.contour(np.rot90(ratio_array_mask), origin="lower")
     if streamplot:
         ax.streamplot(
             X,
@@ -208,6 +216,7 @@ if plot_choices["heatmap_ratio_prot"]:
         vmin=0.70,
         vmax=1.20,
         center=1,
+        isratio=True,
         streamplot=True,
     )
 
@@ -221,6 +230,21 @@ if plot_choices["heatmap_ratio_prot_carb"]:
         vmin=0.70,
         vmax=1.20,
         center=1,
+        isratio=True,
+        streamplot=True,
+    )
+
+if plot_choices["heatmap_ratio_prot_lipid"]:
+    fig_heatmap_ratio_prot_lipid, ax_heatmap_ratio_prot_lipid = plt.subplots()
+    riced_heatmap(
+        ax_heatmap_ratio_prot_lipid,
+        acoll=ratio_prot_lipid,
+        cbar_label="Ratio",
+        title="Ratio (from protein & lipid components only)",
+        vmin=0.70,
+        vmax=1.20,
+        center=1,
+        isratio=True,
         streamplot=True,
     )
 
@@ -335,6 +359,16 @@ if plot_choices["heatmap_carb_to_prot"]:
     )
 
 if plot_choices["heatmap_pdist"]:
+    # Load saved data
+    pdist_filename = "ec_pdist_" + model_options["carbon_source"] + "_amm"
+    pdist_filepath = "../data/interim/" + pdist_filename + ".pkl"
+    with open(pdist_filepath, "rb") as handle:
+        pdist_array = pickle.load(handle)
+    # Convert dtype object to float, because of pickle
+    pdist_array = np.array(pdist_array, dtype=float)
+
+    pdist = ArrayCollection(pdist_array, x_axis, y_axis)
+
     fig_heatmap_pdist, ax_heatmap_pdist = plt.subplots()
     riced_heatmap(
         ax_heatmap_pdist,
