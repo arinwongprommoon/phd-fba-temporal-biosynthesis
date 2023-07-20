@@ -177,14 +177,14 @@ def riced_heatmap(
     else:
         ax.contour(np.rot90(ratio_array_mask), origin="lower")
     if streamplot:
-        ax.streamplot(
+        ax.quiver(
             X,
             Y,
             acoll.sus_sp.y,
-            acoll.sus_sp.x,
-            color=acoll.sus_sp.magnitudes,
-            arrowstyle="->",
-            cmap="autumn",
+            -acoll.sus_sp.x,
+            # color=acoll.sus_sp.magnitudes,
+            # arrowstyle="->",
+            # cmap="autumn",
         )
     ax.set_xlabel(grid_xlabel)
     ax.set_ylabel(grid_ylabel)
