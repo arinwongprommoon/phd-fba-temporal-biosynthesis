@@ -78,7 +78,7 @@ grid_ylabel_leader = "Ammonium exchange"
 # Set up axes parameters
 grid_xlabel = f"{grid_xlabel_leader} (% saturation)"
 grid_ylabel = f"{grid_ylabel_leader} (% saturation)"
-# For streamplot
+# For quiver
 X, Y = np.meshgrid(np.linspace(0, 31, 32), np.linspace(0, 31, 32))
 
 # Load saved data
@@ -125,9 +125,9 @@ def riced_heatmap(
     center=None,
     cmap="RdBu_r",
     isratio=False,
-    streamplot=False,
+    quiver=False,
 ):
-    """Convenience function to draw heatmaps with streamplots
+    """Convenience function to draw heatmaps with quivers
 
     Parameters
     ----------
@@ -153,8 +153,8 @@ def riced_heatmap(
        if true, treats the input array as a ratio, and define contour based on
        where values are less than or greater than 1.  if false, draws contour
        based on the regular definition of ratio.
-    streamplot : bool
-        if true, draw streamplot based on susceptibility
+    quiver : bool
+        if true, draw quiver based on susceptibility
 
     """
     data = operator.attrgetter(attribute)(acoll)
@@ -176,7 +176,7 @@ def riced_heatmap(
         ax.contour(np.rot90(mask), origin="lower")
     else:
         ax.contour(np.rot90(ratio_array_mask), origin="lower")
-    if streamplot:
+    if quiver:
         ax.quiver(
             X,
             Y,
@@ -202,7 +202,7 @@ if plot_choices["heatmap_ratio"]:
         vmin=0.70,
         vmax=1.20,
         center=1,
-        streamplot=True,
+        quiver=True,
     )
 
 if plot_choices["heatmap_ratio_prot"]:
@@ -216,7 +216,7 @@ if plot_choices["heatmap_ratio_prot"]:
         vmax=1.20,
         center=1,
         isratio=True,
-        streamplot=True,
+        quiver=True,
     )
 
 if plot_choices["heatmap_ratio_prot_carb"]:
@@ -230,7 +230,7 @@ if plot_choices["heatmap_ratio_prot_carb"]:
         vmax=1.20,
         center=1,
         isratio=True,
-        streamplot=True,
+        quiver=True,
     )
 
 if plot_choices["heatmap_ratio_prot_lipid"]:
@@ -244,7 +244,7 @@ if plot_choices["heatmap_ratio_prot_lipid"]:
         vmax=1.20,
         center=1,
         isratio=True,
-        streamplot=True,
+        quiver=True,
     )
 
 if plot_choices["heatmap_ratio_sus_compare"]:
@@ -270,7 +270,7 @@ if plot_choices["heatmap_gr"]:
         vmin=0,
         vmax=0.40,
         cmap="cividis",
-        streamplot=True,
+        quiver=True,
     )
 
 if plot_choices["heatmap_gr_gradient_c"]:
@@ -328,7 +328,7 @@ if plot_choices["heatmap_carb"]:
         vmin=0,
         vmax=3,
         cmap="Reds",
-        streamplot=True,
+        quiver=True,
     )
 
 if plot_choices["heatmap_prot"]:
@@ -341,7 +341,7 @@ if plot_choices["heatmap_prot"]:
         vmin=0,
         vmax=10,
         cmap="Blues",
-        streamplot=True,
+        quiver=True,
     )
 
 if plot_choices["heatmap_carb_to_prot"]:
@@ -354,7 +354,7 @@ if plot_choices["heatmap_carb_to_prot"]:
         vmin=0,
         vmax=0.5,
         cmap="Purples",
-        streamplot=True,
+        quiver=True,
     )
 
 if plot_choices["heatmap_pdist"]:
