@@ -12,15 +12,15 @@ from src.gem.yeast8model import Yeast8Model
 
 plot_choices = {
     "euclidean": True,
-    "hierarchical": True,
+    "hierarchical": False,
     "pca": True,
-    "nonzero": True,
+    "nonzero": False,
     "topflux": True,
 }
 
 model_options = {
-    "glc_exch_rate": 0,
-    "pyr_exch_rate": 2 * 4.4444,
+    "glc_exch_rate": 16.89,
+    "pyr_exch_rate": None,
     "amm_exch_rate": None,
 }
 
@@ -122,7 +122,7 @@ if plot_choices["euclidean"]:
         yticklabels=list_components,
         vmin=0,
         vmax=0.0018,
-        cmap="cividis_r",
+        cmap="viridis_r",
         cbar_kws={"label": "Pairwise Euclidean distances of flux vectors"},
         ax=ax_euclidean,
     )
