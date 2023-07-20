@@ -117,6 +117,7 @@ def riced_heatmap(
     vmax=None,
     center=None,
     cmap="RdBu_r",
+    isratio=False,
     streamplot=False,
 ):
     """Convenience function to draw heatmaps with streamplots
@@ -141,14 +142,19 @@ def riced_heatmap(
         centre value for heatmap
     cmap : string
         matplotlib colour palette to use for colours
+    isratio : bool
+       if true, treats the input array as a ratio, and define contour based on
+       where values are less than or greater than 1.  if false, draws contour
+       based on the regular definition of ratio.
     streamplot : bool
         if true, draw streamplot based on susceptibility
 
     """
+    data = operator.attrgetter(attribute)(acoll)
     heatmap_ablation_grid(
         ax,
         exch_rate_dict,
-        operator.attrgetter(attribute)(acoll),
+        data,
         percent_saturation=True,
         saturation_point=(saturation_carb, saturation_amm),
         saturation_grid=True,
@@ -158,7 +164,11 @@ def riced_heatmap(
         cmap=cmap,
         cbar_label=cbar_label,
     )
-    ax.contour(np.rot90(ratio_array_mask), origin="lower")
+    if isratio:
+        mask = data > 1
+        ax.contour(np.rot90(mask), origin="lower")
+    else:
+        ax.contour(np.rot90(ratio_array_mask), origin="lower")
     if streamplot:
         ax.streamplot(
             X,
@@ -199,6 +209,7 @@ if plot_choices["heatmap_ratio_prot"]:
         vmin=0.70,
         vmax=1.20,
         center=1,
+        isratio=True,
         streamplot=True,
     )
 
@@ -212,6 +223,7 @@ if plot_choices["heatmap_ratio_prot_carb"]:
         vmin=0.70,
         vmax=1.20,
         center=1,
+        isratio=True,
         streamplot=True,
     )
 
