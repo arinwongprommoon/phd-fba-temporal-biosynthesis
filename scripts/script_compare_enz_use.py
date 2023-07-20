@@ -11,17 +11,17 @@ from sklearn.decomposition import PCA
 from src.gem.yeast8model import Yeast8Model
 
 plot_choices = {
-    "euclidean": True,
-    "hierarchical": True,
+    "pdist": True,
+    "hierarchical": False,
     "pca": True,
-    "nonzero": True,
+    "nonzero": False,
     "topflux": True,
 }
 
 model_options = {
-    "glc_exch_rate": 0,
-    "pyr_exch_rate": 2 * 4.4444,
-    "amm_exch_rate": None,
+    "glc_exch_rate": 0.194 * 8.6869,
+    "pyr_exch_rate": None,
+    "amm_exch_rate": 0.71 * 1.4848,
 }
 
 compute_options = {
@@ -109,22 +109,22 @@ if compute_options["zscore"]:
 list_components = list(ablation_fluxes.keys())
 
 
-if plot_choices["euclidean"]:
-    distances = pdist(enz_use_array, metric="euclidean")
+if plot_choices["pdist"]:
+    distances = pdist(enz_use_array, metric="cosine")
     distance_matrix = squareform(distances)
     distance_triangle = np.tril(distance_matrix)
     distance_triangle[np.triu_indices(distance_triangle.shape[0])] = np.nan
 
-    fig_euclidean, ax_euclidean = plt.subplots()
+    fig_pdist, ax_pdist = plt.subplots()
     sns.heatmap(
         distance_triangle,
         xticklabels=list_components,
         yticklabels=list_components,
         vmin=0,
-        vmax=0.0018,
-        cmap="cividis_r",
-        cbar_kws={"label": "Pairwise Euclidean distances of flux vectors"},
-        ax=ax_euclidean,
+        vmax=1,
+        cmap="viridis_r",
+        cbar_kws={"label": "Pairwise distances of flux vectors"},
+        ax=ax_pdist,
     )
 
 if plot_choices["hierarchical"]:
