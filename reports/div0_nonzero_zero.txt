@@ -1,0 +1,5 @@
+Triphosphate phosphohydrolase (No2), Purine metabolism, 9.314752323912176e-12
+Endopolyphosphatase (EC 3.6.1.10) (Deoxyadenosine triphosphate phosphohydrolase) (dATP phosphohydrolase) (EC 3.6.1.-) (Exopolyphosphatase) (EC 3.6.1.11) (Phosphate metabolism protein 5) (No1), Purine metabolism, 9.314752323912176e-12
+Polyphosphate phosphohydrolase (reversible) (No2), Purine metabolism, 9.314752323912176e-12
+Polyphosphate phosphohydrolase (No2), Purine metabolism, 9.314752323912176e-12
+hydroxymethylglutaryl CoA reductase (No1), Terpenoid backbone biosynthesis, 4.62179432057276e-07
