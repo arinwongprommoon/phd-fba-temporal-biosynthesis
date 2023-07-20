@@ -536,7 +536,7 @@ class Yeast8Model:
 
         return ablation_result_array
 
-    def euclidean_grid(self, exch_rate_dict):
+    def pdist_grid(self, exch_rate_dict):
         # TODO: Don't overwrite model-saved
         print(
             f"Warning: Saving current state of model to model_saved attribute.",
@@ -595,7 +595,7 @@ class Yeast8Model:
                 enz_use_array = np.stack(
                     [df.to_numpy() for df in self.ablation_fluxes.values()]
                 )
-                distances = pdist(enz_use_array, metric="euclidean")
+                distances = pdist(enz_use_array, metric="cosine")
 
                 # 7: distance between carbohydrate and protein
                 ablation_result_array[x_index, y_index] = distances[7]

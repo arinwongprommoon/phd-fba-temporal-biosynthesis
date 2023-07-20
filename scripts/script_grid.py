@@ -27,7 +27,7 @@ plot_choices = {
     "heatmap_carb": True,
     "heatmap_prot": True,
     "heatmap_carb_to_prot": True,
-    "heatmap_eucl": True,
+    "heatmap_pdist": False,
 }
 
 
@@ -86,12 +86,12 @@ grid_filepath = "../data/interim/" + grid_filename + ".pkl"
 with open(grid_filepath, "rb") as handle:
     ablation_result_array = pickle.load(handle)
 
-eucl_filename = "ec_eucl_" + model_options["carbon_source"] + "_amm"
-eucl_filepath = "../data/interim/" + eucl_filename + ".pkl"
-with open(eucl_filepath, "rb") as handle:
-    eucl_array = pickle.load(handle)
+pdist_filename = "ec_pdist_" + model_options["carbon_source"] + "_amm"
+pdist_filepath = "../data/interim/" + pdist_filename + ".pkl"
+with open(pdist_filepath, "rb") as handle:
+    pdist_array = pickle.load(handle)
 # Convert dtype object to float, because of pickle
-eucl_array = np.array(eucl_array, dtype=float)
+pdist_array = np.array(pdist_array, dtype=float)
 
 # Compute data
 ratio = ArrayCollection(vget_ablation_ratio(ablation_result_array), x_axis, y_axis)
@@ -110,7 +110,7 @@ carb = ArrayCollection(vget_carb(ablation_result_array), x_axis, y_axis)
 prot = ArrayCollection(vget_prot(ablation_result_array), x_axis, y_axis)
 carb_to_prot = ArrayCollection(carb.array / prot.array, x_axis, y_axis)
 
-eucl = ArrayCollection(eucl_array, x_axis, y_axis)
+pdist = ArrayCollection(pdist_array, x_axis, y_axis)
 
 # Mask
 ratio_array_mask = ratio.array > 1
@@ -334,15 +334,15 @@ if plot_choices["heatmap_carb_to_prot"]:
         streamplot=True,
     )
 
-if plot_choices["heatmap_eucl"]:
-    fig_heatmap_eucl, ax_heatmap_eucl = plt.subplots()
+if plot_choices["heatmap_pdist"]:
+    fig_heatmap_pdist, ax_heatmap_pdist = plt.subplots()
     riced_heatmap(
-        ax_heatmap_eucl,
-        acoll=eucl,
+        ax_heatmap_pdist,
+        acoll=pdist,
         cbar_label="Distance",
-        title="Euclidean distance between enzyme usage flux vectors:\nprioritising protein vs carbohydrate",
+        title="Cosine distance between enzyme usage flux vectors:\nprioritising protein vs carbohydrate",
         vmin=0,
-        vmax=0.0020,
+        vmax=1,
         cmap="magma_r",
     )
 
