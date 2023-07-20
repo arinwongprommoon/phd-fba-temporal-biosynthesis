@@ -18,6 +18,7 @@ plot_choices = {
     "heatmap_ratio": True,
     "heatmap_ratio_prot": True,
     "heatmap_ratio_prot_carb": True,
+    "heatmap_ratio_prot_lipid": True,
     "heatmap_ratio_sus_compare": True,
     "heatmap_gr": True,
     "heatmap_gr_gradient_c": False,
@@ -96,6 +97,12 @@ ratio_prot_carb = ArrayCollection(
     x_axis,
     y_axis,
 )
+ratio_prot_lipid = ArrayCollection(
+    vget_custom_ablation_ratio(ablation_result_array, ["protein", "lipid"]),
+    x_axis,
+    y_axis,
+)
+
 
 gr = ArrayCollection(vget_gr(ablation_result_array), x_axis, y_axis)
 
@@ -220,6 +227,20 @@ if plot_choices["heatmap_ratio_prot_carb"]:
         acoll=ratio_prot_carb,
         cbar_label="Ratio",
         title="Ratio (from protein & carbohydrate components only)",
+        vmin=0.70,
+        vmax=1.20,
+        center=1,
+        isratio=True,
+        streamplot=True,
+    )
+
+if plot_choices["heatmap_ratio_prot_lipid"]:
+    fig_heatmap_ratio_prot_lipid, ax_heatmap_ratio_prot_lipid = plt.subplots()
+    riced_heatmap(
+        ax_heatmap_ratio_prot_lipid,
+        acoll=ratio_prot_lipid,
+        cbar_label="Ratio",
+        title="Ratio (from protein & lipid components only)",
         vmin=0.70,
         vmax=1.20,
         center=1,
