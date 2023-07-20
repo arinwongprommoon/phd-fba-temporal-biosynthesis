@@ -182,9 +182,8 @@ def riced_heatmap(
             Y,
             acoll.sus_sp.y,
             -acoll.sus_sp.x,
-            # color=acoll.sus_sp.magnitudes,
-            # arrowstyle="->",
-            # cmap="autumn",
+            acoll.sus_sp.magnitudes,
+            cmap="autumn",
         )
     ax.set_xlabel(grid_xlabel)
     ax.set_ylabel(grid_ylabel)
