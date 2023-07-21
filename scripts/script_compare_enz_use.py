@@ -20,10 +20,16 @@ plot_choices = {
 }
 
 model_options = {
-    "glc_exch_rate": 16.89,  # 0.194 * 8.6869,
+    "glc_exch_rate": 16.89,
     "pyr_exch_rate": None,
-    "amm_exch_rate": None,  # 0.71 * 1.4848,
+    "amm_exch_rate": None,
 }
+
+# model_options = {
+#     "glc_exch_rate": 0.194 * 8.6869,
+#     "pyr_exch_rate": None,
+#     "amm_exch_rate": 0.71 * 1.4848,
+# }
 
 compute_options = {
     "zscore": False,
