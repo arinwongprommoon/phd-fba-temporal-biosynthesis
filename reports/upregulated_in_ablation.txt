@@ -1,0 +1,76 @@
+carb
+ 166., 165., 160., 162.,
+       172., 169., 170., 171., 161., 164., 168., 167., 163., 159.
+       
+dna
+ 165., 166., 162., 160., 170., 164., 168., 172.,
+       171., 161., 167., 159., 163., 169
+
+rna       
+ 166., 169., 167., 159.,
+       172., 163., 170., 164., 162., 171., 160., 168., 165., 161.
+       
+cofactor
+170., 166., 161., 171.,
+       167., 162., 168., 165., 160., 164., 163., 169., 172., 159.
+       
+ion
+ 160., 170., 162., 167., 169., 159., 163., 171.,
+       168., 165., 164., 161., 166., 172
+       
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+
+draw_prot_P38993
+draw_prot_P38994
+draw_prot_P38995
+draw_prot_P38998
+draw_prot_P38999
+draw_prot_P39002
+draw_prot_P39006
+draw_prot_P39007
+draw_prot_P39104
+draw_prot_P39105
+draw_prot_P39111
+draw_prot_P39518
+draw_prot_P39522
+
+draw_prot_P38993 - iron (II) transport
+draw_prot_P38994 - PI 4-P 5-kinase (various), nucleus & cell envelope
+draw_prot_P38995 - Copper-transporting ATPase (EC 3.6.3.54) (Cu(2+)-ATPase)
+draw_prot_P38998 - saccharopine dehydrogenase (NAD, L-lysine forming)
+draw_prot_P38999 - saccharopine dehydrogenase (NAD, L-glutamate forming)
+draw_prot_P39002 - fatty-acid--CoA ligase (various), cell envelope & short-chain-fatty-acid-CoA ligase (propionate)
+draw_prot_P39006 - PS decarboxylase (various), mitochondrial membrane
+draw_prot_P39007 - Dolichyl-diphosphooligosaccharide--protein glycosyltransferase subunit STT3 (Oligosaccharyl transferase subunit STT3) (EC 2.4.99.18)
+draw_prot_P39104 - phosphatidylinositol 4-kinase (various), Golgi membrane & nucleus
+draw_prot_P39105 - PC phospholipase B (various), cell envelope; LPC phospholipase B (various), cell envelope; PE phospholipase B (various), cell envelope; LPE phospholipase B (various), cell envelope
+draw_prot_P39111 - V-ATPase, Golgi & V-ATPase, vacuole
+draw_prot_P39518 - fatty-acid--CoA ligase (various)
+draw_prot_P39522 - dihydroxy-acid dehydratase (2,3-dihydroxy-3-methylbutanoate) & dihydroxy-acid dehydratase (2,3-dihydroxy-3-methylpentanoate)
+
+draw_prot_P38993 - no association
+draw_prot_P38994 - "Inositol phosphate metabolism" (16), "Transport [c, g]" (1)
+draw_prot_P38995 - "Lysine metabolism" (1)
+draw_prot_P38998 - no association
+draw_prot_P38999 - "Lysine metabolism" (1), "Fatty acid ester pathway" (1), "Fatty acid biosynthesis" (4)
+draw_prot_P39002 - "Fatty acid biosynthesis" (4), "Fatty acid ester pathway" (1), "Glycerophospholipid metabolism" (6)
+draw_prot_P39006 - "Glycerophospholipid metabolism" (2)
+draw_prot_P39007 - "N-glycan biosynthesis" (2), "Inositol phosphate metabolism" (10)
+draw_prot_P39104 - "Inositol phosphate metabolism" (6), "Glycerophospholipid metabolism" (11)
+draw_prot_P39105 - "Glycerophospholipid metabolism" (13)
+draw_prot_P39111 - "Oxidative phosphorylation" (2), "Fatty acid biosynthesis" (13), "Fatty acid ester pathway" (2)
+draw_prot_P39518 - "Fatty acid biosynthesis" (3)
+draw_prot_P39522 - "Valine, leucine and isoleucine metabolism" (2), "Transport [erm, gm]" (3), "Transport [ce, erm]" (1)
