@@ -26,7 +26,9 @@ model_options = {
 
 compute_options = {
     "zscore": False,
-    "topflux/ntop": 200,
+    # Top N reactions (of original enzyme usage fluxes) for the topflux plot.
+    # If None, it takes all the reactions with non-zero flux.
+    "topflux/ntop": None,
 }
 
 
@@ -172,7 +174,11 @@ if plot_choices["nonzero"]:
     )
 
 if plot_choices["topflux"]:
-    ntop = compute_options["topflux/ntop"]
+    if compute_options["topflux/ntop"] is not None:
+        ntop = compute_options["topflux/ntop"]
+    else:
+        ntop = np.sum(ablation_fluxes["original"] != 0)
+        print(f"topflux: number of reactions = {ntop}")
 
     # List of top N reactions, original (un-ablated)
     original_topn_list = get_topn_list(ablation_fluxes["original"], ntop)
