@@ -215,12 +215,8 @@ if plot_choices["topflux"]:
 
 
 if plot_choices["topflux_rankcorr"]:
-    # We always want to do this on the ranking on all the reactions, for max
-    # information.  Sometimes an original zero goes to non-zero in several
-    # biomass components, and I want to know whether these correlate pairwise
-    # as well
     # TODO: Refactor.  Code repeats from the above plot.
-    ntop = len(ablation_fluxes["original"])
+    ntop = np.sum(ablation_fluxes["original"] != 0)
     original_topn_list = get_topn_list(ablation_fluxes["original"], ntop)
     hue_lookup = dict((zip(original_topn_list, range(ntop))))
     hues_array = []
