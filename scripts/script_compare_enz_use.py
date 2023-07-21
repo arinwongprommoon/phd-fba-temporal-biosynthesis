@@ -6,27 +6,37 @@ import seaborn as sns
 
 from matplotlib.backends.backend_pdf import PdfPages
 from scipy.spatial.distance import pdist, squareform
-from scipy.stats import zscore
+from scipy.stats import zscore, spearmanr
 from sklearn.decomposition import PCA
 from src.gem.yeast8model import Yeast8Model
 
 plot_choices = {
-    "pdist": True,
+    "pdist": False,
     "hierarchical": False,
-    "pca": True,
+    "pca": False,
     "nonzero": False,
     "topflux": True,
+    "topflux_rankcorr": True,
 }
 
 model_options = {
-    "glc_exch_rate": 0.194 * 8.6869,
+    "glc_exch_rate": 16.89,
     "pyr_exch_rate": None,
-    "amm_exch_rate": 0.71 * 1.4848,
+    "amm_exch_rate": None,
 }
+
+# model_options = {
+#     "glc_exch_rate": 0.194 * 8.6869,
+#     "pyr_exch_rate": None,
+#     "amm_exch_rate": 0.71 * 1.4848,
+# }
 
 compute_options = {
     "zscore": False,
-    "topflux/ntop": 200,
+    # Top N reactions (of original enzyme usage fluxes) for the topflux plot.
+    # If None, it takes all the reactions with non-zero flux.
+    # If 0, it takes all the reactions.
+    "topflux/ntop": None,
 }
 
 
@@ -171,8 +181,17 @@ if plot_choices["nonzero"]:
         ax=ax,
     )
 
+
 if plot_choices["topflux"]:
-    ntop = compute_options["topflux/ntop"]
+    if compute_options["topflux/ntop"] is None:
+        ntop = np.sum(ablation_fluxes["original"] != 0)
+        print(f"topflux: number of reactions = {ntop}")
+    elif compute_options["topflux/ntop"] == 0:
+        ntop = len(ablation_fluxes["original"])
+        print(f"topflux: number of reactions = {ntop}")
+    else:
+        ntop = np.sum(ablation_fluxes["original"] != 0)
+        print(f"topflux: number of reactions = {ntop}")
 
     # List of top N reactions, original (un-ablated)
     original_topn_list = get_topn_list(ablation_fluxes["original"], ntop)
@@ -194,11 +213,44 @@ if plot_choices["topflux"]:
     sns.heatmap(
         hues_array,
         xticklabels=list_components,
-        cmap="magma_r",
+        cmap="plasma_r",
         cbar=False,
     )
     ax.set_xlabel("Biomass component")
     ax.set_ylabel("Rank")
+
+
+if plot_choices["topflux_rankcorr"]:
+    # TODO: Refactor.  Code repeats from the above plot.
+    ntop = np.sum(ablation_fluxes["original"] != 0)
+    original_topn_list = get_topn_list(ablation_fluxes["original"], ntop)
+    hue_lookup = dict((zip(original_topn_list, range(ntop))))
+    hues_array = []
+    for series in ablation_fluxes.values():
+        topn_list = get_topn_list(series, ntop)
+        hues = rxns_to_hues(topn_list, hue_lookup)
+        hues_array.append(hues)
+    hues_array = np.array(hues_array).T
+
+    # Spearman's rank correlation
+    sr_res = spearmanr(hues_array, nan_policy="omit")
+    distance_triangle = np.tril(sr_res.statistic)
+    distance_triangle[np.triu_indices(distance_triangle.shape[0])] = np.nan
+
+    fig_topflux_rankcorr, ax_topflux_rankcorr = plt.subplots()
+    sns.heatmap(
+        distance_triangle,
+        xticklabels=list_components,
+        yticklabels=list_components,
+        annot=True,
+        fmt=".2f",
+        vmin=0,
+        vmax=1,
+        cmap="viridis",
+        cbar_kws={"label": "Pairwise Spearman's rank correlation coefficient"},
+        ax=ax_topflux_rankcorr,
+    )
+
 
 filename = (
     "CompareEnzUse"
