@@ -11,17 +11,17 @@ from sklearn.decomposition import PCA
 from src.gem.yeast8model import Yeast8Model
 
 plot_choices = {
-    "pdist": True,
+    "pdist": False,
     "hierarchical": False,
-    "pca": True,
+    "pca": False,
     "nonzero": False,
     "topflux": True,
 }
 
 model_options = {
-    "glc_exch_rate": 0.194 * 8.6869,
+    "glc_exch_rate": 16.89,  # 0.194 * 8.6869,
     "pyr_exch_rate": None,
-    "amm_exch_rate": 0.71 * 1.4848,
+    "amm_exch_rate": None,  # 0.71 * 1.4848,
 }
 
 compute_options = {
