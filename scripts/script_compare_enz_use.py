@@ -194,7 +194,7 @@ if plot_choices["topflux"]:
     sns.heatmap(
         hues_array,
         xticklabels=list_components,
-        cmap="magma_r",
+        cmap="plasma_r",
         cbar=False,
     )
     ax.set_xlabel("Biomass component")
