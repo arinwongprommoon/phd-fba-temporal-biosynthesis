@@ -216,8 +216,10 @@ if plot_choices["topflux"]:
 
 if plot_choices["topflux_rankcorr"]:
     # We always want to do this on the ranking on all the reactions, for max
-    # information.
-    # TODO: Refactor.  Repeats the above plot.
+    # information.  Sometimes an original zero goes to non-zero in several
+    # biomass components, and I want to know whether these correlate pairwise
+    # as well
+    # TODO: Refactor.  Code repeats from the above plot.
     ntop = len(ablation_fluxes["original"])
     original_topn_list = get_topn_list(ablation_fluxes["original"], ntop)
     hue_lookup = dict((zip(original_topn_list, range(ntop))))
@@ -228,12 +230,24 @@ if plot_choices["topflux_rankcorr"]:
         hues_array.append(hues)
     hues_array = np.array(hues_array).T
 
-    breakpoint()
-
-    # Spearman R rank correlation
+    # Spearman's rank correlation
     sr_res = spearmanr(hues_array, nan_policy="omit")
-    print(sr_res.statistic)
-    print(sr_res.pvalue)
+    distance_triangle = np.tril(sr_res.statistic)
+    distance_triangle[np.triu_indices(distance_triangle.shape[0])] = np.nan
+
+    fig_topflux_rankcorr, ax_topflux_rankcorr = plt.subplots()
+    sns.heatmap(
+        distance_triangle,
+        xticklabels=list_components,
+        yticklabels=list_components,
+        annot=True,
+        fmt=".2f",
+        vmin=0,
+        vmax=1,
+        cmap="viridis",
+        cbar_kws={"label": "Pairwise Spearman's rank correlation coefficient"},
+        ax=ax_topflux_rankcorr,
+    )
 
 
 filename = (
