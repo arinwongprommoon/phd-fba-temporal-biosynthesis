@@ -6,7 +6,7 @@ import seaborn as sns
 
 from matplotlib.backends.backend_pdf import PdfPages
 from scipy.spatial.distance import pdist, squareform
-from scipy.stats import zscore
+from scipy.stats import zscore, spearmanr
 from sklearn.decomposition import PCA
 from src.gem.yeast8model import Yeast8Model
 
@@ -16,6 +16,7 @@ plot_choices = {
     "pca": False,
     "nonzero": False,
     "topflux": True,
+    "topflux_rankcorr": True,
 }
 
 model_options = {
@@ -28,6 +29,7 @@ compute_options = {
     "zscore": False,
     # Top N reactions (of original enzyme usage fluxes) for the topflux plot.
     # If None, it takes all the reactions with non-zero flux.
+    # If 0, it takes all the reactions.
     "topflux/ntop": None,
 }
 
@@ -173,9 +175,14 @@ if plot_choices["nonzero"]:
         ax=ax,
     )
 
+
 if plot_choices["topflux"]:
-    if compute_options["topflux/ntop"] is not None:
-        ntop = compute_options["topflux/ntop"]
+    if compute_options["topflux/ntop"] is None:
+        ntop = np.sum(ablation_fluxes["original"] != 0)
+        print(f"topflux: number of reactions = {ntop}")
+    elif compute_options["topflux/ntop"] == 0:
+        ntop = len(ablation_fluxes["original"])
+        print(f"topflux: number of reactions = {ntop}")
     else:
         ntop = np.sum(ablation_fluxes["original"] != 0)
         print(f"topflux: number of reactions = {ntop}")
@@ -205,6 +212,29 @@ if plot_choices["topflux"]:
     )
     ax.set_xlabel("Biomass component")
     ax.set_ylabel("Rank")
+
+
+if plot_choices["topflux_rankcorr"]:
+    # We always want to do this on the ranking on all the reactions, for max
+    # information.
+    # TODO: Refactor.  Repeats the above plot.
+    ntop = len(ablation_fluxes["original"])
+    original_topn_list = get_topn_list(ablation_fluxes["original"], ntop)
+    hue_lookup = dict((zip(original_topn_list, range(ntop))))
+    hues_array = []
+    for series in ablation_fluxes.values():
+        topn_list = get_topn_list(series, ntop)
+        hues = rxns_to_hues(topn_list, hue_lookup)
+        hues_array.append(hues)
+    hues_array = np.array(hues_array).T
+
+    breakpoint()
+
+    # Spearman R rank correlation
+    sr_res = spearmanr(hues_array, nan_policy="omit")
+    print(sr_res.statistic)
+    print(sr_res.pvalue)
+
 
 filename = (
     "CompareEnzUse"
