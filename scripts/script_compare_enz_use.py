@@ -13,10 +13,10 @@ from src.gem.yeast8model import Yeast8Model
 plot_choices = {
     "pdist": False,
     "hierarchical": False,
-    "pca": False,
+    "pca": True,
     "nonzero": False,
-    "topflux": True,
-    "topflux_rankcorr": True,
+    "topflux": False,
+    "topflux_rankcorr": False,
 }
 
 model_options = {
