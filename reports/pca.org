@@ -1,0 +1,62 @@
+* Information
+** Associated notebook
+notebooks/pca.ipynb
+** Settings
+- Varied uptake:
+  - Glucose (np.linspace(0.5*8.6869, 2*8.6869, 4)) and ammonium (np.linspace(0.5*1.4848, 2*1.4848, 4))
+  - Pyruvate (np.linspace(0.5*4.4444, 2*4.4444, 4)) and ammonium (np.linspace(0.5*1.0, 2*1.0, 4))
+  - Note: avoided zero exchange rates.
+** Notes
+- This report describes the enzyme usage reactions that are most responsible for PC1 and PC2 for the PCA.  Initially, I wanted to do top 10 for each, but then expanded the list for PC1 because the top ones were all ATP synthase.
+- Glucose and ammonium uptake were varied to produce 16 nutrient conditions, and in each condition, ablation was performed.  The enzyme usage fluxes of each round of ablation were taken.  The input vector for the PCA had 4x4x8 observations and 968 features.  PCA was two-dimensional.
+
+* Results
+** Glucose & ammonium
+*** PC1
+- Top 15: ATP synthase components
+- Next 10: ubiquinol:ferricytochrome c reductase components
+- glycerol-3-phosphate acyltransferase; dihydroxyacetone phosphate acyltransferase
+- chroismate synthase
+- MLCL acyltransferase [2]
+
+*** PC2
+- 2,5-diamino-6-ribosylamino-4(3H)-pyrimidinone 5'-phosphate reductase (NADPH)
+- glyceraldehyde-3-phosphate dehydrogenase
+- phosphomannomutase
+- transaldolase
+- riboflavin synthase
+- 2-keto-4-methylthiobutyrate transamination; 2-oxo-4-methyl-3-carboxypentanoate decarboxylation; isoleucine transaminase; leucine transaminase; valine transaminase [1]
+- MLCL acyltransferase [2]
+- 3-methyl-2-oxobutanoate decarboxylase; 3-methyl-2-oxopentanoate decarboxylase; acetaldehyde condensation; indole-3-pyruvate decarboxylase; pyruvate decarboxylase [3]
+- glycerol-3-phosphate acyltransferase; dihydroxyacetone phosphate acyltransferase
+
+[1] Associated with gene YJR148W, standard name BAT2 (Branched-chain Amino acid Transaminase).  Described as a cytosolic brarched-chain amino acid aminotransferase.  Required for branched-chain amino acid biosynthesis and Ehrlich pathway amino acid catabolism.
+[2] Associated with gene YPR140W, standard name TAZ1.  Described as lyso-phosphatidylcholine acyltransferase and is required for normal phospholipid content of mitochondrial membranes.
+[3] Associated with gene YLR044C, standard name PDC1.  Is one of three pyruvate decarboxylase isozymes.
+
+** Pyruvate and ammonium
+*** PC1
+- ADP-ribose 1'-phosphate phosphatase
+- ATP synthase
+- 4-aminobutyrate transaminase
+- succinate-semialdehyde dehydrogenase (NADP)
+- methylenetetrahydrofolate dehydrogenase (NAD)
+- glycine-cleavage complex (lipoamide); oxoglutarate dehydrogenase
+- glycine-cleavage complex (lipoamide); oxoglutarate dehydrogenase
+- ATP synthase
+- ATP synthase
+- ATP synthase
+- ATP synthase
+- ATP synthase
+
+*** PC2
+- ATP synthase
+- ADP-ribose 1'-phosphate phosphatase
+- 4-aminobutyrate transaminase
+- acyl carrier protein synthase
+- methylenetetrahydrofolate dehydrogenase (NAD)
+- succinate-semialdehyde dehydrogenase (NADP)
+- ATP synthase
+- ATP synthase
+- ATP synthase
+- ATP synthase
