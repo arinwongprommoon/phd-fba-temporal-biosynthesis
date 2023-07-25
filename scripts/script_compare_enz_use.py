@@ -6,17 +6,20 @@ import seaborn as sns
 
 from matplotlib.backends.backend_pdf import PdfPages
 from scipy.spatial.distance import pdist, squareform
-from scipy.stats import zscore, spearmanr
+from scipy.stats import zscore, spearmanr, kendalltau
 from sklearn.decomposition import PCA
 from src.gem.yeast8model import Yeast8Model
 
 plot_choices = {
     "pdist": False,
     "hierarchical": False,
-    "pca": True,
+    "pca": False,
     "nonzero": False,
-    "topflux": False,
-    "topflux_rankcorr": False,
+    "topflux": True,
+    # Spearman's rank correlation
+    "rankcorr_spearmanr": True,
+    # Kendall's tau b rank correlation
+    "rankcorr_kendalltaub": True,
 }
 
 model_options = {
@@ -183,12 +186,15 @@ if plot_choices["nonzero"]:
 
 
 if plot_choices["topflux"]:
+    # take all reactions with non-zero flux
     if compute_options["topflux/ntop"] is None:
         ntop = np.sum(ablation_fluxes["original"] != 0)
         print(f"topflux: number of reactions = {ntop}")
+    # take all reactions
     elif compute_options["topflux/ntop"] == 0:
         ntop = len(ablation_fluxes["original"])
         print(f"topflux: number of reactions = {ntop}")
+    # take top N reactions
     else:
         ntop = np.sum(ablation_fluxes["original"] != 0)
         print(f"topflux: number of reactions = {ntop}")
@@ -220,24 +226,12 @@ if plot_choices["topflux"]:
     ax.set_ylabel("Rank")
 
 
-if plot_choices["topflux_rankcorr"]:
-    # TODO: Refactor.  Code repeats from the above plot.
-    ntop = np.sum(ablation_fluxes["original"] != 0)
-    original_topn_list = get_topn_list(ablation_fluxes["original"], ntop)
-    hue_lookup = dict((zip(original_topn_list, range(ntop))))
-    hues_array = []
-    for series in ablation_fluxes.values():
-        topn_list = get_topn_list(series, ntop)
-        hues = rxns_to_hues(topn_list, hue_lookup)
-        hues_array.append(hues)
-    hues_array = np.array(hues_array).T
-
-    # Spearman's rank correlation
-    sr_res = spearmanr(hues_array, nan_policy="omit")
+if plot_choices["rankcorr_spearmanr"]:
+    sr_res = spearmanr(enz_use_array, axis=1, nan_policy="omit")
     distance_triangle = np.tril(sr_res.statistic)
     distance_triangle[np.triu_indices(distance_triangle.shape[0])] = np.nan
 
-    fig_topflux_rankcorr, ax_topflux_rankcorr = plt.subplots()
+    fig_rankcorr_spearmanr, ax_rankcorr_spearmanr = plt.subplots()
     sns.heatmap(
         distance_triangle,
         xticklabels=list_components,
@@ -247,8 +241,31 @@ if plot_choices["topflux_rankcorr"]:
         vmin=0,
         vmax=1,
         cmap="viridis",
-        cbar_kws={"label": "Pairwise Spearman's rank correlation coefficient"},
-        ax=ax_topflux_rankcorr,
+        cbar_kws={"label": "Pairwise Spearman's rho correlation coefficient"},
+        ax=ax_rankcorr_spearmanr,
+    )
+
+
+if plot_choices["rankcorr_kendalltaub"]:
+    distances = pdist(
+        enz_use_array, lambda u, v: kendalltau(u, v, nan_policy="omit").statistic
+    )
+    distance_matrix = squareform(distances)
+    distance_triangle = np.tril(distance_matrix)
+    distance_triangle[np.triu_indices(distance_triangle.shape[0])] = np.nan
+
+    fig_rankcorr_kendalltaub, ax_rankcorr_kendalltaub = plt.subplots()
+    sns.heatmap(
+        distance_triangle,
+        xticklabels=list_components,
+        yticklabels=list_components,
+        annot=True,
+        fmt=".2f",
+        vmin=0,
+        vmax=1,
+        cmap="viridis",
+        cbar_kws={"label": "Pairwise Kendall's tau-b correlation coefficient"},
+        ax=ax_rankcorr_kendalltaub,
     )
 
 
