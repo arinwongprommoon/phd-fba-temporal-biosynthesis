@@ -13,10 +13,10 @@ from src.gem.yeast8model import Yeast8Model
 plot_choices = {
     "pdist": False,
     "hierarchical": False,
-    "pca": True,
+    "pca": False,
     "nonzero": False,
-    "topflux": False,
-    "topflux_rankcorr": False,
+    "topflux": True,
+    "rankcorr": True,
 }
 
 model_options = {
@@ -183,12 +183,15 @@ if plot_choices["nonzero"]:
 
 
 if plot_choices["topflux"]:
+    # take all reactions with non-zero flux
     if compute_options["topflux/ntop"] is None:
         ntop = np.sum(ablation_fluxes["original"] != 0)
         print(f"topflux: number of reactions = {ntop}")
+    # take all reactions
     elif compute_options["topflux/ntop"] == 0:
         ntop = len(ablation_fluxes["original"])
         print(f"topflux: number of reactions = {ntop}")
+    # take top N reactions
     else:
         ntop = np.sum(ablation_fluxes["original"] != 0)
         print(f"topflux: number of reactions = {ntop}")
@@ -220,24 +223,13 @@ if plot_choices["topflux"]:
     ax.set_ylabel("Rank")
 
 
-if plot_choices["topflux_rankcorr"]:
-    # TODO: Refactor.  Code repeats from the above plot.
-    ntop = np.sum(ablation_fluxes["original"] != 0)
-    original_topn_list = get_topn_list(ablation_fluxes["original"], ntop)
-    hue_lookup = dict((zip(original_topn_list, range(ntop))))
-    hues_array = []
-    for series in ablation_fluxes.values():
-        topn_list = get_topn_list(series, ntop)
-        hues = rxns_to_hues(topn_list, hue_lookup)
-        hues_array.append(hues)
-    hues_array = np.array(hues_array).T
-
+if plot_choices["rankcorr"]:
     # Spearman's rank correlation
-    sr_res = spearmanr(hues_array, nan_policy="omit")
+    sr_res = spearmanr(enz_use_array, axis=1, nan_policy="omit")
     distance_triangle = np.tril(sr_res.statistic)
     distance_triangle[np.triu_indices(distance_triangle.shape[0])] = np.nan
 
-    fig_topflux_rankcorr, ax_topflux_rankcorr = plt.subplots()
+    fig_rankcorr, ax_rankcorr = plt.subplots()
     sns.heatmap(
         distance_triangle,
         xticklabels=list_components,
@@ -248,7 +240,7 @@ if plot_choices["topflux_rankcorr"]:
         vmax=1,
         cmap="viridis",
         cbar_kws={"label": "Pairwise Spearman's rank correlation coefficient"},
-        ax=ax_topflux_rankcorr,
+        ax=ax_rankcorr,
     )
 
 
