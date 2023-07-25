@@ -6,7 +6,7 @@ import seaborn as sns
 
 from matplotlib.backends.backend_pdf import PdfPages
 from scipy.spatial.distance import pdist, squareform
-from scipy.stats import zscore, spearmanr
+from scipy.stats import zscore, spearmanr, kendalltau
 from sklearn.decomposition import PCA
 from src.gem.yeast8model import Yeast8Model
 
@@ -225,8 +225,15 @@ if plot_choices["topflux"]:
 
 if plot_choices["rankcorr"]:
     # Spearman's rank correlation
-    sr_res = spearmanr(enz_use_array, axis=1, nan_policy="omit")
-    distance_triangle = np.tril(sr_res.statistic)
+    # sr_res = spearmanr(enz_use_array, axis=1, nan_policy="omit")
+    # distance_triangle = np.tril(sr_res.statistic)
+    # distance_triangle[np.triu_indices(distance_triangle.shape[0])] = np.nan
+
+    distances = pdist(
+        enz_use_array, lambda u, v: kendalltau(u, v, nan_policy="omit").statistic
+    )
+    distance_matrix = squareform(distances)
+    distance_triangle = np.tril(distance_matrix)
     distance_triangle[np.triu_indices(distance_triangle.shape[0])] = np.nan
 
     fig_rankcorr, ax_rankcorr = plt.subplots()
@@ -239,7 +246,7 @@ if plot_choices["rankcorr"]:
         vmin=0,
         vmax=1,
         cmap="viridis",
-        cbar_kws={"label": "Pairwise Spearman's rank correlation coefficient"},
+        cbar_kws={"label": "Pairwise Kendall's tau-b correlation coefficient"},
         ax=ax_rankcorr,
     )
 
