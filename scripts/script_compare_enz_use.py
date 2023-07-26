@@ -11,9 +11,9 @@ from sklearn.decomposition import PCA
 from src.gem.yeast8model import Yeast8Model
 
 plot_choices = {
-    "pdist": False,
+    "pdist": True,
     "hierarchical": False,
-    "pca": False,
+    "pca": True,
     "nonzero": False,
     "topflux": True,
     # Spearman's rank correlation
@@ -133,10 +133,12 @@ if plot_choices["pdist"]:
         distance_triangle,
         xticklabels=list_components,
         yticklabels=list_components,
+        annot=True,
+        fmt=".2f",
         vmin=0,
         vmax=1,
         cmap="viridis_r",
-        cbar_kws={"label": "Pairwise distances of flux vectors"},
+        cbar_kws={"label": "Pairwise cosine distances of flux vectors"},
         ax=ax_pdist,
     )
 
