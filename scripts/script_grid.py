@@ -11,7 +11,7 @@ from src.viz.grid import heatmap_ablation_grid
 
 model_options = {
     # "glc" or "pyr"
-    "carbon_source": "glc",
+    "carbon_source": "pyr",
 }
 
 plot_choices = {
@@ -29,6 +29,7 @@ plot_choices = {
     "heatmap_prot": True,
     "heatmap_carb_to_prot": True,
     "heatmap_cdist": True,
+    "heatmap_kdist": True,
 }
 
 
@@ -378,6 +379,29 @@ if plot_choices["heatmap_cdist"]:
         vmax=1,
         cmap="magma_r",
     )
+
+if plot_choices["heatmap_kdist"]:
+    # Load saved data
+    kdist_filename = "ec_kdist_" + model_options["carbon_source"] + "_amm"
+    kdist_filepath = "../data/interim/" + kdist_filename + ".pkl"
+    with open(kdist_filepath, "rb") as handle:
+        kdist_array = pickle.load(handle)
+    # Convert dtype object to float, because of pickle
+    kdist_array = np.array(kdist_array, dtype=float)
+
+    kdist = ArrayCollection(kdist_array, x_axis, y_axis)
+
+    fig_heatmap_kdist, ax_heatmap_kdist = plt.subplots()
+    riced_heatmap(
+        ax_heatmap_kdist,
+        acoll=kdist,
+        cbar_label="Correlation",
+        title="Kendall's tau correlation between enzyme usage flux vectors:\nprioritising protein vs carbohydrate",
+        vmin=0,
+        vmax=1,
+        cmap="magma",
+    )
+
 
 pdf_filename = "../reports/" + grid_filename + ".pdf"
 with PdfPages(pdf_filename) as pdf:
