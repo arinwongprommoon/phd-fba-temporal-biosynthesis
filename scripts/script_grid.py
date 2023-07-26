@@ -28,7 +28,7 @@ plot_choices = {
     "heatmap_carb": True,
     "heatmap_prot": True,
     "heatmap_carb_to_prot": True,
-    "heatmap_pdist": False,
+    "heatmap_pdist": True,
 }
 
 
