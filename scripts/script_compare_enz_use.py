@@ -22,17 +22,14 @@ plot_choices = {
     "rankcorr_kendalltaub": True,
 }
 
+# ["highglc", "glc_highratio", "highpyr", "pyrhighratio", None]
+preset_model_options = "highglc"
+
 model_options = {
     "glc_exch_rate": 16.89,
     "pyr_exch_rate": None,
     "amm_exch_rate": None,
 }
-
-# model_options = {
-#     "glc_exch_rate": 0.194 * 8.6869,
-#     "pyr_exch_rate": None,
-#     "amm_exch_rate": 0.71 * 1.4848,
-# }
 
 compute_options = {
     "zscore": False,
@@ -40,6 +37,29 @@ compute_options = {
     # If None, it takes all the reactions with non-zero flux.
     # If 0, it takes all the reactions.
     "topflux/ntop": None,
+}
+
+preset_models = {
+    "highglc": {
+        "glc_exch_rate": 16.89,
+        "pyr_exch_rate": None,
+        "amm_exch_rate": None,
+    },
+    "glchighratio": {
+        "glc_exch_rate": 0.194 * 8.6869,
+        "pyr_exch_rate": None,
+        "amm_exch_rate": 0.71 * 1.4848,
+    },
+    "highpyr": {
+        "glc_exch_rate": 0,
+        "pyr_exch_rate": 8.8888,
+        "amm_exch_rate": None,
+    },
+    "pyrhighratio": {
+        "glc_exch_rate": 0,
+        "pyr_exch_rate": 0.839 * 4.4444,
+        "amm_exch_rate": 0.903 * 1.0,
+    },
 }
 
 
@@ -74,6 +94,9 @@ def rxns_to_hues(rxn_list, hue_lookup):
 
 
 wt = Yeast8Model("../data/gemfiles/ecYeastGEM_batch_8-6-0.xml")
+
+if preset_model_options is not None:
+    model_options = preset_models[preset_model_options]
 
 if model_options["glc_exch_rate"] is None:
     wt.model.reactions.get_by_id("r_1714").bounds = (-16.89, 0)
