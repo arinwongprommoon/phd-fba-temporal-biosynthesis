@@ -1,5 +1,11 @@
-Triphosphate phosphohydrolase (No2), Purine metabolism, 9.314752323912176e-12
-Endopolyphosphatase (EC 3.6.1.10) (Deoxyadenosine triphosphate phosphohydrolase) (dATP phosphohydrolase) (EC 3.6.1.-) (Exopolyphosphatase) (EC 3.6.1.11) (Phosphate metabolism protein 5) (No1), Purine metabolism, 9.314752323912176e-12
-Polyphosphate phosphohydrolase (reversible) (No2), Purine metabolism, 9.314752323912176e-12
-Polyphosphate phosphohydrolase (No2), Purine metabolism, 9.314752323912176e-12
-hydroxymethylglutaryl CoA reductase (No1), Terpenoid backbone biosynthesis, 4.62179432057276e-07
+fumarate reductase (FMN) (reversible) (No1), Cellular response to anaerobic conditions, 6.871101061961257e-11
+soluble fumarate reductase (reversible) (No1), Cellular response to anaerobic conditions, 6.871101061961257e-11
+soluble fumarate reductase (No1), Cellular response to anaerobic conditions, 6.871101061961257e-11
+fumarate reductase (FMN) (No1), Cellular response to anaerobic conditions, 6.871101061961257e-11
+fumarate reductase (No1), Citrate cycle (TCA cycle), 6.871101061961257e-11
+fumarate reductase (reversible) (No1), Citrate cycle (TCA cycle), 6.871101061961257e-11
+Triphosphate phosphohydrolase (No2), Purine metabolism, 1.0007697368018766e-11
+Endopolyphosphatase (EC 3.6.1.10) (Deoxyadenosine triphosphate phosphohydrolase) (dATP phosphohydrolase) (EC 3.6.1.-) (Exopolyphosphatase) (EC 3.6.1.11) (Phosphate metabolism protein 5) (No1), Purine metabolism, 1.0007697368018766e-11
+Polyphosphate phosphohydrolase (reversible) (No2), Purine metabolism, 1.0007697368018766e-11
+Polyphosphate phosphohydrolase (No2), Purine metabolism, 1.0007697368018766e-11
+
