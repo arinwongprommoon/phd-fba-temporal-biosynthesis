@@ -5,11 +5,12 @@ import pickle
 
 from matplotlib.backends.backend_pdf import PdfPages
 from sklearn.decomposition import PCA
+from sklearn.preprocessing import scale
 
 
 model_options = {
     # "glc" or "pyr"
-    "carbon_source": "glc",
+    "carbon_source": "pyr",
 }
 
 # Load saved data
@@ -23,9 +24,12 @@ ablation_result_1d = ablation_result_array.ravel()
 multicond_enz_use_array = np.concatenate(ablation_result_1d)
 multicond_enz_use_array.shape
 
+# Scale
+scaled_array = scale(multicond_enz_use_array)
+
 # PCA
 pca = PCA()
-Xt = pca.fit_transform(multicond_enz_use_array)
+Xt = pca.fit_transform(scaled_array)
 pca1 = Xt[:, 0]
 pca2 = Xt[:, 1]
 

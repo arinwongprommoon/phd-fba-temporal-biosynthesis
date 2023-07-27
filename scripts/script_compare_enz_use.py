@@ -8,6 +8,7 @@ from matplotlib.backends.backend_pdf import PdfPages
 from scipy.spatial.distance import pdist, squareform
 from scipy.stats import zscore, spearmanr, kendalltau
 from sklearn.decomposition import PCA
+from sklearn.preprocessing import scale
 from src.gem.yeast8model import Yeast8Model
 
 plot_choices = {
@@ -34,6 +35,8 @@ model_options = {
 }
 
 compute_options = {
+    # Whether to scale the vectors by computing the z-score.
+    # Note: this doesn't affect PCA because scaling is obligatory.
     "zscore": False,
     # Top N reactions (of original enzyme usage fluxes) for the topflux plot.
     # If None, it takes all the reactions with non-zero flux.
@@ -185,8 +188,9 @@ def drawplots(model_options):
         )
 
     if plot_choices["pca"]:
+        scaled_array = scale(enz_use_array)
         pca = PCA()
-        Xt = pca.fit_transform(enz_use_array)
+        Xt = pca.fit_transform(scaled_array)
         fig, ax = plt.subplots(figsize=(4.5, 4.5))
         pca1 = Xt[:, 0]
         pca2 = Xt[:, 1]
