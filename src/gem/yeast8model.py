@@ -308,7 +308,7 @@ class Yeast8Model:
         except TimeoutError as e:
             print(f"Model optimisation timeout, {timeout_time} s")
 
-    def ablate(self, input_model=None):
+    def ablate(self, input_model=None, enzflux_tol=1e-16):
         """Ablate biomass components and get growth rates & doubling times
 
         Ablate components in biomass reaction (i.e. macromolecules like lipids,
@@ -321,9 +321,14 @@ class Yeast8Model:
 
         Parameters
         ----------
-        input.model : cobra.Model object, optional
+        input_model : cobra.Model object, optional
             Input model.  If not specified, use the one associated with the
             object.
+        enzflux_tol : float, optional
+            If specified, converts enzyme usage fluxes that have magnitudes
+            below this value to zero.  In theory, enzyme usage fluxes should
+            never be negative; however, this sometimes occurs depending on the
+            solver.  This tolerance variable corrects this.
 
         Returns
         -------
@@ -391,11 +396,11 @@ class Yeast8Model:
             # store outputs
             biomass_component.ablated_flux = fba_solution.fluxes[self.growth_id]
             # get enzyme usage fluxes
-            self.ablation_fluxes[
-                biomass_component.metabolite_label
-            ] = fba_solution.fluxes.loc[
+            ablation_flux = fba_solution.fluxes.loc[
                 fba_solution.fluxes.index.str.startswith("draw_prot")
             ]
+            ablation_flux.loc[np.abs(ablation_flux) < enzflux_tol] = 0
+            self.ablation_fluxes[biomass_component.metabolite_label] = ablation_flux
             biomass_component.get_est_time()
 
             # restore metabolites after ablation
