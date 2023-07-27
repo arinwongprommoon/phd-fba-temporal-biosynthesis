@@ -150,6 +150,9 @@ def drawplots(model_options):
         enz_use_array = zscore(enz_use_array, axis=1)
 
     list_components = list(ablation_fluxes.keys())
+    list_components = [
+        component.replace("original", "parallel") for component in list_components
+    ]
 
     if plot_choices["pdist"]:
         distances = pdist(enz_use_array, metric="cosine")
