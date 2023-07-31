@@ -13,6 +13,7 @@ from src.gem.yeast8model import Yeast8Model
 model_options = {
     # "glc" or "pyr"
     "carbon_source": "glc",
+    "num_samples": 3,
 }
 
 
@@ -68,7 +69,7 @@ small_ratio_coords = np.column_stack(
     (x_coords[~ratio_array_mask], y_coords[~ratio_array_mask])
 )
 
-num_samples = 3
+num_samples = model_options["num_samples"]
 
 big_ratio_coords_random = get_random_coords(big_ratio_coords, num_samples)
 small_ratio_coords_random = get_random_coords(small_ratio_coords, num_samples)
