@@ -31,19 +31,19 @@ def coords_to_dict(coords, carbon_exch):
 
 # Initialise model
 glc_exch_rate = 16.89
-
 wt = Yeast8Model("../data/gemfiles/ecYeastGEM_batch_8-6-0.xml")
 # Default: lots of glucose
 wt.model.reactions.get_by_id("r_1714").bounds = (-glc_exch_rate, 0)
 wt.model.reactions.get_by_id("r_1714_REV").bounds = (0, glc_exch_rate)
+print("Model initialised")
 
-# Pick random points from a grid based on a mask,
-# i.e. whether the ratio is greater than ('big') or less than ('small') one
+# Load PKL to compute ratios
 grid_filename = "ec_grid_" + model_options["carbon_source"] + "_amm"
 grid_filepath = "../data/interim/" + grid_filename + ".pkl"
 with open(grid_filepath, "rb") as handle:
     ablation_result_array = pickle.load(handle)
 
+# Set axis options based on carbon source
 if model_options["carbon_source"] == "glc":
     carbon_exch = "r_1714"
     saturation_glc = 8.6869
@@ -58,6 +58,8 @@ else:
     print("Error: No carbon source")
 y_axis = np.linspace(0, 2 * saturation_amm, 32)
 
+# Pick random points from a grid based on a mask,
+# i.e. whether the ratio is greater than ('big') or less than ('small') one
 ratio = ArrayCollection(vget_ablation_ratio(ablation_result_array), x_axis, y_axis)
 ratio_array_mask = ratio.array > 1
 
@@ -84,6 +86,7 @@ small_ablation_result_list = wt.usgfluxes_list(
 all_ablation_result_list = np.concatenate(
     (big_ablation_result_list, small_ablation_result_list)
 )
+print(f"Ablation done for {num_samples} in each category.")
 
 # Adjust data variable dimensions
 multicond_enz_use_array = np.concatenate(all_ablation_result_list)
@@ -95,20 +98,19 @@ pca = PCA()
 Xt = pca.fit_transform(scaled_array)
 pca1 = Xt[:, 0]
 pca2 = Xt[:, 1]
+print("PCA done")
 
 # Check explained variance
 print(np.cumsum(pca.explained_variance_ratio_))
 
 # Plot each condition
 num_components = 8
+num_conds = int(len(pca1) / num_components)
+
 color_dict = dict(
     zip(list(range(num_components)), ["C" + str(num) for num in range(num_components)])
 )
 color_list = [color_dict[el] for el in (np.arange(len(pca1)) % num_components)]
-
-num_conds = int(len(pca1) / num_components)
-# color_list = [color_dict[el % 8] for el in range(len(pca1) // 2)]
-
 title_dict = {
     0: "ratio > 1",
     1: "ratio < 1",
@@ -118,8 +120,6 @@ fig, ax = plt.subplots(ncols=2, nrows=1, figsize=(10, 5))
 for cond in range(2):
     start_idx = cond * (len(pca1) // 2)
     region_range = list(range(start_idx, start_idx + (len(pca1) // 2)))
-    # all
-    # to_plot = region_range
     # original, protein, carbohydrate
     # FIXME: lots of hard-cording, confusing, un-Pythonic
     to_plot = [el for el in region_range if el % 8 in [0, 2, 3]]
@@ -128,7 +128,6 @@ for cond in range(2):
         pca1[to_plot],
         pca2[to_plot],
         color=color_list,
-        # marker='+',
         s=30,
         alpha=0.2,
     )
@@ -150,3 +149,5 @@ with PdfPages(pdf_filename) as pdf:
         pdf.savefig(fig)
 # Close all figures
 plt.close("all")
+
+print("Plot drawn.")
