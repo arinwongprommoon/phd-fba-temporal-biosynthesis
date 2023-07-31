@@ -12,8 +12,8 @@ from src.gem.yeast8model import Yeast8Model
 
 model_options = {
     # "glc" or "pyr"
-    "carbon_source": "glc",
-    "num_samples": 3,
+    "carbon_source": "pyr",
+    "num_samples": 100,
 }
 
 
