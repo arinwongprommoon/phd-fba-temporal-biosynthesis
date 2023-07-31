@@ -10,14 +10,20 @@ from src.calc.matrix import ArrayCollection
 from src.calc.ablation import vget_ablation_ratio
 from src.gem.yeast8model import Yeast8Model
 
+model_options = {
+    # "glc" or "pyr"
+    "carbon_source": "glc",
+}
+
 
 def get_random_coords(coords, num_samples):
     return coords[np.random.choice(coords.shape[0], num_samples, replace=False), :]
 
 
-def coords_to_dict(coords):
+def coords_to_dict(coords, carbon_exch):
+    """Convenience"""
     return {
-        "exch_ids": ["r_1714", "r_1654"],
+        "exch_ids": [carbon_exch, "r_1654"],
         "exch_points": coords,
     }
 
@@ -32,22 +38,29 @@ wt.model.reactions.get_by_id("r_1714_REV").bounds = (0, glc_exch_rate)
 
 # Pick random points from a grid based on a mask,
 # i.e. whether the ratio is greater than ('big') or less than ('small') one
-grid_filename = "ec_grid_" + "glc" + "_amm"
+grid_filename = "ec_grid_" + model_options["carbon_source"] + "_amm"
 grid_filepath = "../data/interim/" + grid_filename + ".pkl"
 with open(grid_filepath, "rb") as handle:
     ablation_result_array = pickle.load(handle)
 
-saturation_glc = 8.6869
-saturation_amm = 1.4848
-x_axis = np.linspace(0, 2 * saturation_glc, 32)
+if model_options["carbon_source"] == "glc":
+    carbon_exch = "r_1714"
+    saturation_glc = 8.6869
+    saturation_amm = 1.4848
+    x_axis = np.linspace(0, 2 * saturation_glc, 32)
+elif model_options["carbon_source"] == "pyr":
+    carbon_exch = "r_2033"
+    saturation_pyr = 4.4444
+    saturation_amm = 1.0
+    x_axis = np.linspace(0, 2 * saturation_pyr, 32)
+else:
+    print("Error: No carbon source")
 y_axis = np.linspace(0, 2 * saturation_amm, 32)
 
 ratio = ArrayCollection(vget_ablation_ratio(ablation_result_array), x_axis, y_axis)
-
 ratio_array_mask = ratio.array > 1
 
 x_coords, y_coords = np.meshgrid(x_axis, y_axis)
-
 big_ratio_coords = np.column_stack(
     (x_coords[ratio_array_mask], y_coords[ratio_array_mask])
 )
@@ -61,9 +74,11 @@ big_ratio_coords_random = get_random_coords(big_ratio_coords, num_samples)
 small_ratio_coords_random = get_random_coords(small_ratio_coords, num_samples)
 
 # Perform ablation and record fluxes
-big_ablation_result_list = wt.usgfluxes_list(coords_to_dict(big_ratio_coords_random))
+big_ablation_result_list = wt.usgfluxes_list(
+    coords_to_dict(big_ratio_coords_random, carbon_exch)
+)
 small_ablation_result_list = wt.usgfluxes_list(
-    coords_to_dict(small_ratio_coords_random)
+    coords_to_dict(small_ratio_coords_random, carbon_exch)
 )
 all_ablation_result_list = np.concatenate(
     (big_ablation_result_list, small_ablation_result_list)
@@ -127,7 +142,7 @@ for cond in range(2):
     ax[cond].set_title(f"{title_dict[cond]}")
 
 # Save all open figures to PDF
-filename = "pca_"  # + model_options["carbon_source"]
+filename = "pca_" + model_options["carbon_source"] + "_byratio"
 pdf_filename = "../reports/" + filename + ".pdf"
 with PdfPages(pdf_filename) as pdf:
     for fig in range(1, plt.gcf().number + 1):
