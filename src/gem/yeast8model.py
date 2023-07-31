@@ -677,6 +677,51 @@ class Yeast8Model:
 
         return ablation_result_array
 
+    def usgfluxes_list(self, exch_rate_points):
+        """
+        Example format for exch_rate_points:
+        exch_rate_points = {
+            "exch_ids": ["r_1714", "r_1654"],
+            "exch_points": np.array([[16.89, 2.96], [1.69, 1.05]])
+        }
+        """
+        model_working = self.model.copy()
+        ablation_result_list = np.zeros(
+            shape=(len(exch_rate_points["exch_points"])), dtype="object"
+        )
+
+        for point_idx, point in enumerate(exch_rate_points["exch_points"]):
+            # block glucose
+            model_working.reactions.get_by_id("r_1714").bounds = (0, 0)
+            try:
+                model_working.reactions.get_by_id("r_1714_REV").bounds = (0, 0)
+            except KeyError as e:
+                print("r_1714_REV not found, ignoring in glucose-blocking step")
+            # set bounds
+            for exch_idx, exch_id in enumerate(exch_rate_points["exch_ids"]):
+                model_working.reactions.get_by_id(exch_id).bounds = (
+                    -point[exch_idx],
+                    0,
+                )
+                # deal with reversible exchange reactions
+                exch_id_rev = exch_id + "_REV"
+                try:
+                    model_working.reactions.get_by_id(exch_id_rev).bounds = (
+                        0,
+                        point[exch_idx],
+                    )
+                except KeyError as e:
+                    print(
+                        f"Error-- reversible exchange reaction {exch_id_rev} not found. Ignoring."
+                    )
+            ablation_result = self.ablate(input_model=model_working)
+            enz_use_array = np.stack(
+                [df.to_numpy() for df in self.ablation_fluxes.values()]
+            )
+            ablation_result_list[point_idx] = enz_use_array
+
+        return ablation_result_list
+
     def usgfluxes_grid(self, exch_rate_dict):
         # TODO: Don't overwrite model-saved
         print(
