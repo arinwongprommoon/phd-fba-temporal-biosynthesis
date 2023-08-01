@@ -8,14 +8,15 @@ from matplotlib.backends.backend_pdf import PdfPages
 from src.calc.ablation import (
     vget_ablation_ratio,
     vget_custom_ablation_ratio,
-    vget_kendall_original,
+    vget_kendall_mean,
+    vget_kendall_std,
 )
 from src.calc.matrix import ArrayCollection
 from src.viz.grid import heatmap_ablation_grid
 
 model_options = {
     # "glc" or "pyr"
-    "carbon_source": "glc",
+    "carbon_source": "pyr",
 }
 
 plot_choices = {
@@ -32,7 +33,8 @@ plot_choices = {
     "heatmap_carb": True,
     "heatmap_prot": True,
     "heatmap_carb_to_prot": True,
-    "heatmap_pdist": True,
+    "heatmap_kendall_mean": True,
+    "heatmap_kendall_std": True,
 }
 
 
@@ -119,7 +121,8 @@ carb = ArrayCollection(vget_carb(ablation_result_array), x_axis, y_axis)
 prot = ArrayCollection(vget_prot(ablation_result_array), x_axis, y_axis)
 carb_to_prot = ArrayCollection(carb.array / prot.array, x_axis, y_axis)
 
-pdist = ArrayCollection(vget_kendall_original(ablation_fluxes_array), x_axis, y_axis)
+kendall_mean = ArrayCollection(vget_kendall_mean(ablation_fluxes_array), x_axis, y_axis)
+kendall_std = ArrayCollection(vget_kendall_std(ablation_fluxes_array), x_axis, y_axis)
 
 # Mask
 ratio_array_mask = ratio.array > 1
@@ -368,11 +371,11 @@ if plot_choices["heatmap_carb_to_prot"]:
         quiver=True,
     )
 
-if plot_choices["heatmap_pdist"]:
-    fig_heatmap_pdist, ax_heatmap_pdist = plt.subplots()
+if plot_choices["heatmap_kendall_mean"]:
+    fig_heatmap_kendall_mean, ax_heatmap_kendall_mean = plt.subplots()
     riced_heatmap(
-        ax_heatmap_pdist,
-        acoll=pdist,
+        ax_heatmap_kendall_mean,
+        acoll=kendall_mean,
         cbar_label=r"Mean Kendall's $\tau$ (b)",
         title="Mean correlation between parallel and each component",
         vmin=None,
@@ -380,6 +383,20 @@ if plot_choices["heatmap_pdist"]:
         cmap="cividis",
         quiver=True,
     )
+
+if plot_choices["heatmap_kendall_std"]:
+    fig_heatmap_kendall_std, ax_heatmap_kendall_std = plt.subplots()
+    riced_heatmap(
+        ax_heatmap_kendall_std,
+        acoll=kendall_std,
+        cbar_label=r"Std dev Kendall's $\tau$ (b)",
+        title="Standard deviation of correlation between parallel and each component",
+        vmin=None,
+        vmax=None,
+        cmap="cividis",
+        quiver=True,
+    )
+
 
 pdf_filename = "../reports/" + grid_filename + ".pdf"
 with PdfPages(pdf_filename) as pdf:

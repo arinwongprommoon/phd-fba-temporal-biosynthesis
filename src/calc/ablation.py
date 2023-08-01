@@ -207,7 +207,7 @@ def vget_kendall_carb_prot(ablation_flux_array):
     return get_kendall_carb_prot(ablation_flux_array)
 
 
-def get_kendall_original(enz_use_array):
+def get_kendall_mean(enz_use_array):
     """TODO: Insert docstring"""
     distances = pdist(
         enz_use_array,
@@ -219,9 +219,26 @@ def get_kendall_original(enz_use_array):
 
 
 @np.vectorize
-def vget_kendall_original(ablation_flux_array):
+def vget_kendall_mean(ablation_flux_array):
     """TODO: Insert docstring"""
-    return get_kendall_original(ablation_flux_array)
+    return get_kendall_mean(ablation_flux_array)
+
+
+def get_kendall_std(enz_use_array):
+    """TODO: Insert docstring"""
+    distances = pdist(
+        enz_use_array,
+        lambda u, v: kendalltau(u, v, nan_policy="omit").statistic,
+    )
+    # distances[0] to distances[6] are original vs all the other biomass components
+    metric = np.std(distances[0:7])
+    return metric
+
+
+@np.vectorize
+def vget_kendall_std(ablation_flux_array):
+    """TODO: Insert docstring"""
+    return get_kendall_std(ablation_flux_array)
 
 
 def get_cosine_carb_prot(enz_use_array):
