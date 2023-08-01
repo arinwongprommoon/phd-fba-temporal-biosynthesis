@@ -3,7 +3,7 @@
 import numpy as np
 import pickle
 
-from scipy.spatial.distance import pdist
+from scipy.spatial.distance import pdist, squareform
 
 
 @np.vectorize
@@ -13,6 +13,12 @@ def vcosdist_carb_prot(ablation_result_array):
 
 def cosdist_carb_prot(enz_use_array):
     distances = pdist(enz_use_array, metric="cosine")
+    print(distances)
+    distance_matrix = squareform(distances)
+    print(distance_matrix)
+    distance_triangle = np.tril(distance_matrix)
+    distance_triangle[np.triu_indices(distance_triangle.shape[0])] = np.nan
+    print(distance_triangle)
     metric = distances[7]
     return metric
 
@@ -20,6 +26,11 @@ def cosdist_carb_prot(enz_use_array):
 # Alternatively, load if saved
 with open("../data/interim/ec_usg_glc_amm.pkl", "rb") as handle:
     ablation_result_array = pickle.load(handle)
+
+breakpoint()
+
+metric = cosdist_carb_prot(ablation_result_array[0, 0])
+print(metric)
 
 breakpoint()
 
