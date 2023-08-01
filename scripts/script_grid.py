@@ -5,20 +5,24 @@ import pickle
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.backends.backend_pdf import PdfPages
-from src.calc.ablation import vget_ablation_ratio, vget_custom_ablation_ratio
+from src.calc.ablation import (
+    vget_ablation_ratio,
+    vget_custom_ablation_ratio,
+    vget_kendall_original,
+)
 from src.calc.matrix import ArrayCollection
 from src.viz.grid import heatmap_ablation_grid
 
 model_options = {
     # "glc" or "pyr"
-    "carbon_source": "pyr",
+    "carbon_source": "glc",
 }
 
 plot_choices = {
     "heatmap_ratio": True,
-    "heatmap_ratio_prot": True,
-    "heatmap_ratio_prot_carb": True,
-    "heatmap_ratio_prot_lipid": True,
+    "heatmap_ratio_prot": False,
+    "heatmap_ratio_prot_carb": False,
+    "heatmap_ratio_prot_lipid": False,
     "heatmap_ratio_sus_compare": True,
     "heatmap_gr": True,
     "heatmap_gr_gradient_c": False,
@@ -28,8 +32,7 @@ plot_choices = {
     "heatmap_carb": True,
     "heatmap_prot": True,
     "heatmap_carb_to_prot": True,
-    "heatmap_cdist": True,
-    "heatmap_kdist": True,
+    "heatmap_pdist": True,
 }
 
 
@@ -88,6 +91,12 @@ grid_filepath = "../data/interim/" + grid_filename + ".pkl"
 with open(grid_filepath, "rb") as handle:
     ablation_result_array = pickle.load(handle)
 
+usgfluxes_filename = "ec_usgfluxes_" + model_options["carbon_source"] + "_amm"
+usgfluxes_filepath = "../data/interim/" + usgfluxes_filename + ".pkl"
+with open(usgfluxes_filepath, "rb") as handle:
+    ablation_fluxes_array = pickle.load(handle)
+
+
 # Compute data
 ratio = ArrayCollection(vget_ablation_ratio(ablation_result_array), x_axis, y_axis)
 ratio_prot = ArrayCollection(
@@ -104,12 +113,13 @@ ratio_prot_lipid = ArrayCollection(
     y_axis,
 )
 
-
 gr = ArrayCollection(vget_gr(ablation_result_array), x_axis, y_axis)
 
 carb = ArrayCollection(vget_carb(ablation_result_array), x_axis, y_axis)
 prot = ArrayCollection(vget_prot(ablation_result_array), x_axis, y_axis)
 carb_to_prot = ArrayCollection(carb.array / prot.array, x_axis, y_axis)
+
+pdist = ArrayCollection(vget_kendall_original(ablation_fluxes_array), x_axis, y_axis)
 
 # Mask
 ratio_array_mask = ratio.array > 1
@@ -358,50 +368,18 @@ if plot_choices["heatmap_carb_to_prot"]:
         quiver=True,
     )
 
-if plot_choices["heatmap_cdist"]:
-    # Load saved data
-    cdist_filename = "ec_cdist_" + model_options["carbon_source"] + "_amm"
-    cdist_filepath = "../data/interim/" + cdist_filename + ".pkl"
-    with open(cdist_filepath, "rb") as handle:
-        cdist_array = pickle.load(handle)
-    # Convert dtype object to float, because of pickle
-    cdist_array = np.array(cdist_array, dtype=float)
-
-    cdist = ArrayCollection(cdist_array, x_axis, y_axis)
-
-    fig_heatmap_cdist, ax_heatmap_cdist = plt.subplots()
+if plot_choices["heatmap_pdist"]:
+    fig_heatmap_pdist, ax_heatmap_pdist = plt.subplots()
     riced_heatmap(
-        ax_heatmap_cdist,
-        acoll=cdist,
-        cbar_label="Distance",
-        title="Cosine distance between enzyme usage flux vectors:\nprioritising protein vs carbohydrate",
-        vmin=0,
-        vmax=1,
-        cmap="magma_r",
+        ax_heatmap_pdist,
+        acoll=pdist,
+        cbar_label=r"Mean Kendall's $\tau$ (b)",
+        title="Mean correlation between parallel and each component",
+        vmin=None,
+        vmax=None,
+        cmap="cividis",
+        quiver=True,
     )
-
-if plot_choices["heatmap_kdist"]:
-    # Load saved data
-    kdist_filename = "ec_kdist_" + model_options["carbon_source"] + "_amm"
-    kdist_filepath = "../data/interim/" + kdist_filename + ".pkl"
-    with open(kdist_filepath, "rb") as handle:
-        kdist_array = pickle.load(handle)
-    # Convert dtype object to float, because of pickle
-    kdist_array = np.array(kdist_array, dtype=float)
-
-    kdist = ArrayCollection(kdist_array, x_axis, y_axis)
-
-    fig_heatmap_kdist, ax_heatmap_kdist = plt.subplots()
-    riced_heatmap(
-        ax_heatmap_kdist,
-        acoll=kdist,
-        cbar_label="Correlation",
-        title="Kendall's tau correlation between enzyme usage flux vectors:\nprioritising protein vs carbohydrate",
-        vmin=0,
-        vmax=1,
-        cmap="magma",
-    )
-
 
 pdf_filename = "../reports/" + grid_filename + ".pdf"
 with PdfPages(pdf_filename) as pdf:
