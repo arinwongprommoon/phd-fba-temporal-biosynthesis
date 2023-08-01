@@ -196,7 +196,7 @@ def get_kendall_carb_prot(enz_use_array):
         enz_use_array,
         lambda u, v: kendalltau(u, v, nan_policy="omit").statistic,
     )
-    # 7: distance between carbohydrate and protein
+    # 13: distance between carbohydrate and protein
     metric = distances[13]
     return metric
 
@@ -205,6 +205,23 @@ def get_kendall_carb_prot(enz_use_array):
 def vget_kendall_carb_prot(ablation_flux_array):
     """TODO: Insert docstring"""
     return get_kendall_carb_prot(ablation_flux_array)
+
+
+def get_kendall_original(enz_use_array):
+    """TODO: Insert docstring"""
+    distances = pdist(
+        enz_use_array,
+        lambda u, v: kendalltau(u, v, nan_policy="omit").statistic,
+    )
+    # distances[0] to distances[6] are original vs all the other biomass components
+    metric = np.mean(distances[0:7])
+    return metric
+
+
+@np.vectorize
+def vget_kendall_original(ablation_flux_array):
+    """TODO: Insert docstring"""
+    return get_kendall_original(ablation_flux_array)
 
 
 def get_cosine_carb_prot(enz_use_array):
