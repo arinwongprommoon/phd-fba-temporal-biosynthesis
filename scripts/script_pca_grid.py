@@ -14,7 +14,7 @@ model_options = {
 }
 
 # Load saved data
-usg_filename = "ec_usg_" + model_options["carbon_source"] + "_amm"
+usg_filename = "ec_usgfluxes4_" + model_options["carbon_source"] + "_amm"
 usg_filepath = "../data/interim/" + usg_filename + ".pkl"
 with open(usg_filepath, "rb") as handle:
     ablation_result_array = pickle.load(handle)
