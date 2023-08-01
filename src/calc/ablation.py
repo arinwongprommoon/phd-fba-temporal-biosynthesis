@@ -2,6 +2,9 @@
 
 import numpy as np
 
+from scipy.spatial.distance import pdist
+from scipy.stats import kendalltau
+
 
 def get_ablation_ratio(ablation_result):
     """Get ratio to represent ablation study
@@ -185,3 +188,22 @@ def get_custom_ablation_ratio(ablation_result, component_list):
 
     ratio = sum_of_times / largest_prop_time
     return ratio
+
+
+def get_kendall_carb_prot(enz_use_array):
+    """TODO: Insert docstring"""
+    distances = pdist(
+        enz_use_array,
+        lambda u, v: kendalltau(u, v, nan_policy="omit").statistic,
+    )
+    # 7: distance between carbohydrate and protein
+    metric = distances[7]
+    return metric
+
+
+def get_cosine_carb_prot(enz_use_array):
+    """TODO: Insert docstring"""
+    distances = pdist(enz_use_array, metric="cosine")
+    # 7: distance between carbohydrate and protein
+    metric = distances[7]
+    return metric
