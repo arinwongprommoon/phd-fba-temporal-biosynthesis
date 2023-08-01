@@ -201,9 +201,21 @@ def get_kendall_carb_prot(enz_use_array):
     return metric
 
 
+@np.vectorize
+def vget_kendall_carb_prot(ablation_flux_array):
+    """TODO: Insert docstring"""
+    return get_kendall_carb_prot(ablation_flux_array)
+
+
 def get_cosine_carb_prot(enz_use_array):
     """TODO: Insert docstring"""
     distances = pdist(enz_use_array, metric="cosine")
     # 7: distance between carbohydrate and protein
     metric = distances[7]
     return metric
+
+
+@np.vectorize
+def vget_cosine_carb_prot(ablation_flux_array):
+    """TODO: Insert docstring"""
+    return get_cosine_carb_prot(ablation_flux_array)
