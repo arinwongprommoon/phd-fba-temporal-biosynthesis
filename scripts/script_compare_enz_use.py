@@ -12,13 +12,13 @@ from sklearn.preprocessing import scale
 from src.gem.yeast8model import Yeast8Model
 
 plot_choices = {
-    "pdist": True,
+    "pdist": False,
     "hierarchical": False,
-    "pca": True,
+    "pca": False,
     "nonzero": False,
     "topflux": True,
     # Spearman's rank correlation
-    "rankcorr_spearmanr": True,
+    "rankcorr_spearmanr": False,
     # Kendall's tau b rank correlation
     "rankcorr_kendalltaub": True,
 }
