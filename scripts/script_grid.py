@@ -8,8 +8,6 @@ from matplotlib.backends.backend_pdf import PdfPages
 from src.calc.ablation import (
     vget_ablation_ratio,
     vget_custom_ablation_ratio,
-    vget_kendall_mean,
-    vget_kendall_std,
 )
 from src.calc.matrix import ArrayCollection
 from src.viz.grid import heatmap_ablation_grid
@@ -24,17 +22,15 @@ plot_choices = {
     "heatmap_ratio_prot": False,
     "heatmap_ratio_prot_carb": False,
     "heatmap_ratio_prot_lipid": False,
-    "heatmap_ratio_sus_compare": True,
+    "heatmap_ratio_sus_compare": False,
     "heatmap_gr": True,
     "heatmap_gr_gradient_c": False,
     "heatmap_gr_gradient_n": False,
-    "heatmap_gr_gradient_compare": True,
-    "heatmap_gr_sus_compare": True,
+    "heatmap_gr_gradient_compare": False,
+    "heatmap_gr_sus_compare": False,
     "heatmap_carb": True,
     "heatmap_prot": True,
     "heatmap_carb_to_prot": True,
-    "heatmap_kendall_mean": True,
-    "heatmap_kendall_std": True,
 }
 
 
@@ -93,11 +89,6 @@ grid_filepath = "../data/interim/" + grid_filename + ".pkl"
 with open(grid_filepath, "rb") as handle:
     ablation_result_array = pickle.load(handle)
 
-usgfluxes_filename = "ec_usgfluxes_" + model_options["carbon_source"] + "_amm"
-usgfluxes_filepath = "../data/interim/" + usgfluxes_filename + ".pkl"
-with open(usgfluxes_filepath, "rb") as handle:
-    ablation_fluxes_array = pickle.load(handle)
-
 
 # Compute data
 ratio = ArrayCollection(vget_ablation_ratio(ablation_result_array), x_axis, y_axis)
@@ -120,9 +111,6 @@ gr = ArrayCollection(vget_gr(ablation_result_array), x_axis, y_axis)
 carb = ArrayCollection(vget_carb(ablation_result_array), x_axis, y_axis)
 prot = ArrayCollection(vget_prot(ablation_result_array), x_axis, y_axis)
 carb_to_prot = ArrayCollection(carb.array / prot.array, x_axis, y_axis)
-
-kendall_mean = ArrayCollection(vget_kendall_mean(ablation_fluxes_array), x_axis, y_axis)
-kendall_std = ArrayCollection(vget_kendall_std(ablation_fluxes_array), x_axis, y_axis)
 
 # Mask
 ratio_array_mask = ratio.array > 1
@@ -370,33 +358,6 @@ if plot_choices["heatmap_carb_to_prot"]:
         cmap="Purples",
         quiver=True,
     )
-
-if plot_choices["heatmap_kendall_mean"]:
-    fig_heatmap_kendall_mean, ax_heatmap_kendall_mean = plt.subplots()
-    riced_heatmap(
-        ax_heatmap_kendall_mean,
-        acoll=kendall_mean,
-        cbar_label=r"Mean Kendall's $\tau$ (b)",
-        title="Mean correlation between parallel and each component",
-        vmin=None,
-        vmax=None,
-        cmap="cividis",
-        quiver=True,
-    )
-
-if plot_choices["heatmap_kendall_std"]:
-    fig_heatmap_kendall_std, ax_heatmap_kendall_std = plt.subplots()
-    riced_heatmap(
-        ax_heatmap_kendall_std,
-        acoll=kendall_std,
-        cbar_label=r"Std dev Kendall's $\tau$ (b)",
-        title="Standard deviation of correlation between parallel and each component",
-        vmin=None,
-        vmax=None,
-        cmap="cividis",
-        quiver=True,
-    )
-
 
 pdf_filename = "../reports/" + grid_filename + ".pdf"
 with PdfPages(pdf_filename) as pdf:
