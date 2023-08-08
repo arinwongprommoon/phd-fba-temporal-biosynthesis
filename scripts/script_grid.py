@@ -8,29 +8,31 @@ from matplotlib.backends.backend_pdf import PdfPages
 from src.calc.ablation import (
     vget_ablation_ratio,
     vget_custom_ablation_ratio,
+    vget_cosine_carb_prot,
 )
 from src.calc.matrix import ArrayCollection
 from src.viz.grid import heatmap_ablation_grid
 
 model_options = {
     # "glc" or "pyr"
-    "carbon_source": "pyr",
+    "carbon_source": "glc",
 }
 
 plot_choices = {
-    "heatmap_ratio": True,
+    "heatmap_ratio": False,
     "heatmap_ratio_prot": False,
     "heatmap_ratio_prot_carb": False,
     "heatmap_ratio_prot_lipid": False,
     "heatmap_ratio_sus_compare": False,
-    "heatmap_gr": True,
+    "heatmap_gr": False,
     "heatmap_gr_gradient_c": False,
     "heatmap_gr_gradient_n": False,
     "heatmap_gr_gradient_compare": False,
     "heatmap_gr_sus_compare": False,
-    "heatmap_carb": True,
-    "heatmap_prot": True,
-    "heatmap_carb_to_prot": True,
+    "heatmap_carb": False,
+    "heatmap_prot": False,
+    "heatmap_carb_to_prot": False,
+    "heatmap_cosine": True,
 }
 
 
@@ -358,6 +360,29 @@ if plot_choices["heatmap_carb_to_prot"]:
         cmap="Purples",
         quiver=True,
     )
+
+if plot_choices["heatmap_cosine"]:
+    usgfluxes_filename = "ec_usgfluxes_" + model_options["carbon_source"] + "_amm"
+    usgfluxes_filepath = "../data/interim/" + usgfluxes_filename + ".pkl"
+    with open(usgfluxes_filepath, "rb") as handle:
+        ablation_fluxes_array = pickle.load(handle)
+
+    pdist = ArrayCollection(
+        vget_cosine_carb_prot(ablation_fluxes_array), x_axis, y_axis
+    )
+
+    fig_heatmap_pdist, ax_heatmap_pdist = plt.subplots()
+    riced_heatmap(
+        ax_heatmap_pdist,
+        acoll=pdist,
+        cbar_label=r"Cosine distance",
+        title="Cosine distance between carbohydrate\nand protein enzyme usage flux vectors",
+        vmin=0,
+        vmax=1,
+        cmap="cividis_r",
+        quiver=True,
+    )
+
 
 pdf_filename = "../reports/" + grid_filename + ".pdf"
 with PdfPages(pdf_filename) as pdf:
