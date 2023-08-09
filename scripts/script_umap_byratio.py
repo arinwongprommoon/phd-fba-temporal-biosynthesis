@@ -15,6 +15,8 @@ model_options = {
     # "glc" or "pyr"
     "carbon_source": "glc",
     "num_samples": 100,
+    "n_neighbors": 50,
+    "min_dist": 0.5,
 }
 
 
@@ -96,7 +98,10 @@ multicond_enz_use_array.shape
 # UMAP
 scaled_array = scale(multicond_enz_use_array)
 # TODO: Add UMAP parameters here
-umapper = umap.UMAP()
+umapper = umap.UMAP(
+    n_neighbors=model_options["n_neighbors"],
+    min_dist=model_options["min_dist"],
+)
 embedding = umapper.fit_transform(scaled_array)
 umap1 = embedding[:, 0]
 umap2 = embedding[:, 1]
@@ -121,8 +126,10 @@ for cond in range(2):
     region_range = list(range(start_idx, start_idx + (len(umap1) // 2)))
     # original, protein, carbohydrate
     # FIXME: lots of hard-cording, confusing, un-Pythonic
-    to_plot = [el for el in region_range if el % 8 in [0, 2, 3]]
-    color_list = [color_dict[el % 3] for el in range(len(to_plot))]
+    # to_plot = [el for el in region_range if el % 8 in [0, 2, 3]]
+    # color_list = [color_dict[el % 3] for el in range(len(to_plot))]
+    to_plot = [el for el in region_range if el % 8 in [0, 1, 2, 3, 4, 5, 6, 7]]
+    color_list = [color_dict[el % 8] for el in range(len(to_plot))]
     ax[cond].scatter(
         umap1[to_plot],
         umap2[to_plot],
