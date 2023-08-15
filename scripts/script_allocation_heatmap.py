@@ -12,7 +12,7 @@ plot_options = {
     # Draw a heatmap, columns showing the biomass component, rows showing
     # each enzyme, and colours showing flux differences.  Rows are grouped by sub-
     # system, alphabetically, and are labelled by subsystem.
-    "difference": True,
+    "difference": False,
     # Tolerance value for heatmap -- heatmap excludes flux difference magnitudes
     # that are below this value.  Useful for excluding lots of 'uninteresting'
     # fluxes.
@@ -256,16 +256,17 @@ if __name__ == "__main__":
             center=0,
             robust=False,
             cmap="PiYG",
-            cbar_kws={"label": r"log2(fold change)"},
+            cbar_kws={"shrink": 0.5, "label": r"$\log_2(\mathrm{FC})$"},
             ax=ax,
         )
         ax.tick_params(top=True, labeltop=True, bottom=False, labelbottom=False)
-        ax.set_title(
-            f"Enzyme usage changes as a result of ablation\n(Rows excluded: log2(fold change) magnitudes smaller than {tol})"
-        )
+        ax.set_xticklabels(ax.xaxis.get_majorticklabels(), rotation=45, fontsize=16)
+        # ax.set_title(
+        #     f"Enzyme usage changes as a result of ablation\n(Rows excluded: log2(fold change) magnitudes smaller than {tol})"
+        # )
 
 
-pdf_filename = "../reports/abl_vs_enz_use_plots.pdf"
+pdf_filename = "../reports/allocation_fc.pdf"
 with PdfPages(pdf_filename) as pdf:
     for fig in range(1, plt.gcf().number + 1):
         pdf.savefig(fig)
