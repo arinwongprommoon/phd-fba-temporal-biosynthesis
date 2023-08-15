@@ -20,15 +20,15 @@ plot_options = {
     # Similar to the above, but showing fold changes.
     "foldchange": True,
     # Threshold value below which fluxes are converted to the epsilon value.
-    # Choice of default 1.11e-11 epsilon:
-    # 1 molecule per cell equates to 1.11e-11 mmol gDW-1
+    # Choice of default 1.11e-10 epsilon:
+    # 1 molecule per cell equates to 1.11e-10 mmol gDW-1
     # Below that, it doesn't make much sense (go into stochastics &
     # also it means that the cell produces less than one molecule
     # of the enzyme)
-    "foldchange/epsilon": 1.11e-11,
+    "foldchange/epsilon": 1.11e-10,
     # Tolerance value for heatmap -- heatmap excludes log2(FC) magnitudes that
     # are below this value.
-    "foldchange/tol": 17,
+    "foldchange/tol": 11,
 }
 
 # Load subsystems lookup
