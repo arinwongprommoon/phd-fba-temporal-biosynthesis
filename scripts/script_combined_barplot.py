@@ -1,15 +1,10 @@
 #!/usr/bin/env python3
+import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.patches as mpatches
 from matplotlib.backends.backend_pdf import PdfPages
-
 from src.gem.yeast8model import Yeast8Model
-from src.calc.ablation import get_ablation_ratio
-from src.calc.flux import compare_fluxes
-from src.calc.growth import get_exch_saturation
-from src.viz.bar import ablation_barplot, compare_ablation_times
 
 # Construct models of strains
 glc_exch_rate = 16.89
