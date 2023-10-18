@@ -19,6 +19,7 @@ def heatmap_ablation_grid(
     saturation_grid=False,
     vmin=0,
     vmax=2,
+    showticklabels=True,
     center=None,
     cmap="RdBu_r",
     cbar_label="ratio",
@@ -54,6 +55,8 @@ def heatmap_ablation_grid(
         Minimum of range for colour bar.  Default 0.
     vmax : float, optional
         Maximum of range for colour bar.  Default 2.
+    showticklabels : bool, optional
+        Whether to show x/y-axis tick labels.  Default True.
     cbar_label : string, optional
         Label for colour bar.  Default "ratio".
 
@@ -93,12 +96,16 @@ def heatmap_ablation_grid(
         # This only makes sense if percent_saturation is True.
         if saturation_grid:
             ax.axvline(
-                np.searchsorted(heatmap_xticklabels, 100, side="left"), color="k"
+                np.searchsorted(heatmap_xticklabels, 100, side="left"),
+                color="k",
+                linewidth=1,
             )
             # doing this because y axis is defined 'in reverse' & to have line
             # position consistent with x axis
             ax.axhline(
-                np.searchsorted(heatmap_yticklabels[::-1], 100, side="right"), color="k"
+                np.searchsorted(heatmap_yticklabels[::-1], 100, side="right"),
+                color="k",
+                linewidth=1,
             )
 
     # Draws heatmap.
@@ -123,6 +130,11 @@ def heatmap_ablation_grid(
     )
     ax.set_xlabel(list(exch_rate_dict.keys())[0])
     ax.set_ylabel(list(exch_rate_dict.keys())[1])
+
+    # Hide tick labels
+    if not showticklabels:
+        ax.set(xticklabels=[])
+        ax.set(yticklabels=[])
 
 
 def piechart_ablation_grid(

@@ -19,12 +19,12 @@ model_options = {
 }
 
 plot_choices = {
-    "heatmap_ratio": False,
+    "heatmap_ratio": True,
     "heatmap_ratio_prot": False,
     "heatmap_ratio_prot_carb": False,
     "heatmap_ratio_prot_lipid": False,
     "heatmap_ratio_sus_compare": False,
-    "heatmap_gr": False,
+    "heatmap_gr": True,
     "heatmap_gr_gradient_c": False,
     "heatmap_gr_gradient_n": False,
     "heatmap_gr_gradient_compare": False,
@@ -32,7 +32,7 @@ plot_choices = {
     "heatmap_carb": False,
     "heatmap_prot": False,
     "heatmap_carb_to_prot": False,
-    "heatmap_cosine": True,
+    "heatmap_cosine": False,
 }
 
 
@@ -80,8 +80,8 @@ y_axis = exch_rate_dict["r_1654"]
 grid_ylabel_leader = "Ammonium exchange"
 
 # Set up axes parameters
-grid_xlabel = f"{grid_xlabel_leader} (% saturation)"
-grid_ylabel = f"{grid_ylabel_leader} (% saturation)"
+grid_xlabel = f"{grid_xlabel_leader}\n (% growth rate saturation)"
+grid_ylabel = f"{grid_ylabel_leader}\n (% growth rate saturation)"
 # For quiver
 X, Y = np.meshgrid(np.linspace(0, 31, 32), np.linspace(0, 31, 32))
 
@@ -114,8 +114,12 @@ carb = ArrayCollection(vget_carb(ablation_result_array), x_axis, y_axis)
 prot = ArrayCollection(vget_prot(ablation_result_array), x_axis, y_axis)
 carb_to_prot = ArrayCollection(carb.array / prot.array, x_axis, y_axis)
 
-# Mask
+# Masks
 ratio_array_mask = ratio.array > 1
+# For growth rate gradients, non-zero as an 'epsilon' value to get sensible-
+# looking contours.
+gr_x_mask = gr.gradient.x > 0.01
+gr_y_mask = gr.gradient.y > 0.01
 
 
 def riced_heatmap(
@@ -128,7 +132,9 @@ def riced_heatmap(
     vmax=None,
     center=None,
     cmap="RdBu_r",
+    ratio_contour=True,
     isratio=False,
+    gr_contour=False,
     quiver=False,
 ):
     """Convenience function to draw heatmaps with quivers
@@ -153,10 +159,15 @@ def riced_heatmap(
         centre value for heatmap
     cmap : string
         matplotlib colour palette to use for colours
+    ratio_contour : bool
+       if true, draw ratio contour.  further options in 'isratio' parameter.
     isratio : bool
        if true, treats the input array as a ratio, and define contour based on
        where values are less than or greater than 1.  if false, draws contour
        based on the regular definition of ratio.
+    gr_contour : bool
+       if true, draw contours based on carbon- and nitrogen-limiting regions
+       with respect to growth rate.
     quiver : bool
         if true, draw quiver based on susceptibility
 
@@ -171,15 +182,29 @@ def riced_heatmap(
         saturation_grid=True,
         vmin=vmin,
         vmax=vmax,
+        showticklabels=False,
         center=center,
         cmap=cmap,
         cbar_label=cbar_label,
     )
-    if isratio:
-        mask = data > 1
-        ax.contour(np.rot90(mask), origin="lower")
-    else:
-        ax.contour(np.rot90(ratio_array_mask), origin="lower")
+    if ratio_contour:
+        if isratio:
+            mask = data > 1
+            ax.contour(np.rot90(mask), origin="lower", colors="k", linestyles="dotted")
+        else:
+            ax.contour(
+                np.rot90(ratio_array_mask),
+                origin="lower",
+                colors="k",
+                linestyles="dotted",
+            )
+    if gr_contour:
+        ax.contour(
+            np.rot90(gr_x_mask), origin="lower", colors="C1", linestyles="dashed"
+        )
+        ax.contour(
+            np.rot90(gr_y_mask), origin="lower", colors="C2", linestyles="dashed"
+        )
     if quiver:
         ax.quiver(
             X,
@@ -196,6 +221,9 @@ def riced_heatmap(
 
 # Plot!
 
+# Set font size
+plt.rcParams.update({"font.size": 16})
+
 if plot_choices["heatmap_ratio"]:
     fig_heatmap_ratio, ax_heatmap_ratio = plt.subplots()
     riced_heatmap(
@@ -206,7 +234,8 @@ if plot_choices["heatmap_ratio"]:
         vmin=0.70,
         vmax=1.20,
         center=1,
-        quiver=True,
+        gr_contour=True,
+        # quiver=True,
     )
 
 if plot_choices["heatmap_ratio_prot"]:
@@ -274,7 +303,9 @@ if plot_choices["heatmap_gr"]:
         vmin=0,
         vmax=0.40,
         cmap="cividis",
-        quiver=True,
+        ratio_contour=False,
+        gr_contour=True,
+        # quiver=True,
     )
 
 if plot_choices["heatmap_gr_gradient_c"]:
@@ -286,6 +317,8 @@ if plot_choices["heatmap_gr_gradient_c"]:
         cbar_label="Gradient",
         title=f"Gradient of growth rate,\nalong {grid_xlabel_leader} axis",
         cmap="PiYG",
+        ratio_contour=False,
+        gr_contour=True,
     )
 
 if plot_choices["heatmap_gr_gradient_n"]:
@@ -297,6 +330,8 @@ if plot_choices["heatmap_gr_gradient_n"]:
         cbar_label="Gradient",
         title=f"Gradient of growth rate,\nalong {grid_ylabel_leader} axis",
         cmap="PiYG",
+        ratio_contour=False,
+        gr_contour=True,
     )
 
 if plot_choices["heatmap_gr_gradient_compare"]:
@@ -309,6 +344,8 @@ if plot_choices["heatmap_gr_gradient_compare"]:
         title=f"Differences in magnitude of gradient,\n{grid_xlabel_leader} -- {grid_ylabel_leader}",
         center=0,
         cmap="PuOr",
+        ratio_contour=False,
+        gr_contour=True,
     )
 
 if plot_choices["heatmap_gr_sus_compare"]:
