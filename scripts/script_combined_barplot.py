@@ -72,6 +72,9 @@ Tpar_df.index = ["Tpar"]
 
 # Draw
 
+# Set font size
+plt.rcParams.update({"font.size": 16})
+# Set colour palette
 prop_cycle = plt.rcParams["axes.prop_cycle"]
 default_mpl_colors = prop_cycle.by_key()["color"]
 
@@ -109,9 +112,9 @@ handles = []
 for color, component in zip(default_mpl_colors[: len(component_list)], component_list):
     color_patch = mpatches.Patch(color=color, label=component)
     handles.append(color_patch)
-grey_patch = mpatches.Patch(color=default_mpl_colors[7], label="Tpar")
+grey_patch = mpatches.Patch(color=default_mpl_colors[7], label="parallel")
 handles.append(grey_patch)
-fig.legend(handles, component_list + [r"$T_{par}$"], loc="center right")
+fig.legend(handles, component_list + ["parallel"], loc="center right")
 fig.subplots_adjust(right=0.75)
 
 filename = "combined_barplot"
