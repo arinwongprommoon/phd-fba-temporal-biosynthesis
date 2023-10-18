@@ -80,8 +80,8 @@ y_axis = exch_rate_dict["r_1654"]
 grid_ylabel_leader = "Ammonium exchange"
 
 # Set up axes parameters
-grid_xlabel = f"{grid_xlabel_leader} (% saturation)"
-grid_ylabel = f"{grid_ylabel_leader} (% saturation)"
+grid_xlabel = f"{grid_xlabel_leader}\n (% growth rate saturation)"
+grid_ylabel = f"{grid_ylabel_leader}\n (% growth rate saturation)"
 # For quiver
 X, Y = np.meshgrid(np.linspace(0, 31, 32), np.linspace(0, 31, 32))
 
@@ -171,6 +171,7 @@ def riced_heatmap(
         saturation_grid=True,
         vmin=vmin,
         vmax=vmax,
+        showticklabels=False,
         center=center,
         cmap=cmap,
         cbar_label=cbar_label,
