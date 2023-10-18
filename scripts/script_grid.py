@@ -128,6 +128,7 @@ def riced_heatmap(
     vmax=None,
     center=None,
     cmap="RdBu_r",
+    contour=True,
     isratio=False,
     quiver=False,
 ):
@@ -153,6 +154,8 @@ def riced_heatmap(
         centre value for heatmap
     cmap : string
         matplotlib colour palette to use for colours
+    contour : bool
+       if true, draw contour.  further options in 'isratio' parameter.
     isratio : bool
        if true, treats the input array as a ratio, and define contour based on
        where values are less than or greater than 1.  if false, draws contour
@@ -176,11 +179,12 @@ def riced_heatmap(
         cmap=cmap,
         cbar_label=cbar_label,
     )
-    if isratio:
-        mask = data > 1
-        ax.contour(np.rot90(mask), origin="lower")
-    else:
-        ax.contour(np.rot90(ratio_array_mask), origin="lower")
+    if contour:
+        if isratio:
+            mask = data > 1
+            ax.contour(np.rot90(mask), origin="lower")
+        else:
+            ax.contour(np.rot90(ratio_array_mask), origin="lower")
     if quiver:
         ax.quiver(
             X,
@@ -275,6 +279,7 @@ if plot_choices["heatmap_gr"]:
         vmin=0,
         vmax=0.40,
         cmap="cividis",
+        contour=False,
         # quiver=True,
     )
 
@@ -310,6 +315,7 @@ if plot_choices["heatmap_gr_gradient_compare"]:
         title=f"Differences in magnitude of gradient,\n{grid_xlabel_leader} -- {grid_ylabel_leader}",
         center=0,
         cmap="PuOr",
+        contour=False,
     )
 
 if plot_choices["heatmap_gr_sus_compare"]:
