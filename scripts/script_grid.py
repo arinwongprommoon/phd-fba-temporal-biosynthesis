@@ -207,7 +207,7 @@ if plot_choices["heatmap_ratio"]:
         vmin=0.70,
         vmax=1.20,
         center=1,
-        quiver=True,
+        # quiver=True,
     )
 
 if plot_choices["heatmap_ratio_prot"]:
@@ -275,7 +275,7 @@ if plot_choices["heatmap_gr"]:
         vmin=0,
         vmax=0.40,
         cmap="cividis",
-        quiver=True,
+        # quiver=True,
     )
 
 if plot_choices["heatmap_gr_gradient_c"]:
