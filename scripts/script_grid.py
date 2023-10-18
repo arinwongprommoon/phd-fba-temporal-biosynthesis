@@ -221,6 +221,9 @@ def riced_heatmap(
 
 # Plot!
 
+# Set font size
+plt.rcParams.update({"font.size": 16})
+
 if plot_choices["heatmap_ratio"]:
     fig_heatmap_ratio, ax_heatmap_ratio = plt.subplots()
     riced_heatmap(
