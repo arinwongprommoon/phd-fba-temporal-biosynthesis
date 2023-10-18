@@ -19,20 +19,20 @@ model_options = {
 }
 
 plot_choices = {
-    "heatmap_ratio": False,
+    "heatmap_ratio": True,
     "heatmap_ratio_prot": False,
     "heatmap_ratio_prot_carb": False,
     "heatmap_ratio_prot_lipid": False,
     "heatmap_ratio_sus_compare": False,
-    "heatmap_gr": False,
+    "heatmap_gr": True,
     "heatmap_gr_gradient_c": False,
     "heatmap_gr_gradient_n": False,
-    "heatmap_gr_gradient_compare": False,
+    "heatmap_gr_gradient_compare": True,
     "heatmap_gr_sus_compare": False,
     "heatmap_carb": False,
     "heatmap_prot": False,
     "heatmap_carb_to_prot": False,
-    "heatmap_cosine": True,
+    "heatmap_cosine": False,
 }
 
 
