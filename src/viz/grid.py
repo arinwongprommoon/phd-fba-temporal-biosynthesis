@@ -96,12 +96,16 @@ def heatmap_ablation_grid(
         # This only makes sense if percent_saturation is True.
         if saturation_grid:
             ax.axvline(
-                np.searchsorted(heatmap_xticklabels, 100, side="left"), color="k"
+                np.searchsorted(heatmap_xticklabels, 100, side="left"),
+                color="k",
+                linewidth=1,
             )
             # doing this because y axis is defined 'in reverse' & to have line
             # position consistent with x axis
             ax.axhline(
-                np.searchsorted(heatmap_yticklabels[::-1], 100, side="right"), color="k"
+                np.searchsorted(heatmap_yticklabels[::-1], 100, side="right"),
+                color="k",
+                linewidth=1,
             )
 
     # Draws heatmap.
