@@ -190,12 +190,21 @@ def riced_heatmap(
     if ratio_contour:
         if isratio:
             mask = data > 1
-            ax.contour(np.rot90(mask), origin="lower")
+            ax.contour(np.rot90(mask), origin="lower", colors="k", linestyles="dotted")
         else:
-            ax.contour(np.rot90(ratio_array_mask), origin="lower")
+            ax.contour(
+                np.rot90(ratio_array_mask),
+                origin="lower",
+                colors="k",
+                linestyles="dotted",
+            )
     if gr_contour:
-        ax.contour(np.rot90(gr_x_mask), origin="lower")
-        ax.contour(np.rot90(gr_y_mask), origin="lower")
+        ax.contour(
+            np.rot90(gr_x_mask), origin="lower", colors="C1", linestyles="dashed"
+        )
+        ax.contour(
+            np.rot90(gr_y_mask), origin="lower", colors="C2", linestyles="dashed"
+        )
     if quiver:
         ax.quiver(
             X,
