@@ -24,6 +24,7 @@ plot_choices = {
     "heatmap_ratio_prot_carb": False,
     "heatmap_ratio_prot_lipid": False,
     "heatmap_ratio_sus_compare": False,
+    "heatmap_log2ratio": True,
     "heatmap_gr": True,
     "heatmap_gr_gradient_c": False,
     "heatmap_gr_gradient_n": False,
@@ -93,7 +94,9 @@ with open(grid_filepath, "rb") as handle:
 
 
 # Compute data
-ratio = ArrayCollection(vget_ablation_ratio(ablation_result_array), x_axis, y_axis)
+ratio_array = vget_ablation_ratio(ablation_result_array)
+
+ratio = ArrayCollection(ratio_array, x_axis, y_axis)
 ratio_prot = ArrayCollection(
     vget_custom_ablation_ratio(ablation_result_array, ["protein"]), x_axis, y_axis
 )
@@ -107,6 +110,8 @@ ratio_prot_lipid = ArrayCollection(
     x_axis,
     y_axis,
 )
+
+log2ratio = ArrayCollection(np.log2(ratio_array), x_axis, y_axis)
 
 gr = ArrayCollection(vget_gr(ablation_result_array), x_axis, y_axis)
 
@@ -292,6 +297,21 @@ if plot_choices["heatmap_ratio_sus_compare"]:
         cmap="PuOr",
     )
 
+if plot_choices["heatmap_log2ratio"]:
+    fig_heatmap_log2ratio, ax_heatmap_log2ratio = plt.subplots()
+    # This can safely re-use the contour computed on ratio because ratio > 1
+    # is equivalent to log2ratio > 0.
+    riced_heatmap(
+        ax_heatmap_log2ratio,
+        acoll=log2ratio,
+        cbar_label=r"$\log_{2}(Ratio)$",
+        title=r"$\log_{2}(Ratio)$",
+        vmin=-0.52,
+        vmax=+0.27,
+        center=0,
+        gr_contour=True,
+        # quiver=True,
+    )
 
 if plot_choices["heatmap_gr"]:
     fig_heatmap_gr, ax_heatmap_gr = plt.subplots()
