@@ -20,13 +20,13 @@ model_options = {
 }
 
 plot_choices = {
-    "heatmap_ratio": True,
+    "heatmap_ratio": False,
     "heatmap_ratio_prot": False,
     "heatmap_ratio_prot_carb": False,
     "heatmap_ratio_prot_lipid": False,
     "heatmap_ratio_sus_compare": False,
-    "heatmap_log2ratio": True,
-    "heatmap_gr": True,
+    "heatmap_log2ratio": False,
+    "heatmap_gr": False,
     "heatmap_gr_gradient_c": False,
     "heatmap_gr_gradient_n": False,
     "heatmap_gr_gradient_compare": False,
@@ -195,7 +195,7 @@ def riced_heatmap(
         saturation_grid=True,
         vmin=vmin,
         vmax=vmax,
-        showticklabels=False,
+        showticklabels=True,
         center=center,
         cmap=cmap,
         cbar_label=cbar_label,
@@ -209,7 +209,7 @@ def riced_heatmap(
                 np.rot90(ratio_array_mask),
                 origin="lower",
                 colors="k",
-                linestyles="dotted",
+                # linestyles="dotted",
             )
     if gr_contour:
         ax.contour(
@@ -235,7 +235,7 @@ def riced_heatmap(
 # Plot!
 
 # Set font size
-plt.rcParams.update({"font.size": 16})
+# plt.rcParams.update({"font.size": 16})
 
 if plot_choices["heatmap_ratio"]:
     fig_heatmap_ratio, ax_heatmap_ratio = plt.subplots()
