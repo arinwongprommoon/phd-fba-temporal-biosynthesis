@@ -9,6 +9,7 @@ from src.calc.ablation import (
     vget_ablation_ratio,
     vget_custom_ablation_ratio,
     vget_cosine_carb_prot,
+    vget_kendall_mean,
 )
 from src.calc.matrix import ArrayCollection
 from src.viz.grid import heatmap_ablation_grid
@@ -19,13 +20,13 @@ model_options = {
 }
 
 plot_choices = {
-    "heatmap_ratio": True,
+    "heatmap_ratio": False,
     "heatmap_ratio_prot": False,
     "heatmap_ratio_prot_carb": False,
     "heatmap_ratio_prot_lipid": False,
     "heatmap_ratio_sus_compare": False,
-    "heatmap_log2ratio": True,
-    "heatmap_gr": True,
+    "heatmap_log2ratio": False,
+    "heatmap_gr": False,
     "heatmap_gr_gradient_c": False,
     "heatmap_gr_gradient_n": False,
     "heatmap_gr_gradient_compare": False,
@@ -34,6 +35,7 @@ plot_choices = {
     "heatmap_prot": False,
     "heatmap_carb_to_prot": False,
     "heatmap_cosine": False,
+    "heatmap_kendall_mean": True,
 }
 
 
@@ -92,6 +94,10 @@ grid_filepath = "../data/interim/" + grid_filename + ".pkl"
 with open(grid_filepath, "rb") as handle:
     ablation_result_array = pickle.load(handle)
 
+usgfluxes_filename = "ec_usgfluxes_" + model_options["carbon_source"] + "_amm"
+usgfluxes_filepath = "../data/interim/" + usgfluxes_filename + ".pkl"
+with open(usgfluxes_filepath, "rb") as handle:
+    ablation_fluxes_array = pickle.load(handle)
 
 # Compute data
 ratio_array = vget_ablation_ratio(ablation_result_array)
@@ -118,6 +124,8 @@ gr = ArrayCollection(vget_gr(ablation_result_array), x_axis, y_axis)
 carb = ArrayCollection(vget_carb(ablation_result_array), x_axis, y_axis)
 prot = ArrayCollection(vget_prot(ablation_result_array), x_axis, y_axis)
 carb_to_prot = ArrayCollection(carb.array / prot.array, x_axis, y_axis)
+
+kendall_mean = ArrayCollection(vget_kendall_mean(ablation_fluxes_array), x_axis, y_axis)
 
 # Masks
 ratio_array_mask = ratio.array > 1
@@ -187,7 +195,7 @@ def riced_heatmap(
         saturation_grid=True,
         vmin=vmin,
         vmax=vmax,
-        showticklabels=False,
+        showticklabels=True,
         center=center,
         cmap=cmap,
         cbar_label=cbar_label,
@@ -201,7 +209,7 @@ def riced_heatmap(
                 np.rot90(ratio_array_mask),
                 origin="lower",
                 colors="k",
-                linestyles="dotted",
+                # linestyles="dotted",
             )
     if gr_contour:
         ax.contour(
@@ -227,7 +235,7 @@ def riced_heatmap(
 # Plot!
 
 # Set font size
-plt.rcParams.update({"font.size": 16})
+# plt.rcParams.update({"font.size": 16})
 
 if plot_choices["heatmap_ratio"]:
     fig_heatmap_ratio, ax_heatmap_ratio = plt.subplots()
@@ -440,6 +448,18 @@ if plot_choices["heatmap_cosine"]:
         quiver=True,
     )
 
+if plot_choices["heatmap_kendall_mean"]:
+    fig_heatmap_kendall_mean, ax_heatmap_kendall_mean = plt.subplots()
+    riced_heatmap(
+        ax_heatmap_kendall_mean,
+        acoll=kendall_mean,
+        cbar_label=r"Mean Kendall's $\tau$ (b)",
+        title="Mean correlation between parallel and each component",
+        vmin=0.2,
+        vmax=0.6,
+        cmap="cividis",
+        quiver=True,
+    )
 
 pdf_filename = "../reports/" + grid_filename + ".pdf"
 with PdfPages(pdf_filename) as pdf:
