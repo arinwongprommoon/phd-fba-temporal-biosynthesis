@@ -94,10 +94,10 @@ grid_filepath = "../data/interim/" + grid_filename + ".pkl"
 with open(grid_filepath, "rb") as handle:
     ablation_result_array = pickle.load(handle)
 
-usgfluxes_filename = "ec_usgfluxes_" + model_options["carbon_source"] + "_amm"
-usgfluxes_filepath = "../data/interim/" + usgfluxes_filename + ".pkl"
-with open(usgfluxes_filepath, "rb") as handle:
-    ablation_fluxes_array = pickle.load(handle)
+# usgfluxes_filename = "ec_usgfluxes_" + model_options["carbon_source"] + "_amm"
+# usgfluxes_filepath = "../data/interim/" + usgfluxes_filename + ".pkl"
+# with open(usgfluxes_filepath, "rb") as handle:
+#     ablation_fluxes_array = pickle.load(handle)
 
 # Compute data
 ratio_array = vget_ablation_ratio(ablation_result_array)
@@ -125,7 +125,7 @@ carb = ArrayCollection(vget_carb(ablation_result_array), x_axis, y_axis)
 prot = ArrayCollection(vget_prot(ablation_result_array), x_axis, y_axis)
 carb_to_prot = ArrayCollection(carb.array / prot.array, x_axis, y_axis)
 
-kendall_mean = ArrayCollection(vget_kendall_mean(ablation_fluxes_array), x_axis, y_axis)
+# kendall_mean = ArrayCollection(vget_kendall_mean(ablation_fluxes_array), x_axis, y_axis)
 
 # Masks
 ratio_array_mask = ratio.array > 1
