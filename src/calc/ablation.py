@@ -24,8 +24,12 @@ def get_ablation_ratio(ablation_result):
 
     Examples
     --------
-    FIXME: Add docs.
+    from src.calc.ablation import get_custom_ablation_ratio
+    from src.gem.yeast8model import Yeast8Model
 
+    wt_ec = Yeast8Model("../data/gemfiles/ecYeastGEM_batch_8-6-0.xml")
+    ablation_result = wt_ec.ablate()
+    r = get_ablation_ratio(ablation_result)
     """
     ratio, _ = _get_ablation_ratio_component(ablation_result)
     return ratio
