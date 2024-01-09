@@ -20,22 +20,22 @@ model_options = {
 }
 
 plot_choices = {
-    "heatmap_ratio": False,
+    "heatmap_ratio": True,
     "heatmap_ratio_prot": False,
     "heatmap_ratio_prot_carb": False,
     "heatmap_ratio_prot_lipid": False,
     "heatmap_ratio_sus_compare": False,
-    "heatmap_log2ratio": False,
-    "heatmap_gr": False,
+    "heatmap_log2ratio": True,
+    "heatmap_gr": True,
     "heatmap_gr_gradient_c": False,
     "heatmap_gr_gradient_n": False,
     "heatmap_gr_gradient_compare": False,
     "heatmap_gr_sus_compare": False,
-    "heatmap_carb": False,
-    "heatmap_prot": False,
-    "heatmap_carb_to_prot": False,
+    "heatmap_carb": True,
+    "heatmap_prot": True,
+    "heatmap_carb_to_prot": True,
     "heatmap_cosine": False,
-    "heatmap_kendall_mean": True,
+    "heatmap_kendall_mean": False,
 }
 
 
@@ -94,10 +94,10 @@ grid_filepath = "../data/interim/" + grid_filename + ".pkl"
 with open(grid_filepath, "rb") as handle:
     ablation_result_array = pickle.load(handle)
 
-usgfluxes_filename = "ec_usgfluxes_" + model_options["carbon_source"] + "_amm"
-usgfluxes_filepath = "../data/interim/" + usgfluxes_filename + ".pkl"
-with open(usgfluxes_filepath, "rb") as handle:
-    ablation_fluxes_array = pickle.load(handle)
+# usgfluxes_filename = "ec_usgfluxes_" + model_options["carbon_source"] + "_amm"
+# usgfluxes_filepath = "../data/interim/" + usgfluxes_filename + ".pkl"
+# with open(usgfluxes_filepath, "rb") as handle:
+#     ablation_fluxes_array = pickle.load(handle)
 
 # Compute data
 ratio_array = vget_ablation_ratio(ablation_result_array)
@@ -125,7 +125,7 @@ carb = ArrayCollection(vget_carb(ablation_result_array), x_axis, y_axis)
 prot = ArrayCollection(vget_prot(ablation_result_array), x_axis, y_axis)
 carb_to_prot = ArrayCollection(carb.array / prot.array, x_axis, y_axis)
 
-kendall_mean = ArrayCollection(vget_kendall_mean(ablation_fluxes_array), x_axis, y_axis)
+# kendall_mean = ArrayCollection(vget_kendall_mean(ablation_fluxes_array), x_axis, y_axis)
 
 # Masks
 ratio_array_mask = ratio.array > 1
