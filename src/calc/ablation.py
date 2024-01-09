@@ -194,6 +194,64 @@ def get_custom_ablation_ratio(ablation_result, component_list):
     return ratio
 
 
+def get_Tseq(ablation_result):
+    """Get sequential biosynthesis time (Tseq)
+
+    Get sequential biosythesis time (Tseq), defined as sum of times from
+    ablation
+
+    Parameters
+    ----------
+    ablation_result : pandas.DataFrame object
+        Results of ablation study.  Columns: 'priority component' (biomass
+        component being prioritised), 'ablated_flux' (flux of ablated
+        biomass reaction), 'ablated_est_time' (estimated doubling time based
+        on flux), 'proportional_est_time' (estimated biomass synthesis time,
+        proportional to mass fraction).  Rows: 'original' (un-ablated
+        biomass), other rows indicate biomass component.
+
+    Examples
+    --------
+    FIXME: Add docs.
+
+    """
+    # sum of times (ablated)
+    sum_of_times = ablation_result.loc[
+        ablation_result.priority_component != "original",
+        ablation_result.columns == "ablated_est_time",
+    ].sum()
+    # get element
+    sum_of_times = sum_of_times[0]
+
+    return sum_of_times
+
+
+@np.vectorize
+def vget_Tseq(ablation_result_array):
+    """Get sequential biosynthesis time (Tseq), apply to an array
+
+    Get sequential biosythesis time (Tseq), defined as sum of times from
+    ablation
+
+    This is a vectorised version of get_ablation_ratio(), for convenience.
+
+    Parameters
+    ----------
+    ablation_result_array : 2-dimensional numpy.ndarray of objects
+        Array of ablation result DataFrames.
+
+    Examples
+    --------
+    from src.calc.ablation import get_custom_ablation_ratio
+    from src.gem.yeast8model import Yeast8Model
+
+    wt_ec = Yeast8Model("../data/gemfiles/ecYeastGEM_batch_8-6-0.xml")
+    ablation_result = wt_ec.ablate()
+    t = get_ablation_ratio(ablation_result)
+    """
+    return get_Tseq(ablation_result_array)
+
+
 def get_kendall_mean(enz_use_array):
     """TODO: Insert docstring"""
     distances = pdist(
