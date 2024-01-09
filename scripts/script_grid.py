@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.backends.backend_pdf import PdfPages
 from src.calc.ablation import (
+    vget_Tseq,
     vget_ablation_ratio,
     vget_custom_ablation_ratio,
     vget_cosine_carb_prot,
@@ -26,6 +27,7 @@ plot_choices = {
     "heatmap_ratio_prot_lipid": False,
     "heatmap_ratio_sus_compare": False,
     "heatmap_log2ratio": True,
+    "heatmap_Tseq": True,
     "heatmap_gr": True,
     "heatmap_gr_gradient_c": False,
     "heatmap_gr_gradient_n": False,
@@ -118,6 +120,9 @@ ratio_prot_lipid = ArrayCollection(
 )
 
 log2ratio = ArrayCollection(np.log2(ratio_array), x_axis, y_axis)
+
+Tseq_array = vget_Tseq(ablation_result_array)
+Tseq = ArrayCollection(Tseq_array, x_axis, y_axis)
 
 gr = ArrayCollection(vget_gr(ablation_result_array), x_axis, y_axis)
 
@@ -317,6 +322,20 @@ if plot_choices["heatmap_log2ratio"]:
         vmin=-0.52,
         vmax=+0.27,
         center=0,
+        gr_contour=True,
+        # quiver=True,
+    )
+
+if plot_choices["heatmap_Tseq"]:
+    fig_heatmap_Tseq, ax_heatmap_Tseq = plt.subplots()
+    riced_heatmap(
+        ax_heatmap_Tseq,
+        acoll=Tseq,
+        cbar_label=r"T_{seq}",
+        title=r"T_{seq}",
+        # vmin=0.70,
+        # vmax=1.20,
+        # center=1,
         gr_contour=True,
         # quiver=True,
     )
