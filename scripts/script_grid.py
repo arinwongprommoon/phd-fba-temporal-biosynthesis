@@ -91,7 +91,7 @@ grid_ylabel = f"{grid_ylabel_leader}\n (% growth rate saturation)"
 X, Y = np.meshgrid(np.linspace(0, 31, 32), np.linspace(0, 31, 32))
 
 # Load saved data
-grid_filename = "ec_grid_" + model_options["carbon_source"] + "_amm_kdef"
+grid_filename = "ec_grid_" + model_options["carbon_source"] + "_amm"
 grid_filepath = "../data/interim/" + grid_filename + ".pkl"
 with open(grid_filepath, "rb") as handle:
     ablation_result_array = pickle.load(handle)
