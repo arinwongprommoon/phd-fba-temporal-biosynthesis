@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.backends.backend_pdf import PdfPages
 from src.calc.ablation import (
-    vget_Tseq,
+    vget_Tseq_excl_ion,
     vget_ablation_ratio,
     vget_custom_ablation_ratio,
     vget_cosine_carb_prot,
@@ -91,7 +91,7 @@ grid_ylabel = f"{grid_ylabel_leader}\n (% growth rate saturation)"
 X, Y = np.meshgrid(np.linspace(0, 31, 32), np.linspace(0, 31, 32))
 
 # Load saved data
-grid_filename = "ec_grid_" + model_options["carbon_source"] + "_amm"
+grid_filename = "ec_grid_" + model_options["carbon_source"] + "_amm_kdef"
 grid_filepath = "../data/interim/" + grid_filename + ".pkl"
 with open(grid_filepath, "rb") as handle:
     ablation_result_array = pickle.load(handle)
@@ -121,7 +121,7 @@ ratio_prot_lipid = ArrayCollection(
 
 log2ratio = ArrayCollection(np.log2(ratio_array), x_axis, y_axis)
 
-Tseq_array = vget_Tseq(ablation_result_array)
+Tseq_array = vget_Tseq_excl_ion(ablation_result_array)
 Tseq = ArrayCollection(Tseq_array, x_axis, y_axis)
 
 gr = ArrayCollection(vget_gr(ablation_result_array), x_axis, y_axis)
