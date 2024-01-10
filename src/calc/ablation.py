@@ -252,6 +252,26 @@ def vget_Tseq(ablation_result_array):
     return get_Tseq(ablation_result_array)
 
 
+def get_Tseq_excl_ion(ablation_result):
+    """Get sequential biosynthesis time (Tseq), excluding ions"""
+    # sum of times (ablated)
+    sum_of_times = ablation_result.loc[
+        (ablation_result.priority_component != "original")
+        & (ablation_result.priority_component != "ion"),
+        ablation_result.columns == "ablated_est_time",
+    ].sum()
+    # get element
+    sum_of_times = sum_of_times[0]
+
+    return sum_of_times
+
+
+@np.vectorize
+def vget_Tseq_excl_ion(ablation_result_array):
+    """Get sequential biosynthesis time (Tseq), apply to an array"""
+    return get_Tseq_excl_ion(ablation_result_array)
+
+
 def get_kendall_mean(enz_use_array):
     """TODO: Insert docstring"""
     distances = pdist(
