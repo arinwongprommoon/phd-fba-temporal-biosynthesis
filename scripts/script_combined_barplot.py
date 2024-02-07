@@ -77,7 +77,7 @@ breakpoint()
 # Set plot parameters
 plt.rcParams.update(
     {
-        "font.size": 16,
+        "font.size": 12,
         "axes.prop_cycle": plt.cycler(color=plt.cm.Pastel2.colors),
     }
 )
