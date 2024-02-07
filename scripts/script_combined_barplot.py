@@ -119,7 +119,7 @@ for color, component in zip(mpl_colors[: len(component_list)], component_list):
 grey_patch = mpatches.Patch(color=mpl_colors[7], label="parallel")
 handles.append(grey_patch)
 fig.legend(handles, component_list + ["parallel"], loc="center right")
-fig.subplots_adjust(right=0.75)
+fig.subplots_adjust(right=0.70)
 
 filename = "combined_barplot"
 # Save all open figures to PDF
