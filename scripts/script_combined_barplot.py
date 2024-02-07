@@ -71,9 +71,6 @@ Tpar_df = pd.DataFrame(Tpar_dict)
 Tpar_df.index = ["Tpar"]
 
 # Draw
-
-breakpoint()
-
 # Set plot parameters
 plt.rcParams.update(
     {
