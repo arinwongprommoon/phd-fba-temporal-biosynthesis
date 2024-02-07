@@ -71,12 +71,16 @@ Tpar_df = pd.DataFrame(Tpar_dict)
 Tpar_df.index = ["Tpar"]
 
 # Draw
-
-# Set font size
-plt.rcParams.update({"font.size": 16})
+# Set plot parameters
+plt.rcParams.update(
+    {
+        "font.size": 12,
+        "axes.prop_cycle": plt.cycler(color=plt.cm.Pastel2.colors),
+    }
+)
 # Set colour palette
 prop_cycle = plt.rcParams["axes.prop_cycle"]
-default_mpl_colors = prop_cycle.by_key()["color"]
+mpl_colors = prop_cycle.by_key()["color"]
 
 # https://stackoverflow.com/a/69130629
 fig, ax = plt.subplots()
@@ -105,17 +109,19 @@ ax.set_ylabel("Estimated time (h)")
 
 # Legend: colour = biomass component
 handles = []
-# assumes that default_mpl_colors (usually 10 elements) is longer than
+# assumes that mpl_colors (usually 10 elements) is longer than
 # component_list (usually 7 elements)
 # Using colour patches ref:
 # https://matplotlib.org/stable/tutorials/intermediate/legend_guide.html#creating-artists-specifically-for-adding-to-the-legend-aka-proxy-artists
-for color, component in zip(default_mpl_colors[: len(component_list)], component_list):
+for color, component in zip(mpl_colors[: len(component_list)], component_list):
     color_patch = mpatches.Patch(color=color, label=component)
     handles.append(color_patch)
-grey_patch = mpatches.Patch(color=default_mpl_colors[7], label="parallel")
+grey_patch = mpatches.Patch(color=mpl_colors[7], label="parallel")
 handles.append(grey_patch)
-fig.legend(handles, component_list + ["parallel"], loc="center right")
-fig.subplots_adjust(right=0.75)
+# Does not correctly render subscript via LaTeX, but easily fixable in a vector
+# graphics editor
+fig.legend(handles, component_list + [r"T_{par}"], loc="center right")
+fig.subplots_adjust(right=0.70)
 
 filename = "combined_barplot"
 # Save all open figures to PDF
