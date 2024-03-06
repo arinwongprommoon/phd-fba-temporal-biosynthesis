@@ -312,6 +312,11 @@ def drawplots(model_options):
                 distance_matrix,
                 row_linkage=linkage,
                 col_linkage=linkage,
+                annot=True,
+                fmt=".2f",
+                vmin=0,
+                vmax=1,
+                cmap="viridis",
             )
 
     filename = (
