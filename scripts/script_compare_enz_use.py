@@ -307,10 +307,10 @@ def drawplots(model_options):
         )
 
         if plot_choices["rankcorr_kendalltaub/hierarchical"]:
-            distance_matrix = 1 - corr_matrix
-            linkage = hc.linkage(corr_matrix, method="average")
+            dists = 1 - corrs
+            linkage = hc.linkage(dists, method="average")
             sns.clustermap(
-                distance_matrix,
+                corr_matrix,
                 row_linkage=linkage,
                 col_linkage=linkage,
                 xticklabels=list_components,
@@ -319,7 +319,7 @@ def drawplots(model_options):
                 fmt=".2f",
                 vmin=0,
                 vmax=1,
-                cmap="viridis_r",
+                cmap="viridis",
             )
 
     filename = (
