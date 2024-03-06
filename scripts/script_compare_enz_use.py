@@ -313,6 +313,8 @@ def drawplots(model_options):
                 distance_matrix,
                 row_linkage=linkage,
                 col_linkage=linkage,
+                xticklabels=list_components,
+                yticklabels=list_components,
                 annot=True,
                 fmt=".2f",
                 vmin=0,
