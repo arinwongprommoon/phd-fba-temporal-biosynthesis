@@ -38,7 +38,7 @@ plot_choices = {
     "heatmap_prot": False,
     "heatmap_carb_to_prot": False,
     "heatmap_cosine": False,
-    "heatmap_kendall_mean": True,
+    "heatmap_kendall_mean": False,
     "heatmap_kendall_min": True,
 }
 
@@ -493,7 +493,7 @@ if plot_choices["heatmap_kendall_min"]:
         # vmin=0.2,
         # vmax=0.6,
         cmap="cividis",
-        quiver=True,
+        quiver=False,
     )
 
 pdf_filename = "../reports/" + grid_filename + ".pdf"
