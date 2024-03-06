@@ -267,12 +267,12 @@ def drawplots(model_options):
 
     if plot_choices["rankcorr_spearmanr"]:
         sr_res = spearmanr(enz_use_array, axis=1, nan_policy="omit")
-        distance_triangle = np.tril(sr_res.statistic)
-        distance_triangle[np.triu_indices(distance_triangle.shape[0])] = np.nan
+        corr_triangle = np.tril(sr_res.statistic)
+        corr_triangle[np.triu_indices(corr_triangle.shape[0])] = np.nan
 
         fig_rankcorr_spearmanr, ax_rankcorr_spearmanr = plt.subplots()
         sns.heatmap(
-            distance_triangle,
+            corr_triangle,
             xticklabels=list_components,
             yticklabels=list_components,
             annot=True,
@@ -285,16 +285,16 @@ def drawplots(model_options):
         )
 
     if plot_choices["rankcorr_kendalltaub"]:
-        distances = pdist(
+        corrs = pdist(
             enz_use_array, lambda u, v: kendalltau(u, v, nan_policy="omit").statistic
         )
-        distance_matrix = squareform(distances)
-        distance_triangle = np.tril(distance_matrix)
-        distance_triangle[np.triu_indices(distance_triangle.shape[0])] = np.nan
+        corr_matrix = squareform(corrs)
+        corr_triangle = np.tril(corr_matrix)
+        corr_triangle[np.triu_indices(corr_triangle.shape[0])] = np.nan
 
         fig_rankcorr_kendalltaub, ax_rankcorr_kendalltaub = plt.subplots()
         sns.heatmap(
-            distance_triangle,
+            corr_triangle,
             xticklabels=list_components,
             yticklabels=list_components,
             annot=True,
@@ -307,7 +307,8 @@ def drawplots(model_options):
         )
 
         if plot_choices["rankcorr_kendalltaub/hierarchical"]:
-            linkage = hc.linkage(distance_matrix, method="average")
+            distance_matrix = 1 - corr_matrix
+            linkage = hc.linkage(corr_matrix, method="average")
             sns.clustermap(
                 distance_matrix,
                 row_linkage=linkage,
@@ -316,7 +317,7 @@ def drawplots(model_options):
                 fmt=".2f",
                 vmin=0,
                 vmax=1,
-                cmap="viridis",
+                cmap="viridis_r",
             )
 
     filename = (
