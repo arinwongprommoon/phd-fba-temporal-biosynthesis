@@ -2,6 +2,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import scipy.cluster.hierarchy as hc
 import seaborn as sns
 
 from matplotlib.backends.backend_pdf import PdfPages
@@ -21,6 +22,8 @@ plot_choices = {
     "rankcorr_spearmanr": False,
     # Kendall's tau b rank correlation
     "rankcorr_kendalltaub": True,
+    # Hierachical clustering based on Kendall's tau b
+    "rankcorr_kendalltaub/hierarchical": True,
 }
 
 # "highglc", "glc_highratio", "highpyr", "pyrhighratio" : use that preset model
@@ -302,6 +305,14 @@ def drawplots(model_options):
             cbar_kws={"label": "Pairwise Kendall's tau-b correlation coefficient"},
             ax=ax_rankcorr_kendalltaub,
         )
+
+        if plot_choices["rankcorr_kendalltaub/hierarchical"]:
+            linkage = hc.linkage(distance_matrix, method="average")
+            sns.clustermap(
+                distance_matrix,
+                row_linkage=linkage,
+                col_linkage=linkage,
+            )
 
     filename = (
         "CompareEnzUse"
