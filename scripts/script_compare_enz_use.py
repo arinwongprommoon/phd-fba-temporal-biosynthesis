@@ -2,6 +2,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import scipy.cluster.hierarchy as hc
 import seaborn as sns
 
 from matplotlib.backends.backend_pdf import PdfPages
@@ -21,6 +22,8 @@ plot_choices = {
     "rankcorr_spearmanr": False,
     # Kendall's tau b rank correlation
     "rankcorr_kendalltaub": True,
+    # Hierachical clustering based on Kendall's tau b
+    "rankcorr_kendalltaub/hierarchical": True,
 }
 
 # "highglc", "glc_highratio", "highpyr", "pyrhighratio" : use that preset model
@@ -264,12 +267,12 @@ def drawplots(model_options):
 
     if plot_choices["rankcorr_spearmanr"]:
         sr_res = spearmanr(enz_use_array, axis=1, nan_policy="omit")
-        distance_triangle = np.tril(sr_res.statistic)
-        distance_triangle[np.triu_indices(distance_triangle.shape[0])] = np.nan
+        corr_triangle = np.tril(sr_res.statistic)
+        corr_triangle[np.triu_indices(corr_triangle.shape[0])] = np.nan
 
         fig_rankcorr_spearmanr, ax_rankcorr_spearmanr = plt.subplots()
         sns.heatmap(
-            distance_triangle,
+            corr_triangle,
             xticklabels=list_components,
             yticklabels=list_components,
             annot=True,
@@ -282,16 +285,16 @@ def drawplots(model_options):
         )
 
     if plot_choices["rankcorr_kendalltaub"]:
-        distances = pdist(
+        corrs = pdist(
             enz_use_array, lambda u, v: kendalltau(u, v, nan_policy="omit").statistic
         )
-        distance_matrix = squareform(distances)
-        distance_triangle = np.tril(distance_matrix)
-        distance_triangle[np.triu_indices(distance_triangle.shape[0])] = np.nan
+        corr_matrix = squareform(corrs)
+        corr_triangle = np.tril(corr_matrix)
+        corr_triangle[np.triu_indices(corr_triangle.shape[0])] = np.nan
 
         fig_rankcorr_kendalltaub, ax_rankcorr_kendalltaub = plt.subplots()
         sns.heatmap(
-            distance_triangle,
+            corr_triangle,
             xticklabels=list_components,
             yticklabels=list_components,
             annot=True,
@@ -302,6 +305,25 @@ def drawplots(model_options):
             cbar_kws={"label": "Pairwise Kendall's tau-b correlation coefficient"},
             ax=ax_rankcorr_kendalltaub,
         )
+
+        if plot_choices["rankcorr_kendalltaub/hierarchical"]:
+            dists = 1 - corrs
+            linkage = hc.linkage(dists, method="average")
+            sns.clustermap(
+                corr_matrix,
+                row_linkage=linkage,
+                col_linkage=linkage,
+                xticklabels=list_components,
+                yticklabels=list_components,
+                annot=True,
+                fmt=".2f",
+                vmin=0,
+                vmax=1,
+                cmap="viridis",
+                cbar_kws={
+                    "label": "Pairwise Kendall's tau-b\n correlation coefficient"
+                },
+            )
 
     filename = (
         "CompareEnzUse"
