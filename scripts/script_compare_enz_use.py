@@ -320,6 +320,9 @@ def drawplots(model_options):
                 vmin=0,
                 vmax=1,
                 cmap="viridis",
+                cbar_kws={
+                    "label": "Pairwise Kendall's tau-b\n correlation coefficient"
+                },
             )
 
     filename = (
