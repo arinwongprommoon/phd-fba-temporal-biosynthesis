@@ -283,10 +283,28 @@ def get_kendall_mean(enz_use_array):
     return metric
 
 
+def get_kendall_min(enz_use_array):
+    """TODO: Insert docstring"""
+    distances = pdist(
+        enz_use_array,
+        lambda u, v: kendalltau(u, v, nan_policy="omit").statistic,
+    )
+    # these indices exclude original vs anything else
+    # FIXME: use a 'smarter' way to do this
+    metric = np.min(distances[7:28])
+    return metric
+
+
 @np.vectorize
 def vget_kendall_mean(ablation_flux_array):
     """TODO: Insert docstring"""
     return get_kendall_mean(ablation_flux_array)
+
+
+@np.vectorize
+def vget_kendall_min(ablation_flux_array):
+    """TODO: Insert docstring"""
+    return get_kendall_min(ablation_flux_array)
 
 
 def get_cosine_carb_prot(enz_use_array):
