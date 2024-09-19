@@ -296,15 +296,15 @@ def get_kendall_min(enz_use_array):
 
 
 @np.vectorize
-def vget_kendall_mean(ablation_flux_array):
+def vget_kendall_mean(ablation_enzyme_flux_array):
     """TODO: Insert docstring"""
-    return get_kendall_mean(ablation_flux_array)
+    return get_kendall_mean(ablation_enzyme_flux_array)
 
 
 @np.vectorize
-def vget_kendall_min(ablation_flux_array):
+def vget_kendall_min(ablation_enzyme_flux_array):
     """TODO: Insert docstring"""
-    return get_kendall_min(ablation_flux_array)
+    return get_kendall_min(ablation_enzyme_flux_array)
 
 
 def get_cosine_carb_prot(enz_use_array):
@@ -316,6 +316,6 @@ def get_cosine_carb_prot(enz_use_array):
 
 
 @np.vectorize
-def vget_cosine_carb_prot(ablation_flux_array):
+def vget_cosine_carb_prot(ablation_enzyme_flux_array):
     """TODO: Insert docstring"""
-    return get_cosine_carb_prot(ablation_flux_array)
+    return get_cosine_carb_prot(ablation_enzyme_flux_array)

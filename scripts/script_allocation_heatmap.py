@@ -147,17 +147,18 @@ if __name__ == "__main__":
 
     # Ablate and store fluxes in each round
     wt_ec.ablation_result = wt_ec.ablate()
-    ablation_fluxes = wt_ec.ablation_fluxes
+    ablation_enzyme_fluxes = wt_ec.ablation_enzyme_fluxes
 
-    ablation_fluxes_diff = ablation_fluxes.copy()
-    ablation_fluxes_diff.pop("original")
-    for biomass_component, fluxes in ablation_fluxes_diff.items():
-        ablation_fluxes_diff[biomass_component] = (
-            ablation_fluxes[biomass_component] - ablation_fluxes["original"]
+    ablation_enzyme_fluxes_diff = ablation_enzyme_fluxes.copy()
+    ablation_enzyme_fluxes_diff.pop("original")
+    for biomass_component, fluxes in ablation_enzyme_fluxes_diff.items():
+        ablation_enzyme_fluxes_diff[biomass_component] = (
+            ablation_enzyme_fluxes[biomass_component]
+            - ablation_enzyme_fluxes["original"]
         )
 
     if plot_options["difference"]:
-        all_fluxes_df = flux_dict_to_df(ablation_fluxes_diff)
+        all_fluxes_df = flux_dict_to_df(ablation_enzyme_fluxes_diff)
         # Drop fluxes with magnitude below a certain tol value
         enz_usage_colnames = [
             colname
@@ -187,7 +188,7 @@ if __name__ == "__main__":
         fig, ax = plt.subplots(figsize=(10, 25))
         sns.heatmap(
             farzero_fluxes_df.iloc[:, 2:] * 1e4,
-            xticklabels=list(ablation_fluxes_diff.keys()),
+            xticklabels=list(ablation_enzyme_fluxes_diff.keys()),
             yticklabels=subsystem_labels,
             center=0,
             robust=True,
@@ -204,7 +205,7 @@ if __name__ == "__main__":
 
     if plot_options["foldchange"]:
         # Construct dataframe
-        all_fluxes_df = flux_dict_to_df(ablation_fluxes)
+        all_fluxes_df = flux_dict_to_df(ablation_enzyme_fluxes)
 
         # Apply epsilon
         enz_usage_colnames = [
@@ -251,7 +252,7 @@ if __name__ == "__main__":
         fig, ax = plt.subplots(figsize=(10, 25))
         sns.heatmap(
             foldchanges.iloc[:, 2:],
-            xticklabels=list(ablation_fluxes_diff.keys()),
+            xticklabels=list(ablation_enzyme_fluxes_diff.keys()),
             yticklabels=subsystem_labels,
             center=0,
             robust=False,

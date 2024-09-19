@@ -178,25 +178,34 @@ if __name__ == "__main__":
 
     # Ablate and store fluxes in each round
     wt_ec.ablation_result = wt_ec.ablate()
-    ablation_fluxes = wt_ec.ablation_fluxes
+    ablation_enzyme_fluxes = wt_ec.ablation_enzyme_fluxes
 
-    ablation_fluxes_diff = ablation_fluxes.copy()
-    ablation_fluxes_diff.pop("original")
-    for biomass_component, fluxes in ablation_fluxes_diff.items():
-        ablation_fluxes_diff[biomass_component] = (
-            ablation_fluxes[biomass_component] - ablation_fluxes["original"]
+    ablation_enzyme_fluxes_diff = ablation_enzyme_fluxes.copy()
+    ablation_enzyme_fluxes_diff.pop("original")
+    for biomass_component, fluxes in ablation_enzyme_fluxes_diff.items():
+        ablation_enzyme_fluxes_diff[biomass_component] = (
+            ablation_enzyme_fluxes[biomass_component]
+            - ablation_enzyme_fluxes["original"]
         )
         if plot_options["print_flux_extrema"]:
             print(f"{biomass_component}")
-            print(f"min {1e5 * ablation_fluxes_diff[biomass_component].min()} * 1e-5")
-            print(f"max {1e5 * ablation_fluxes_diff[biomass_component].max()} * 1e-5")
+            print(
+                f"min {1e5 * ablation_enzyme_fluxes_diff[biomass_component].min()} * 1e-5"
+            )
+            print(
+                f"max {1e5 * ablation_enzyme_fluxes_diff[biomass_component].max()} * 1e-5"
+            )
 
     if plot_options["histogram"]:
         # subplots
         # binrange=(-16e-5, ~90e-5) covers all diffs,
         #   but using a smaller range to emphasise the interesting part
-        fig, ax = plt.subplots(nrows=len(ablation_fluxes_diff), ncols=1, sharex=True)
-        for idx, (biomass_component, fluxes) in enumerate(ablation_fluxes_diff.items()):
+        fig, ax = plt.subplots(
+            nrows=len(ablation_enzyme_fluxes_diff), ncols=1, sharex=True
+        )
+        for idx, (biomass_component, fluxes) in enumerate(
+            ablation_enzyme_fluxes_diff.items()
+        ):
             sns.histplot(
                 fluxes * 1e5,
                 bins=100,
@@ -219,7 +228,9 @@ if __name__ == "__main__":
 
     if plot_options["subsystem_freqs"]:
         n = plot_options["subsystem_freqs/n"]
-        for idx, (biomass_component, fluxes) in enumerate(ablation_fluxes_diff.items()):
+        for idx, (biomass_component, fluxes) in enumerate(
+            ablation_enzyme_fluxes_diff.items()
+        ):
             fig, ax = plt.subplots()
             s = fluxes.copy()
             s = s.sort_values(ascending=False)[:n]
@@ -227,7 +238,9 @@ if __name__ == "__main__":
             ax.set_title(biomass_component)
 
     if plot_options["subsystem_sumfluxes"]:
-        for idx, (biomass_component, fluxes) in enumerate(ablation_fluxes_diff.items()):
+        for idx, (biomass_component, fluxes) in enumerate(
+            ablation_enzyme_fluxes_diff.items()
+        ):
             fig, ax = plt.subplots(nrows=1, ncols=2, figsize=(20, 10))
             s = fluxes.copy()
             s_negative = s[s < 0]
@@ -241,7 +254,9 @@ if __name__ == "__main__":
     if plot_options["subsystem_heatmap"]:
         list_participating_rxn_df = []
         # Make DF for each biomass component
-        for idx, (biomass_component, fluxes) in enumerate(ablation_fluxes_diff.items()):
+        for idx, (biomass_component, fluxes) in enumerate(
+            ablation_enzyme_fluxes_diff.items()
+        ):
             # get fluxes
             s = fluxes.copy()
             # get data needed for DF
@@ -308,7 +323,7 @@ if __name__ == "__main__":
         fig, ax = plt.subplots(figsize=(10, 25))
         sns.heatmap(
             farzero_fluxes_df.iloc[:, 2:] * 1e4,
-            xticklabels=list(ablation_fluxes_diff.keys()),
+            xticklabels=list(ablation_enzyme_fluxes_diff.keys()),
             yticklabels=subsystem_labels,
             center=0,
             robust=True,

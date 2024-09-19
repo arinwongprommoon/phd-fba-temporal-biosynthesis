@@ -101,7 +101,7 @@ with open(grid_filepath, "rb") as handle:
 usgfluxes_filename = "ec_usgfluxes_" + model_options["carbon_source"] + "_amm"
 usgfluxes_filepath = "../data/interim/" + usgfluxes_filename + ".pkl"
 with open(usgfluxes_filepath, "rb") as handle:
-    ablation_fluxes_array = pickle.load(handle)
+    ablation_enzyme_fluxes_array = pickle.load(handle)
 
 # Compute data
 ratio_array = vget_ablation_ratio(ablation_result_array)
@@ -132,8 +132,12 @@ carb = ArrayCollection(vget_carb(ablation_result_array), x_axis, y_axis)
 prot = ArrayCollection(vget_prot(ablation_result_array), x_axis, y_axis)
 carb_to_prot = ArrayCollection(carb.array / prot.array, x_axis, y_axis)
 
-kendall_mean = ArrayCollection(vget_kendall_mean(ablation_fluxes_array), x_axis, y_axis)
-kendall_min = ArrayCollection(vget_kendall_min(ablation_fluxes_array), x_axis, y_axis)
+kendall_mean = ArrayCollection(
+    vget_kendall_mean(ablation_enzyme_fluxes_array), x_axis, y_axis
+)
+kendall_min = ArrayCollection(
+    vget_kendall_min(ablation_enzyme_fluxes_array), x_axis, y_axis
+)
 
 # Masks
 ratio_array_mask = ratio.array > 1
@@ -452,10 +456,10 @@ if plot_choices["heatmap_cosine"]:
     usgfluxes_filename = "ec_usgfluxes_" + model_options["carbon_source"] + "_amm"
     usgfluxes_filepath = "../data/interim/" + usgfluxes_filename + ".pkl"
     with open(usgfluxes_filepath, "rb") as handle:
-        ablation_fluxes_array = pickle.load(handle)
+        ablation_enzyme_fluxes_array = pickle.load(handle)
 
     pdist = ArrayCollection(
-        vget_cosine_carb_prot(ablation_fluxes_array), x_axis, y_axis
+        vget_cosine_carb_prot(ablation_enzyme_fluxes_array), x_axis, y_axis
     )
 
     fig_heatmap_pdist, ax_heatmap_pdist = plt.subplots()

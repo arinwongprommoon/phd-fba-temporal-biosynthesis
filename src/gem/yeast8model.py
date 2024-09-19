@@ -5,8 +5,6 @@ import os
 import cobra
 import numpy as np
 import pandas as pd
-from scipy.spatial.distance import pdist
-from scipy.stats import kendalltau
 from wrapt_timeout_decorator import *
 
 from src.constants.constants import (
@@ -106,7 +104,8 @@ class Yeast8Model:
         self.deleted_genes = []
         self.ablation_result = None
 
-        self.ablation_fluxes = dict()
+        self.ablation_reaction_fluxes = dict()
+        self.ablation_enzyme_fluxes = dict()
 
     def reset_to_file(self, hard=False):
         """Reset model to filepath
@@ -347,8 +346,16 @@ class Yeast8Model:
         else:
             model_working = input_model
 
+        # DICT TO STORE REACTION FLUXES
+        self.ablation_reaction_fluxes = dict.fromkeys(
+            ["original"]
+            + [
+                biomass_component.metabolite_label
+                for biomass_component in self.biomass_component_list
+            ]
+        )
         # DICT TO STORE ENZYME USAGE FLUXES
-        self.ablation_fluxes = dict.fromkeys(
+        self.ablation_enzyme_fluxes = dict.fromkeys(
             ["original"]
             + [
                 biomass_component.metabolite_label
@@ -359,8 +366,12 @@ class Yeast8Model:
         # UN-ABLATED
         fba_solution = self.optimize(model_working)
         original_flux = fba_solution.fluxes[self.growth_id]
+        # get reaction fluxes
+        self.ablation_reaction_fluxes["original"] = fba_solution.fluxes.loc[
+            fba_solution.fluxes.index.str.startswith("r_")
+        ]
         # get enzyme usage fluxes
-        self.ablation_fluxes["original"] = fba_solution.fluxes.loc[
+        self.ablation_enzyme_fluxes["original"] = fba_solution.fluxes.loc[
             fba_solution.fluxes.index.str.startswith("draw_prot")
         ]
         original_est_time = np.log(2) / original_flux
@@ -395,12 +406,21 @@ class Yeast8Model:
             fba_solution = model_working.optimize()
             # store outputs
             biomass_component.ablated_flux = fba_solution.fluxes[self.growth_id]
+            # get reaction fluxes
+            ablation_reaction_flux = fba_solution.fluxes.loc[
+                fba_solution.fluxes.index.str.startswith("r_")
+            ]
+            self.ablation_reaction_fluxes[
+                biomass_component.metabolite_label
+            ] = ablation_reaction_flux
             # get enzyme usage fluxes
-            ablation_flux = fba_solution.fluxes.loc[
+            ablation_enzyme_flux = fba_solution.fluxes.loc[
                 fba_solution.fluxes.index.str.startswith("draw_prot")
             ]
-            ablation_flux.loc[np.abs(ablation_flux) < enzflux_tol] = 0
-            self.ablation_fluxes[biomass_component.metabolite_label] = ablation_flux
+            ablation_enzyme_flux.loc[np.abs(ablation_enzyme_flux) < enzflux_tol] = 0
+            self.ablation_enzyme_fluxes[
+                biomass_component.metabolite_label
+            ] = ablation_enzyme_flux
             biomass_component.get_est_time()
 
             # restore metabolites after ablation
@@ -581,7 +601,7 @@ class Yeast8Model:
                     )
             ablation_result = self.ablate(input_model=model_working)
             enz_use_array = np.stack(
-                [df.to_numpy() for df in self.ablation_fluxes.values()]
+                [df.to_numpy() for df in self.ablation_enzyme_fluxes.values()]
             )
             ablation_result_list[point_idx] = enz_use_array
 
@@ -644,7 +664,7 @@ class Yeast8Model:
 
                 ablation_result = self.ablate(input_model=model_working)
                 enz_use_array = np.stack(
-                    [df.to_numpy() for df in self.ablation_fluxes.values()]
+                    [df.to_numpy() for df in self.ablation_enzyme_fluxes.values()]
                 )
                 ablation_result_array[x_index, y_index] = enz_use_array
 

@@ -142,10 +142,10 @@ def drawplots(model_options):
 
     wt.solution = wt.optimize()
     wt.ablation_result = wt.ablate()
-    ablation_fluxes = wt.ablation_fluxes
+    ablation_enzyme_fluxes = wt.ablation_enzyme_fluxes
 
     # Convert dictionary of pandas dataframes to numpy array for various inputs
-    enz_use_array = np.stack([df.to_numpy() for df in ablation_fluxes.values()])
+    enz_use_array = np.stack([df.to_numpy() for df in ablation_enzyme_fluxes.values()])
     # Remove enzymes that have all-zeros across components
     # because (a) they're not informative,
     # (b) they cause problems in downstream functions
@@ -155,7 +155,7 @@ def drawplots(model_options):
         # Accounts for different dynamic ranges of fluxes for each enzyme
         enz_use_array = zscore(enz_use_array, axis=1)
 
-    list_components = list(ablation_fluxes.keys())
+    list_components = list(ablation_enzyme_fluxes.keys())
     list_components = [
         component.replace("original", "parallel") for component in list_components
     ]
@@ -228,26 +228,26 @@ def drawplots(model_options):
     if plot_choices["topflux"]:
         # take all reactions with non-zero flux
         if compute_options["topflux/ntop"] is None:
-            ntop = np.sum(ablation_fluxes["original"] != 0)
+            ntop = np.sum(ablation_enzyme_fluxes["original"] != 0)
             print(f"topflux: number of reactions = {ntop}")
         # take all reactions
         elif compute_options["topflux/ntop"] == 0:
-            ntop = len(ablation_fluxes["original"])
+            ntop = len(ablation_enzyme_fluxes["original"])
             print(f"topflux: number of reactions = {ntop}")
         # take top N reactions
         else:
-            ntop = np.sum(ablation_fluxes["original"] != 0)
+            ntop = np.sum(ablation_enzyme_fluxes["original"] != 0)
             print(f"topflux: number of reactions = {ntop}")
 
         # List of top N reactions, original (un-ablated)
-        original_topn_list = get_topn_list(ablation_fluxes["original"], ntop)
+        original_topn_list = get_topn_list(ablation_enzyme_fluxes["original"], ntop)
 
         # Assign 'hues' and create lookup table
         hue_lookup = dict((zip(original_topn_list, range(ntop))))
 
         # Find hues for all components
         hues_array = []
-        for series in ablation_fluxes.values():
+        for series in ablation_enzyme_fluxes.values():
             topn_list = get_topn_list(series, ntop)
             hues = rxns_to_hues(topn_list, hue_lookup)
             hues_array.append(hues)
